@@ -14,6 +14,8 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        UPI u = new UPI();
+        u.payment();
 
     }
 }
