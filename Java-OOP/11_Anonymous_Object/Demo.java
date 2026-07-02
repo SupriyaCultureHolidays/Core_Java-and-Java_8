@@ -10,6 +10,13 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        Student std1 = new Student();
+        std1.display();
 
+        Student std2 = new Student();
+        std2.display();
+
+        Student std3 = new Student();
+        std3.display();
     }
 }

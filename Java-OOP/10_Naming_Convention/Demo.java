@@ -12,6 +12,11 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        Employee emp1 = new Employee("Supriya");
+        emp1.display();
 
+        Employee emp2 = new Employee("Puja");
+        emp2.display();
+        
     }
 }

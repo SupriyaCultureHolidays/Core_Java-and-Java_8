@@ -13,6 +13,7 @@
  */
 public class Demo {
     public static void main(String[] args) {
-
+        Car c = new Car("Suzuki014", "Suzuki");
+        c.display();
     }
 }

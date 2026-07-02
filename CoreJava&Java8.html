@@ -2669,6 +2669,54 @@ new Dog("Tommy", "Labrador").show();
 <span class="comment">// Animal: Tommy</span>
 <span class="comment">// Breed: Labrador</span></pre>
       </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>নিজের অনুশীলন — Person → Employee</div>
+        <pre>public class Person {
+    String name;
+    int age;
+
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    void display() {
+        System.out.println("Name: " + this.name + " Age: " + this.age);
+    }
+}
+
+public class Employee extends Person {
+    int salary;
+    String department;
+
+    Employee(int salary, String department, String name, int age) {
+        super(name, age);   <span class="comment">// parent constructor call</span>
+        this.salary = salary;
+        this.department = department;
+    }
+
+    <span class="comment">// alternative — super দিয়েও লেখা যায়:</span>
+    <span class="comment">// void details(){
+    //     super.display();
+    //     System.out.println("salary " + this.salary +  " department " + this.department);
+    // }</span>
+
+    void details() {
+        System.out.println("Name: " + name +
+                           ", Age: " + age +
+                           ", Salary: " + salary +
+                           ", Department: " + department);
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Employee emp = new Employee(200, "IT", "Supriya", 27);
+        emp.details();
+    }
+}
+<span class="comment">// Output: Name: Supriya, Age: 27, Salary: 200, Department: IT</span></pre>
+      </div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>

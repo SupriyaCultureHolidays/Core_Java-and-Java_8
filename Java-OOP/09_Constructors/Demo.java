@@ -18,6 +18,12 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        BankAccount sbi = new BankAccount(1245);
+        sbi.deposit(1000);
+        sbi.getBalance();
+        sbi.withdraw(5000);
+        sbi.getBalance();
+        sbi.withdraw(-100);
 
     }
 }

@@ -14,6 +14,9 @@
  */
 public class Demo {
     public static void main(String[] args) {
-
+        Person p = new Person("Supriya", 25);
+        // p.display();
+        Employee emp = new Employee(200, "IT", "Supriya", 27);
+        emp.details();
     }
 }
