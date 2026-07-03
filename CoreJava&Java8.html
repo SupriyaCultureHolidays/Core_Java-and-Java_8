@@ -2981,46 +2981,157 @@ import java.util.*;                <span class="comment">// পুরো package
     <!-- 24 -->
     <section class="section" id="sec-24">
       <div class="section-header"><span class="sec-num">24</span><h2>Polymorphism</h2></div>
-      <p><strong>Poly</strong> = অনেক, <strong>morph</strong> = রূপ। একই method-এর নাম, কিন্তু আলাদা আলাদা কাজ — কোন class-এর object সেটার উপর নির্ভর করে।</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>ধরন</th><th>কীভাবে</th><th>কখন decide হয়</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Compile-time</strong></td><td>Method Overloading</td><td>Compile time (Java নিজে বেছে নেয়)</td></tr>
-            <tr><td><strong>Runtime</strong></td><td>Method Overriding</td><td>Program চলার সময়</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <p>এটাই <strong>OOP-এর সবচেয়ে গুরুত্বপূর্ণ concept</strong>। যদি Inheritance + Method Overriding বুঝে থাকো, তাহলে Polymorphism খুব সহজ।</p>
+      <h3>Polymorphism মানে কী?</h3>
+      <p><strong>Poly</strong> = অনেক (Many), <strong>Morph</strong> = রূপ (Forms)। অর্থাৎ — <strong>একই Method Call, কিন্তু Object অনুযায়ী আলাদা Behavior।</strong></p>
+      <div class="diagram">Real Life Example — Remote-এর Power Button একটাই
+
+  → TV হলে        : TV ON
+  → AC হলে        : AC ON
+  → Projector হলে : Projector ON
+
+Button একটাই। কাজ Object অনুযায়ী আলাদা। এটাই Polymorphism।</div>
+
+      <h3>Java Example</h3>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Runtime Polymorphism উদাহরণ</div>
+        <div class="code-label"><span class="dot"></span>Parent ও দুইটা Child Class</div>
         <pre>class Animal {
-    void sound() { System.out.println("..."); }
+    void sound() { System.out.println("Animal Sound"); }
 }
 
 class Dog extends Animal {
-    @Override void sound() { System.out.println("Woof!"); }
+    @Override void sound() { System.out.println("Woof"); }
 }
 
 class Cat extends Animal {
-    @Override void sound() { System.out.println("Meow!"); }
-}
+    @Override void sound() { System.out.println("Meow"); }
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>এখান পর্যন্ত আগে থেকেই জানা</div>
+        <pre>Dog d = new Dog();
+d.sound();
+<span class="comment">// Output: Woof</span>
 
-Animal[] animals = { new Dog(), new Cat(), new Dog() };
+Cat c = new Cat();
+c.sound();
+<span class="comment">// Output: Meow</span></pre>
+      </div>
+
+      <h3>আসল Polymorphism শুরু এখান থেকে</h3>
+      <p><code>Animal a = new Dog();</code> — এটা একটু Strange লাগে। মনে হয়, Animal Variable-এ Dog Object কীভাবে সম্ভব? কারণ <strong>Dog IS-A Animal</strong> — Dog হচ্ছে একটা Animal, তাই এই assignment valid।</p>
+      <p>এবার <code>a.sound();</code> call করলে Java কি <code>Animal Sound</code> print করবে? না। Output হয় <code>Woof</code> — কারণ Memory-তে আসল Object হচ্ছে Dog। Reference Animal হলেও Object Dog, আর Runtime-এ Java Object দেখে Method Call করে। এটাই <strong>Runtime Polymorphism</strong>।</p>
+
+      <h3>Array Example</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>একটা Animal Array-এ ভিন্ন Object</div>
+        <pre>Animal[] animals = { new Dog(), new Cat(), new Dog() };
 
 for (Animal a : animals) {
-    a.sound();   <span class="comment">// প্রতিটি loop-এ আলাদা class-এর method চলে</span>
+    a.sound();
 }
-<span class="comment">// Woof!</span>
-<span class="comment">// Meow!</span>
-<span class="comment">// Woof!</span></pre>
+<span class="comment">// Woof</span>
+<span class="comment">// Meow</span>
+<span class="comment">// Woof</span></pre>
       </div>
-      <div class="insight">একই <code>sound()</code> call — তিনটা আলাদা output। এটাই Polymorphism-এর শক্তি।</div>
+      <div class="diagram">প্রতিটা Loop-এ a আলাদা Object-কে Point করে:
+
+১ম Loop → a → Dog  → Output: Woof
+২য় Loop → a → Cat  → Output: Meow
+৩য় Loop → a → Dog  → Output: Woof
+
+Java Reference দেখে না, Actual Object দেখে।</div>
+
+      <h3>Polymorphism না থাকলে?</h3>
+      <p>ধরো ১০০টা Animal রাখতে হবে। Polymorphism ছাড়া প্রতিটা Type-এর জন্য আলাদা Variable লাগবে — অনেক Code লিখতে হবে। Polymorphism থাকলে <code>Animal[] animals</code> — একটাই Array-তে সব Animal রাখা যায়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Polymorphism ছাড়া হলে কী সমস্যা হত</div>
+        <pre><span class="comment">// Polymorphism ছাড়া প্রতিটা type-এর জন্য আলাদা variable লাগত</span>
+Dog d1; Dog d2; Dog d3;
+Cat c1; Cat c2; Cat c3;
+<span class="comment">// ১০০টা animal হলে ১০০টা আলাদা লাইন!</span>
+
+<span class="comment">// Polymorphism থাকলে একটাই array যথেষ্ট</span>
+Animal[] animals = new Animal[100];</pre>
+      </div>
+
+      <h3>Compile-time vs Runtime Polymorphism</h3>
+      <p><strong>Compile-time Polymorphism</strong> হলো Method Overloading — Java Compile Time-এ ঠিক করে কোন Method চলবে। <strong>Runtime Polymorphism</strong> হলো Method Overriding — Program Run হওয়ার পর Java দেখে Actual Object কী, তারপর সেই অনুযায়ী Method Call করে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Compile-time — Method Overloading</div>
+        <pre>class Maths {
+    void add(int a, int b) {}
+    void add(int a, int b, int c) {}
+}
+<span class="comment">// add(10, 20); → Compiler জানে কোন Method Call হবে</span></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Compile Time</th><th>Runtime</th></tr></thead>
+          <tbody>
+            <tr><td>Overloading</td><td>Overriding</td></tr>
+            <tr><td>Same class</td><td>Parent-Child class</td></tr>
+            <tr><td>Compiler ঠিক করে কোনটা চলবে</td><td>JVM runtime-এ ঠিক করে</td></tr>
+            <tr><td>Parameter আলাদা হয়</td><td>Parameter একই থাকে</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Reference vs Object — Memory-তে আসলে কী ঘটে</h3>
+      <p><code>Animal a = new Dog();</code> — এটাকে দুই ভাগে ভাগ করে বুঝি। বাম পাশে <code>Animal a</code> মানে <strong>Stack-এ</strong> একটা Animal টাইপের Reference Variable। ডান পাশে <code>new Dog()</code> মানে <strong>Heap-এ</strong> আসল Dog Object তৈরি হচ্ছে। <code>a</code> টাইপে Animal হলেও, সে আসলে Dog Object-কে Point করছে।</p>
+      <div class="diagram">STACK                    HEAP
+
+a  ------------------>   Dog Object
+
+খেয়াল করো: a Animal টাইপের হলেও সে Dog Object-কে Point করছে।</div>
+      <p>এটা Allowed কারণ <strong>Dog IS-A Animal</strong> (Inheritance সম্পর্ক)। যেমন — ল্যাব্রাডর IS-A Dog, Dog IS-A Animal। তাই Dog Object-কে Animal Reference-এ রাখা যায়, কিন্তু উল্টোটা (Animal IS-A Dog) সবসময় সত্যি নয়।</p>
+      <p>এবার <code>a.sound();</code> কল করলে Java Reference-এর Type (Animal) নয়, আগে দেখে Heap-এ আসল Object কী — সেখানে Dog Object আছে, তাই Dog-এর Method চলে, Output হয় <code>Woof</code>।</p>
+      <div class="insight">Method Call-এর সময় Java <strong>Reference-এর Type দেখে না</strong> — <strong>Heap-এ থাকা Actual Object-এর Type দেখে</strong>।</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Code</th><th>Heap-এ Object</th><th>Output</th></tr></thead>
+          <tbody>
+            <tr><td><code>Animal a = new Animal();</code></td><td>Animal Object</td><td>Animal Sound</td></tr>
+            <tr><td><code>Animal a = new Dog();</code></td><td>Dog Object</td><td>Woof</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Polymorphism-এর Benefit</h3>
+      <div class="insight">✔ একই Code &nbsp; ✔ Different Behavior &nbsp; ✔ Code Reuse &nbsp; ✔ Flexible Design &nbsp; ✔ Spring Boot-এর Dependency Injection ও Interface-based Design-এ ব্যাপক ব্যবহার।</div>
+      <div class="diagram">এক লাইনে মনে রাখো:
+Inheritance + Method Overriding + Parent Reference = Runtime Polymorphism
+
+Animal a = new Dog();
+a.sound();   → Java-র সবচেয়ে Classic Runtime Polymorphism উদাহরণ (Interview-তে খুবই জনপ্রিয়)</div>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ছোট Quiz</div>
+        <pre>class Animal {
+    void sound() { System.out.println("Animal"); }
+}
+
+class Dog extends Animal {
+    @Override void sound() { System.out.println("Dog"); }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.sound();
+    }
+}
+<span class="comment">// Output: Dog</span>
+<span class="comment">// কারণ a হলো Animal Reference, কিন্তু Heap-এ Dog Object আছে।</span>
+<span class="comment">// Runtime-এ Java সেই Dog Object-এর sound() Method-ই Execute করে।</span></pre>
+      </div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li>Compile-time এবং Runtime Polymorphism-এর পার্থক্য উদাহরণসহ বলো।</li>
           <li><code>Animal</code> array-এ Dog এবং Cat রেখে loop দিয়ে <code>sound()</code> call করো।</li>
           <li>Polymorphism ছাড়া উপরের কাজটি করতে কী সমস্যা হত?</li>
+          <li><code>Animal a = new Dog(); a.sound();</code> — Java কীভাবে ঠিক করে কোন class-এর method চলবে?</li>
         </ol>
       </div>
     </section>
