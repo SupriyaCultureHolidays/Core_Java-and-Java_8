@@ -3179,7 +3179,78 @@ a.sound();   <span class="comment">// Meow! — Cat-এর method</span>
 
 <span class="comment">// একই variable a, কিন্তু runtime-এ ভিন্ন method — এটাই Dynamic Dispatch</span></pre>
       </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>সম্পূর্ণ উদাহরণ</div>
+        <pre>class Animal {
+    void sound() {
+        System.out.println("Animal");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Woof");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Meow");
+    }
+}
+
+class Demo {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.sound();   <span class="comment">// Woof</span>
+
+        a = new Cat();
+        a.sound();   <span class="comment">// Meow</span>
+    }
+}</pre>
+      </div>
       <div class="insight"><strong>শুধু overridden method-এর ক্ষেত্রে প্রযোজ্য।</strong> Child-এর নিজস্ব method (যেটা parent-এ নেই) Animal reference দিয়ে call করা যাবে না।</div>
+
+      <h3>কেন <code>a.bark()</code> Call করা যায় না?</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Reference Type-এর বাইরের method — Compile Error</div>
+        <pre>class Animal {
+    void sound() { }
+}
+
+class Dog extends Animal {
+    void sound() { }
+    void bark() { }   <span class="comment">// শুধু Dog-এ আছে, Animal-এ নেই</span>
+}
+
+<span class="comment">// Main-এ:</span>
+Animal a = new Dog();
+
+a.sound();   <span class="comment">// ঠিক আছে — Animal ও Dog দুই জায়গাতেই sound() আছে</span>
+a.bark();    <span class="comment">// ❌ Compile Error — Compiler শুধু reference type (Animal) দেখে</span>
+             <span class="comment">// Animal class-এ bark() নেই, তাই Error</span>
+
+Dog d = new Dog();
+d.bark();    <span class="comment">// ঠিক আছে — এখন reference type নিজেই Dog</span></pre>
+      </div>
+      <p style="font-size:0.88rem;color:var(--muted)">Compiler Compile-time-এ শুধু <strong>Reference Type</strong> দেখে method আছে কিনা check করে। Runtime-এ JVM <strong>Object Type</strong> দেখে কোন version চলবে ঠিক করে — কিন্তু method-টা Reference Type-এর class-এ declare করা থাকতেই হবে।</p>
+
+      <div class="info-box" style="background:var(--ochre-bg);border-left:3px solid var(--orange);padding:0.7rem 1rem;border-radius:4px;font-size:0.9rem;margin-top:0.3rem">
+        <strong>Polymorphism আর Dynamic Method Dispatch-এর সম্পর্ক:</strong><br>
+        <strong>Polymorphism</strong> হলো Concept, <strong>Dynamic Method Dispatch</strong> হলো সেই Concept JVM-এ কাজ করার Mechanism।<br><br>
+        Method Overriding → Runtime Polymorphism → Dynamic Method Dispatch (JVM runtime-এ ঠিক করে কোন overridden method চলবে)
+      </div>
+
+      <!-- Interview Question -->
+      <h3>Interview Questions</h3>
+      <div class="qa-block" style="margin-top:0.5rem">
+        <p><strong>১. Dynamic Method Dispatch কী?</strong><br>যখন Parent reference দিয়ে Child object hold করা হয় এবং runtime-এ actual object দেখে কোন overridden method execute হবে তা JVM ঠিক করে, তাকে Dynamic Method Dispatch বলে।</p>
+        <p><strong>২. <code>Animal a = new Dog();</code> — Reference Type ও Object Type কোনটা?</strong><br>Reference Type: <code>Animal</code>, Object Type: <code>Dog</code>।</p>
+        <p><strong>৩. <code>a.bark()</code> call করা যাবে?</strong><br>না। কারণ <code>a</code>-র reference type <code>Animal</code>, আর Compiler <code>Animal</code> class-এ <code>bark()</code> খুঁজে না পেয়ে Compile-time Error দেয়।</p>
+      </div>
+
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
@@ -3193,37 +3264,97 @@ a.sound();   <span class="comment">// Meow! — Cat-এর method</span>
     <!-- 26 -->
     <section class="section" id="sec-26">
       <div class="section-header"><span class="sec-num">26</span><h2>final keyword</h2></div>
-      <p><code>final</code> মানে "এর পর আর পরিবর্তন নেই" — variable, method, এবং class তিনটা জায়গায় ব্যবহার করা যায়।</p>
+      <p><code>final</code> মানে <strong>"আর পরিবর্তন করা যাবে না"</strong> — এই একটা কথা মনে রাখলেই যথেষ্ট। <code>final</code> তিন জায়গায় ব্যবহার করা যায়: <strong>Variable</strong>, <strong>Method</strong> এবং <strong>Class</strong>।</p>
+
+      <h3>1. final Variable</h3>
+      <p>একবার Value Assign করার পর সেই Variable আর Change করা যায় না — একে <strong>Constant</strong> বলে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>final Variable — Constant</div>
+        <pre>public class Demo {
+    public static void main(String[] args) {
+        final double PI = 3.14159;
+        System.out.println(PI);
+
+        <span class="comment">// PI = 3.14;  ← ❌ Compile Error, একবার Value পেলে আর Change করা যাবে না</span>
+    }
+}</pre>
+      </div>
+      <div class="info-box" style="background:var(--ochre-bg);border-left:3px solid var(--orange);padding:0.7rem 1rem;border-radius:4px;font-size:0.9rem;margin-top:0.3rem">
+        <strong>Output:</strong> <code>3.14159</code>
+      </div>
+      <p style="font-size:0.88rem;color:var(--muted)">যেমন <code>final int MAX_AGE = 150;</code> বা <code>final double PI = 3.14159;</code> — এগুলো সব Constant, যাদের Value কখনো বদলাবে না।</p>
+
+      <h3>2. final Method</h3>
+      <p>Parent Class যদি কোনো Method-কে <code>final</code> করে দেয়, Child Class সেটা <strong>Override করতে পারবে না</strong>।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>final Method — Override করা যাবে না</div>
+        <pre>class Animal {
+    final void breathe() {
+        System.out.println("Breathing");
+    }
+}
+
+class Dog extends Animal {
+    void bark() {
+        System.out.println("Woof");
+    }   <span class="comment">// ঠিক আছে — bark() নতুন method</span>
+
+    <span class="comment">// @Override</span>
+    <span class="comment">// void breathe() { }   ← ❌ Compile Error, final method override করা যায় না</span>
+}</pre>
+      </div>
+      <div class="insight"><strong>কেন দরকার?</strong> ধরো Bank Software-এ <code>final void calculateGST() { }</code> — কোনো Developer যেন GST Calculation-এর Logic বদলে দিতে না পারে, তাই এই Method-কে <code>final</code> করা হয়।</div>
+
+      <h3>3. final Class</h3>
+      <p><code>final</code> Class-কে কেউ <strong>Extend করতে পারবে না</strong>।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>final Class — Extend করা যাবে না</div>
+        <pre>final class Animal {
+}
+
+class Dog extends Animal {   <span class="comment">// ❌ Compile Error — final class extend করা যায় না</span>
+}</pre>
+      </div>
+
+      <h3>String Class final কেন?</h3>
+      <p>প্রতিদিন যে <code>String name = "Java";</code> লেখো, সেই <code>String</code> Class-টি নিজেই <strong>final</strong> — অর্থাৎ <code>class MyString extends String</code> সম্ভব না।</p>
+      <div class="insight">String <strong>Immutable, Secure ও Reliable</strong> রাখার জন্য এটাকে final করা হয়েছে। String Extend করা গেলে কেউ <code>equals()</code>, <code>hashCode()</code>, <code>length()</code>-এর মতো Method বদলে দিতে পারত, আর তাতে Java-এর অনেক কিছু ভেঙে যেত।</div>
+
+      <h3>Interview Table</h3>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>কোথায় ব্যবহার</th><th>মানে</th></tr></thead>
+          <thead><tr><th><code>final</code> কোথায়</th><th>কী হয়</th></tr></thead>
           <tbody>
-            <tr><td><code>final variable</code></td><td>Constant — একবার assign করলে আর বদলানো যায় না</td></tr>
-            <tr><td><code>final method</code></td><td>Child class-এ override করা যাবে না</td></tr>
-            <tr><td><code>final class</code></td><td>কেউ extend করতে পারবে না (<code>String</code> class এরকম)</td></tr>
+            <tr><td>Variable</td><td>Value আর Change হবে না</td></tr>
+            <tr><td>Method</td><td>Override করা যাবে না</td></tr>
+            <tr><td>Class</td><td>Extend করা যাবে না</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="code-block">
-        <div class="code-label"><span class="dot"></span>final-এর তিনটি ব্যবহার</div>
-        <pre><span class="comment">// 1. final variable — constant</span>
-final double PI = 3.14159;
-<span class="comment">// PI = 3.0;  ← COMPILE ERROR</span>
 
-<span class="comment">// 2. final method — override করা যাবে না</span>
-class Animal {
-    final void breathe() { System.out.println("breathing"); }
-}
-class Dog extends Animal {
-    <span class="comment">// void breathe() {}  ← COMPILE ERROR</span>
-    void bark() { System.out.println("woof!"); }   <span class="comment">// ঠিক আছে</span>
-}
-
-<span class="comment">// 3. final class — extend করা যাবে না</span>
-final class MathUtils { }
-<span class="comment">// class AdvancedMath extends MathUtils {}  ← COMPILE ERROR</span>
-<span class="comment">// String, Integer — এগুলো সব final class</span></pre>
+      <div class="qa-block" style="margin-top:0.5rem">
+        <p><strong>১. final Variable-কে Constant বলা হয় কেন?</strong><br>কারণ একবার Value Assign করার পর আর Change করা যায় না।</p>
+        <p><strong>২. String Class final কেন?</strong><br>যাতে Security বজায় থাকে, Class Immutable থাকে, আর কেউ String-এর Behavior Change করতে না পারে।</p>
+        <p><strong>৩. Final Method Override করা যায় না কেন?</strong><br>কারণ Parent Class চায় এই Method-এর Logic সব Child Class-এ একই থাকুক।</p>
       </div>
+
+      <div class="info-box" style="background:var(--ochre-bg);border-left:3px solid var(--orange);padding:0.7rem 1rem;border-radius:4px;font-size:0.9rem;margin-top:0.3rem">
+        <strong>মনে রাখার Trick:</strong><br>
+        final Variable → Change করা যাবে না<br>
+        final Method → Override করা যাবে না<br>
+        final Class → Extend করা যাবে না
+      </div>
+
+      <h3>ছোট Quiz</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>নিচের Code-এ কোন লাইনে Error হবে?</div>
+        <pre>final class Animal {
+}
+
+class Dog extends Animal {   <span class="comment">// 👉 এই লাইনে Error — Animal একটি final class, তাই extend করা যায় না</span>
+}</pre>
+      </div>
+
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>

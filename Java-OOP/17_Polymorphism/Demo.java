@@ -18,6 +18,12 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        Employee a = new Developer();
+        a.work();
+        Employee b = new Manager();
+        b.work();
+        Employee c = new Tester();
+        c.work();
 
     }
 }

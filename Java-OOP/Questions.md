@@ -1,6 +1,6 @@
 # Java OOP Practice Questions (Backend Mindset)
 
-প্রতিটা প্রশ্নের জন্য ফোল্ডার নাম্বার = প্রশ্ন নাম্বার (Q1 → 01_Class_Object, Q2 → 02_Methods ... Q25 → 25_Enum, Final Project → 26_Record)।
+প্রতিটা প্রশ্নের জন্য ফোল্ডার নাম্বার = প্রশ্ন নাম্বার (Q1 → 01_Class_Object, Q2 → 02_Methods ... Q19 থেকে Q47 → video timestamp অনুযায়ী OOP topic, Final Project → 48_Record_Final_Project)।
 
 ---
 
@@ -293,99 +293,340 @@ Rectangle Area: 24.0
 
 ---
 
-## Question 19 (19_Final_Keyword) — Abstract Payment
+## Question 19 (19_Final_Keyword) — Bank Interest Rate
 
-Abstract `Payment` — `GooglePay, PhonePe, CreditCard`
+`BankAccount` class-এ `final` variable `BANK_NAME` ("XYZ Bank") ও `final` method `displayBankName()` রাখো।
 
 **Output:**
 ```
-Paid via GooglePay
-Paid via PhonePe
-Paid via CreditCard
+Bank Name: XYZ Bank
 ```
 
 ---
 
-## Question 20 (20_Object_Class) — Interface Printable
+## Question 20 (20_Object_Class) — equals, hashCode, toString
 
-Interface `Printable`
-Class `Invoice` — `print()` implement করবে।
+`Student` class (`id, name`) — `equals()`, `hashCode()`, `toString()` override করো।
 
 **Output:**
 ```
-Invoice No: 101, Amount: 5000
+Student1 equals Student2: true
+Student{id=1, name=Rahim}
 ```
 
 ---
 
-## Question 21 (21_Upcasting_Downcasting) — Interface Notification
+## Question 21 (21_Upcasting_Downcasting) — Animal to Dog
 
-Interface `Notification`
-`EmailNotification, SMSNotification, PushNotification`
+`Animal` → `Dog` (extra method `fetch()`)। `Animal a = new Dog();` দিয়ে upcast, `(Dog) a` দিয়ে downcast করো।
 
 **Output:**
 ```
-Sending Email...
-Sending SMS...
-Sending Push Notification...
+Dog is fetching the ball
 ```
 
 ---
 
-## Question 22 (22_Abstract_Class) — Backend Style: Employee Management System
+## Question 22 (22_Abstract_Class) — Abstract Employee
 
-Classes: `Employee, EmployeeService, Demo`
-
-EmployeeService-এ List<Employee> রেখে `addEmployee()`, `showAllEmployees()` লিখো।
+Abstract `Employee`, abstract method `calculateSalary()`। `Manager`, `Developer` override করবে।
 
 **Output:**
 ```
-ID: 1, Name: Rahim, Department: IT, Salary: 40000
-ID: 2, Name: Karim, Department: HR, Salary: 35000
+Manager Salary: 60000
+Developer Salary: 45000
 ```
 
 ---
 
-## Question 23 (23_Interface) — Backend Style: Student Management
+## Question 23 (23_Inner_Class) — Outer and Inner
 
-Classes: `Student, StudentService, Demo`
+`Outer` class-এর ভেতরে non-static `Inner` class, যেটা outer-এর private field access করবে।
 
 **Output:**
 ```
-Name: Rahim, Age: 20
-Name: Karim, Age: 22
+Accessing outer field from inner class: Hello from Outer
 ```
 
 ---
 
-## Question 24 (24_Inner_Class) — Backend Style: Bank Management
+## Question 24 (24_Anonymous_Inner_Class) — Anonymous Greeting
 
-Classes: `Account, BankService, Demo`
-
-balance-related logic Account-এর ভেতরে না রেখে BankService-এ রাখো (Service layer pattern)।
+`Greeting` interface, Demo.java-তে anonymous inner class দিয়ে implement করো (আলাদা class ছাড়া)।
 
 **Output:**
 ```
-Deposited 500, New Balance: 1500
-Withdrew 300, New Balance: 1200
+Hello from Anonymous Class!
 ```
 
 ---
 
-## Question 25 (25_Enum) — Backend Style: E-Commerce
+## Question 25 (25_Interface) — Vehicle Interface
 
-Classes: `Product, Cart, Order, Customer, Demo`
+`Vehicle` interface (`start(), stop()`, default method `fuelType()`)। `Car`, `Bike` implement করবে।
 
 **Output:**
 ```
-Added: Laptop, Added: Mouse
-Total: 45000
-Order placed successfully!
+Car started
+Car stopped
+Bike started
+Bike stopped
 ```
 
 ---
 
-## Final Mini Project (26_Record) — Library Management System
+## Question 26 (26_Enum) — Season Enum
+
+`Season` enum (`SUMMER, WINTER, SPRING, AUTUMN`), switch দিয়ে description print করো।
+
+**Output:**
+```
+Summer is hot
+```
+
+---
+
+## Question 27 (27_Annotation) — Deprecated and Override
+
+`Device`-এ `@Deprecated` method, `SmartDevice`-এ `@Override` দিয়ে override।
+
+**Output:**
+```
+SmartDevice turned on (new way)
+```
+
+---
+
+## Question 28 (28_Functional_Interface) — Calculator
+
+`@FunctionalInterface` সহ `Calculator` interface, single abstract method `operate()`, lambda দিয়ে implement।
+
+**Output:**
+```
+Result: 15
+```
+
+---
+
+## Question 29 (29_Lambda_Expression) — Greet and Sum
+
+`Greetable` interface lambda দিয়ে implement, আরেকটা return-value soho lambda দিয়ে sum হিসাব।
+
+**Output:**
+```
+Hello, Rahim!
+Sum: 30
+```
+
+---
+
+## Question 30 (30_Exception_Handling) — Multiple Catch
+
+`ArithmeticException` ও `ArrayIndexOutOfBoundsException` আলাদা catch block দিয়ে handle করো।
+
+**Output:**
+```
+Arithmetic Exception caught: / by zero
+Array Index Exception caught: Index out of bounds
+```
+
+---
+
+## Question 31 (31_Custom_Exception) — Insufficient Balance
+
+Custom checked exception `InsufficientBalanceException`। `BankAccount.withdraw()` balance কম থাকলে throw করবে।
+
+**Output:**
+```
+Insufficient Balance!
+```
+
+---
+
+## Question 32 (32_Throws_Keyword) — File Reading
+
+`FileService.readFile()` — `throws IOException` declare করবে, Demo-তে try-catch দিয়ে handle।
+
+**Output:**
+```
+File not found!
+```
+
+---
+
+## Question 33 (33_User_Input) — Scanner and BufferedReader
+
+`Scanner` দিয়ে name, `BufferedReader` দিয়ে age input নেও।
+
+**Output:**
+```
+Name: Rahim, Age: 25
+```
+
+---
+
+## Question 34 (34_Try_With_Resources) — AutoCloseable
+
+`FileHandler implements AutoCloseable`, try-with-resources দিয়ে automatic close() দেখাও।
+
+**Output:**
+```
+Resource opened
+Resource closed automatically
+```
+
+---
+
+## Question 35 (35_Threads) — Thread vs Runnable
+
+`MyThread extends Thread`, `TaskRunnable implements Runnable` — দুইটাই start করো।
+
+**Output:**
+```
+Thread-1 running
+Thread-2 running
+```
+
+---
+
+## Question 36 (36_Thread_Priority_Sleep) — Priority and Sleep
+
+দুইটা thread, একটা `MAX_PRIORITY` আরেকটা `MIN_PRIORITY`, `sleep()` দিয়ে delay।
+
+**Output:**
+```
+High priority thread finished first
+```
+
+---
+
+## Question 37 (37_Race_Condition) — Synchronized Counter
+
+দুইটা thread একসাথে `Counter.increment()` কল করবে। `synchronized` দিয়ে race condition ঠেকাও।
+
+**Output:**
+```
+Final Count: 2000
+```
+
+---
+
+## Question 38 (38_Thread_States) — Thread Lifecycle
+
+`getState()` দিয়ে thread-এর বিভিন্ন state (NEW, RUNNABLE, TERMINATED) দেখাও।
+
+**Output:**
+```
+State: NEW
+State: RUNNABLE
+State: TERMINATED
+```
+
+---
+
+## Question 39 (39_Collection_API) — Collection Overview
+
+`List<String>` দিয়ে basic Collection উদাহরণ।
+
+**Output:**
+```
+[Rahim, Karim, Sumi]
+```
+
+---
+
+## Question 40 (40_ArrayList) — ArrayList of Student
+
+`ArrayList<Student>` — add, remove, iterate করো।
+
+**Output:**
+```
+Total Students: 3
+```
+
+---
+
+## Question 41 (41_Set) — HashSet Uniqueness
+
+`HashSet<String>` দিয়ে duplicate email reject হওয়া দেখাও।
+
+**Output:**
+```
+Unique Emails: [a@x.com, b@x.com]
+```
+
+---
+
+## Question 42 (42_Map) — HashMap Employee
+
+`HashMap<Integer, String>` — `entrySet()` দিয়ে iterate করো।
+
+**Output:**
+```
+1 -> Rahim
+```
+
+---
+
+## Question 43 (43_Comparator_Comparable) — Sort Employees
+
+`Employee implements Comparable<Employee>` (salary অনুযায়ী), আলাদা `EmployeeComparator implements Comparator<Employee>` (name অনুযায়ী)।
+
+**Output:**
+```
+Sorted by salary: [Karim(35000), Rahim(40000)]
+Sorted by name: [Karim, Rahim]
+```
+
+---
+
+## Question 44 (44_Stream_API) — Stream forEach
+
+`List<Integer>` থেকে `stream().forEach()` দিয়ে print করো।
+
+**Output:**
+```
+1 2 3 4 5
+```
+
+---
+
+## Question 45 (45_Stream_Map_Filter_Reduce_Sorted) — Employee Stream Pipeline
+
+`List<Employee>` থেকে filter, map, sorted, reduce একসাথে ব্যবহার করো।
+
+**Output:**
+```
+Filtered Names: [Rahim, Sumi]
+Total Salary: 90000
+```
+
+---
+
+## Question 46 (46_Parallel_Stream) — Parallel Sum
+
+`parallelStream()` দিয়ে sum হিসাব করে normal `stream()`-এর সাথে compare করো।
+
+**Output:**
+```
+Parallel Sum: 5050
+```
+
+---
+
+## Question 47 (47_Optional_Class) — Optional User Lookup
+
+`UserService.findUserById()` — `Optional<User>` return করবে। `isPresent()`, `orElse()` ব্যবহার করো।
+
+**Output:**
+```
+User found: Rahim
+User not found, using default
+```
+
+---
+
+## Final Mini Project (48_Record_Final_Project) — Library Management System
 
 Classes: `Book, Student, Librarian, LibraryService, Demo`
 

@@ -1,12 +1,13 @@
 /*
- * Question 19
- * Abstract Payment
- * GooglePay, PhonePe, CreditCard — প্রতিটা abstract pay() নিজের মতো override করবে।
+ * Question 19 (19_Final_Keyword) — Bank Interest Rate
+ *
+ * BankAccount class-এ একটা `final` variable BANK_NAME রাখো ("XYZ Bank"),
+ * যেটা পরে change করা যাবে না। আরেকটা final method displayBankName()
+ * লিখো, যেটা bank name print করবে (final method override করা যায় না,
+ * সেটা মাথায় রেখে লিখো)।
  *
  * Output:
- * Paid via GooglePay
- * Paid via PhonePe
- * Paid via CreditCard
+ * Bank Name: XYZ Bank
  */
 public class Demo {
     public static void main(String[] args) {

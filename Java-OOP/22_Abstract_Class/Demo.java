@@ -1,13 +1,12 @@
 /*
- * Question 22 (Backend Style — Employee Management System)
- * Classes: Employee, EmployeeService, Demo
+ * Question 22 (22_Abstract_Class) — Abstract Employee
  *
- * EmployeeService-এ List<Employee> রেখে addEmployee() ও showAllEmployees()
- * মেথড লিখো। Demo-তে service দিয়ে ২-৩টা Employee add করে সব দেখাও।
+ * Employee abstract class, abstract method calculateSalary() রাখো।
+ * Manager আর Developer আলাদাভাবে override করবে।
  *
  * Output:
- * ID: 1, Name: Rahim, Department: IT, Salary: 40000
- * ID: 2, Name: Karim, Department: HR, Salary: 35000
+ * Manager Salary: 60000
+ * Developer Salary: 45000
  */
 public class Demo {
     public static void main(String[] args) {
