@@ -10,6 +10,10 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        Employee emp = new Developer();
+        emp.calculateSalary();
 
+        Employee emp2 = new Manager();
+        emp2.calculateSalary();
     }
 }

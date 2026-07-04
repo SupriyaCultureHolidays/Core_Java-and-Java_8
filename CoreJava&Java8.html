@@ -3440,46 +3440,236 @@ public int hashCode() {
     <!-- 28 -->
     <section class="section" id="sec-28">
       <div class="section-header"><span class="sec-num">28</span><h2>Upcasting এবং Downcasting</h2></div>
-      <p>Inheritance hierarchy-তে reference-কে উপরে বা নিচে সরানোকে Casting বলে।</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th></th><th>Upcasting</th><th>Downcasting</th></tr></thead>
-          <tbody>
-            <tr><td>দিক</td><td>Child → Parent</td><td>Parent → Child</td></tr>
-            <tr><td>কীভাবে</td><td>স্বয়ংক্রিয় (automatic)</td><td>হাতে cast লিখতে হয়</td></tr>
-            <tr><td>ঝুঁকি</td><td>নেই</td><td><code>ClassCastException</code> হতে পারে</td></tr>
-          </tbody>
-        </table>
+      <p>এই Chapter-টা আসলে Dynamic Method Dispatch-এর পরের ধাপ। যদি <code>Animal a = new Dog();</code> বুঝে থাকো, তাহলে এটাও সহজ।</p>
+
+      <h3>Casting মানে কী?</h3>
+      <p>Casting মানে <strong>Reference Type পরিবর্তন করা</strong>। Object পরিবর্তন হয় না — শুধু Reference-এর Type পরিবর্তন হয়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Hierarchy</div>
+        <pre>        Object
+           ↑
+        Animal
+           ↑
+          Dog</pre>
       </div>
+      <p>Dog সবচেয়ে নিচে, Animal উপরে।</p>
+
+      <h3>আগে পুরো Example-টা দেখে নাও — নিচের সব ব্যাখ্যা এই একই Code নিয়ে</h3>
+      <p>নিচের সব Code fragment, Memory diagram, এবং ব্যাখ্যা — সব এই একই <code>Animal</code> / <code>Dog</code> Class দুটো ধরে করা হয়েছে। এই পুরো Code-টা মাথায় রেখে নিচের অংশগুলো পড়ো।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Java — এই Chapter-এর মূল Example</div>
+        <pre>class Animal {
+    void sound() {
+        System.out.println("Animal Sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Woof");
+    }
+
+    void bark() {
+        System.out.println("Bark Bark");
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        Animal a = d;   <span class="comment">// Upcasting</span>
+
+        a.sound();      <span class="comment">// Output: Woof</span>
+        <span class="comment">// a.bark();  ← COMPILE ERROR</span>
+
+        Dog d2 = (Dog) a;  <span class="comment">// Downcasting</span>
+        d2.bark();         <span class="comment">// Output: Bark Bark</span>
+    }
+}</pre>
+      </div>
+      <p>নিচে এই Code-টাকেই টুকরো টুকরো করে (line by line) ব্যাখ্যা করা হলো।</p>
+
+      <h3>1. Upcasting — Child → Parent</h3>
       <div class="code-block">
         <div class="code-label"><span class="dot"></span>Upcasting — automatic</div>
         <pre>Dog d = new Dog();
-Animal a = d;        <span class="comment">// Upcasting — automatic, cast লিখতে হয় না</span>
-                     <span class="comment">// এখন a দিয়ে শুধু Animal-এর method access করা যাবে</span>
-a.sound();           <span class="comment">// Dog-এর overridden sound() চলবে (Dynamic Dispatch)</span>
-<span class="comment">// a.bark();  ← COMPILE ERROR — Animal-এ bark() নেই</span></pre>
+Animal a = d;   <span class="comment">// এর সমান: Animal a = (Animal) d; কিন্তু (Animal) লিখতে হয় না</span></pre>
+      </div>
+      <p>Upcasting মানে Dog → Animal। এটা Java নিজেই করে, তাই একে <strong>Automatic Upcasting</strong> বলে।</p>
+      <div class="mem-viz">
+        <div class="mem-panel stack-panel">
+          <div class="mem-panel-head">STACK</div>
+          <div class="mem-panel-body">
+            <div class="mem-frame-box">
+              <div class="mem-frame-label">main()</div>
+              <div class="mem-var-row">
+                <span class="mv-name">d</span>
+                <span class="mv-eq">=</span>
+                <span class="mv-ref">ref →</span>
+              </div>
+              <div class="mem-var-row">
+                <span class="mv-name">a</span>
+                <span class="mv-eq">=</span>
+                <span class="mv-ref">ref →</span>
+                <span class="mv-note">// একই ঠিকানা</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mem-panel heap-panel">
+          <div class="mem-panel-head">HEAP</div>
+          <div class="mem-panel-body">
+            <div class="mem-obj-box">
+              <div class="mem-obj-label">Dog object &nbsp;← d ও a দুজনেই এখানে</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>খেয়াল করো, <strong>Object এখনও Dog।</strong> শুধু Reference Type পরিবর্তন হয়েছে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>a.sound() — চলবে</div>
+        <pre>a.sound();   <span class="comment">// Output: Woof — Heap-এ Dog Object আছে, Dynamic Dispatch</span></pre>
       </div>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Downcasting — manual, instanceof দিয়ে সতর্কতা</div>
-        <pre>Animal a = new Dog();   <span class="comment">// Upcasting</span>
+        <div class="code-label"><span class="dot"></span>a.bark() — Compile Error</div>
+        <pre>a.bark();   <span class="comment">// COMPILE ERROR — Compiler শুধু Reference Type (Animal) দেখে, Animal-এ bark() নেই</span></pre>
+      </div>
 
-<span class="comment">// Downcasting — cast লিখতে হয়</span>
-if (a instanceof Dog) {         <span class="comment">// আগে check করো — নইলে ClassCastException হতে পারে</span>
+      <h3><code>sound()</code> চলে, <code>bark()</code> চলে না কেন — আলাদা নিয়ম না, একই নিয়ম দুই ধাপে</h3>
+      <p>আলাদা নিয়ম না — আসলে <strong>একই নিয়ম, দুই ধাপে</strong> কাজ করে। শুধু <code>sound()</code> আর <code>bark()</code>-এর ক্ষেত্রে ধাপ দুটোর ফলাফল আলাদা হয়ে যায়।</p>
+
+      <div class="info-box" style="background:var(--ochre-bg);border-left:3px solid var(--orange);padding:0.8rem 1rem;border-radius:4px;font-size:0.95rem;margin-bottom:1rem">
+        <strong>ধাপ ১ — Compile Time (Compiler-এর কাজ)</strong><br>
+        Compiler প্রথমে চেক করে: reference type-এর Class-এ (এখানে Animal) এই method-টা আছে কিনা? এটা শুধু Class-এর blueprint দেখে, Object দেখে না — কারণ compile time-এ কোনো Object তৈরিই হয়নি এখনো।
+        <ul style="margin:0.5rem 0 0 1.2rem">
+          <li><code>sound()</code> → Animal Class-এ <strong>আছে</strong>। ✅ Compile পাস।</li>
+          <li><code>bark()</code> → Animal Class-এ <strong>নেই</strong>। ❌ Compile Error — এখানেই থেমে যায়, Runtime পর্যন্ত পৌঁছায় না।</li>
+        </ul>
+      </div>
+
+      <div class="info-box" style="background:var(--ochre-bg);border-left:3px solid var(--orange);padding:0.8rem 1rem;border-radius:4px;font-size:0.95rem;margin-bottom:1rem">
+        <strong>ধাপ ২ — Runtime (JVM-এর কাজ)</strong><br>
+        যদি ধাপ ১ পাস হয়, তাহলে JVM দেখে: Heap-এ Actual Object আসলে কী (Dog)? সেই Object-এর version-টাই চালায় (Dynamic Dispatch)।
+        <ul style="margin:0.5rem 0 0 1.2rem">
+          <li><code>sound()</code> ধাপ ১ পাস করেছে, তাই ধাপ ২-তে যায় → Heap-এ Dog Object, তাই Dog-এর overridden <code>sound()</code> চলে (Output: Woof)।</li>
+          <li><code>bark()</code> ধাপ ১-তেই আটকে গেছে, তাই ধাপ ২ পর্যন্ত পৌঁছায়ইনি।</li>
+        </ul>
+      </div>
+
+      <p><strong>সারমর্ম:</strong> Compiler শুধু "reference type-এ method declare করা আছে কিনা" — এটা দেখে অনুমতি দেয়। অনুমতি পেলে, কোন Class-এর version চলবে সেটা ঠিক করে Actual Object (Runtime)। <code>bark()</code>-এর ক্ষেত্রে অনুমতিই মেলেনি, তাই runtime dispatch-এর প্রশ্নই আসে না।</p>
+
+      <h3>2. Downcasting — Parent → Child</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Downcasting — manual cast</div>
+        <pre>Animal a = new Dog();
+
+Dog d = (Dog) a;   <span class="comment">// Cast লিখতে হবে</span>
+d.bark();          <span class="comment">// এখন চলবে</span></pre>
+      </div>
+      <p>Downcasting মানে Animal → Dog। এখানে Cast লিখতে হয়, কারণ Java নিজে Risk নেয় না।</p>
+      <div class="mem-viz">
+        <div class="mem-panel stack-panel">
+          <div class="mem-panel-head">STACK</div>
+          <div class="mem-panel-body">
+            <div class="mem-frame-box">
+              <div class="mem-frame-label">main()</div>
+              <div class="mem-var-row">
+                <span class="mv-name">a</span>
+                <span class="mv-eq">=</span>
+                <span class="mv-ref">ref →</span>
+              </div>
+              <div class="mem-var-row">
+                <span class="mv-name">d</span>
+                <span class="mv-eq">=</span>
+                <span class="mv-ref">ref →</span>
+                <span class="mv-note">// একই ঠিকানা</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mem-panel heap-panel">
+          <div class="mem-panel-head">HEAP</div>
+          <div class="mem-panel-body">
+            <div class="mem-obj-box">
+              <div class="mem-obj-label">Dog object &nbsp;← a ও d দুজনেই এখানে</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>দুইটা Reference একই Dog Object-কে দেখছে।</p>
+
+      <h3>কেন Manual? — ভুল Downcasting-এর ঝুঁকি</h3>
+      <p>কারণ সব Animal Dog নয়। ধরো <code>Animal a = new Cat();</code> — এখন <code>Dog d = (Dog) a;</code> লিখলে Compiler বলবে "ঠিক আছে, তুমি Cast করতে চাইছ।" কিন্তু Runtime-এ দেখে Actual Object = Cat, Dog নয়। তখন <code>ClassCastException</code> হয়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ভুল Downcasting — ClassCastException</div>
+        <pre>Animal a = new Cat();
+Dog d = (Dog) a;   <span class="comment">// RUNTIME ERROR: ClassCastException</span></pre>
+      </div>
+
+      <h3>instanceof দিয়ে সতর্কতা</h3>
+      <p>আগে Check করো Object আসলে Dog কিনা, তারপর Cast করো।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>instanceof দিয়ে safe downcast</div>
+        <pre>if (a instanceof Dog) {
     Dog d = (Dog) a;
-    d.bark();                   <span class="comment">// এখন Dog-এর method access করা যাচ্ছে</span>
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>instanceof — Dog না হলে কিছুই চলে না</div>
+        <pre>Animal a = new Dog();
+if (a instanceof Dog) {
+    Dog d = (Dog) a;
+    d.bark();          <span class="comment">// Output: Bark Bark</span>
 }
 
-<span class="comment">// ভুল — ClassCastException</span>
 Animal a2 = new Cat();
-Dog d2 = (Dog) a2;   <span class="comment">// RUNTIME ERROR: Cat cannot be cast to Dog</span></pre>
+if (a2 instanceof Dog) {
+    Dog d2 = (Dog) a2;
+    d2.bark();
+}                      <span class="comment">// কিছুই চলবে না — instanceof আগেই false দিয়েছে</span></pre>
       </div>
+
+      <h3>Real Life Example — Vehicle এবং Car</h3>
+      <p>Car হচ্ছে Vehicle (Car IS-A Vehicle), তাই Upcasting ঠিক আছে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Vehicle / Car</div>
+        <pre>Car c = new Car();
+Vehicle v = c;      <span class="comment">// Upcasting — Car IS-A Vehicle</span>
+
+v.start();          <span class="comment">// চলবে</span>
+<span class="comment">// v.openSunroof(); ← COMPILE ERROR — সব Vehicle-এ Sunroof নেই</span>
+
+Car c2 = (Car) v;   <span class="comment">// Downcasting</span>
+c2.openSunroof();   <span class="comment">// এখন চলবে</span></pre>
+      </div>
+
+      <h3>সবচেয়ে গুরুত্বপূর্ণ কথা</h3>
+      <p><strong>Upcasting বা Downcasting কোনোটাতেই Object বদলায় না।</strong></p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>একই Object, ভিন্ন ভিন্ন Reference Type</div>
+        <pre>Dog d = new Dog();
+Animal a = d;      <span class="comment">// Upcasting</span>
+Dog d2 = (Dog) a;  <span class="comment">// Downcasting</span></pre>
+      </div>
+      <p>তিনটি Variable (<code>d</code>, <code>a</code>, <code>d2</code>) একই Heap-এর Dog Object-কে Point করছে — শুধু Reference Type বদলায়: <code>d</code> → Dog, <code>a</code> → Animal, <code>d2</code> → আবার Dog। Object সব সময়ই একই Dog Object থাকে।</p>
+
+      <h3>একটা সহজ Trick</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>মনে রাখার উপায়</div>
+        <pre>Upcasting:    Dog → Animal   (↑ উপরে যাচ্ছে)   — Automatic
+Downcasting:  Animal → Dog   (↓ নিচে যাচ্ছে)   — Manual</pre>
+      </div>
+
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
-          <li>Upcasting কী? কেন automatic?</li>
-          <li>Downcasting-এর আগে <code>instanceof</code> check কেন করা উচিত?</li>
-          <li><code>ClassCastException</code> কখন হয়?</li>
-          <li><code>Animal a = new Dog()</code>-এর পরে <code>a.bark()</code> কেন compile error?</li>
+          <li>Upcasting কী? কেন Automatic?</li>
+          <li>Downcasting কী? কেন Manual cast লিখতে হয়?</li>
+          <li><code>instanceof</code> কেন ব্যবহার করা হয়?</li>
+          <li><code>ClassCastException</code> কখন হয়? উদাহরণ দাও।</li>
+          <li><code>Animal a = new Dog();</code>-এর পরে <code>a.bark()</code> কেন Compile Error?</li>
+          <li>Upcasting এবং Downcasting-এ Object কি পরিবর্তন হয়? ব্যাখ্যা করো।</li>
         </ol>
       </div>
     </section>
@@ -3533,6 +3723,47 @@ s.showColor();</pre>
           </tbody>
         </table>
       </div>
+      <h3>Chain of Abstract Classes — সব Abstract Method একসাথে Implement করা বাধ্যতামূলক না</h3>
+      <p>একটা abstract class অন্য একটা abstract class-কে extend করলে, তাকে বাবার সব abstract method implement করতে হবে — এমন কোনো নিয়ম নেই। যেটা implement করেনি, সেটা নিজের মধ্যেও abstract-ই থেকে যাবে। শুধু <strong>concrete class</strong>-কেই (যেটার object বানানো হবে) বাকি সব abstract method implement করতে হয়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Car → WagnoR → UpdateWagnoR</div>
+        <pre>abstract class Car {
+    public abstract void drive();
+    public abstract void fly();
+
+    public void playMusic() {
+        System.out.println("play music");
+    }
+}
+
+abstract class WagnoR extends Car {     <span class="comment">// এটাও abstract থাকতে বাধ্য</span>
+    public void drive() {               <span class="comment">// শুধু drive() implement করলো</span>
+        System.out.println("Driving...");
+    }
+    <span class="comment">// fly() implement করেনি — তাই WagnoR-কেও abstract রাখতে হলো</span>
+}
+
+class UpdateWagnoR extends WagnoR {     <span class="comment">// concrete class</span>
+    public void fly() {                 <span class="comment">// বাকি থাকা fly() implement করলো</span>
+        System.out.println("flying...");
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+
+        <span class="comment">// Car obj = new Car();       ← COMPILE ERROR — Car abstract</span>
+        <span class="comment">// Car obj = new WagnoR();    ← COMPILE ERROR — WagnoR-ও abstract (fly() নেই)</span>
+        Car obj = new UpdateWagnoR();  <span class="comment">// Upcasting — এটাই একমাত্র concrete class</span>
+
+        obj.drive();       <span class="comment">// Output: Driving...   (WagnoR-এর version)</span>
+        obj.playMusic();   <span class="comment">// Output: play music   (Car-এর concrete method)</span>
+    }
+}</pre>
+      </div>
+      <p>এখানে তিন ধাপের chain: <code>Car</code> (দুটো abstract method) → <code>WagnoR</code> (শুধু <code>drive()</code> implement করলো, <code>fly()</code> বাকি রেখে নিজেও abstract থাকলো) → <code>UpdateWagnoR</code> (বাকি থাকা <code>fly()</code> implement করে concrete হলো)। যেহেতু <code>UpdateWagnoR</code>-এ কোনো abstract method বাকি নেই, শুধু এরই object তৈরি করা যায়।</p>
+      <p><code>obj.drive()</code> চলে <strong>WagnoR</strong>-এর version (Dynamic Dispatch — Heap-এ Actual Object UpdateWagnoR, drive() সেখানে override করা হয়নি তাই chain বেয়ে উপরে WagnoR-এর version খুঁজে পায়)। <code>obj.playMusic()</code> চলে Car-এর concrete method, কারণ সেটা কোথাও override হয়নি।</p>
+
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
@@ -3540,6 +3771,8 @@ s.showColor();</pre>
           <li>Abstract method-এ body থাকে না কেন?</li>
           <li>Child class-এ সব abstract method implement না করলে কী হয়?</li>
           <li><code>Animal</code> abstract class তৈরি করো <code>abstract void sound()</code> সহ। Dog এবং Cat দিয়ে implement করো।</li>
+          <li>একটা abstract class অন্য abstract class extend করলে তাকে সব abstract method implement করতে হয় কি? কেন?</li>
+          <li>উপরের Car / WagnoR / UpdateWagnoR উদাহরণে <code>Car obj = new WagnoR();</code> লিখলে কী হবে এবং কেন?</li>
         </ol>
       </div>
     </section>

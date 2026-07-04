@@ -11,6 +11,12 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        BankAccount bank = new BankAccount();
+        bank.displayBankName();
+        SbiSakha Sakha = new SbiSakha();
+        Sakha.displayBankName();
+        BankAccount a = new SbiSakha();
+        a.displayBankName();
 
     }
 }
