@@ -4084,10 +4084,10 @@ class Shop {
     MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
 }
 
-Day d = Day.MONDAY;
+Day d = Day.MONDAY;               <span class="comment">// স্ট্যাকে d → MONDAY constant-কে reference করে</span>
 System.out.println(d);           <span class="comment">// MONDAY</span>
-System.out.println(d.name());    <span class="comment">// MONDAY</span>
-System.out.println(d.ordinal()); <span class="comment">// 0 (index)</span>
+System.out.println(d.name());    <span class="comment">// name() সবসময় Enum Constant-এর নাম String হিসেবে দেয়</span>
+System.out.println(d.ordinal()); <span class="comment">// ordinal() সবসময় Position (index) Return করে</span>
 
 <span class="comment">// সব values loop করা</span>
 for (Day day : Day.values()) {
@@ -4143,35 +4143,84 @@ if (d == Day.SATURDAY || d == Day.SUNDAY) {
     <!-- 38 -->
     <section class="section" id="sec-38">
       <div class="section-header"><span class="sec-num">38</span><h2>Enum Class</h2></div>
-      <p>Enum-এ constructor, field ও method রাখা যায়।</p>
+      <p>শুনতে কঠিন লাগে, কিন্তু আসলে <strong>Enum-ও একটা Class</strong> — শুধু Java নিজেই কিছু Object আগে থেকে বানিয়ে রাখে।</p>
+
+      <h3>Normal Class vs Enum — Object কে বানায়?</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Normal Class</div>
+        <pre>class Laptop {
+    private int price;
+    Laptop(int price) { this.price = price; }
+    public int getPrice() { return price; }
+}
+
+<span class="comment">// Main — আমরা নিজে new দিয়ে Object বানাই</span>
+Laptop l1 = new Laptop(2000);
+Laptop l2 = new Laptop(1000);</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Enum</div>
+        <pre>enum Laptop {
+    MACBOOK, DELL, HP
+}
+<span class="comment">// এখানে new কোথাও নেই — কিন্তু MACBOOK, DELL, HP প্রতিটাই একেকটা Object।
+// Java ভিতরে ভিতরে (ধারণাগতভাবে) এমন কিছু করে — এটা তুমি নিজে লিখতে পারো না:
+// Laptop MACBOOK = new Laptop();
+// Laptop DELL    = new Laptop();
+// Laptop HP      = new Laptop();</span></pre>
+      </div>
+
+      <h3>Constructor দিয়ে প্রতিটা Constant-কে Value দেওয়া</h3>
+      <p>প্রতিটা Laptop-এর দাম আলাদা রাখতে চাইলে constant-এর পাশে মান বসিয়ে দেই — সেই মানটা constructor-এর মধ্য দিয়ে field-এ চলে যায়।</p>
       <div class="code-block">
         <div class="code-label"><span class="dot"></span>Java</div>
         <pre>enum Laptop {
-    MACBOOK(2000), DELL(1000), HP(800);
+    MACBOOK(2000), DELL(1000), HP(800);   <span class="comment">// MACBOOK(2000) মানে ভিতরে new Laptop(2000)</span>
 
     private int price;
 
-    Laptop(int price) {       <span class="comment">// constructor always private</span>
+    Laptop(int price) {       <span class="comment">// constructor সবসময় private</span>
         this.price = price;
     }
 
     public int getPrice() { return price; }
-}
+}</pre>
+      </div>
+      <div class="diagram">Program শুরু হওয়ার সাথে সাথেই মেমোরিতে সব constant Object তৈরি হয়ে যায়:
 
-Laptop l = Laptop.MACBOOK;
-System.out.println(l + " costs $" + l.getPrice());
-<span class="comment">// MACBOOK costs $2000</span>
+Laptop
+ |
+ |---- MACBOOK ----&gt; price = 2000
+ |---- DELL    ----&gt; price = 1000
+ |---- HP      ----&gt; price = 800</div>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ব্যবহার</div>
+        <pre>Laptop l = Laptop.MACBOOK;
+
+System.out.println(l);                              <span class="comment">// MACBOOK</span>
+System.out.println(l.getPrice());                   <span class="comment">// 2000</span>
+System.out.println(l + " costs $" + l.getPrice());  <span class="comment">// MACBOOK costs $2000</span>
 
 for (Laptop laptop : Laptop.values()) {
     System.out.println(laptop + " : $" + laptop.getPrice());
-}</pre>
+}
+<span class="comment">// MACBOOK : $2000
+// DELL    : $1000
+// HP      : $800</span></pre>
       </div>
-      <div class="key-insight"><strong>Rule:</strong> Enum constructor সবসময় <code>private</code>। <code>new Laptop()</code> করা যাবে না।</div>
+
+      <h3>Constructor সবসময় private কেন</h3>
+      <p>Constructor যদি <code>public</code> হতো, তাহলে বাইরে থেকে <code>new Laptop(5000)</code> লিখে নতুন Laptop বানানো যেত। কিন্তু Enum-এর উদ্দেশ্যই হলো <strong>Fixed Constants</strong> — শুধু MACBOOK, DELL, HP — এর বাইরে নতুন কিছু তৈরি করা যাবে না। তাই Object তৈরির দায়িত্ব পুরোপুরি Java-র, Programmer-এর না — আর এই কারণেই constructor বাধ্যতামূলকভাবে <code>private</code>।</p>
+      <div class="insight">Real-life উদাহরণ: Traffic Signal-এ শুধু RED, YELLOW, GREEN থাকে। <code>new Signal("BLUE")</code> বানানো যায় না — কারণ Blue বলে কিছু নেই। Enum-ও ঠিক তেমনি একটা Fixed সেট।</div>
+      <div class="key-insight"><strong>Rule:</strong> Enum constructor সবসময় <code>private</code> — <code>new Laptop()</code> কখনো লেখা যাবে না; Object শুধু Java নিজেই তৈরি করে।</div>
+
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li><code>Planet</code> enum বানাও — mass ও radius store করো।</li>
           <li>Enum-এর constructor কেন always private?</li>
+          <li><code>Signal</code> enum বানাও (RED, YELLOW, GREEN) — কেন <code>new Signal("BLUE")</code> করা যায় না ব্যাখ্যা করো।</li>
         </ol>
       </div>
     </section>
@@ -4180,12 +4229,36 @@ for (Laptop laptop : Laptop.values()) {
     <section class="section" id="sec-39">
       <div class="section-header"><span class="sec-num">39</span><h2>Annotation</h2></div>
       <p>Annotation = code-এ extra metadata দেওয়ার উপায় — compiler বা framework-কে বলা "এই element-টা এইভাবে treat করো"।</p>
-      <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Common Annotations</div>
-        <pre>@Override               <span class="comment">// parent method override হচ্ছে কিনা check করে</span>
-public void show() { }
 
-@Deprecated             <span class="comment">// পুরনো method — আর ব্যবহার না করতে সতর্ক করে</span>
+      <h3>@Override — Compile-time Safety</h3>
+      <p><code>@Override</code> লিখে compiler-কে বলা হয়, "আমি Parent-এর Method Override করছি" — compiler তখন যাচাই করে দেখে যে Parent class-এ সত্যিই এমন নামের method আছে কিনা।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ঠিকভাবে লিখলে</div>
+        <pre>class Animal {
+    void sound() { }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() { }   <span class="comment">// Parent-এর sound() ঠিকমতো override হচ্ছে</span>
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ভুল করে নাম বদলে ফেললে</div>
+        <pre>class Dog extends Animal {
+    @Override
+    void sounds() { }   <span class="comment">// টাইপো — এটা override না, নতুন method</span>
+}
+
+<span class="comment">// Compiler Error:
+// method does not override method from its superclass</span></pre>
+      </div>
+      <div class="insight"><code>@Override</code> ছাড়া লিখলে <code>sounds()</code> নিঃশব্দে একটা আলাদা নতুন method হিসেবে তৈরি হয়ে যেত — কোনো error ছাড়াই, কিন্তু Bug থেকে যেত। <code>@Override</code> থাকায় Compiler তখনই ধরিয়ে দেয়, তাই Bug আগেভাগেই কমে যায়।</div>
+
+      <h3>আরও কিছু Common Annotation</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Java</div>
+        <pre>@Deprecated             <span class="comment">// পুরনো method — আর ব্যবহার না করতে সতর্ক করে</span>
 public void oldMethod() { }
 
 @SuppressWarnings("all") <span class="comment">// compiler warning বন্ধ করে</span>
@@ -4217,14 +4290,77 @@ interface MyFunc { void run(); }</pre>
     <!-- 40 -->
     <section class="section" id="sec-40">
       <div class="section-header"><span class="sec-num">40</span><h2>Functional Interface</h2></div>
-      <p>যে interface-এ <strong>exactly একটাই abstract method</strong> আছে তাকে Functional Interface বলে। Lambda expression ব্যবহার করতে এটা লাগে।</p>
+      <p>Java 8-এর গুরুত্বপূর্ণ একটা Topic। Definition: <strong>যে Interface-এ Exactly (ঠিক) ১টা Abstract Method থাকে, তাকে Functional Interface বলে।</strong></p>
+
+      <h3>Normal Interface vs Functional Interface</h3>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Java</div>
+        <div class="code-label"><span class="dot"></span>❌ Normal Interface (2টা Abstract Method)</div>
+        <pre>interface Animal {
+    void eat();
+    void sleep();
+}
+<span class="comment">// মোট Abstract Method = ২টা → Functional Interface না</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>✅ Functional Interface (1টা Abstract Method)</div>
         <pre>@FunctionalInterface
 interface Greeting {
     void greet(String name);   <span class="comment">// শুধু একটাই abstract method</span>
 }</pre>
       </div>
+
+      <h3>@FunctionalInterface Annotation কেন দরকার</h3>
+      <p><code>@FunctionalInterface</code> না দিলেও Interface-টা Functional থাকে, যদি তার Abstract Method সংখ্যা ১টাই হয়। তাহলে Annotation-টা কেন? — <strong>Bug ধরার জন্য।</strong> Annotation ছাড়া থাকলে কেউ পরে ভুলে আরেকটা Method যোগ করলে Compiler কিছু বলবে না; Annotation থাকলে সঙ্গে সঙ্গে Error দেয়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ভুল ধরা পড়ে</div>
+        <pre>@FunctionalInterface
+interface Demo {
+    void run();
+    void stop();   <span class="comment">// দ্বিতীয় abstract method যোগ হলো</span>
+}
+
+<span class="comment">// Compiler Error:
+// Unexpected @FunctionalInterface annotation</span></pre>
+      </div>
+      <div class="insight"><code>@FunctionalInterface</code> <strong>Mandatory না</strong>, কিন্তু Best Practice — কারণ ভবিষ্যতে ভুলে দ্বিতীয় abstract method যোগ হয়ে গেলে Compiler নিজেই ধরিয়ে দেয়।</div>
+
+      <h3>Count শুধু Abstract Method-এর জন্যই হয়</h3>
+      <p>Functional Interface-এ <code>default</code>, <code>static</code>, এমনকি (Java 9+) <code>private</code> method থাকতে পারে — এগুলো Abstract না বলে Count-এ ধরা হয় না।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Java</div>
+        <pre>@FunctionalInterface
+interface Demo {
+    void run();               <span class="comment">// Abstract → Count হয় (মোট ১টা)</span>
+    default void show() { }   <span class="comment">// Default → Count হয় না</span>
+    static void test() { }    <span class="comment">// Static → Count হয় না</span>
+}
+<span class="comment">// মোট ৩টা Method থাকলেও Abstract মাত্র ১টা — তাই এখনও Functional Interface</span></pre>
+      </div>
+      <div class="key-insight"><strong>ভুল ধারণা:</strong> অনেকে মনে করে Functional Interface মানে ইন্টারফেসে মোট ১টাই Method থাকবে — এটা ভুল। শর্ত শুধু <strong>Abstract Method ১টা</strong> হওয়া নিয়ে, default/static method যতগুলো খুশি থাকতে পারে।</div>
+
+      <h3>পুরো উদাহরণ — MathOperation</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Java</div>
+        <pre>@FunctionalInterface
+interface MathOperation {
+    int operate(int a, int b);
+}
+
+class Add implements MathOperation {
+    @Override
+    public int operate(int a, int b) {
+        return a + b;
+    }
+}
+
+MathOperation m = new Add();
+System.out.println(m.operate(10, 20));</pre>
+      </div>
+      <div class="diagram">Output:
+
+30</div>
+      <p>পরের chapter-এ এই একই কাজ Lambda দিয়ে এক লাইনে লেখা শেখা যাবে — <code>MathOperation add = (a, b) -&gt; a + b;</code> — কিন্তু সেটা সম্ভবই হয় কারণ <code>MathOperation</code> একটা Functional Interface। তাই Core Java-তে এই Topic-এর মূল উদ্দেশ্য <strong>Lambda Expression</strong>-এর জন্য ভিত্তি তৈরি করা।</p>
+
       <div class="table-wrap">
         <table>
           <thead><tr><th>Built-in Functional Interface</th><th>Method</th><th>কাজ</th></tr></thead>
@@ -4235,12 +4371,22 @@ interface Greeting {
           </tbody>
         </table>
       </div>
+
+      <div class="diagram">এক লাইনে মনে রাখো:
+
+Functional Interface
+       ↓
+Exactly 1 Abstract Method
+       ↓
+Lambda Expression ব্যবহারের ভিত্তি</div>
+
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li>Functional Interface-এ কতটা abstract method থাকতে পারে?</li>
-          <li><code>@FunctionalInterface</code> দেওয়া mandatory?</li>
-          <li><code>MathOperation</code> Functional Interface বানাও — <code>int operate(int a, int b)</code> method সহ।</li>
+          <li><code>@FunctionalInterface</code> দেওয়া mandatory? না দিলে কী সমস্যা হতে পারে?</li>
+          <li>Default ও Static method কি Abstract Method Count-এ ধরা হয়?</li>
+          <li><code>MathOperation</code> Functional Interface বানাও — <code>int operate(int a, int b)</code> method সহ, এবং Subtract-এর জন্য একটা implementation লেখো।</li>
         </ol>
       </div>
     </section>
