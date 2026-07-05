@@ -27,5 +27,7 @@ public class Demo {
     public static void main(String[] args) {
         // TODO: Employee, Manager, SeniorManager class বানাও (super keyword ব্যবহার করে)
         // TODO: SeniorManager object create করে calculateSalary() print করো
+        SeniorManager seniorM = new SeniorManager("Rahim", 30000, 4, 2);
+        System.out.println(seniorM.name +"'s final salary: " + seniorM.calculateSalary());
     }
 }

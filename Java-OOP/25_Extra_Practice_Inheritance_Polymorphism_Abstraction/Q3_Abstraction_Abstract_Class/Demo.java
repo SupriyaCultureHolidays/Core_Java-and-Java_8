@@ -23,5 +23,13 @@ public class Demo {
     public static void main(String[] args) {
         // TODO: abstract class PaymentMethod ও দুটো subclass বানাও
         // TODO: PaymentMethod reference দিয়ে object বানিয়ে pay() ও printReceipt() call করো
+        PaymentMethod p = new CreditCardPayment();
+        p.pay(500);
+        p.printReceipt(500);
+
+        PaymentMethod q = new UpiPayment();
+        q.pay(600);
+        q.printReceipt(600);
+
     }
 }

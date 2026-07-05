@@ -3678,51 +3678,6 @@ Downcasting:  Animal → Dog   (↓ নিচে যাচ্ছে)   — Manua
     <section class="section" id="sec-29">
       <div class="section-header"><span class="sec-num">29</span><h2>Abstract keyword</h2></div>
       <p><code>abstract</code> class সরাসরি instantiate করা যায় না — object তৈরি হয় না। কিন্তু child class-এর মাধ্যমে কাজ করানো যায়। Abstract method-এর কোনো body নেই — child-কে implement করতেই হবে।</p>
-      <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Abstract class এবং abstract method</div>
-        <pre>abstract class Shape {
-    String color;
-
-    abstract double area();            <span class="comment">// body নেই — child implement করবে</span>
-    abstract double perimeter();       <span class="comment">// body নেই</span>
-
-    void showColor() {                 <span class="comment">// concrete method — body আছে</span>
-        System.out.println("Color: " + color);
-    }
-}
-
-class Circle extends Shape {
-    double radius;
-    Circle(double r) { this.radius = r; }
-
-    @Override double area()      { return Math.PI * radius * radius; }
-    @Override double perimeter() { return 2 * Math.PI * radius; }
-}
-
-class Rectangle extends Shape {
-    double w, h;
-    Rectangle(double w, double h) { this.w = w; this.h = h; }
-
-    @Override double area()      { return w * h; }
-    @Override double perimeter() { return 2 * (w + h); }
-}
-
-<span class="comment">// Shape s = new Shape();  ← COMPILE ERROR — abstract class-এর object হয় না</span>
-Shape s = new Circle(5);
-System.out.println(s.area());     <span class="comment">// 78.53...</span>
-s.showColor();</pre>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th></th><th>Abstract Class</th><th>Interface</th></tr></thead>
-          <tbody>
-            <tr><td>Abstract method</td><td>থাকতে পারে (সব নয়)</td><td>সব method abstract (default Java 8+)</td></tr>
-            <tr><td>Constructor</td><td>আছে</td><td>নেই</td></tr>
-            <tr><td>Variable</td><td>যেকোনো type</td><td>public static final (constant)</td></tr>
-            <tr><td>Inheritance</td><td>একটি extends</td><td>একাধিক implements</td></tr>
-          </tbody>
-        </table>
-      </div>
       <h3>Chain of Abstract Classes — সব Abstract Method একসাথে Implement করা বাধ্যতামূলক না</h3>
       <p>একটা abstract class অন্য একটা abstract class-কে extend করলে, তাকে বাবার সব abstract method implement করতে হবে — এমন কোনো নিয়ম নেই। যেটা implement করেনি, সেটা নিজের মধ্যেও abstract-ই থেকে যাবে। শুধু <strong>concrete class</strong>-কেই (যেটার object বানানো হবে) বাকি সব abstract method implement করতে হয়।</p>
       <div class="code-block">
@@ -3731,8 +3686,12 @@ s.showColor();</pre>
     public abstract void drive();
     public abstract void fly();
 
-    public void playMusic() {
+    public void playMusic() {                    <span class="comment">// concrete method</span>
         System.out.println("play music");
+    }
+
+    public void printReceipt(double amount) {     <span class="comment">// concrete method — parameter নিয়ে কাজ করে</span>
+        System.out.println("Receipt: Paid " + amount);
     }
 }
 
@@ -3756,13 +3715,25 @@ public class Demo {
         <span class="comment">// Car obj = new WagnoR();    ← COMPILE ERROR — WagnoR-ও abstract (fly() নেই)</span>
         Car obj = new UpdateWagnoR();  <span class="comment">// Upcasting — এটাই একমাত্র concrete class</span>
 
-        obj.drive();       <span class="comment">// Output: Driving...   (WagnoR-এর version)</span>
-        obj.playMusic();   <span class="comment">// Output: play music   (Car-এর concrete method)</span>
+        obj.drive();               <span class="comment">// Output: Driving...          (WagnoR-এর version)</span>
+        obj.playMusic();           <span class="comment">// Output: play music          (Car-এর concrete method)</span>
+        obj.printReceipt(500);     <span class="comment">// Output: Receipt: Paid 500.0 (Car-এর concrete method, parameter সহ)</span>
     }
 }</pre>
       </div>
       <p>এখানে তিন ধাপের chain: <code>Car</code> (দুটো abstract method) → <code>WagnoR</code> (শুধু <code>drive()</code> implement করলো, <code>fly()</code> বাকি রেখে নিজেও abstract থাকলো) → <code>UpdateWagnoR</code> (বাকি থাকা <code>fly()</code> implement করে concrete হলো)। যেহেতু <code>UpdateWagnoR</code>-এ কোনো abstract method বাকি নেই, শুধু এরই object তৈরি করা যায়।</p>
       <p><code>obj.drive()</code> চলে <strong>WagnoR</strong>-এর version (Dynamic Dispatch — Heap-এ Actual Object UpdateWagnoR, drive() সেখানে override করা হয়নি তাই chain বেয়ে উপরে WagnoR-এর version খুঁজে পায়)। <code>obj.playMusic()</code> চলে Car-এর concrete method, কারণ সেটা কোথাও override হয়নি।</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Abstract Class</th><th>Interface</th></tr></thead>
+          <tbody>
+            <tr><td>Abstract method</td><td>থাকতে পারে (সব নয়)</td><td>সব method abstract (default Java 8+)</td></tr>
+            <tr><td>Constructor</td><td>আছে</td><td>নেই</td></tr>
+            <tr><td>Variable</td><td>যেকোনো type</td><td>public static final (constant)</td></tr>
+            <tr><td>Inheritance</td><td>একটি extends</td><td>একাধিক implements</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>

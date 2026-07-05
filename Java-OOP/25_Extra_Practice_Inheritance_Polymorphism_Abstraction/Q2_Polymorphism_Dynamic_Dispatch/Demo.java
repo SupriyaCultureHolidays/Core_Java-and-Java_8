@@ -22,5 +22,14 @@ public class Demo {
     public static void main(String[] args) {
         // TODO: Notification parent class ও তিনটা child class বানাও
         // TODO: Notification[] array বানিয়ে loop দিয়ে send() call করো
+
+        Notification[] noti = new Notification[3];
+        noti[0] = new EmailNotification();
+        noti[1] = new SMSNotification();
+        noti[2] = new PushNotification();
+
+        for(Notification n : noti){
+            n.send();
+        }
     }
 }
