@@ -26,5 +26,20 @@ public class Demo {
     public static void main(String[] args) {
         // TODO: Car class-এর ভেতরে non-static Engine inner class বানাও, তারপর call করো
         // TODO: Alert interface বানাও, main()-এর ভেতরে anonymous inner class দিয়ে implement করে trigger() call করো
+        Car c = new Car();
+        Car.Engine eng = c.new Engine();
+        // Car.Engine eng = new Car.Engine();  // static inner class Engine
+        eng.start();
+
+        // Part B
+        Alert a = new Alert() {
+            @Override
+            public void trigger(){ // 👉 যখন কোনো method implement করবে (interface থেকে): ✔ access modifier public দিতে হবে
+                System.out.println("Alert! Battery low");
+            }
+        };
+
+        a.trigger();
+        
     }
 }
