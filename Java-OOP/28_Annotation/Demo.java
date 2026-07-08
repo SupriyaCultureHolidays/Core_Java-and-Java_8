@@ -10,6 +10,11 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        Device d = new Device();
+        d.oldTurnOn();
+
+        SmartDevice sd = new SmartDevice();
+        sd.oldTurnOn();
 
     }
 }

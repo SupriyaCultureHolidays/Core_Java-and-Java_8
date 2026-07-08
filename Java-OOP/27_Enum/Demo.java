@@ -9,6 +9,15 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        Season  s = Season.SUMMER;
 
+        switch (s) {
+            case SUMMER:
+                System.out.println("Summer is hot");
+                break;
+        
+            default:
+                break;
+        }
     }
 }

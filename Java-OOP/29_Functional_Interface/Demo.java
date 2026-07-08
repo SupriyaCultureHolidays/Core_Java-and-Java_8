@@ -10,6 +10,9 @@
  */
 public class Demo {
     public static void main(String[] args) {
-
+        Calculator c = new Lambda();
+        System.out.println(c.operate(5,3));
+        System.out.println(c.a);
+        c.display();
     }
 }

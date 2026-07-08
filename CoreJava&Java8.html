@@ -4478,44 +4478,86 @@ System.out.println(names);  <span class="comment">// [Alice, Bob, Navin]</span><
       <div class="section-header"><span class="sec-num">43</span><h2>Types of Interface</h2></div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Type</th><th>Description</th><th>Example</th></tr></thead>
+          <thead><tr><th>Type</th><th>Abstract Method সংখ্যা</th><th>Example</th></tr></thead>
           <tbody>
-            <tr><td><strong>Normal Interface</strong></td><td>2+ abstract method</td><td><code>List</code>, <code>Map</code></td></tr>
-            <tr><td><strong>Functional Interface</strong></td><td>Exactly 1 abstract method</td><td><code>Runnable</code>, <code>Comparator</code></td></tr>
-            <tr><td><strong>Marker Interface</strong></td><td>কোনো method নেই — শুধু tag করে</td><td><code>Serializable</code>, <code>Cloneable</code></td></tr>
+            <tr><td><strong>Normal Interface</strong></td><td>2 বা তার বেশি</td><td><code>List</code>, <code>Map</code></td></tr>
+            <tr><td><strong>Functional Interface</strong></td><td>Exactly 1</td><td><code>Runnable</code>, <code>Comparator</code></td></tr>
+            <tr><td><strong>Marker Interface</strong></td><td>0 — কোনো method নেই, শুধু tag করে</td><td><code>Serializable</code>, <code>Cloneable</code></td></tr>
           </tbody>
         </table>
       </div>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Marker Interface</div>
-        <pre>interface Serializable { }  <span class="comment">// কোনো method নেই</span>
+        <div class="code-label"><span class="dot"></span>১. Normal Interface — একাধিক Abstract Method</div>
+        <pre>interface Animal {
+    void eat();
+    void sleep();
+}
+
+class Dog implements Animal {
+    public void eat()   { System.out.println("Dog is eating"); }
+    public void sleep() { System.out.println("Dog is sleeping"); }
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>২. Functional Interface — Exactly ১টা Abstract Method</div>
+        <pre><span class="comment">@FunctionalInterface</span>
+interface Greeting {
+    void greet();   <span class="comment">// একটাই abstract method — Lambda-এর জন্য</span>
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>৩. Marker Interface — কোনো Method নেই</div>
+        <pre>interface Serializable { }  <span class="comment">// শুধু একটা Tag, কোনো method নেই</span>
 
 class Student implements Serializable {
     String name; int age;
     <span class="comment">// এখন এই class file/network-এ save করা যাবে</span>
-}</pre>
+}
+
+class Teacher { }  <span class="comment">// Serializable না, তাই save করা যাবে না</span></pre>
       </div>
       <div class="code-block">
         <div class="code-label"><span class="dot"></span>Default ও Static Method (Java 8+)</div>
         <pre>interface Vehicle {
     void start();    <span class="comment">// abstract</span>
 
-    default void stop() {              <span class="comment">// body আছে</span>
+    default void stop() {              <span class="comment">// body আছে, override না করলেও চলবে</span>
         System.out.println("Stopping");
     }
 
-    static void info() {               <span class="comment">// interface-এর নামে call</span>
+    static void info() {               <span class="comment">// interface-এর নামে call, object লাগে না</span>
         System.out.println("Vehicle interface");
     }
 }
 
-Vehicle.info();   <span class="comment">// static call — object লাগে না</span></pre>
+class Car implements Vehicle {
+    public void start() { System.out.println("Starting"); }
+}
+
+Car c = new Car();
+c.start();   <span class="comment">// Starting</span>
+c.stop();    <span class="comment">// Stopping — Default method inherit করেছে</span>
+
+Vehicle.info();   <span class="comment">// ঠিক — static call</span>
+c.info();         <span class="comment">// ❌ Compile Error — object দিয়ে static method call করা যায় না</span></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Java Version</th><th>Interface-এ যা যোগ হয়েছে</th></tr></thead>
+          <tbody>
+            <tr><td>Java 7 পর্যন্ত</td><td>শুধু Abstract Method</td></tr>
+            <tr><td>Java 8</td><td>Default Method, Static Method</td></tr>
+            <tr><td>Java 9</td><td>Private Method</td></tr>
+          </tbody>
+        </table>
       </div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li>Marker interface কী? একটা real example দাও।</li>
+          <li>Normal, Functional আর Marker Interface-এর মধ্যে পার্থক্য কী?</li>
           <li>Interface-এ static method call করতে object লাগে?</li>
+          <li>Default method কেন দরকার হয়েছিল Java 8-এ?</li>
         </ol>
       </div>
     </section>
@@ -4545,12 +4587,51 @@ Vehicle.info();   <span class="comment">// static call — object লাগে �
           </tbody>
         </table>
       </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ArithmeticException</div>
+        <pre>int a = 10, b = 0;
+System.out.println(a / b);   <span class="comment">// 0 দিয়ে ভাগ — এখানেই Exception হয়</span>
+System.out.println("এই লাইন আর চলবে না");   <span class="comment">// আর কখনো চলবে না</span>
+
+<span class="comment">// Exception in thread "main" java.lang.ArithmeticException: / by zero</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>NullPointerException</div>
+        <pre>String name = null;
+System.out.println(name.length());   <span class="comment">// null-এর উপর method call</span>
+
+<span class="comment">// Exception in thread "main" java.lang.NullPointerException</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ArrayIndexOutOfBoundsException</div>
+        <pre>int[] marks = {90, 80, 70};   <span class="comment">// valid index: 0, 1, 2</span>
+System.out.println(marks[5]); <span class="comment">// index 5 নেই</span>
+
+<span class="comment">// Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds for length 3</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>NumberFormatException</div>
+        <pre>String input = "abc";
+int number = Integer.parseInt(input);   <span class="comment">// "abc" সংখ্যা না</span>
+
+<span class="comment">// Exception in thread "main" java.lang.NumberFormatException: For input string: "abc"</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>StackOverflowError</div>
+        <pre>void call() {
+    call();   <span class="comment">// নিজেকে বারবার call করছে — কখনো থামছে না</span>
+}
+
+<span class="comment">// Exception in thread "main" java.lang.StackOverflowError</span></pre>
+      </div>
+      <p>খেয়াল করো — উপরের প্রতিটা ক্ষেত্রেই Exception হওয়ার সাথে সাথে Program সাথে সাথে বন্ধ (crash) হয়ে যায়, কারণ কেউ Exception টা Handle করছে না। পরের Chapter-এ দেখব <code>try-catch</code> দিয়ে কীভাবে Program বন্ধ না করে Exception সামলানো যায়।</p>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li>Exception আর Error-এর পার্থক্য কী?</li>
           <li><code>NullPointerException</code> কখন হয়?</li>
           <li><code>NumberFormatException</code> কখন হয়?</li>
+          <li>Exception handle না করলে Program-এর কী হয়?</li>
         </ol>
       </div>
     </section>
@@ -4656,12 +4737,62 @@ Vehicle.info();   <span class="comment">// static call — object লাগে �
           </tbody>
         </table>
       </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Checked Exception — handle না করলে Compile Error</div>
+        <pre>import java.io.*;
+
+class Demo {
+    public static void main(String[] args) {
+        FileReader file = new FileReader("data.txt");   <span class="comment">// ❌ Compile Error</span>
+        <span class="comment">// error: unreported exception FileNotFoundException; must be caught or declared to be thrown</span>
+    }
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Checked Exception — সঠিকভাবে Handle করা</div>
+        <pre>import java.io.*;
+
+class Demo {
+    public static void main(String[] args) {
+        try {
+            FileReader file = new FileReader("data.txt");   <span class="comment">// checked, তাই try-catch বাধ্যতামূলক</span>
+        } catch (FileNotFoundException e) {
+            System.out.println("File পাওয়া যায়নি");
+        }
+    }
+}
+
+<span class="comment">// File পাওয়া যায়নি</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Unchecked Exception — try-catch ছাড়াই Compile হয়</div>
+        <pre>class Demo {
+    public static void main(String[] args) {
+        int a = 10, b = 0;
+        System.out.println(a / b);   <span class="comment">// RuntimeException — compile হয়, কিন্তু run করলে crash করবে</span>
+    }
+}
+
+<span class="comment">// Exception in thread "main" java.lang.ArithmeticException: / by zero</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Hierarchy অনুযায়ী Catch — Parent দিয়েও ধরা যায়</div>
+        <pre>try {
+    int[] arr = new int[3];
+    System.out.println(arr[5]);   <span class="comment">// ArrayIndexOutOfBoundsException ছোড়ে</span>
+} catch (Exception e) {           <span class="comment">// Exception হচ্ছে সবার parent, তাই এখানেও ধরা পড়বে</span>
+    System.out.println("ধরা পড়েছে: " + e.getClass().getSimpleName());
+}
+
+<span class="comment">// ধরা পড়েছে: ArrayIndexOutOfBoundsException</span></pre>
+      </div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li>Checked আর Unchecked exception-এর পার্থক্য কী?</li>
           <li><code>IOException</code> কোন category-তে পড়ে?</li>
           <li><code>NullPointerException</code> কোন class extend করে?</li>
+          <li>Unchecked exception-এর জন্য try-catch না দিলে কী হয়?</li>
         </ol>
       </div>
     </section>

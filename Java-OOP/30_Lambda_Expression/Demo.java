@@ -11,6 +11,14 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        Greetable g = (name)->{
+            return "Hello, "+name+"!";
+        };
+        System.out.println(g.greet("Rahim"));
 
+        Calculator c = (int a, int b)->{
+            System.out.println(a+b);
+        };
+        c.sum(5, 10);
     }
 }
