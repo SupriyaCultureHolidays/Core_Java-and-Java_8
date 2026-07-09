@@ -10,6 +10,20 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        PriorityDemo p = new PriorityDemo();
+        PriorityDemo q = new PriorityDemo();
 
+        p.setPriority(Thread.MIN_PRIORITY);
+        q.setPriority(Thread.MAX_PRIORITY);
+
+        p.start();
+        try {
+            p.join();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        q.start();
+
+        
     }
 }

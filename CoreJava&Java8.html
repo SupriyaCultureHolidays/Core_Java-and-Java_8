@@ -5218,6 +5218,8 @@ Upload : 3</pre>
     <!-- 56 -->
     <section class="section" id="sec-56">
       <div class="section-header"><span class="sec-num">56</span><h2>Runnable vs Thread</h2></div>
+      <p><code>Runnable</code> হলো একটা <strong>কাজের বর্ণনা (task)</strong> — এটা নিজে Thread না। এটা শুধু বলে "কী কাজ করতে হবে" (<code>run()</code> method-এর ভেতরে), কিন্তু "কে করবে" সেটা বলে না। <code>Thread</code> হলো সেই <strong>worker</strong> যে এই কাজের বর্ণনা পড়ে execute করে।</p>
+      <div class="key-insight">Analogy: কাগজে "৫ পর্যন্ত count করো" লিখলে — এই কাগজটাই <code>Runnable</code>। এই কাগজ পড়ে কাজ করার জন্য একজন worker (<code>Thread</code>) লাগে।</div>
       <div class="code-block">
         <div class="code-label"><span class="dot"></span>Runnable implement করে</div>
         <pre>class MyTask implements Runnable {
@@ -5251,6 +5253,7 @@ t.start();</pre>
           </tbody>
         </table>
       </div>
+      <div class="key-insight">দুটো মূল কারণে <code>Runnable</code> better: (১) Java-তে একবারই <code>extends</code> করা যায় — <code>extends Thread</code> করলে সেই slot নষ্ট হয়ে যায়, আর কোনো অন্য class extend করা যায় না। (২) একটাই <code>Runnable</code> object (একই কাজ) একাধিক আলাদা Thread-কে দেওয়া যায় — উপরের example-এ <code>t1</code> আর <code>t2</code> দুজনেই একই <code>task</code> চালাচ্ছে।</div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
