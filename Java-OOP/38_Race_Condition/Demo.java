@@ -10,6 +10,23 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        Counter c = new Counter();
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                c.increment();
+            }
+            System.out.println("Final Count for t1: " + c.count);
+        });
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                c.increment();
+            }
+            System.out.println("Final Count for t2: " + c.count);
+
+        });
+        t1.start();
+        t2.start();
+        System.out.println("Final Count outside Loop: " + c.count);
 
     }
 }
