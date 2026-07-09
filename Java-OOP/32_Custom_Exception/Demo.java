@@ -10,6 +10,12 @@
  */
 public class Demo {
     public static void main(String[] args) {
+        BankAccount b = new BankAccount(1000);
+        try {
+            b.withdraw(2000);
 
+        } catch (InsufficientBalanceException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

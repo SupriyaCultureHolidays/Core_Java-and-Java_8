@@ -8,8 +8,17 @@
  * Output:
  * File not found!
  */
+
+import java.io.IOException;
+
 public class Demo {
     public static void main(String[] args) {
+        FileService f = new FileService();
+        try {
+            f.readFile("data.txt");
 
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

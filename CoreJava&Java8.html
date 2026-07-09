@@ -4951,19 +4951,19 @@ int age = Integer.parseInt(br.readLine());  <span class="comment">// String → 
     <!-- 52 -->
     <section class="section" id="sec-52">
       <div class="section-header"><span class="sec-num">52</span><h2>try-with-resources</h2></div>
-      <p>Resource (file, connection) automatically close হয় — <code>finally</code>-তে manually close করার দরকার নেই।</p>
+      <p>File, Connection-এর মতো Resource Open করলে কাজ শেষে Close করতে হয় — না হলে Memory Leak বা File Lock হতে পারে। <code>try-with-resources</code> এই Close-এর কাজ Java নিজেই করে দেয়।</p>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>পুরনো way vs নতুন way</div>
-        <pre><span class="comment">// ❌ পুরনো — finally-তে manually close</span>
-FileReader fr = null;
+        <div class="code-label"><span class="dot"></span>পুরনো way — finally-তে manually close</div>
+        <pre>FileReader fr = null;
 try {
     fr = new FileReader("file.txt");
 } finally {
     if (fr != null) fr.close();
-}
-
-<span class="comment">// ✅ try-with-resources — auto close</span>
-try (FileReader fr = new FileReader("file.txt");
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>নতুন way — auto close</div>
+        <pre>try (FileReader fr = new FileReader("file.txt");
      BufferedReader br = new BufferedReader(fr)) {
 
     String line;
@@ -4973,15 +4973,15 @@ try (FileReader fr = new FileReader("file.txt");
 } catch (IOException e) {
     System.out.println("File error: " + e.getMessage());
 }
-<span class="comment">// try block শেষ হলে br ও fr automatically close</span></pre>
+<span class="comment">// try block শেষ হলে br আগে, fr পরে — automatically close</span></pre>
       </div>
-      <div class="key-insight"><strong>Rule:</strong> যে class <code>AutoCloseable</code> বা <code>Closeable</code> implement করে, সেটাই try-with-resources-এ ব্যবহার করা যায়।</div>
+      <div class="key-insight"><strong>Rule:</strong> যে class <code>AutoCloseable</code> (বা এর child <code>Closeable</code>) implement করে, শুধু সেই class-ই try-with-resources-এ ব্যবহার করা যায় — যেমন <code>FileReader</code>, <code>BufferedReader</code>, <code>Scanner</code>, <code>Connection</code>, <code>PreparedStatement</code>।</div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li>try-with-resources কেন দরকার?</li>
           <li>কোন ধরনের class try-with-resources-এ ব্যবহার করা যায়?</li>
-          <li>Multiple resources একসাথে open করার syntax কী?</li>
+          <li>Multiple resources একসাথে open করলে Close-এর order কী হয়?</li>
         </ol>
       </div>
     </section>
@@ -5010,6 +5010,7 @@ for (int i = 1; i &lt;= 5; i++) {
 <span class="comment">// Output মিশ্রিত — main আর t1 একই সময়ে চলছে</span></pre>
       </div>
       <div class="key-insight"><code>t.run()</code> call করলে same thread-এ চলে। <code>t.start()</code> call করলে নতুন thread তৈরি হয়।</div>
+      <div class="key-insight"><code>start()</code> নতুন Thread বানায়, কিন্তু class-এর সব method execute করে না — এটা শুধু <code>run()</code> method execute করে। তাই সব logic <code>run()</code>-এর ভেতরে রাখতে হয়।</div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
@@ -5062,26 +5063,154 @@ t2.start();  <span class="comment">// t1 শেষ হওয়ার পরে�
     <!-- 55 -->
     <section class="section" id="sec-55">
       <div class="section-header"><span class="sec-num">55</span><h2>Thread Priority ও Sleep</h2></div>
-      <div class="code-block">
-        <div class="code-label"><span class="dot"></span>sleep() ও Priority</div>
-        <pre><span class="comment">// sleep — millisecond pause</span>
-Thread.sleep(1000);  <span class="comment">// 1 second pause</span>
-
-<span class="comment">// Priority</span>
-MyThread t1 = new MyThread();
-MyThread t2 = new MyThread();
-
-t1.setPriority(Thread.MIN_PRIORITY);   <span class="comment">// 1</span>
-t2.setPriority(Thread.MAX_PRIORITY);   <span class="comment">// 10 (default: 5)</span>
-
-t1.start(); t2.start();</pre>
+      <p><strong>Thread Priority</strong> দিয়ে JVM-কে বলা হয় কোন Thread আগে execute করার চেষ্টা করা উচিত — কিন্তু এটা <strong>guarantee নয়</strong>, শুধু একটা suggestion।</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Constant</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td><code>Thread.MIN_PRIORITY</code></td><td>1</td></tr>
+            <tr><td><code>Thread.NORM_PRIORITY</code></td><td>5 (Default)</td></tr>
+            <tr><td><code>Thread.MAX_PRIORITY</code></td><td>10</td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="key-insight">Priority শুধু JVM-কে hint দেয় — guarantee নেই। OS scheduler final decision নেয়।</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Priority Example</div>
+        <pre>class MyThread extends Thread {
+    MyThread(String name) { super(name); }
+
+    @Override
+    public void run() {
+        for (int i = 1; i &lt;= 5; i++) {
+            System.out.println(getName() + " : " + i);
+        }
+    }
+}
+
+MyThread t1 = new MyThread("Low Priority");
+MyThread t2 = new MyThread("High Priority");
+
+t1.setPriority(Thread.MIN_PRIORITY);
+t2.setPriority(Thread.MAX_PRIORITY);
+
+t1.start();
+t2.start();</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Possible Output (run প্রতিবার আলাদা হতে পারে)</div>
+        <pre>High Priority : 1
+High Priority : 2
+Low Priority : 1
+High Priority : 3
+Low Priority : 2
+High Priority : 4
+Low Priority : 3
+High Priority : 5
+Low Priority : 4
+Low Priority : 5</pre>
+      </div>
+      <div class="key-insight">High Priority থাকলেও সবসময় আগে চলবে এমন নিশ্চয়তা নেই — Final decision নেয় OS scheduler।</div>
+
+      <h3>sleep()</h3>
+      <p><code>Thread.sleep(milliseconds)</code> Thread-কে নির্দিষ্ট সময়ের জন্য Pause করে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Main Thread + Child Thread</div>
+        <pre>class MyThread extends Thread {
+    @Override
+    public void run() {
+        for (int i = 1; i &lt;= 5; i++) {
+            System.out.println("Child : " + i);
+            try { Thread.sleep(500); } catch (InterruptedException e) {}
+        }
+    }
+}
+
+MyThread t = new MyThread();
+t.start();
+
+for (int i = 1; i &lt;= 5; i++) {
+    System.out.println("Main : " + i);
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Possible Output</div>
+        <pre>Main : 1
+Child : 1
+Main : 2
+Main : 3
+Main : 4
+Main : 5
+Child : 2
+Child : 3
+Child : 4
+Child : 5</pre>
+      </div>
+      <div class="key-insight">Child Thread প্রতি 500ms পরে print করছে, কিন্তু Main Thread কোনো sleep করছে না — তাই Main দ্রুত শেষ হয়ে যায়।</div>
+
+      <h3>join()</h3>
+      <p><code>join()</code> এক Thread সম্পূর্ণ শেষ না হওয়া পর্যন্ত অন্য Thread-কে Wait করায়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>join() দিয়ে</div>
+        <pre>MyThread t = new MyThread();
+t.start();
+t.join();   <span class="comment">// t শেষ না হওয়া পর্যন্ত main এখানে থামবে</span>
+System.out.println("Main Finished");</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Output</div>
+        <pre>Child : 1
+Child : 2
+Child : 3
+Child : 4
+Child : 5
+Main Finished</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>join() না দিলে (Possible Output)</div>
+        <pre>Main Finished
+Child : 1
+Child : 2
+Child : 3
+Child : 4
+Child : 5</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>join() (Multiple Threads)</div>
+        <pre>MyThread t1 = new MyThread("Download");
+MyThread t2 = new MyThread("Upload");
+
+t1.start();
+t1.join();   <span class="comment">// t2 শুরু হবে t1 শেষ হওয়ার পরেই</span>
+t2.start();</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Output</div>
+        <pre>Download : 1
+Download : 2
+Download : 3
+Upload : 1
+Upload : 2
+Upload : 3</pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>কাজ</th></tr></thead>
+          <tbody>
+            <tr><td><code>start()</code></td><td>নতুন Thread তৈরি করে</td></tr>
+            <tr><td><code>run()</code></td><td>Normal method — thread-এর আসল logic</td></tr>
+            <tr><td><code>sleep(ms)</code></td><td>বর্তমান Thread-কে কিছু সময় Pause করে</td></tr>
+            <tr><td><code>join()</code></td><td>অন্য Thread শেষ হওয়া পর্যন্ত অপেক্ষা করে</td></tr>
+            <tr><td><code>setPriority()</code></td><td>Thread-এর Priority সেট করে (1–10), execution order নিশ্চিত করে না</td></tr>
+          </tbody>
+        </table>
+      </div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
-          <li>Priority range কত থেকে কত?</li>
-          <li><code>InterruptedException</code> কখন হয়?</li>
+          <li>Priority range কত থেকে কত? Default কত?</li>
+          <li>Priority বেশি হলে Thread কি সবসময় আগে চলবে?</li>
+          <li><code>sleep()</code> কী করে, আর <code>InterruptedException</code> কখন হয়?</li>
+          <li><code>join()</code> কী করে? না দিলে output-এ কী পার্থক্য হবে?</li>
         </ol>
       </div>
     </section>

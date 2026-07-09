@@ -1,6 +1,6 @@
 # Java OOP Practice Questions (Backend Mindset)
 
-প্রতিটা প্রশ্নের জন্য ফোল্ডার নাম্বার = প্রশ্ন নাম্বার (Q1 → 01_Class_Object, Q2 → 02_Methods ... Q19 থেকে Q47 → video timestamp অনুযায়ী OOP topic, Final Project → 48_Record_Final_Project)।
+প্রতিটা প্রশ্নের জন্য ফোল্ডার নাম্বার = প্রশ্ন নাম্বার নয় সবসময় — Q1 থেকে Q24 পর্যন্ত ফোল্ডার নাম্বার মিলে যায় (Q1 → 01_Class_Object, Q2 → 02_Methods ...), কিন্তু 25_Extra_Practice_Inheritance_Polymorphism_Abstraction ফোল্ডার যুক্ত হওয়ায় Q25 থেকে ফোল্ডার নাম্বার প্রশ্ন নাম্বারের চেয়ে ১ বেশি (Q25 → 26_Interface ... Q47 → 48_Optional_Class, Final Project → 49_Record_Final_Project)। ফোল্ডার নাম্বার সবসময় প্রতিটা প্রশ্নের হেডিং-এর প্যারেনথেসিসে দেওয়া আছে।
 
 ---
 
@@ -361,7 +361,7 @@ Hello from Anonymous Class!
 
 ---
 
-## Question 25 (25_Interface) — Vehicle Interface
+## Question 25 (26_Interface) — Vehicle Interface
 
 `Vehicle` interface (`start(), stop()`, default method `fuelType()`)। `Car`, `Bike` implement করবে।
 
@@ -375,7 +375,7 @@ Bike stopped
 
 ---
 
-## Question 26 (26_Enum) — Season Enum
+## Question 26 (27_Enum) — Season Enum
 
 `Season` enum (`SUMMER, WINTER, SPRING, AUTUMN`), switch দিয়ে description print করো।
 
@@ -386,7 +386,7 @@ Summer is hot
 
 ---
 
-## Question 27 (27_Annotation) — Deprecated and Override
+## Question 27 (28_Annotation) — Deprecated and Override
 
 `Device`-এ `@Deprecated` method, `SmartDevice`-এ `@Override` দিয়ে override।
 
@@ -397,7 +397,7 @@ SmartDevice turned on (new way)
 
 ---
 
-## Question 28 (28_Functional_Interface) — Calculator
+## Question 28 (29_Functional_Interface) — Calculator
 
 `@FunctionalInterface` সহ `Calculator` interface, single abstract method `operate()`, lambda দিয়ে implement।
 
@@ -408,7 +408,7 @@ Result: 15
 
 ---
 
-## Question 29 (29_Lambda_Expression) — Greet and Sum
+## Question 29 (30_Lambda_Expression) — Greet and Sum
 
 `Greetable` interface lambda দিয়ে implement, আরেকটা return-value soho lambda দিয়ে sum হিসাব।
 
@@ -420,7 +420,7 @@ Sum: 30
 
 ---
 
-## Question 30 (30_Exception_Handling) — Multiple Catch
+## Question 30 (31_Exception_Handling) — Multiple Catch
 
 `ArithmeticException` ও `ArrayIndexOutOfBoundsException` আলাদা catch block দিয়ে handle করো।
 
@@ -432,7 +432,7 @@ Array Index Exception caught: Index out of bounds
 
 ---
 
-## Question 31 (31_Custom_Exception) — Insufficient Balance
+## Question 31 (32_Custom_Exception) — Insufficient Balance
 
 Custom checked exception `InsufficientBalanceException`। `BankAccount.withdraw()` balance কম থাকলে throw করবে।
 
@@ -443,7 +443,7 @@ Insufficient Balance!
 
 ---
 
-## Question 32 (32_Throws_Keyword) — File Reading
+## Question 32 (33_Throws_Keyword) — File Reading
 
 `FileService.readFile()` — `throws IOException` declare করবে, Demo-তে try-catch দিয়ে handle।
 
@@ -454,7 +454,7 @@ File not found!
 
 ---
 
-## Question 33 (33_User_Input) — Scanner and BufferedReader
+## Question 33 (34_User_Input) — Scanner and BufferedReader
 
 `Scanner` দিয়ে name, `BufferedReader` দিয়ে age input নেও।
 
@@ -465,7 +465,7 @@ Name: Rahim, Age: 25
 
 ---
 
-## Question 34 (34_Try_With_Resources) — AutoCloseable
+## Question 34 (35_Try_With_Resources) — AutoCloseable
 
 `FileHandler implements AutoCloseable`, try-with-resources দিয়ে automatic close() দেখাও।
 
@@ -477,7 +477,7 @@ Resource closed automatically
 
 ---
 
-## Question 35 (35_Threads) — Thread vs Runnable
+## Question 35 (36_Threads) — Thread vs Runnable
 
 `MyThread extends Thread`, `TaskRunnable implements Runnable` — দুইটাই start করো।
 
@@ -489,7 +489,7 @@ Thread-2 running
 
 ---
 
-## Question 36 (36_Thread_Priority_Sleep) — Priority and Sleep
+## Question 36 (37_Thread_Priority_Sleep) — Priority and Sleep
 
 দুইটা thread, একটা `MAX_PRIORITY` আরেকটা `MIN_PRIORITY`, `sleep()` দিয়ে delay।
 
@@ -500,7 +500,7 @@ High priority thread finished first
 
 ---
 
-## Question 37 (37_Race_Condition) — Synchronized Counter
+## Question 37 (38_Race_Condition) — Synchronized Counter
 
 দুইটা thread একসাথে `Counter.increment()` কল করবে। `synchronized` দিয়ে race condition ঠেকাও।
 
@@ -511,7 +511,7 @@ Final Count: 2000
 
 ---
 
-## Question 38 (38_Thread_States) — Thread Lifecycle
+## Question 38 (39_Thread_States) — Thread Lifecycle
 
 `getState()` দিয়ে thread-এর বিভিন্ন state (NEW, RUNNABLE, TERMINATED) দেখাও।
 
@@ -524,7 +524,7 @@ State: TERMINATED
 
 ---
 
-## Question 39 (39_Collection_API) — Collection Overview
+## Question 39 (40_Collection_API) — Collection Overview
 
 `List<String>` দিয়ে basic Collection উদাহরণ।
 
@@ -535,7 +535,7 @@ State: TERMINATED
 
 ---
 
-## Question 40 (40_ArrayList) — ArrayList of Student
+## Question 40 (41_ArrayList) — ArrayList of Student
 
 `ArrayList<Student>` — add, remove, iterate করো।
 
@@ -546,7 +546,7 @@ Total Students: 3
 
 ---
 
-## Question 41 (41_Set) — HashSet Uniqueness
+## Question 41 (42_Set) — HashSet Uniqueness
 
 `HashSet<String>` দিয়ে duplicate email reject হওয়া দেখাও।
 
@@ -557,7 +557,7 @@ Unique Emails: [a@x.com, b@x.com]
 
 ---
 
-## Question 42 (42_Map) — HashMap Employee
+## Question 42 (43_Map) — HashMap Employee
 
 `HashMap<Integer, String>` — `entrySet()` দিয়ে iterate করো।
 
@@ -568,7 +568,7 @@ Unique Emails: [a@x.com, b@x.com]
 
 ---
 
-## Question 43 (43_Comparator_Comparable) — Sort Employees
+## Question 43 (44_Comparator_Comparable) — Sort Employees
 
 `Employee implements Comparable<Employee>` (salary অনুযায়ী), আলাদা `EmployeeComparator implements Comparator<Employee>` (name অনুযায়ী)।
 
@@ -580,7 +580,7 @@ Sorted by name: [Karim, Rahim]
 
 ---
 
-## Question 44 (44_Stream_API) — Stream forEach
+## Question 44 (45_Stream_API) — Stream forEach
 
 `List<Integer>` থেকে `stream().forEach()` দিয়ে print করো।
 
@@ -591,7 +591,7 @@ Sorted by name: [Karim, Rahim]
 
 ---
 
-## Question 45 (45_Stream_Map_Filter_Reduce_Sorted) — Employee Stream Pipeline
+## Question 45 (46_Stream_Map_Filter_Reduce_Sorted) — Employee Stream Pipeline
 
 `List<Employee>` থেকে filter, map, sorted, reduce একসাথে ব্যবহার করো।
 
@@ -603,7 +603,7 @@ Total Salary: 90000
 
 ---
 
-## Question 46 (46_Parallel_Stream) — Parallel Sum
+## Question 46 (47_Parallel_Stream) — Parallel Sum
 
 `parallelStream()` দিয়ে sum হিসাব করে normal `stream()`-এর সাথে compare করো।
 
@@ -614,7 +614,7 @@ Parallel Sum: 5050
 
 ---
 
-## Question 47 (47_Optional_Class) — Optional User Lookup
+## Question 47 (48_Optional_Class) — Optional User Lookup
 
 `UserService.findUserById()` — `Optional<User>` return করবে। `isPresent()`, `orElse()` ব্যবহার করো।
 
@@ -626,7 +626,7 @@ User not found, using default
 
 ---
 
-## Final Mini Project (48_Record_Final_Project) — Library Management System
+## Final Mini Project (49_Record_Final_Project) — Library Management System
 
 Classes: `Book, Student, Librarian, LibraryService, Demo`
 
