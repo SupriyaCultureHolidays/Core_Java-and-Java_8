@@ -740,6 +740,7 @@ a:focus-visible, button:focus-visible {
       <li><a href="#sec-60"><span class="toc-num">60</span>ArrayList</a></li>
       <li><a href="#sec-61"><span class="toc-num">61</span>Set</a></li>
       <li><a href="#sec-62"><span class="toc-num">62</span>Map</a></li>
+      <li><a href="#sec-60-62-compare"><span class="toc-num">★</span>List vs Set vs Map</a></li>
       <li><a href="#sec-63"><span class="toc-num">63</span>Comparator vs Comparable</a></li>
       <li><a href="#sec-64"><span class="toc-num">64</span>Stream API — কেন</a></li>
       <li><a href="#sec-65"><span class="toc-num">65</span>forEach</a></li>
@@ -826,6 +827,7 @@ a:focus-visible, button:focus-visible {
       <li><a href="#sec-60"><span class="toc-num">60</span>ArrayList</a></li>
       <li><a href="#sec-61"><span class="toc-num">61</span>Set</a></li>
       <li><a href="#sec-62"><span class="toc-num">62</span>Map</a></li>
+      <li><a href="#sec-60-62-compare"><span class="toc-num">★</span>List vs Set vs Map</a></li>
       <li><a href="#sec-63"><span class="toc-num">63</span>Comparator vs Comparable</a></li>
       <li><a href="#sec-64"><span class="toc-num">64</span>Stream API — কেন</a></li>
       <li><a href="#sec-65"><span class="toc-num">65</span>forEach</a></li>
@@ -5460,34 +5462,86 @@ Map (key-value, আলাদা hierarchy)             → HashMap, TreeMap</pre
     <!-- 60 -->
     <section class="section" id="sec-60">
       <div class="section-header"><span class="sec-num">60</span><h2>ArrayList</h2></div>
+      <p>List = ordered collection, duplicate allowed, index থাকে (Array-এর মতো index দিয়ে access করা যায়, কিন্তু size dynamic)।</p>
+
+      <h3>Create &amp; Add</h3>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Basic Operations</div>
+        <div class="code-label"><span class="dot"></span>declare + add</div>
         <pre>import java.util.ArrayList;
+import java.util.Collections;
 
 ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
 
-list.add("Navin");
-list.add("Alice");
-list.add(1, "Charlie");     <span class="comment">// index 1-এ insert</span>
+list.add("Navin");              <span class="comment">// শেষে add — index 0</span>
+list.add("Alice");              <span class="comment">// index 1</span>
+list.add(1, "Charlie");         <span class="comment">// index 1-এ insert, বাকিরা shift হয়ে যায়</span>
+list.add("Alice");              <span class="comment">// duplicate — allowed! [Navin, Charlie, Alice, Alice]</span>
 
-System.out.println(list.get(0));   <span class="comment">// Navin</span>
-System.out.println(list.size());   <span class="comment">// 3</span>
-
-list.set(0, "Rahul");       <span class="comment">// update</span>
-list.remove("Alice");       <span class="comment">// by value</span>
-list.remove(0);             <span class="comment">// by index</span>
-
-System.out.println(list.contains("Bob"));  <span class="comment">// true/false</span>
-
-list.forEach(name -> System.out.println(name));
-
-Collections.sort(list);     <span class="comment">// sort</span></pre>
+ArrayList&lt;String&gt; more = new ArrayList&lt;&gt;(List.of("Bob", "Zara"));
+list.addAll(more);              <span class="comment">// পুরো collection একসাথে add</span></pre>
       </div>
+
+      <h3>Get &amp; Update</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>index দিয়ে read/write</div>
+        <pre>System.out.println(list.get(0));   <span class="comment">// index 0-এর value পড়া — Navin</span>
+System.out.println(list.size());   <span class="comment">// মোট কতগুলো element আছে</span>
+
+list.set(0, "Rahul");              <span class="comment">// update — index 0-এর value বদলে যায়</span>
+<span class="comment">// set() করলে নতুন element add হয় না, পুরনোটাই replace হয়</span></pre>
+      </div>
+
+      <h3>Delete</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>remove করার ৩ রকম উপায়</div>
+        <pre>list.remove("Alice");            <span class="comment">// value দিয়ে remove — প্রথম match টা যায়</span>
+list.remove(0);                  <span class="comment">// index দিয়ে remove (int হলে index ধরে!)</span>
+list.removeIf(s -> s.startsWith("Z"));  <span class="comment">// condition দিয়ে remove — Zara চলে যাবে</span>
+list.clear();                    <span class="comment">// সব element মুছে যায়, list empty হয়ে যায়</span></pre>
+      </div>
+
+      <h3>Search &amp; Iterate</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>খোঁজা ও ঘোরা</div>
+        <pre>System.out.println(list.contains("Bob"));   <span class="comment">// true/false — value আছে কিনা</span>
+System.out.println(list.indexOf("Bob"));    <span class="comment">// প্রথম বার পাওয়া index, না থাকলে -1</span>
+System.out.println(list.isEmpty());         <span class="comment">// list খালি কিনা</span>
+
+for (String name : list) { System.out.println(name); }   <span class="comment">// for-each</span>
+list.forEach(name -> System.out.println(name));           <span class="comment">// lambda forEach</span>
+
+Collections.sort(list);                     <span class="comment">// natural order-এ sort</span>
+list.sort(Comparator.reverseOrder());       <span class="comment">// reverse sort</span></pre>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>কাজ</th></tr></thead>
+          <tbody>
+            <tr><td><code>add(value)</code></td><td>শেষে element যুক্ত করে</td></tr>
+            <tr><td><code>add(index, value)</code></td><td>নির্দিষ্ট index-এ insert করে, পরের elements shift হয়</td></tr>
+            <tr><td><code>get(index)</code></td><td>index থেকে value পড়ে</td></tr>
+            <tr><td><code>set(index, value)</code></td><td>index-এর পুরনো value replace করে (update)</td></tr>
+            <tr><td><code>remove(index/value)</code></td><td>index বা value দিয়ে একটি element মুছে</td></tr>
+            <tr><td><code>size()</code></td><td>মোট element সংখ্যা</td></tr>
+            <tr><td><code>isEmpty()</code></td><td>list খালি কিনা (boolean)</td></tr>
+            <tr><td><code>contains(value)</code></td><td>value আছে কিনা চেক করে</td></tr>
+            <tr><td><code>indexOf(value)</code></td><td>value-এর index খুঁজে দেয়</td></tr>
+            <tr><td><code>clear()</code></td><td>সব element মুছে দেয়</td></tr>
+            <tr><td><code>addAll(collection)</code></td><td>আরেকটা collection-এর সব element যুক্ত করে</td></tr>
+            <tr><td><code>removeIf(condition)</code></td><td>condition true হলে element remove করে</td></tr>
+            <tr><td><code>subList(from, to)</code></td><td>একটা range-এর view (sub-list) দেয়</td></tr>
+            <tr><td><code>Collections.sort(list)</code></td><td>natural order-এ sort করে</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="key-insight">List index-based — <code>get/set/remove(index)</code> সব index ধরে কাজ করে। এইজন্যই duplicate value থাকলেও index দিয়ে exact element ধরা যায়।</div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li><code>add(index, value)</code> আর <code>add(value)</code> — পার্থক্য কী?</li>
           <li>ArrayList-এ duplicate values রাখা যায়?</li>
+          <li><code>remove(1)</code> আর <code>remove("1")</code> — একই কাজ করবে? কেন না?</li>
           <li>5 জন student-এর ArrayList বানাও — marks-এ sort করো।</li>
         </ol>
       </div>
@@ -5496,32 +5550,101 @@ Collections.sort(list);     <span class="comment">// sort</span></pre>
     <!-- 61 -->
     <section class="section" id="sec-61">
       <div class="section-header"><span class="sec-num">61</span><h2>Set</h2></div>
+      <p>Set = duplicate allowed না, index থাকে না (এইজন্য <code>get(index)</code> নেই) — শুধু <strong>uniqueness</strong>-এর জন্য ব্যবহার হয়।</p>
+
+      <h3>Create &amp; Add</h3>
       <div class="code-block">
         <div class="code-label"><span class="dot"></span>HashSet — No duplicates, No order</div>
         <pre>import java.util.HashSet;
 
 HashSet&lt;String&gt; set = new HashSet&lt;&gt;();
-set.add("Apple"); set.add("Banana"); set.add("Apple");  <span class="comment">// duplicate — add হবে না</span>
-System.out.println(set);  <span class="comment">// [Banana, Apple] — order নেই</span>
-System.out.println(set.size());  <span class="comment">// 2</span></pre>
+set.add("Apple");   <span class="comment">// true — add হলো</span>
+set.add("Banana");
+set.add("Apple");   <span class="comment">// false — duplicate, add হয়নি</span>
+
+System.out.println(set);        <span class="comment">// [Banana, Apple] — insertion order নেই</span>
+System.out.println(set.size()); <span class="comment">// 2 — duplicate count হয় না</span></pre>
       </div>
+
+      <h3>Get / Update — কেন সরাসরি নেই</h3>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>LinkedHashSet ও TreeSet</div>
+        <div class="code-label"><span class="dot"></span>index না থাকায় update = remove + add</div>
+        <pre><span class="comment">// set.get(0)  ❌ — এই method Set-এ নেই, কারণ Set-এ order/index নেই</span>
+
+<span class="comment">// "update" করতে হলে পুরনো value remove করে নতুন value add করতে হয়</span>
+set.remove("Banana");
+set.add("Mango");    <span class="comment">// এখন Banana-এর জায়গায় Mango</span></pre>
+      </div>
+
+      <h3>Delete &amp; Search</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>remove, contains, iterate</div>
+        <pre>set.remove("Apple");                 <span class="comment">// value দিয়ে remove</span>
+set.removeIf(s -> s.length() > 5);   <span class="comment">// condition দিয়ে remove</span>
+System.out.println(set.contains("Mango"));  <span class="comment">// true/false</span>
+System.out.println(set.isEmpty());          <span class="comment">// খালি কিনা</span>
+
+for (String fruit : set) { System.out.println(fruit); }  <span class="comment">// order guarantee নেই</span>
+set.forEach(fruit -> System.out.println(fruit));
+set.clear();                          <span class="comment">// সব মুছে যায়</span></pre>
+      </div>
+
+      <h3>LinkedHashSet ও TreeSet</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>order maintain করা যায় এমন Set</div>
         <pre><span class="comment">// LinkedHashSet — insertion order maintain</span>
 LinkedHashSet&lt;String&gt; lhs = new LinkedHashSet&lt;&gt;();
 lhs.add("Banana"); lhs.add("Apple"); lhs.add("Mango");
-System.out.println(lhs);  <span class="comment">// [Banana, Apple, Mango]</span>
+System.out.println(lhs);  <span class="comment">// [Banana, Apple, Mango] — যে order-এ add করা হয়েছে</span>
 
-<span class="comment">// TreeSet — sorted order</span>
+<span class="comment">// TreeSet — sorted (natural) order</span>
 TreeSet&lt;Integer&gt; ts = new TreeSet&lt;&gt;();
 ts.add(5); ts.add(1); ts.add(3);
-System.out.println(ts);  <span class="comment">// [1, 3, 5]</span></pre>
+System.out.println(ts);        <span class="comment">// [1, 3, 5] — sort হয়েই থাকে</span>
+
+<span class="comment">// TreeSet-এর extra navigation methods</span>
+System.out.println(ts.first());       <span class="comment">// 1 — সবচেয়ে ছোট</span>
+System.out.println(ts.last());        <span class="comment">// 5 — সবচেয়ে বড়</span>
+System.out.println(ts.higher(3));     <span class="comment">// 5 — 3-এর চেয়ে বড়, সবচেয়ে কাছের</span>
+System.out.println(ts.lower(3));      <span class="comment">// 1 — 3-এর চেয়ে ছোট, সবচেয়ে কাছের</span>
+System.out.println(ts.ceiling(2));    <span class="comment">// 3 — 2 বা তার বড়, সবচেয়ে কাছের</span>
+System.out.println(ts.floor(2));      <span class="comment">// 1 — 2 বা তার ছোট, সবচেয়ে কাছের</span>
+ts.pollFirst();                       <span class="comment">// সবচেয়ে ছোটটা remove করে return করে</span>
+ts.pollLast();                        <span class="comment">// সবচেয়ে বড়টা remove করে return করে</span></pre>
       </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>HashSet</th><th>LinkedHashSet</th><th>TreeSet</th></tr></thead>
+          <tbody>
+            <tr><td>Order</td><td>❌ কোনো order নেই</td><td>Insertion order</td><td>Sorted order</td></tr>
+            <tr><td>Speed</td><td>O(1)</td><td>O(1)</td><td>O(log n)</td></tr>
+            <tr><td>null allowed?</td><td>একটা null</td><td>একটা null</td><td>❌ না (NullPointerException)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>কাজ</th></tr></thead>
+          <tbody>
+            <tr><td><code>add(value)</code></td><td>element যুক্ত করে (duplicate হলে false return)</td></tr>
+            <tr><td><code>remove(value)</code></td><td>value মুছে দেয়</td></tr>
+            <tr><td><code>contains(value)</code></td><td>value আছে কিনা</td></tr>
+            <tr><td><code>size() / isEmpty()</code></td><td>মোট সংখ্যা / খালি কিনা</td></tr>
+            <tr><td><code>addAll() / removeAll() / retainAll()</code></td><td>union / difference / intersection style operations</td></tr>
+            <tr><td><code>clear()</code></td><td>সব element মুছে</td></tr>
+            <tr><td><code>first() / last()</code> <em>(TreeSet)</em></td><td>সবচেয়ে ছোট / বড় element</td></tr>
+            <tr><td><code>higher() / lower() / ceiling() / floor()</code> <em>(TreeSet)</em></td><td>নির্দিষ্ট value-এর আশেপাশের element খোঁজে</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="key-insight">Set-এ <code>get(index)</code> নেই — কারণ Set index-based নয়, এটা শুধু "আছে কিনা" (membership) নিয়ে কাজ করে। Update করতে হলে remove + add করতে হয়।</div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li><code>HashSet</code> আর <code>TreeSet</code>-এর পার্থক্য কী?</li>
           <li>Set-এ <code>get(index)</code> আছে? না থাকলে কেন?</li>
+          <li>Set-এ কোনো element-এর "value update" করতে হলে কী করতে হবে?</li>
           <li>একটা list থেকে duplicate বাদ দাও Set ব্যবহার করে।</li>
         </ol>
       </div>
@@ -5530,37 +5653,130 @@ System.out.println(ts);  <span class="comment">// [1, 3, 5]</span></pre>
     <!-- 62 -->
     <section class="section" id="sec-62">
       <div class="section-header"><span class="sec-num">62</span><h2>Map</h2></div>
+      <p>Map = key-value pair, key unique কিন্তু value duplicate হতে পারে। index নেই, key দিয়েই সব access।</p>
+
+      <h3>Create &amp; Add (put)</h3>
       <div class="code-block">
         <div class="code-label"><span class="dot"></span>HashMap — Key-Value</div>
         <pre>import java.util.HashMap;
 
 HashMap&lt;String, Integer&gt; marks = new HashMap&lt;&gt;();
-marks.put("Navin", 85);
+marks.put("Navin", 85);   <span class="comment">// নতুন key → add</span>
 marks.put("Alice", 92);
-marks.put("Navin", 90);  <span class="comment">// existing key — value update হবে</span>
+marks.put("Navin", 90);   <span class="comment">// existing key → update হয়ে যায় (85 → 90)</span>
 
-System.out.println(marks.get("Alice"));             <span class="comment">// 92</span>
-System.out.println(marks.getOrDefault("Zara", 0));  <span class="comment">// 0</span>
-System.out.println(marks.containsKey("Bob"));       <span class="comment">// false</span>
-
-<span class="comment">// Iterate</span>
-marks.forEach((key, value) -> System.out.println(key + " : " + value));</pre>
+marks.putIfAbsent("Navin", 100);  <span class="comment">// key আগে থেকেই আছে → কিছু হবে না</span>
+marks.putIfAbsent("Zara", 70);    <span class="comment">// key নেই → add হবে</span></pre>
       </div>
+
+      <h3>Get &amp; Update</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>read + safe-update methods</div>
+        <pre>System.out.println(marks.get("Alice"));             <span class="comment">// 92</span>
+System.out.println(marks.get("Bob"));               <span class="comment">// null — key না থাকলে null</span>
+System.out.println(marks.getOrDefault("Zara", 0));   <span class="comment">// key না থাকলে default value</span>
+
+marks.replace("Alice", 95);          <span class="comment">// key থাকলেই replace হবে, না থাকলে কিছু হবে না</span>
+marks.merge("Alice", 5, Integer::sum);   <span class="comment">// existing value-এর সাথে 5 যোগ (95+5=100)</span>
+marks.compute("Alice", (k, v) -> v + 1); <span class="comment">// existing value নিয়ে custom logic দিয়ে update</span>
+marks.computeIfAbsent("Bob", k -> 0);    <span class="comment">// key না থাকলে নতুন value বসায়</span></pre>
+      </div>
+
+      <h3>Delete &amp; Check</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>remove, contains, size</div>
+        <pre>marks.remove("Zara");                       <span class="comment">// key দিয়ে entry মুছে দেয়</span>
+System.out.println(marks.containsKey("Bob"));    <span class="comment">// key আছে কিনা</span>
+System.out.println(marks.containsValue(92));     <span class="comment">// এই value আছে কিনা</span>
+System.out.println(marks.size());                <span class="comment">// মোট entry সংখ্যা</span>
+System.out.println(marks.isEmpty());              <span class="comment">// map খালি কিনা</span>
+marks.clear();                                    <span class="comment">// সব entry মুছে যায়</span></pre>
+      </div>
+
+      <h3>Iterate</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>keySet, values, entrySet, forEach</div>
+        <pre>for (String key : marks.keySet()) { System.out.println(key); }        <span class="comment">// শুধু key ঘোরা</span>
+for (Integer value : marks.values()) { System.out.println(value); }    <span class="comment">// শুধু value ঘোরা</span>
+
+for (Map.Entry&lt;String, Integer&gt; entry : marks.entrySet()) {
+    System.out.println(entry.getKey() + " : " + entry.getValue());     <span class="comment">// key + value একসাথে</span>
+}
+
+marks.forEach((key, value) -> System.out.println(key + " : " + value)); <span class="comment">// lambda দিয়ে iterate</span></pre>
+      </div>
+
       <div class="table-wrap">
         <table>
           <thead><tr><th></th><th>HashMap</th><th>LinkedHashMap</th><th>TreeMap</th></tr></thead>
           <tbody>
             <tr><td>Order</td><td>❌ No order</td><td>Insertion order</td><td>Sorted by key</td></tr>
             <tr><td>Speed</td><td>O(1)</td><td>O(1)</td><td>O(log n)</td></tr>
+            <tr><td>null key</td><td>একটা null key allowed</td><td>একটা null key allowed</td><td>❌ না</td></tr>
           </tbody>
         </table>
       </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>কাজ</th></tr></thead>
+          <tbody>
+            <tr><td><code>put(key, value)</code></td><td>নতুন entry add করে, key থাকলে value update করে</td></tr>
+            <tr><td><code>get(key)</code></td><td>key দিয়ে value পড়ে, না থাকলে null</td></tr>
+            <tr><td><code>getOrDefault(key, def)</code></td><td>key না থাকলে default value দেয়</td></tr>
+            <tr><td><code>putIfAbsent(key, value)</code></td><td>key না থাকলে শুধু তখনই add করে</td></tr>
+            <tr><td><code>replace(key, value)</code></td><td>key থাকলে value replace করে (update)</td></tr>
+            <tr><td><code>merge(key, value, fn)</code></td><td>existing value-এর সাথে function apply করে merge করে</td></tr>
+            <tr><td><code>compute(key, fn)</code></td><td>existing value নিয়ে custom logic-এ update করে</td></tr>
+            <tr><td><code>computeIfAbsent(key, fn)</code></td><td>key না থাকলে নতুন value বানিয়ে বসায়</td></tr>
+            <tr><td><code>remove(key)</code></td><td>key দিয়ে পুরো entry মুছে দেয়</td></tr>
+            <tr><td><code>containsKey() / containsValue()</code></td><td>key/value আছে কিনা চেক করে</td></tr>
+            <tr><td><code>keySet() / values() / entrySet()</code></td><td>শুধু keys / শুধু values / key-value pair-এর view</td></tr>
+            <tr><td><code>size() / isEmpty() / clear()</code></td><td>entry সংখ্যা / খালি কিনা / সব মুছে দেয়</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="key-insight">Map-এ <strong>key</strong> unique — <code>put()</code> একই key দিয়ে করলে সেটা "add" না, "update" (value replace) হয়ে যায়।</div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li>Map-এ duplicate key add করলে কী হয়?</li>
           <li><code>getOrDefault()</code> কী কাজ করে?</li>
+          <li><code>put()</code>, <code>putIfAbsent()</code> আর <code>replace()</code> — এই তিনটার পার্থক্য কী?</li>
           <li>Student নাম ও marks-এর HashMap বানাও। Highest scorer print করো।</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 60-62 combined comparison -->
+    <section class="section" id="sec-60-62-compare">
+      <div class="section-header"><span class="sec-num">★</span><h2>ArrayList vs Set vs Map — Side-by-side (CRUD)</h2></div>
+      <p>তিনটাই Collection, কিন্তু একই কাজ (add, get, update, delete) প্রতিটাতে আলাদা নামে/উপায়ে হয়। নিচের table-টা মনে রাখলে confusion কমে যাবে।</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Operation</th><th>ArrayList (List)</th><th>HashSet (Set)</th><th>HashMap (Map)</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Create</strong></td><td><code>new ArrayList&lt;&gt;()</code></td><td><code>new HashSet&lt;&gt;()</code></td><td><code>new HashMap&lt;&gt;()</code></td></tr>
+            <tr><td><strong>Add</strong></td><td><code>list.add(v)</code></td><td><code>set.add(v)</code></td><td><code>map.put(k, v)</code></td></tr>
+            <tr><td><strong>Get (read)</strong></td><td><code>list.get(index)</code></td><td>❌ নেই — শুধু <code>contains(v)</code></td><td><code>map.get(key)</code></td></tr>
+            <tr><td><strong>Update</strong></td><td><code>list.set(index, v)</code></td><td>remove(old) + add(new)</td><td><code>map.put(key, newV)</code> বা <code>replace()</code></td></tr>
+            <tr><td><strong>Delete</strong></td><td><code>list.remove(index/value)</code></td><td><code>set.remove(v)</code></td><td><code>map.remove(key)</code></td></tr>
+            <tr><td><strong>Check exists</strong></td><td><code>list.contains(v)</code></td><td><code>set.contains(v)</code></td><td><code>map.containsKey(k)</code> / <code>containsValue(v)</code></td></tr>
+            <tr><td><strong>Size / Empty</strong></td><td><code>size()</code> / <code>isEmpty()</code></td><td><code>size()</code> / <code>isEmpty()</code></td><td><code>size()</code> / <code>isEmpty()</code></td></tr>
+            <tr><td><strong>Clear all</strong></td><td><code>list.clear()</code></td><td><code>set.clear()</code></td><td><code>map.clear()</code></td></tr>
+            <tr><td><strong>Iterate</strong></td><td><code>for-each</code> / <code>forEach()</code></td><td><code>for-each</code> / <code>forEach()</code></td><td><code>keySet()/values()/entrySet()</code> / <code>forEach((k,v)->…)</code></td></tr>
+            <tr><td><strong>Duplicate</strong></td><td>✅ allowed (value ও index ধরে)</td><td>❌ not allowed (value unique)</td><td>Key unique, value duplicate হতে পারে</td></tr>
+            <tr><td><strong>Order</strong></td><td>Insertion order (index ধরে থাকে)</td><td>❌ নেই (Hash…), LinkedHashSet/TreeSet-এ থাকে</td><td>❌ নেই (Hash…), LinkedHashMap/TreeMap-এ থাকে</td></tr>
+            <tr><td><strong>Sorted variant</strong></td><td><code>Collections.sort(list)</code></td><td><code>TreeSet</code></td><td><code>TreeMap</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="key-insight">মনে রাখার সহজ trick — <strong>List</strong>: index দিয়ে সব কাজ (get/set/remove(index))। <strong>Set</strong>: শুধু value নিয়ে কাজ, index নেই। <strong>Map</strong>: key দিয়ে সব কাজ (get/put/remove(key)), value নিয়ে কাজ করা যায় না সরাসরি।</div>
+      <div class="practice">
+        <div class="practice-title">অনুশীলন প্রশ্ন</div>
+        <ol>
+          <li>List-এ index দিয়ে element access করা যায়, কিন্তু Set-এ যায় না — কেন?</li>
+          <li>Map-এর "update" আর List-এর "update" — মূল পার্থক্য কী?</li>
+          <li>একটা student list (ArrayList), unique roll number set (HashSet), আর roll→name map (HashMap) — এই তিনটা একসাথে বানিয়ে একটা student add/remove/update করে দেখাও।</li>
         </ol>
       </div>
     </section>
