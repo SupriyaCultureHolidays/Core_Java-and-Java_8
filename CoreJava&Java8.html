@@ -5536,6 +5536,59 @@ list.sort(Comparator.reverseOrder());       <span class="comment">// reverse sor
         </table>
       </div>
       <div class="key-insight">List index-based — <code>get/set/remove(index)</code> সব index ধরে কাজ করে। এইজন্যই duplicate value থাকলেও index দিয়ে exact element ধরা যায়।</div>
+
+      <h3><code>new ArrayList&lt;&gt;()</code> vs <code>Arrays.asList()</code></h3>
+      <p><code>new ArrayList&lt;&gt;()</code> দিয়ে <strong>খালি, resizable</strong> list পাওয়া যায় — add/remove/set সবই করা যায়। আর <code>Arrays.asList()</code> দিয়ে বানানো list <strong>fixed-size</strong> — শুধু <code>set()</code> দিয়ে existing value বদলানো যায়, কিন্তু <code>add()</code>/<code>remove()</code> করলেই runtime error।</p>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>new ArrayList&lt;&gt;() — খালি, resizable</div>
+        <pre>List&lt;Integer&gt; arr = new ArrayList&lt;&gt;();   <span class="comment">// খালি List, কোনো element নেই</span>
+
+arr.add(10);
+arr.add(20);
+arr.add(30);
+System.out.println(arr);   <span class="comment">// [10, 20, 30]</span>
+
+arr.add(40);      <span class="comment">// ✅ add করা যায়</span>
+arr.remove(1);    <span class="comment">// ✅ remove করা যায়</span>
+arr.set(0, 100);  <span class="comment">// ✅ update করা যায়</span></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Arrays.asList() — আগে থেকে data ভরা, fixed-size</div>
+        <pre>List&lt;Integer&gt; arr = Arrays.asList(1, 2, 5, 6, 5);   <span class="comment">// আগেই data দিয়ে তৈরি — [1, 2, 5, 6, 5]</span>
+
+arr.set(0, 100);            <span class="comment">// ✅ update করা যায় — [100, 2, 5, 6, 5]</span>
+
+arr.add(10);                 <span class="comment">// ❌ UnsupportedOperationException</span>
+arr.remove(0);                <span class="comment">// ❌ UnsupportedOperationException</span></pre>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th><code>new ArrayList&lt;&gt;()</code></th><th><code>Arrays.asList()</code></th></tr></thead>
+          <tbody>
+            <tr><td>Initially Empty</td><td>✅</td><td>❌</td></tr>
+            <tr><td>Initial values দিতে পারো</td><td>❌</td><td>✅</td></tr>
+            <tr><td><code>add()</code></td><td>✅</td><td>❌</td></tr>
+            <tr><td><code>remove()</code></td><td>✅</td><td>❌</td></tr>
+            <tr><td><code>set()</code></td><td>✅</td><td>✅</td></tr>
+            <tr><td>Size change করা যায়</td><td>✅</td><td>❌</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Arrays.asList() দিয়েও add/remove করতে চাইলে</div>
+        <pre>List&lt;Integer&gt; arr = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 5, 6, 5));
+
+arr.add(10);      <span class="comment">// ✅ এখন কাজ করবে</span>
+arr.remove(0);    <span class="comment">// ✅</span>
+arr.set(1, 100);  <span class="comment">// ✅</span></pre>
+      </div>
+
+      <div class="key-insight"><code>new ArrayList&lt;&gt;()</code> = resizable list (size বাড়ানো/কমানো যায়)। <code>Arrays.asList()</code> = fixed-size list (size পরিবর্তন করা যায় না, শুধু existing element-এর value <code>set()</code> দিয়ে বদলানো যায়)।</div>
+
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
@@ -5543,6 +5596,7 @@ list.sort(Comparator.reverseOrder());       <span class="comment">// reverse sor
           <li>ArrayList-এ duplicate values রাখা যায়?</li>
           <li><code>remove(1)</code> আর <code>remove("1")</code> — একই কাজ করবে? কেন না?</li>
           <li>5 জন student-এর ArrayList বানাও — marks-এ sort করো।</li>
+          <li><code>Arrays.asList()</code>-এ <code>add()</code> করলে কী error আসে, এবং কেন?</li>
         </ol>
       </div>
     </section>
@@ -5919,6 +5973,7 @@ List&lt;Integer&gt; highMarks = marks.stream()
     .collect(Collectors.toList());</pre>
       </div>
       <div class="key-insight"><strong>Stream lazy:</strong> Terminal operation না করলে কিছু চলে না। <code>filter().map()</code> এখনো কিছু চলেনি — <code>.collect()</code> এ সব চলল।</div>
+      <div class="insight"><strong>toList() vs collect(Collectors.toList()):</strong> Java 16+ এ শুধু <code>.toList()</code> লিখলেই চলে — ছোট, পরিষ্কার। কিন্তু <code>collect()</code> শুধু List না, <code>toSet()</code>, <code>toMap()</code>, <code>groupingBy()</code>-ও বানাতে পারে বলে বেশি শক্তিশালী — তাই ইন্টারভিউয়ে এটাই বেশি শেখানো হয়।</div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
@@ -5984,17 +6039,40 @@ scores.forEach((name, score) ->
 .max(Comparator.naturalOrder())    <span class="comment">// সবচেয়ে বড়</span></pre>
       </div>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Collectors</div>
-        <pre>String joined = names.stream().collect(Collectors.joining(", "));
+        <div class="code-label"><span class="dot"></span>Collectors.joining()</div>
+        <pre>List&lt;String&gt; names = Arrays.asList("Rahim", "Karim", "Sumi");
 
-Map&lt;Integer, List&lt;String&gt;&gt; grouped = names.stream()
-    .collect(Collectors.groupingBy(String::length));</pre>
+String joined = names.stream()
+        .collect(Collectors.joining(", "));
+
+System.out.println(joined);</pre>
       </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Output</div>
+        <pre>Rahim, Karim, Sumi</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Collectors.groupingBy()</div>
+        <pre>List&lt;String&gt; names =
+        Arrays.asList("Rahim", "Karim", "Sumi", "Rita", "Joy");
+
+Map&lt;Integer, List&lt;String&gt;&gt; grouped =
+        names.stream()
+                .collect(Collectors.groupingBy(String::length));
+
+System.out.println(grouped);</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Output</div>
+        <pre>{3=[Joy], 4=[Sumi, Rita], 5=[Rahim, Karim]}</pre>
+      </div>
+      <div class="key-insight"><code>groupingBy()</code> সবসময় একটি <code>Map&lt;K, List&lt;V&gt;&gt;</code> তৈরি করে — key হয় grouping condition (যেমন <code>length</code>), value হয় সেই condition পূরণ করা element-গুলোর list।</div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li>Intermediate আর Terminal operation-এর পার্থক্য কী?</li>
           <li>একটা number list থেকে: even বের করো, square করো, sort করো, list-এ collect করো।</li>
+          <li><code>joining()</code> আর <code>groupingBy()</code>-এর পার্থক্য কী?</li>
         </ol>
       </div>
     </section>
@@ -6044,11 +6122,39 @@ nums.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);</p
       <p>Multiple CPU core ব্যবহার করে Stream-এর কাজ parallel-এ করা।</p>
       <div class="code-block">
         <div class="code-label"><span class="dot"></span>Sequential vs Parallel</div>
-        <pre><span class="comment">// Sequential</span>
+        <pre>List&lt;Integer&gt; nums = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+<span class="comment">// Sequential</span>
 nums.stream().forEach(n -> System.out.println(Thread.currentThread().getName() + " : " + n));
 
 <span class="comment">// Parallel — ForkJoinPool thread-এ চলে, order unpredictable</span>
 nums.parallelStream().forEach(n -> System.out.println(Thread.currentThread().getName() + " : " + n));</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Sequential Output</div>
+        <pre>main : 1
+main : 2
+main : 3
+main : 4
+main : 5
+main : 6
+main : 7
+main : 8
+main : 9
+main : 10</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Parallel Output (Possible — run প্রতিবার আলাদা হতে পারে)</div>
+        <pre>ForkJoinPool.commonPool-worker-3 : 7
+ForkJoinPool.commonPool-worker-1 : 3
+main : 9
+ForkJoinPool.commonPool-worker-5 : 1
+ForkJoinPool.commonPool-worker-2 : 5
+ForkJoinPool.commonPool-worker-4 : 10
+ForkJoinPool.commonPool-worker-3 : 8
+ForkJoinPool.commonPool-worker-1 : 4
+main : 6
+ForkJoinPool.commonPool-worker-2 : 2</pre>
       </div>
       <div class="table-wrap">
         <table>

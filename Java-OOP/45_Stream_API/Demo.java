@@ -10,6 +10,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Demo {
     public static void main(String[] args) {
@@ -24,6 +25,10 @@ public class Demo {
         List<Integer> maxnumber = arr.stream().
         filter((m)->{
             return m==5;
-        });
+        }).map((m)->{
+            return m*2;
+        }).collect(Collectors.toList());
+        // akhane .toList() o likhte paro sob kaj korbe 
+        System.out.println(maxnumber);
     }
 }
