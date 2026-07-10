@@ -5784,44 +5784,118 @@ marks.forEach((key, value) -> System.out.println(key + " : " + value)); <span cl
     <!-- 63 -->
     <section class="section" id="sec-63">
       <div class="section-header"><span class="sec-num">63</span><h2>Comparator vs Comparable</h2></div>
+      <p>Collections-এর সবচেয়ে গুরুত্বপূর্ণ Interview topic। Spring Boot-এ কখনো কখনো লাগে, কিন্তু Java Interview-তে খুবই common।</p>
+
+      <h3>আগে Problem-টা বুঝি</h3>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Comparable — class নিজেই natural order define করে</div>
+        <div class="code-label"><span class="dot"></span>Java জানে না কীভাবে Sort করবে</div>
+        <pre>class Student {
+    String name;
+    int marks;
+}
+
+List&lt;Student&gt; list = new ArrayList&lt;&gt;();
+<span class="comment">// Rahim 70, Karim 90, Sumi 80 — add করা আছে</span>
+
+Collections.sort(list);  <span class="comment">// ❌ Compile Error!</span>
+<span class="comment">// Java বলবে: marks দিয়ে sort করব? name দিয়ে? age দিয়ে? — জানি না!</span></pre>
+      </div>
+      <div class="key-insight">এই সমস্যার সমাধানেই দুটো interface — <strong>Comparable</strong> (class নিজে বলে দেয় কীভাবে sort হবে) আর <strong>Comparator</strong> (বাইরে থেকে বলা হয় কীভাবে sort করতে হবে)।</div>
+
+      <h3>Comparable — class নিজেই natural order define করে</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>compareTo() — একটাই "natural" sorting rule</div>
         <pre>class Student implements Comparable&lt;Student&gt; {
     String name; int marks;
     Student(String name, int marks) { this.name=name; this.marks=marks; }
 
     @Override
     public int compareTo(Student other) {
-        return this.marks - other.marks;  <span class="comment">// ascending by marks</span>
+        return this.marks - other.marks;  <span class="comment">// marks অনুযায়ী ascending</span>
     }
 }
 
-Collections.sort(list);  <span class="comment">// compareTo ব্যবহার করে</span></pre>
+Collections.sort(list);  <span class="comment">// Java নিজেই compareTo() call করবে</span>
+<span class="comment">// Output: Rahim 70, Sumi 80, Karim 90</span></pre>
       </div>
+
+      <h3>Comparator — বাইরে থেকে custom sort</h3>
+      <p>আজ marks দিয়ে sort করলে, কাল name দিয়ে, পরশু descending — এসবের জন্য প্রতিবার Student class change করতে হবে না। Class-এর বাইরে থেকে rule দেওয়া হয়, এটাই Comparator।</p>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Comparator — বাইরে থেকে custom sort</div>
-        <pre>list.sort(Comparator.comparingInt(s -> s.marks));         <span class="comment">// ascending</span>
-list.sort((s1, s2) -> s2.marks - s1.marks);              <span class="comment">// descending</span>
-list.sort(Comparator.comparingInt((Student s) -> s.marks)
-                    .reversed()
-                    .thenComparing(s -> s.name));         <span class="comment">// multiple fields</span></pre>
+        <div class="code-label"><span class="dot"></span>compare() — যত খুশি sorting rule</div>
+        <pre><span class="comment">// Name দিয়ে ascending</span>
+list.sort((s1, s2) -> s1.name.compareTo(s2.name));
+<span class="comment">// Output: Karim, Rahim, Sumi</span>
+
+<span class="comment">// Marks দিয়ে descending</span>
+list.sort((s1, s2) -> s2.marks - s1.marks);
+<span class="comment">// Output: 90, 80, 70</span>
+
+<span class="comment">// built-in helper method দিয়ে (readable, cleaner)</span>
+list.sort(Comparator.comparingInt(s -> s.marks));         <span class="comment">// ascending</span>
+list.sort(Comparator.comparingInt((Student s) -> s.marks).reversed());  <span class="comment">// descending</span></pre>
       </div>
+
+      <h3>Real Life উদাহরণ</h3>
+      <div class="key-insight">তুমি School-এর Teacher। একদিন marks দিয়ে sort করতে হবে, আরেকদিন name দিয়ে, আরেকদিন roll দিয়ে। Student কি প্রতিদিন বদলে যাবে? না — Teacher যেভাবে চাইবে সেভাবে সাজাবে। এটাই Comparator-এর কাজ।</div>
+
+      <h3>Multiple Field Sorting — thenComparing()</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>আগে marks, marks সমান হলে name</div>
+        <pre>list.sort(
+    Comparator.comparingInt((Student s) -> s.marks)
+              .thenComparing(s -> s.name)
+);
+<span class="comment">// input:  Rahim 80, Karim 80, Sumi 70</span>
+<span class="comment">// output: Sumi 70, Karim 80, Rahim 80  — marks একই হলে name অনুযায়ী sort</span></pre>
+      </div>
+
+      <h3>compareTo() / compare()-এর Return Value কীভাবে কাজ করে</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Negative / Zero / Positive-এর মানে</div>
+        <pre>return this.marks - other.marks;
+
+<span class="comment">// this=50, other=80 → 50-80 = -30 (negative) → this আগে আসবে</span>
+<span class="comment">// this=80, other=50 → 80-50 =  30 (positive) → this পরে যাবে</span>
+<span class="comment">// this=80, other=80 → 80-80 =   0            → দুজন equal, order অপরিবর্তিত</span></pre>
+      </div>
+
       <div class="table-wrap">
         <table>
           <thead><tr><th></th><th>Comparable</th><th>Comparator</th></tr></thead>
           <tbody>
-            <tr><td>কোথায়</td><td>Class-এর ভিতরে</td><td>Class-এর বাইরে</td></tr>
+            <tr><td>কোথায় লেখা হয়</td><td>Class-এর ভিতরে</td><td>Class-এর বাইরে</td></tr>
             <tr><td>Method</td><td><code>compareTo()</code></td><td><code>compare()</code></td></tr>
-            <tr><td>কতটা order</td><td>একটাই (natural)</td><td>যতটা খুশি</td></tr>
+            <tr><td>কতটা order</td><td>একটাই (natural)</td><td>যতটা খুশি (custom)</td></tr>
+            <tr><td>Sort call</td><td><code>Collections.sort(list)</code></td><td><code>list.sort(comparator)</code></td></tr>
+            <tr><td>কবে ব্যবহার</td><td>Class-এর একটাই fixed sorting order থাকলে (ID, Roll)</td><td>Sorting requirement বদলাতে পারে (name, marks, salary, date)</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="key-insight"><code>compareTo</code> return: negative → this আগে, zero → equal, positive → other আগে।</div>
+      <div class="key-insight"><code>compareTo</code>/<code>compare</code> return: negative → প্রথম value আগে, zero → equal, positive → দ্বিতীয় value আগে।</div>
+
+      <h3>Spring Boot-এর জন্য কতটুকু জানলে চলবে</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>✅ অবশ্যই জানতে হবে</th><th>❌ এখন দরকার নেই</th></tr></thead>
+          <tbody>
+            <tr><td>Comparable কী, compareTo()</td><td>Custom Comparator আলাদা file-এ লেখা</td></tr>
+            <tr><td>Comparator কী, compare()</td><td>Complex Comparator chaining</td></tr>
+            <tr><td>Lambda দিয়ে Comparator</td><td>Locale Comparator / Collator</td></tr>
+            <tr><td><code>Collections.sort()</code> / <code>list.sort()</code></td><td>Null handling comparator (<code>nullsFirst</code>, <code>nullsLast</code>)</td></tr>
+            <tr><td>Ascending / Descending, <code>thenComparing()</code></td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="key-insight"><strong>Interview Answer:</strong> Comparable ব্যবহার করো যখন class-এর একটাই natural sorting order থাকে (যেমন Employee ID)। Comparator ব্যবহার করো যখন একাধিকভাবে sort করতে হয় (name, marks, salary)। বাস্তব Project ও Spring Boot Application-এ <strong>Comparator বেশি ব্যবহৃত হয়</strong>, কারণ sorting requirement প্রায়ই বদলায়।</div>
+
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li>Comparable আর Comparator — কোনটা কখন ব্যবহার করবো?</li>
-          <li>Student list-কে আগে marks-এ, তারপর name-এ sort করো।</li>
+          <li><code>compareTo()</code> negative return করলে কী হয়?</li>
+          <li>Student list-কে আগে marks-এ, marks সমান হলে name-এ sort করো (<code>thenComparing</code>)।</li>
+          <li>একটা Employee class বানাও যার natural order salary অনুযায়ী (Comparable), তারপর name অনুযায়ীও sort করে দেখাও (Comparator)।</li>
         </ol>
       </div>
     </section>
