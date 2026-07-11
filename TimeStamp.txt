@@ -119,3 +119,96 @@ Hours 12 to 13:30: Advanced Streams, Optional Class, and Core Java Wrap-up
 [12:14:09] - Map, Filter, Reduce, Sorted
 [12:25:17] - Parallel Stream
 [12:40:32] - Optional Class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+00:00 - Core Java
+13:32:51 - Maven
+15:42:13 - Gradle
+16:13:17 - JUnit
+19:04:46 - Git
+21:05:16 - DSA
+26:12:28 - JDBC
+28:39:36 - Servlets and JSP
+32:08:43 - REST API and Web Services
+34:43:17 - What Is an ORM Tool?
+34:53:11 - Hibernate
+35:44:49 - Spring Framework
+37:38:20 - Spring REST API Using Spring Boot
+38:55:14 - Spring JDBC
+39:24:38 - Spring Data JPA
+39:55:47 - Project Using Spring Boot MVC
+41:40:32 - Spring Security
+43:36:28 - JWT
+44:40:32 - OAuth2
+44:56:28 - Logging in Java Using Log4j
+46:03:03 - Spring Boot MongoDB Full Project
+47:18:23 - Docker for Java Developers
+49:30:26 - Cloud Deployment
+51:00:41 - Spring AI
+51:47:59 - DeepSeek Open Source Using Ollama and Spring AI
+52:08:08 - Microservices
+54:15:20 - Spring Boot + Kafka
+55:34:32 - Linux
+57:10:25 - Ansible
+58:56:44 - Jenkins
+60:13:33 - Terraform
