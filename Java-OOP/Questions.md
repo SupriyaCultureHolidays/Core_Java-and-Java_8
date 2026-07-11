@@ -626,19 +626,28 @@ User not found, using default
 
 ---
 
-## Final Mini Project (49_Record_Final_Project) — Library Management System
+## Final Project (49_Record_Final_Project) — Library Management System
 
-Classes: `Book, Student, Librarian, LibraryService, Demo`
+Classes: `BookStatus, LibraryPerson, Student, Librarian, Book, Searchable, BookNotFoundException, BookAlreadyIssuedException, IssueRecord, LibraryService, Demo`
 
-Features:
-- Add Book
-- Issue Book
-- Return Book
-- Search Book
-- Display All Books
+Core Requirements (Topic যা কভার হচ্ছে):
+- Enum — `BookStatus { AVAILABLE, ISSUED }`
+- Abstraction/Inheritance/Polymorphism — `LibraryPerson` (abstract) → `Student`, `Librarian` (getRole() override)
+- Encapsulation — `Book` (id, title, author, status)
+- Exception Handling — `BookNotFoundException`, `BookAlreadyIssuedException`
+- Functional Interface + Lambda — `Searchable` দিয়ে শর্ত অনুযায়ী বই খোঁজা
+- Generics + Collection — `List<Book>`, `List<IssueRecord>`
+- Stream API + Comparator — filter/sorted দিয়ে search ও display
+- Optional — `findBookById()` → `Optional<Book>`
+- Record — `IssueRecord(bookId, studentId, issueDate)`
+- Singleton — `LibraryService`-এর মাত্র ১টা object
 
-**Output:**
+Bonus (ঐচ্ছিক): Object Cloning (`Book.clone()`), Serialization (book list file-এ save/load), Nested Class (`LibraryService.Stats`), Threads (synchronized issueBook)।
+
+**Output (নমুনা):**
 ```
-Book: Java Basics, Status: Issued
-Book: Spring Boot Guide, Status: Available
+Book: Java Basics, Status: ISSUED
+Book: Spring Boot Guide, Status: AVAILABLE
+Issued by: Rahim (Student) on 2026-07-11
+Book not found: B999
 ```
