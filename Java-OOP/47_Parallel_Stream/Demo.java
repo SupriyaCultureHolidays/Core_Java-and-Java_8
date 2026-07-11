@@ -8,7 +8,6 @@
  * Output:
  * Parallel Sum: 5050
  */
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,11 @@ public class Demo {
         for(int i=1; i<=100; i++){
             nums.add(i);
         }
-        System.out.println(nums);
+        System.out.println("Now Original Nums" + nums);
+        // Sequential 
+        // nums.stream().forEach(m-> System.out.println("Sequential : "+ m));
+
+        // Parallel
+        nums.parallelStream().forEach(m-> System.out.println("Parallel : "+m));
     }
 }
