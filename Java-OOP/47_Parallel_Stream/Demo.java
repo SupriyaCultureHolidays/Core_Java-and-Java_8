@@ -8,8 +8,17 @@
  * Output:
  * Parallel Sum: 5050
  */
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Demo {
     public static void main(String[] args) {
+        List<Integer> nums = new ArrayList<>();
 
+        for(int i=1; i<=100; i++){
+            nums.add(i);
+        }
+        System.out.println(nums);
     }
 }

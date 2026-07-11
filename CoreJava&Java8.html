@@ -6179,36 +6179,162 @@ ForkJoinPool.commonPool-worker-2 : 2</pre>
     <section class="section" id="sec-69">
       <div class="section-header"><span class="sec-num">69</span><h2>Optional Class</h2></div>
       <p>null হতে পারে এমন value-কে wrap করার container — NullPointerException এড়াতে।</p>
+
+      <div class="subsection-title">1. কেন Optional দরকার?</div>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Optional তৈরি ও ব্যবহার</div>
-        <pre>import java.util.Optional;
+        <div class="code-label"><span class="dot"></span>Without Optional</div>
+        <pre>public String getName() {
+    return null;
+}
 
-Optional&lt;String&gt; opt1 = Optional.of("Navin");           <span class="comment">// non-null</span>
-Optional&lt;String&gt; opt2 = Optional.empty();               <span class="comment">// empty</span>
-Optional&lt;String&gt; opt3 = Optional.ofNullable(getName()); <span class="comment">// null হতে পারে</span>
-
-<span class="comment">// orElse — default value</span>
-String result = opt3.orElse("Unknown");
-
-<span class="comment">// orElseGet — lazy default</span>
-String result2 = opt3.orElseGet(() -> "Default");
-
-<span class="comment">// orElseThrow — না থাকলে exception</span>
-String result3 = opt3.orElseThrow(() -> new RuntimeException("Not found"));
-
-<span class="comment">// ifPresent</span>
-opt3.ifPresent(n -> System.out.println("Hello " + n));
-
-<span class="comment">// map — transform if present</span>
-Optional&lt;Integer&gt; length = opt3.map(String::length);</pre>
+String name = getName();
+System.out.println(name.length()); <span class="comment">// NullPointerException</span></pre>
       </div>
-      <div class="key-insight"><code>Optional.of(null)</code> throws NullPointerException। Null হতে পারলে সবসময় <code>Optional.ofNullable()</code> ব্যবহার করো।</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>বারবার null check</div>
+        <pre>if (name != null) {
+    System.out.println(name.length());
+}</pre>
+      </div>
+      <div class="key-insight">Problem: method null return করতে পারে, caller জানে না value আছে নাকি নেই, তাই বারবার null check লিখতে হয়। Optional এই problem solve করে।</div>
+
+      <div class="subsection-title">2. Optional কী?</div>
+      <p>Optional হলো একটা <b>container object</b> — এর ভিতরে value থাকতে পারে, অথবা empty হতে পারে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ধারণা</div>
+        <pre>Value আছে  → Optional&lt;String&gt;
+Value নেই → Optional.empty()</pre>
+      </div>
+
+      <div class="subsection-title">3. Optional তৈরি করার ৩টা method</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>3.1 Optional.of() — শুধু non-null value</div>
+        <pre>Optional&lt;String&gt; name = Optional.of("Rahim"); <span class="comment">// ঠিক আছে</span>
+
+Optional&lt;String&gt; name2 = Optional.of(null);   <span class="comment">// NullPointerException</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>3.2 Optional.empty()</div>
+        <pre>Optional&lt;String&gt; name = Optional.empty(); <span class="comment">// Optional.empty</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>3.3 Optional.ofNullable() — সবচেয়ে বেশি ব্যবহার হয়</div>
+        <pre>String name = null;
+Optional&lt;String&gt; opt = Optional.ofNullable(name); <span class="comment">// Optional.empty</span>
+
+String name2 = "Rahim";
+Optional&lt;String&gt; opt2 = Optional.ofNullable(name2); <span class="comment">// Optional[Rahim]</span></pre>
+      </div>
+
+      <div class="subsection-title">4. get()</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>value থাকলে vs না থাকলে</div>
+        <pre>Optional&lt;String&gt; name = Optional.of("Rahim");
+System.out.println(name.get()); <span class="comment">// Rahim</span>
+
+Optional&lt;String&gt; empty = Optional.empty();
+empty.get(); <span class="comment">// NoSuchElementException</span></pre>
+      </div>
+
+      <div class="subsection-title">5. isPresent()</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Java</div>
+        <pre>Optional&lt;String&gt; name = Optional.ofNullable("Rahim");
+
+if (name.isPresent()) {
+    System.out.println(name.get()); <span class="comment">// Rahim</span>
+}</pre>
+      </div>
+
+      <div class="subsection-title">6. ifPresent() ⭐</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>value থাকলে কাজ করো, না থাকলে কিছু করো না</div>
+        <pre>name.ifPresent(n -> System.out.println(n));</pre>
+      </div>
+
+      <div class="subsection-title">7. orElse() ⭐ Interview Important</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Default value দেয়</div>
+        <pre>Optional&lt;String&gt; name = Optional.empty();
+
+String result = name.orElse("Unknown");
+System.out.println(result); <span class="comment">// Unknown</span></pre>
+      </div>
+
+      <div class="subsection-title">8. orElseGet() ⭐ Important (lazy)</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>orElse() vs orElseGet()</div>
+        <pre>String result = name.orElseGet(() -> "Unknown");
+
+<span class="comment">// orElse() — expensiveMethod() সবসময় execute হবে</span>
+optional.orElse(expensiveMethod());
+
+<span class="comment">// orElseGet() — value না থাকলে তবেই execute হবে (lazy)</span>
+optional.orElseGet(() -> expensiveMethod());</pre>
+      </div>
+      <div class="key-insight">Interview answer — <code>orElse()</code>: default value আগে থেকেই তৈরি হয়। <code>orElseGet()</code>: প্রয়োজন হলে তবেই default value তৈরি হয় (lazy execution)।</div>
+
+      <div class="subsection-title">9. orElseThrow()</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Validation, API response, DB data check-এ ব্যবহার হয়</div>
+        <pre>String name = optional.orElseThrow(
+        () -> new RuntimeException("Name missing"));</pre>
+      </div>
+
+      <div class="subsection-title">10. map() ⭐⭐⭐</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ভিতরের value transform করে</div>
+        <pre>Optional&lt;String&gt; name = Optional.of("Rahim");
+
+Optional&lt;Integer&gt; length = name.map(n -> n.length());
+System.out.println(length); <span class="comment">// Optional[5]</span></pre>
+      </div>
+
+      <div class="subsection-title">11. flatMap() (Basic idea)</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Java</div>
+        <pre>Optional&lt;String&gt; name = Optional.of("Rahim");
+
+Optional&lt;String&gt; result =
+        name.flatMap(n -> Optional.of(n.toUpperCase()));
+System.out.println(result); <span class="comment">// Optional[RAHIM]</span></pre>
+      </div>
+
+      <div class="subsection-title">12. Optional দিয়ে method return করা ⭐⭐⭐</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Without Optional (problem)</div>
+        <pre>public String findName() {
+    return null; <span class="comment">// caller null পেতে পারে</span>
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>With Optional</div>
+        <pre>public Optional&lt;String&gt; findName() {
+    String name = "Rahim";
+    return Optional.ofNullable(name);
+}
+
+<span class="comment">// ব্যবহার</span>
+Optional&lt;String&gt; result = findName();
+result.ifPresent(n -> System.out.println(n)); <span class="comment">// Rahim</span></pre>
+      </div>
+
+      <div class="key-insight">
+        সবচেয়ে গুরুত্বপূর্ণ ৫টা interview point —
+        (1) Optional কেন introduce হলো,
+        (2) <code>of()</code> vs <code>ofNullable()</code>,
+        (3) <code>orElse()</code> vs <code>orElseGet()</code>,
+        (4) Optional দিয়ে null handling,
+        (5) Optional + Stream ব্যবহার।
+      </div>
+
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li><code>Optional.of()</code> আর <code>Optional.ofNullable()</code> — পার্থক্য কী?</li>
           <li><code>orElse()</code> আর <code>orElseGet()</code> — কখন কোনটা ব্যবহার করবো?</li>
           <li><code>Optional&lt;String&gt;</code> return করে এমন একটা method লিখো।</li>
+          <li><code>get()</code> ব্যবহার করলে কী সমস্যা হতে পারে, কেন production-এ কম ব্যবহার করা হয়?</li>
         </ol>
       </div>
     </section>
