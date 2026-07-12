@@ -2,4 +2,7 @@
 public class BookNotFoundException extends Exception {
 
     // constructor-এ message নাও, super(message) call করো
+    public BookNotFoundException(String message){
+        super(message);
+    }
 }

@@ -2,4 +2,7 @@
 public class BookAlreadyIssuedException extends Exception {
 
     // constructor-এ message নাও, super(message) call করো
+    BookAlreadyIssuedException(String message){
+        super(message);
+    }
 }

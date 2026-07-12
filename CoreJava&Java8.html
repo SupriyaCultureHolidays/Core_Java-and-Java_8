@@ -6571,6 +6571,50 @@ scores.forEach((name, score) ->
     <section class="section" id="sec-66">
       <div class="section-header"><span class="sec-num">73</span><h2>Stream API</h2></div>
       <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Pipeline Sequence — মনে রাখার নিয়ম</div>
+        <pre>source.stream()
+    →  <span class="comment">Intermediate: filter, map, sorted, distinct, limit, skip</span>
+         <span class="comment">যতবার খুশি চেইন করা যায় — Stream-ই ফেরত দেয়, lazy (এখনো কিছু চলেনি)</span>
+    →  <span class="comment">Terminal: findFirst, toList, collect, forEach, count, anyMatch...</span>
+         <span class="comment">ঠিক ১বার, একদম শেষে বসে — Stream শেষ করে দেয়, final result রিটার্ন করে</span></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Intermediate Operation</th><th>কাজ</th><th>Return</th></tr></thead>
+          <tbody>
+            <tr><td><code>filter(predicate)</code></td><td>শর্ত মেলে এমন element রাখে, বাকি বাদ</td><td>Stream&lt;T&gt;</td></tr>
+            <tr><td><code>map(function)</code></td><td>প্রতিটা element-কে অন্য কিছুতে রূপান্তর করে</td><td>Stream&lt;R&gt;</td></tr>
+            <tr><td><code>sorted()</code> / <code>sorted(cmp)</code></td><td>natural order বা Comparator অনুযায়ী sort করে</td><td>Stream&lt;T&gt;</td></tr>
+            <tr><td><code>distinct()</code></td><td>duplicate elements বাদ দেয়</td><td>Stream&lt;T&gt;</td></tr>
+            <tr><td><code>limit(n)</code></td><td>প্রথম n-টা element রাখে</td><td>Stream&lt;T&gt;</td></tr>
+            <tr><td><code>skip(n)</code></td><td>প্রথম n-টা element বাদ দিয়ে বাকিটা রাখে</td><td>Stream&lt;T&gt;</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Terminal Operation</th><th>কাজ</th><th>Return</th></tr></thead>
+          <tbody>
+            <tr><td><code>collect(Collectors.toList())</code></td><td>List-এ collect করে (mutable ArrayList)</td><td>List&lt;T&gt;</td></tr>
+            <tr><td><code>toList()</code> <em>(Java 16+)</em></td><td>List-এ collect করার shortcut (immutable list)</td><td>List&lt;T&gt;</td></tr>
+            <tr><td><code>forEach(consumer)</code></td><td>প্রতিটা element নিয়ে কিছু action করে (print ইত্যাদি)</td><td>void</td></tr>
+            <tr><td><code>count()</code></td><td>মোট কতগুলো element আছে গোনে</td><td>long</td></tr>
+            <tr><td><code>findFirst()</code></td><td>প্রথম element (যদি থাকে) নেয় — কোনো condition argument নেয় না, তার আগে <code>filter()</code> বসাতে হয়</td><td>Optional&lt;T&gt;</td></tr>
+            <tr><td><code>anyMatch(predicate)</code></td><td>কোনো একটা element শর্ত মানে কিনা</td><td>boolean</td></tr>
+            <tr><td><code>allMatch(predicate)</code></td><td>সবগুলো element শর্ত মানে কিনা</td><td>boolean</td></tr>
+            <tr><td><code>min(cmp)</code> / <code>max(cmp)</code></td><td>সবচেয়ে ছোট/বড় element</td><td>Optional&lt;T&gt;</td></tr>
+            <tr><td><code>reduce(identity, accumulator)</code></td><td>সব element মিলিয়ে একটা result বানায় (বিস্তারিত: Topic 74)</td><td>T</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="key-insight"><strong>কখন <code>toList()</code>, কখন <code>collect(Collectors.toList())</code>:</strong>
+        <ul style="margin:0.5rem 0 0 1.1rem; display:flex; flex-direction:column; gap:0.35rem;">
+          <li>শুধু simple <strong>List বানিয়ে পড়তে/iterate করতে</strong> চাইলে <code>.toList()</code> লেখো — ছোট, clean। কিন্তু এটা <strong>immutable</strong> — পরে <code>.add()</code>/<code>.remove()</code> করলে <code>UnsupportedOperationException</code> আসবে।</li>
+          <li>পরে ওই list-এ <strong>item add/remove করতে হবে</strong> এমন হলে <code>.collect(Collectors.toList())</code> ব্যবহার করো — এটা সাধারণত mutable <code>ArrayList</code> রিটার্ন করে।</li>
+          <li>List ছাড়া অন্য কিছু (Set, Map, joined String, grouped data) দরকার হলে <code>.toList()</code>-এর বিকল্প নেই — তখন <code>collect(Collectors.toSet())</code>, <code>Collectors.toMap()</code>, <code>Collectors.joining()</code>, <code>Collectors.groupingBy()</code> ব্যবহার করতে হবে।</li>
+        </ul>
+      </div>
+      <div class="code-block">
         <div class="code-label"><span class="dot"></span>Intermediate Operations (lazy)</div>
         <pre>list.stream()
     .filter(n -> n % 2 == 0)    <span class="comment">// শুধু even</span>
@@ -6620,12 +6664,21 @@ System.out.println(grouped);</pre>
         <pre>{3=[Joy], 4=[Sumi, Rita], 5=[Rahim, Karim]}</pre>
       </div>
       <div class="key-insight"><code>groupingBy()</code> সবসময় একটি <code>Map&lt;K, List&lt;V&gt;&gt;</code> তৈরি করে — key হয় grouping condition (যেমন <code>length</code>), value হয় সেই condition পূরণ করা element-গুলোর list।</div>
+      <div class="key-insight"><strong>বারবার হওয়া ভুলগুলো (নিজের ভুল থেকে শেখা — এই ৪টা প্রতিবার চেক করো):</strong>
+        <ul style="margin:0.5rem 0 0 1.1rem; display:flex; flex-direction:column; gap:0.35rem;">
+          <li><strong>শর্ত সবসময় <code>filter()</code>-এ বসে, terminal operation-এ না</strong> — <code>findFirst(condition)</code> ভুল (findFirst কোনো argument নেয় না), <code>filter(condition).findFirst()</code> ঠিক।</li>
+          <li><strong>Method call-এ <code>()</code> ভুলো না</strong> — <code>b.getId</code> ভুল, <code>b.getId()</code> ঠিক। প্রথমটা method-কে call না করেই reference করার চেষ্টা, compile error দেয়।</li>
+          <li><strong>String/Object content compare করতে <code>==</code> না, <code>.equals()</code></strong> — <code>id == bookId</code> ভুল (memory reference compare করে), <code>id.equals(bookId)</code> ঠিক (content compare করে)।</li>
+          <li><strong>Variable-এর type, terminal operation-এর return type-এর সাথে মেলাও</strong> — <code>filter().toList()</code> → <code>List&lt;T&gt;</code> রিটার্ন করে (একাধিক ফলাফল হতে পারলে), <code>filter().findFirst()</code> → <code>Optional&lt;T&gt;</code> রিটার্ন করে (একটামাত্র/না-ও থাকতে পারে এমন ফলাফলের জন্য)।</li>
+        </ul>
+      </div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li>Intermediate আর Terminal operation-এর পার্থক্য কী?</li>
           <li>একটা number list থেকে: even বের করো, square করো, sort করো, list-এ collect করো।</li>
           <li><code>joining()</code> আর <code>groupingBy()</code>-এর পার্থক্য কী?</li>
+          <li>একটা <code>List&lt;Book&gt;</code> থেকে নির্দিষ্ট <code>id</code>-র বইটা খুঁজে বের করতে <code>filter</code> + কোন terminal operation ব্যবহার করবে, আর কেন <code>toList()</code> না?</li>
         </ol>
       </div>
     </section>
