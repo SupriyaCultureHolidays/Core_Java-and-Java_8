@@ -1,3 +1,5 @@
+// চাইলে Notifiable implement করো (interface practice, topic 26) — sendReminder() override করে
+// System.out.println দিয়ে reminder message print করো
 public class Doctor extends Person {
 
     // constructor লিখো, super(id, name) call করো
