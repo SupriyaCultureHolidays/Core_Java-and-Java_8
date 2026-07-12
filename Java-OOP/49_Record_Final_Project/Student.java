@@ -14,6 +14,10 @@ public class Student extends LibraryPerson {
         super(id, name);
         borrowedBookIds.add(id);
     }
+    public List<String> getBorrowedBookIds() {
+        return borrowedBookIds;
+    }
+    
 
     @Override
     public String getRole() {

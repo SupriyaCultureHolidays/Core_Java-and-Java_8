@@ -42,28 +42,34 @@
  */
 public class Demo {
     public static void main(String[] args) {
-        Book b1 = new Book("1", "You Can Do it", "Supriya", BookStatus.AVAILABLE);
-        System.out.println(b1.getStatus());
-        b1.setStatus(BookStatus.ISSUED);
-        System.out.println(b1);
-
+        // Book b1 = new Book("1", "You Can Do it", "Supriya", BookStatus.AVAILABLE);
+        // System.out.println(b1.getStatus());
+        // b1.setStatus(BookStatus.ISSUED);
+        // System.out.println(b1);
+        LibraryService service = LibraryService.getInstance();
+        service.addBook(new Book("1", "Java Basics", "Rahul", BookStatus.AVAILABLE));
+        service.addBook(new Book("2", "Spring Boot Guide", "Karim", BookStatus.AVAILABLE));
+        service.displayAllBooks();
+        System.out.println(service.findBookById("2").get());
     }
 }
 
 /*
  * ── Build Order (নিচ থেকে উপরে — যেটা অন্যেরা use করবে সেটা আগে) ──
  *
- *  1. BookStatus (Enum) — kono dependency nei, sobar age
- *  2. LibraryPerson (abstract) → Student, Librarian — Inheritance + Polymorphism
- *     (getRole() override). Eta age korle Student.java ta easily fill korte parba
- *  3. Book (already done) — Encapsulation
- *  4. Searchable — Functional Interface (lambda diye search korar contract)
- *  5. BookNotFoundException, BookAlreadyIssuedException — Custom checked exceptions
- *  6. IssueRecord — Record (Java 16+ feature, plain data holder)
- *  7. LibraryService — sabcheye complex part: Singleton + List<Book>/List<IssueRecord>
- *     + Stream API + Comparator + Optional + exception throw. Eta sobar por korba
- *     karon eta baki shob class use kore
- *  8. Demo — sob ekshathe test/wire up kora
+ * 1. BookStatus (Enum) — kono dependency nei, sobar age
+ * 2. LibraryPerson (abstract) → Student, Librarian — Inheritance + Polymorphism
+ * (getRole() override). Eta age korle Student.java ta easily fill korte parba
+ * 3. Book (already done) — Encapsulation
+ * 4. Searchable — Functional Interface (lambda diye search korar contract)
+ * 5. BookNotFoundException, BookAlreadyIssuedException — Custom checked
+ * exceptions
+ * 6. IssueRecord — Record (Java 16+ feature, plain data holder)
+ * 7. LibraryService — sabcheye complex part: Singleton +
+ * List<Book>/List<IssueRecord>
+ * + Stream API + Comparator + Optional + exception throw. Eta sobar por korba
+ * karon eta baki shob class use kore
+ * 8. Demo — sob ekshathe test/wire up kora
  *
  * Karon: prottek step ager step-er upor depend kore. Age dependency na banaile
  * pore circular confusion hoy.
@@ -73,20 +79,21 @@ public class Demo {
  * Java Spring shekhar shomoy eituku OOP concept bar bar dekha jabe, tai eguloke
  * extra shokto koro:
  *
- * - Abstraction + Interface — Spring pura interface-driven (Dependency Injection
- *   interface-er upor based)
+ * - Abstraction + Interface — Spring pura interface-driven (Dependency
+ * Injection
+ * interface-er upor based)
  * - Polymorphism + Dynamic Dispatch — Spring-er AOP/Proxy eituku bujhle magic
- *   mone hobe na
+ * mone hobe na
  * - Annotation (custom) — @Component, @Autowired er moto Spring annotation
- *   bujhte topic 28 khub kaje lagbe
+ * bujhte topic 28 khub kaje lagbe
  * - Functional Interface + Lambda + Stream — Spring config o data processing-e
- *   onek jaigay dekha jay
+ * onek jaigay dekha jay
  * - Custom Exception Handling — Spring-er @ControllerAdvice diye global
- *   exception handle kora ekdom ei pattern-erei extension
+ * exception handle kora ekdom ei pattern-erei extension
  * - Singleton — Spring bean by default singleton scope-e thake, LibraryService
- *   ta banaile eita concept-e crystal clear hoye jabe
+ * ta banaile eita concept-e crystal clear hoye jabe
  * - Optional — Spring Data JPA-r findById() shob Optional<T> return kore,
- *   eituku ekhoni practice kore rakhle pore shohoj lagbe
+ * eituku ekhoni practice kore rakhle pore shohoj lagbe
  *
  * Ekta gap lokkho korlam: tomar 49 topic-er modhye standalone Generics
  * (<T>, bounded types, ? extends) er kono separate topic nei — kintu final
