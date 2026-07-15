@@ -6,5 +6,4 @@
 
 import java.time.LocalDate;
 
-public record Prescription(String patientId, String doctorId, LocalDate date, String medicine) {
-}
+public record Prescription(String patientId, String doctorId, LocalDate date, String medicine) {}

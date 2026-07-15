@@ -73,11 +73,14 @@ public class HospitalService {
         Optional<Doctor> isPresentDoc = doctors.stream()
                 .filter(d -> d.id.equals(doctorId))
                 .findFirst();
-        if(isPresentDoc.isEmpty()){
+        if (isPresentDoc.isEmpty()) {
             throw new SlotAlreadyBookedException("Doctorid Invalid");
         }
-        Optional<Appointment>  app = appointments.stream().filter(a-> a.getDoctorId().equals(doctorId) && a.getDate().equals(date)).findFirst();
-        
+        Optional<Appointment> app = appointments.stream()
+                .filter(a -> a.getDoctorId().equals(doctorId) && a.getDate().equals(date)).findFirst();
+        if (app != null) {
+            throw new SlotAlreadyBookedException("Doctor already Assign");
+        }
         appointments.add(new Appointment(appointmentId, patientId, doctorId, date, AppointmentStatus.BOOKED));
         return "Appointment Booked";
     }
@@ -85,9 +88,23 @@ public class HospitalService {
     // completeAppointment(String appointmentId) throws AppointmentNotFoundException
     // — appointmentId দিয়ে খুঁজে status COMPLETED করো, prescriptionHistory-তে একটা
     // Prescription add করো
+    void completeAppointment(String appointmentId) throws AppointmentNotFoundException {
+        Appointment appoi = appointments.stream().filter(a -> a.getId().equals(appointmentId)).findFirst()
+                .orElseThrow(() -> new AppointmentNotFoundException(""));
+        appoi.setStatus(AppointmentStatus.COMPLETED);
+        prescriptionHistory
+                .add(new Prescription(appoi.getPatientId(), appoi.getDoctorId(), appoi.getDate(), "Paracitamal"));
+                System.out.println("Completed Your Appoinment");
+    }
 
-    // cancelAppointment(String appointmentId) throws AppointmentNotFoundException
-    // — appointmentId দিয়ে খুঁজে status CANCELLED করো
+    void cancelAppointment(String appointmentId) throws AppointmentNotFoundException {
+        // — appointmentId দিয়ে খুঁজে status CANCELLED করো
+        Appointment appo = appointments.stream().filter(f -> f.getId().equals(appointmentId)).findFirst()
+                .orElseThrow(() -> new AppointmentNotFoundException("Appointment Id Invalid"));
+        appo.setStatus(AppointmentStatus.CANCELLED);
+        System.out.println("Appoinment Cancleed");
+
+    }
 
     // searchAppointments(AppointmentFilter criteria) — Stream + Lambda দিয়ে filter
     // করো, List<Appointment> রিটার্ন করবে
