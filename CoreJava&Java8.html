@@ -6968,7 +6968,25 @@ ForkJoinPool.commonPool-worker-2 : 2</pre>
       <div class="section-header"><span class="sec-num">76</span><h2>Optional Class</h2></div>
       <p>null হতে পারে এমন value-কে wrap করার container — NullPointerException এড়াতে। সবগুলো method-কে ৫টা category-তে ভাগ করলে সহজে মনে থাকে।</p>
 
-      <div class="subsection-title">1. Optional তৈরির Method (Create Optional)</div>
+      <div class="subsection-title">1. কেন Optional দরকার?</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Without Optional</div>
+        <pre>public String getName() {
+    return null;
+}
+
+String name = getName();
+System.out.println(name.length()); <span class="comment">// NullPointerException</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>বারবার null check</div>
+        <pre>if (name != null) {
+    System.out.println(name.length());
+}</pre>
+      </div>
+      <div class="key-insight">Problem: method null return করতে পারে, caller জানে না value আছে নাকি নেই, তাই বারবার null check লিখতে হয়। Optional এই problem solve করে।</div>
+
+      <div class="subsection-title">2. Optional তৈরির Method (Create Optional)</div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Method</th><th>Return Type</th><th>কখন ব্যবহার করবে</th></tr></thead>
@@ -6991,7 +7009,7 @@ Optional&lt;String&gt; empty = Optional.empty();             <span class="commen
       </div>
       <div class="key-insight"><code>of()</code>-এ null দিলে সাথে সাথে Exception পাবে (<strong>fail-fast</strong>)। value null হতে পারে এমন জায়গায় সবসময় <strong><code>ofNullable()</code></strong> ব্যবহার করবে।</div>
 
-      <div class="subsection-title">2. Value আছে কিনা Check করার Method</div>
+      <div class="subsection-title">3. Value আছে কিনা Check করার Method</div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Method</th><th>Return Type</th><th>কাজ</th></tr></thead>
@@ -7009,7 +7027,7 @@ name.isPresent();  <span class="comment">// true</span>
 name.isEmpty();    <span class="comment">// false</span></pre>
       </div>
 
-      <div class="subsection-title">3. Value বের করার Method</div>
+      <div class="subsection-title">4. Value বের করার Method</div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Method</th><th>Return Type</th><th>কাজ</th></tr></thead>
@@ -7046,7 +7064,7 @@ optional.orElseGet(() -> expensiveMethod());</pre>
       </div>
       <div class="key-insight">Interview answer — <code>orElse()</code>: default value আগে থেকেই তৈরি হয়ে যায়। <code>orElseGet()</code>: প্রয়োজন হলে তবেই default value তৈরি হয় (lazy execution)। ভারী operation হলে সবসময় <code>orElseGet()</code> ব্যবহার করবে।</div>
 
-      <div class="subsection-title">4. Value থাকলে কিছু করার Method</div>
+      <div class="subsection-title">5. Value থাকলে কিছু করার Method</div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Method</th><th>Return Type</th><th>কাজ</th></tr></thead>
@@ -7067,7 +7085,7 @@ name.ifPresentOrElse(
         () -> System.out.println("কিছু নেই"));</pre>
       </div>
 
-      <div class="subsection-title">5. Value পরিবর্তন করার Method</div>
+      <div class="subsection-title">6. Value পরিবর্তন করার Method</div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Method</th><th>Return Type</th><th>কাজ</th></tr></thead>
