@@ -34,12 +34,13 @@ class EmployeeService {
     List<Employee> employees = List.of(
             new Employee(1, "Rahim"),
             new Employee(2, "Karim"),
-            new Employee(3, "Sumi")
-    );
+            new Employee(3, "Sumi"));
 
     Optional<Employee> findById(int id) {
         // TODO: employees.stream().filter(e -> e.id == id).findFirst() return করো
-        return null;
+
+        Optional<Employee> emp = employees.stream().filter(e -> e.id == id).findFirst();
+        return emp;
     }
 }
 
@@ -48,6 +49,8 @@ public class Demo {
         EmployeeService service = new EmployeeService();
 
         // TODO: service.findById(2).map(e -> e.name).orElse("Unknown") print করো
+        System.out.println(service.findById(1).map(e -> e.name).orElse("Unknown"));
         // TODO: service.findById(99).ifPresentOrElse(...) ব্যবহার করো
+        service.findById(99).ifPresentOrElse(e->System.out.println(e.name), ()-> System.out.println("Employee not found"));
     }
 }
