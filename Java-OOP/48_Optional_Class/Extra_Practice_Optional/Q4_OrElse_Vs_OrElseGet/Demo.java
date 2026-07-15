@@ -32,8 +32,11 @@ public class Demo {
         Optional<String> name = Optional.of("Rahim");
 
         // TODO: name.orElse(computeDefault()) call করো এবং print করো
-        //       (লক্ষ্য করো "Computing default..." প্রথমে print হয়ে যাবে)
+        // (লক্ষ্য করো "Computing default..." প্রথমে print হয়ে যাবে)
+        System.out.println(name.orElse(computeDefault()));
         // TODO: name.orElseGet(() -> computeDefault()) call করো এবং print করো
-        //       (এবার "Computing default..." print হবে না)
+        // (এবার "Computing default..." print হবে না)
+        System.out.println(name.orElseGet(() -> computeDefault()));
+
     }
 }

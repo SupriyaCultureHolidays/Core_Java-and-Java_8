@@ -20,6 +20,8 @@ public class Demo {
         Optional<String> emptyName = Optional.ofNullable(null);
 
         // TODO: name.ifPresent(...) দিয়ে print করো
+        name.ifPresent(value-> System.out.println(value));
         // TODO: emptyName.ifPresent(...) দিয়ে print করার চেষ্টা করো (কিছুই print হবে না)
+        emptyName.ifPresent(value->System.out.println(value));
     }
 }

@@ -25,7 +25,7 @@ import java.util.Optional;
 
 public class Demo {
     static Optional<String> getNickName(String name) {
-        if (name.equals("Rahim")) {
+        if (name.equals("Rahi")) {
             return Optional.of("Ray");
         }
         return Optional.empty();
@@ -35,6 +35,9 @@ public class Demo {
         Optional<String> name = Optional.of("Rahim");
 
         // TODO: name.flatMap(Demo::getNickName) ব্যবহার করো
+        System.out.println(name.flatMap(Demo::getNickName));
         // TODO: orElse("No nickname") দিয়ে print করো
+        System.out.println(name.flatMap(Demo::getNickName).orElse("No nickname"));
+
     }
 }

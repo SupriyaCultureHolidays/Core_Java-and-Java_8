@@ -23,6 +23,7 @@ public class Demo {
         Optional<Integer> age2 = Optional.of(20);
 
         // TODO: age1.filter(a -> a >= 18).orElse(-1) print করো
+        System.out.println(age1.filter(a-> a>15).orElse(-1));
         // TODO: age2.filter(a -> a >= 18).orElse(-1) print করো
     }
 }

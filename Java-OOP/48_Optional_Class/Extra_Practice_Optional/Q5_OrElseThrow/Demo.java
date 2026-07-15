@@ -27,8 +27,16 @@ public class Demo {
 
     public static void main(String[] args) {
         // TODO: findUserById(1).orElseThrow() call করে print করো
+        System.out.println(Demo.findUserById(1).orElseThrow());
 
-        // TODO: try-catch এর ভিতরে findUserById(99).orElseThrow(() -> new RuntimeException("User not found"))
-        //       call করো, catch block-এ e.getMessage() print করো
+        // TODO: try-catch এর ভিতরে findUserById(99).orElseThrow(() -> new
+        // RuntimeException("User not found"))
+        // call করো, catch block-এ e.getMessage() print করো
+        try {
+            System.out.println(Demo.findUserById(99).orElseThrow(() -> new RuntimeException("User not found")));
+
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

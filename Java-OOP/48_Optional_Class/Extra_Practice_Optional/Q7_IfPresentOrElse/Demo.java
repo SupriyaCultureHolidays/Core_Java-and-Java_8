@@ -23,6 +23,9 @@ public class Demo {
         Optional<String> emptyName = Optional.empty();
 
         // TODO: name.ifPresentOrElse(...) ব্যবহার করো
+        name.ifPresentOrElse((value) -> System.out.println(value), () -> System.out.println("No user found"));
         // TODO: emptyName.ifPresentOrElse(...) ব্যবহার করো
+        emptyName.ifPresentOrElse((value) -> System.out.println(value), () -> System.out.println("No user found"));
+
     }
 }
