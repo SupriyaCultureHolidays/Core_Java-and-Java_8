@@ -3,3 +3,8 @@
 //
 // public record Prescription(String patientId, String doctorId, LocalDate date, String medicine) {}
 // — উপরের এক লাইনই পুরো record definition, আলাদা constructor/getter লেখার দরকার নেই
+
+import java.time.LocalDate;
+
+public record Prescription(String patientId, String doctorId, LocalDate date, String medicine) {
+}

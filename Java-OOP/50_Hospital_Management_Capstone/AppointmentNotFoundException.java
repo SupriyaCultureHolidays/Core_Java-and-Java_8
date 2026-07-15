@@ -2,4 +2,7 @@
 public class AppointmentNotFoundException extends Exception {
 
     // constructor-এ message নাও, super(message) call করো
+    AppointmentNotFoundException(String message) {
+        super(message);
+    }
 }

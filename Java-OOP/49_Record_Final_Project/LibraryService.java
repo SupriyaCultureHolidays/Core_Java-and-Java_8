@@ -28,7 +28,6 @@ public class LibraryService {
         books.add(book);
         
     }
-
     // issueBook(String bookId, String studentId) throws BookNotFoundException,
     // BookAlreadyIssuedException
     // — সফল হলে IssueRecord history-তে add করো, Book-এর status ISSUED করো
@@ -41,10 +40,9 @@ public class LibraryService {
             throw new BookAlreadyIssuedException("Book Already Issued");
         }
         book.setStatus(BookStatus.ISSUED);
-        issueHistory.add(new IssueRecord(book.getId(), studentId, java.time.LocalDate.now()));
-        // System.out.println("Book: " + book.getTitle() + " " + "Status: " +
-        // book.getStatus());
-        System.out.println("Issued by: Rahim (Student) on 2026-07-11");
+        IssueRecord issueRecord = new IssueRecord(book.getId(), studentId, java.time.LocalDate.now());
+        issueHistory.add(issueRecord);
+        System.out.println("Issued by: " + issueRecord.studentId() + " (Student) on " + issueRecord.issueDate());
     }
 
     // returnBook(String bookId) throws BookNotFoundException

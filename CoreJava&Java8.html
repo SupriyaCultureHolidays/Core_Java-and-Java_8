@@ -670,7 +670,7 @@ a:focus-visible, button:focus-visible {
     Contents
   </button>
   <div class="mobile-brand">
-    <span>Core Java — ঘণ্টা ১–১৩</span>
+    <span>Core Java</span>
     <div class="dot"></div>
   </div>
 </header>
@@ -776,7 +776,6 @@ a:focus-visible, button:focus-visible {
   <aside class="sidebar" role="navigation" aria-label="Table of contents">
     <div class="sidebar-brand">
       <div class="label">Core Java</div>
-      <h1>ঘণ্টা ১–১৩<br>স্টাডি নোটস</h1>
     </div>
     <div class="toc-label">বিষয়সূচি</div>
     <ul class="toc" id="sidebarToc">
@@ -4765,11 +4764,69 @@ interface MyFunc { void run(); }</pre>
           </tbody>
         </table>
       </div>
+      <h3>Custom Annotation বানানো</h3>
+      <p><code>@interface</code> keyword দিয়ে নিজের Annotation বানানো যায়। সাথে দুটো Meta-Annotation লাগে — <code>@Retention</code> (কতক্ষণ পর্যন্ত এটা বেঁচে থাকবে: SOURCE / CLASS / RUNTIME) আর <code>@Target</code> (কোন Element-এ এটা লাগানো যাবে: METHOD, FIELD, TYPE ইত্যাদি)।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Step 1 — Annotation Define করা</div>
+        <pre>import java.lang.annotation.*;
+
+@Retention(RetentionPolicy.RUNTIME)  <span class="comment">// Runtime-এও পড়া যাবে (Reflection দিয়ে)</span>
+@Target(ElementType.METHOD)          <span class="comment">// শুধু Method-এর উপর বসানো যাবে</span>
+@interface TestInfo {
+    String author();      <span class="comment">// Annotation-এর নিজস্ব element</span>
+    String date() default "unknown";  <span class="comment">// default value দেওয়া যায়</span>
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Step 2 — Annotation ব্যবহার করা</div>
+        <pre>class MyTests {
+    @TestInfo(author = "Supriya", date = "2026-07-14")
+    public void testLogin() {
+        System.out.println("Login test running...");
+    }
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Step 3 — Reflection দিয়ে Annotation পড়া</div>
+        <pre>import java.lang.reflect.Method;
+
+public class Demo {
+    public static void main(String[] args) throws Exception {
+        Method m = MyTests.class.getMethod("testLogin");
+
+        if (m.isAnnotationPresent(TestInfo.class)) {
+            TestInfo info = m.getAnnotation(TestInfo.class);
+            System.out.println("Author: " + info.author());
+            System.out.println("Date: " + info.date());
+        }
+    }
+}</pre>
+      </div>
+      <div class="diagram">Output:
+
+Author: Supriya
+Date: 2026-07-14</div>
+      <div class="insight"><code>@Override</code>, <code>@Deprecated</code>-এর মতো Built-in Annotation নিজে থেকে কিছু করে না — Compiler বা JVM এদের চিনে রাখে বলে effect দেখা যায়। Custom Annotation-ও ঠিক তেমনি নিজে থেকে কিছু করে না; শুধু Metadata হিসেবে বসে থাকে, আর <code>Reflection API</code> (<code>getAnnotation()</code>) দিয়ে সেই Metadata পড়ে Framework (Spring, JUnit) নিজের Logic চালায়।</div>
+      <div class="key-insight"><strong>Rule:</strong> Runtime-এ Annotation পড়তে হলে <code>@Retention(RetentionPolicy.RUNTIME)</code> বাধ্যতামূলক — না দিলে Class file compile হওয়ার পরই Annotation হারিয়ে যায়, Reflection দিয়ে কিছু পাওয়া যাবে না।</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>RetentionPolicy</th><th>কাজ</th></tr></thead>
+          <tbody>
+            <tr><td><code>SOURCE</code></td><td>শুধু .java file-এ থাকে, Compile হওয়ার পর হারিয়ে যায় (যেমন <code>@Override</code>)</td></tr>
+            <tr><td><code>CLASS</code></td><td>.class file পর্যন্ত থাকে, কিন্তু Runtime-এ JVM পড়ে না (Default)</td></tr>
+            <tr><td><code>RUNTIME</code></td><td>Runtime পর্যন্ত থাকে, Reflection দিয়ে পড়া যায় (Custom Annotation-এ সবচেয়ে বেশি ব্যবহৃত)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li><code>@Override</code> না দিলে কি code কাজ করবে? তাহলে কেন দেওয়া উচিত?</li>
           <li><code>@Deprecated</code> দিলে কী হয়?</li>
+          <li><code>@interface</code> দিয়ে <code>@Author(name, date)</code> নামে একটা Custom Annotation বানাও, যেটা Class-এর উপর বসানো যাবে (Target = TYPE)।</li>
+          <li>Runtime-এ Custom Annotation পড়তে <code>@Retention</code>-এ কোন Policy বাধ্যতামূলক, এবং কেন?</li>
         </ol>
       </div>
     </section>
@@ -6570,115 +6627,201 @@ scores.forEach((name, score) ->
     <!-- 73 -->
     <section class="section" id="sec-66">
       <div class="section-header"><span class="sec-num">73</span><h2>Stream API</h2></div>
+      <p>Stream-এর মূল কাজ হলো <strong>Collection-এর data process করা</strong> — filter, transform, sort করে শেষে একটা result বের করা।</p>
       <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Pipeline Sequence — মনে রাখার নিয়ম</div>
-        <pre>source.stream()
-    →  <span class="comment">Intermediate: filter, map, sorted, distinct, limit, skip</span>
-         <span class="comment">যতবার খুশি চেইন করা যায় — Stream-ই ফেরত দেয়, lazy (এখনো কিছু চলেনি)</span>
-    →  <span class="comment">Terminal: findFirst, toList, collect, forEach, count, anyMatch...</span>
-         <span class="comment">ঠিক ১বার, একদম শেষে বসে — Stream শেষ করে দেয়, final result রিটার্ন করে</span></pre>
+        <div class="code-label"><span class="dot"></span>পুরনো way vs Stream way</div>
+        <pre><span class="comment">// ❌ পুরনো way — নিজে loop চালিয়ে</span>
+List&lt;String&gt; names = List.of("Rahul", "Amit", "Priya");
+List&lt;String&gt; result = new ArrayList&lt;&gt;();
+for (String name : names) {
+    if (name.startsWith("R")) {
+        result.add(name.toUpperCase());
+    }
+}
+System.out.println(result);
+
+<span class="comment">// ✅ Stream way — এক চেইনে</span>
+List&lt;String&gt; result = names.stream()
+        .filter(name -> name.startsWith("R"))
+        .map(String::toUpperCase)
+        .toList();</pre>
       </div>
+      <div class="diagram">Collection
+    ↓
+stream()
+    ↓
+filter()
+    ↓
+map()
+    ↓
+sorted()
+    ↓
+distinct()
+    ↓
+limit()
+    ↓
+collect() / toList()</div>
+      <div class="insight"><strong>১০০% পরিষ্কার বুঝতে হবে এমন method:</strong> <code>stream()</code>, <code>filter()</code>, <code>map()</code>, <code>sorted()</code>, <code>distinct()</code>, <code>limit()</code>, <code>skip()</code>, <code>count()</code>, <code>findFirst()</code>, <code>findAny()</code>, <code>anyMatch()</code>, <code>allMatch()</code>, <code>noneMatch()</code>, <code>collect()</code>, <code>toList()</code>, <code>reduce()</code>, <code>groupingBy()</code>, <code>joining()</code>।</div>
+
+      <h3>একটা নিয়ম মনে রাখো — Operation দুই ধরনের</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>1. Intermediate Operation — Stream-ই ফেরত দেয়</div>
+        <pre>filter()
+map()
+sorted()
+distinct()
+limit()
+skip()
+peek()</pre>
+      </div>
+      <p>এগুলো করলে এখনও Stream-এই আছো — <strong>List রিটার্ন করে না</strong>, <strong>Stream রিটার্ন করে</strong>।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>উদাহরণ — এখনো Stream, List না</div>
+        <pre>List&lt;String&gt; names = List.of("Rahul", "Amit", "Priya");
+
+Stream&lt;String&gt; stream = names.stream()
+        .filter(name -> name.startsWith("R"));
+<span class="comment">// stream এর type: Stream&lt;String&gt; — List না</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>2. Terminal Operation — Stream শেষ করে Result দেয়</div>
+        <pre>toList()
+collect()
+count()
+findFirst()
+findAny()
+forEach()
+reduce()
+anyMatch()
+allMatch()
+noneMatch()</pre>
+      </div>
+
+      <h3>Example 1 — toList() দরকার</h3>
+      <p>R দিয়ে শুরু হওয়া নামগুলোকে নতুন List-এ রাখতে চাও:</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Java</div>
+        <pre>List&lt;String&gt; names = List.of("Rahul", "Amit", "Rohan");
+
+List&lt;String&gt; result = names.stream()
+        .filter(name -> name.startsWith("R"))
+        .toList();</pre>
+      </div>
+      <div class="diagram">filter()
+    ↓
+Stream&lt;String&gt;
+    ↓
+toList()
+    ↓
+List&lt;String&gt;   ← কারণ শেষে List চাই</div>
+
+      <h3>Example 2 — toList() দরকার নেই</h3>
+      <p>শুধু print করতে চাও:</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Java</div>
+        <pre>names.stream()
+     .filter(name -> name.startsWith("R"))
+     .forEach(System.out::println);</pre>
+      </div>
+      <div class="diagram">filter()
+    ↓
+Stream
+    ↓
+forEach()
+    ↓
+print শেষ   ← List বানানোর দরকার নেই</div>
+
+      <h3>Example 3 — count()</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Java</div>
+        <pre>long total = names.stream()
+        .filter(name -> name.startsWith("R"))
+        .count();</pre>
+      </div>
+      <div class="diagram">filter()
+    ↓
+Stream
+    ↓
+count()
+    ↓
+long   ← List লাগছে না</div>
+
+      <h3>Example 4 — findFirst()</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Java</div>
+        <pre>Optional&lt;String&gt; name = names.stream()
+        .filter(n -> n.startsWith("R"))
+        .findFirst();</pre>
+      </div>
+      <div class="diagram">filter()
+    ↓
+Stream
+    ↓
+findFirst()
+    ↓
+Optional&lt;String&gt;   ← List লাগছে না</div>
+
+      <h3>Example 5 — map()</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Java</div>
+        <pre>List&lt;String&gt; upper = names.stream()
+        .map(String::toUpperCase)
+        .toList();</pre>
+      </div>
+      <p><code>map()</code>-এর পরে আসে <code>Stream&lt;String&gt;</code>, তাই List পেতে <code>toList()</code> লাগে।</p>
+
+      <h3>collect() কবে?</h3>
+      <p><code>collect()</code> একটু powerful — শুধু List না, Set, Map, Group, joined String — সবকিছু বানাতে পারে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>collect()-এর রূপ</div>
+        <pre>.collect(Collectors.toList())
+.collect(Collectors.toSet())
+.collect(Collectors.groupingBy(...))
+.collect(Collectors.joining())
+.collect(Collectors.toMap(...))</pre>
+      </div>
+      <p>যদি শুধু List বানাতে চাও, Java 16+ এ <code>.toList()</code> লিখলেই হয়।</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Intermediate Operation</th><th>কাজ</th><th>Return</th></tr></thead>
+          <thead><tr><th>মনে রাখার Shortcut — Result হিসেবে চাই</th><th>Method</th></tr></thead>
           <tbody>
-            <tr><td><code>filter(predicate)</code></td><td>শর্ত মেলে এমন element রাখে, বাকি বাদ</td><td>Stream&lt;T&gt;</td></tr>
-            <tr><td><code>map(function)</code></td><td>প্রতিটা element-কে অন্য কিছুতে রূপান্তর করে</td><td>Stream&lt;R&gt;</td></tr>
-            <tr><td><code>sorted()</code> / <code>sorted(cmp)</code></td><td>natural order বা Comparator অনুযায়ী sort করে</td><td>Stream&lt;T&gt;</td></tr>
-            <tr><td><code>distinct()</code></td><td>duplicate elements বাদ দেয়</td><td>Stream&lt;T&gt;</td></tr>
-            <tr><td><code>limit(n)</code></td><td>প্রথম n-টা element রাখে</td><td>Stream&lt;T&gt;</td></tr>
-            <tr><td><code>skip(n)</code></td><td>প্রথম n-টা element বাদ দিয়ে বাকিটা রাখে</td><td>Stream&lt;T&gt;</td></tr>
+            <tr><td>✅ List চাই</td><td><code>.toList()</code></td></tr>
+            <tr><td>✅ Set চাই</td><td><code>.collect(Collectors.toSet())</code></td></tr>
+            <tr><td>✅ Map চাই</td><td><code>.collect(Collectors.toMap(...))</code></td></tr>
+            <tr><td>✅ Group চাই</td><td><code>.collect(Collectors.groupingBy(...))</code></td></tr>
+            <tr><td>✅ String বানাতে চাই</td><td><code>.collect(Collectors.joining(", "))</code></td></tr>
           </tbody>
         </table>
       </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Terminal Operation</th><th>কাজ</th><th>Return</th></tr></thead>
-          <tbody>
-            <tr><td><code>collect(Collectors.toList())</code></td><td>List-এ collect করে (mutable ArrayList)</td><td>List&lt;T&gt;</td></tr>
-            <tr><td><code>toList()</code> <em>(Java 16+)</em></td><td>List-এ collect করার shortcut (immutable list)</td><td>List&lt;T&gt;</td></tr>
-            <tr><td><code>forEach(consumer)</code></td><td>প্রতিটা element নিয়ে কিছু action করে (print ইত্যাদি)</td><td>void</td></tr>
-            <tr><td><code>count()</code></td><td>মোট কতগুলো element আছে গোনে</td><td>long</td></tr>
-            <tr><td><code>findFirst()</code></td><td>প্রথম element (যদি থাকে) নেয় — কোনো condition argument নেয় না, তার আগে <code>filter()</code> বসাতে হয়</td><td>Optional&lt;T&gt;</td></tr>
-            <tr><td><code>anyMatch(predicate)</code></td><td>কোনো একটা element শর্ত মানে কিনা</td><td>boolean</td></tr>
-            <tr><td><code>allMatch(predicate)</code></td><td>সবগুলো element শর্ত মানে কিনা</td><td>boolean</td></tr>
-            <tr><td><code>min(cmp)</code> / <code>max(cmp)</code></td><td>সবচেয়ে ছোট/বড় element</td><td>Optional&lt;T&gt;</td></tr>
-            <tr><td><code>reduce(identity, accumulator)</code></td><td>সব element মিলিয়ে একটা result বানায় (বিস্তারিত: Topic 74)</td><td>T</td></tr>
-          </tbody>
-        </table>
+
+      <h3>Interview Trick — শেষ method-ই return type ঠিক করে</h3>
+      <p>এই কোডগুলোর output type বলো:</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>একই filter, ভিন্ন শেষ method → ভিন্ন return type</div>
+        <pre>names.stream().filter(s -> s.length() > 3);              <span class="comment">// Stream&lt;String&gt;</span>
+names.stream().filter(s -> s.length() > 3).toList();      <span class="comment">// List&lt;String&gt;</span>
+names.stream().filter(s -> s.length() > 3).count();       <span class="comment">// long</span>
+names.stream().filter(s -> s.length() > 3).findFirst();   <span class="comment">// Optional&lt;String&gt;</span></pre>
       </div>
-      <div class="key-insight"><strong>কখন <code>toList()</code>, কখন <code>collect(Collectors.toList())</code>:</strong>
+      <div class="insight"><strong>একটি সহজ নিয়ম:</strong> Stream chain-এর <strong>শেষ method-টাই</strong> ঠিক করে দেয় final return type কী হবে।
         <ul style="margin:0.5rem 0 0 1.1rem; display:flex; flex-direction:column; gap:0.35rem;">
-          <li>শুধু simple <strong>List বানিয়ে পড়তে/iterate করতে</strong> চাইলে <code>.toList()</code> লেখো — ছোট, clean। কিন্তু এটা <strong>immutable</strong> — পরে <code>.add()</code>/<code>.remove()</code> করলে <code>UnsupportedOperationException</code> আসবে।</li>
-          <li>পরে ওই list-এ <strong>item add/remove করতে হবে</strong> এমন হলে <code>.collect(Collectors.toList())</code> ব্যবহার করো — এটা সাধারণত mutable <code>ArrayList</code> রিটার্ন করে।</li>
-          <li>List ছাড়া অন্য কিছু (Set, Map, joined String, grouped data) দরকার হলে <code>.toList()</code>-এর বিকল্প নেই — তখন <code>collect(Collectors.toSet())</code>, <code>Collectors.toMap()</code>, <code>Collectors.joining()</code>, <code>Collectors.groupingBy()</code> ব্যবহার করতে হবে।</li>
+          <li>শেষে <code>toList()</code> → <code>List</code></li>
+          <li>শেষে <code>count()</code> → <code>long</code></li>
+          <li>শেষে <code>findFirst()</code> → <code>Optional</code></li>
+          <li>শেষে <code>forEach()</code> → <code>void</code></li>
+          <li>শেষে <code>reduce()</code> → accumulated value (যেমন <code>Integer</code>, <code>String</code> ইত্যাদি)</li>
         </ul>
       </div>
-      <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Intermediate Operations (lazy)</div>
-        <pre>list.stream()
-    .filter(n -> n % 2 == 0)    <span class="comment">// শুধু even</span>
-    .map(n -> n * n)             <span class="comment">// square</span>
-    .sorted()                    <span class="comment">// sort</span>
-    .distinct()                  <span class="comment">// duplicate বাদ</span>
-    .limit(3)                    <span class="comment">// প্রথম 3টা</span>
-    .skip(1)                     <span class="comment">// প্রথমটা skip</span></pre>
-      </div>
-      <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Terminal Operations (eager)</div>
-        <pre>.collect(Collectors.toList())      <span class="comment">// List-এ collect</span>
-.forEach(System.out::println)      <span class="comment">// print each</span>
-.count()                           <span class="comment">// কতটা</span>
-.findFirst()                       <span class="comment">// প্রথমটা (Optional)</span>
-.anyMatch(n -> n &gt; 5)              <span class="comment">// কোনোটা condition মানে?</span>
-.allMatch(n -> n &gt; 0)              <span class="comment">// সবগুলো মানে?</span>
-.min(Comparator.naturalOrder())    <span class="comment">// সবচেয়ে ছোট</span>
-.max(Comparator.naturalOrder())    <span class="comment">// সবচেয়ে বড়</span></pre>
-      </div>
-      <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Collectors.joining()</div>
-        <pre>List&lt;String&gt; names = Arrays.asList("Rahim", "Karim", "Sumi");
+      <div class="insight">Stream-এর confusion আসলে বেশিরভাগ সময় <strong>return type</strong> নিয়েই হয়। প্রতিটি method-এর return type (<code>Stream</code>, <code>List</code>, <code>Optional</code>, <code>long</code>, <code>void</code>) একবার পরিষ্কারভাবে বুঝে গেলে <code>collect()</code> বা <code>toList()</code> কখন লাগবে আর কখন লাগবে না — বেশিরভাগ confusion চলে যাবে।</div>
 
-String joined = names.stream()
-        .collect(Collectors.joining(", "));
-
-System.out.println(joined);</pre>
-      </div>
-      <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Output</div>
-        <pre>Rahim, Karim, Sumi</pre>
-      </div>
-      <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Collectors.groupingBy()</div>
-        <pre>List&lt;String&gt; names =
-        Arrays.asList("Rahim", "Karim", "Sumi", "Rita", "Joy");
-
-Map&lt;Integer, List&lt;String&gt;&gt; grouped =
-        names.stream()
-                .collect(Collectors.groupingBy(String::length));
-
-System.out.println(grouped);</pre>
-      </div>
-      <div class="code-block">
-        <div class="code-label"><span class="dot"></span>Output</div>
-        <pre>{3=[Joy], 4=[Sumi, Rita], 5=[Rahim, Karim]}</pre>
-      </div>
-      <div class="key-insight"><code>groupingBy()</code> সবসময় একটি <code>Map&lt;K, List&lt;V&gt;&gt;</code> তৈরি করে — key হয় grouping condition (যেমন <code>length</code>), value হয় সেই condition পূরণ করা element-গুলোর list।</div>
-      <div class="key-insight"><strong>বারবার হওয়া ভুলগুলো (নিজের ভুল থেকে শেখা — এই ৪টা প্রতিবার চেক করো):</strong>
-        <ul style="margin:0.5rem 0 0 1.1rem; display:flex; flex-direction:column; gap:0.35rem;">
-          <li><strong>শর্ত সবসময় <code>filter()</code>-এ বসে, terminal operation-এ না</strong> — <code>findFirst(condition)</code> ভুল (findFirst কোনো argument নেয় না), <code>filter(condition).findFirst()</code> ঠিক।</li>
-          <li><strong>Method call-এ <code>()</code> ভুলো না</strong> — <code>b.getId</code> ভুল, <code>b.getId()</code> ঠিক। প্রথমটা method-কে call না করেই reference করার চেষ্টা, compile error দেয়।</li>
-          <li><strong>String/Object content compare করতে <code>==</code> না, <code>.equals()</code></strong> — <code>id == bookId</code> ভুল (memory reference compare করে), <code>id.equals(bookId)</code> ঠিক (content compare করে)।</li>
-          <li><strong>Variable-এর type, terminal operation-এর return type-এর সাথে মেলাও</strong> — <code>filter().toList()</code> → <code>List&lt;T&gt;</code> রিটার্ন করে (একাধিক ফলাফল হতে পারলে), <code>filter().findFirst()</code> → <code>Optional&lt;T&gt;</code> রিটার্ন করে (একটামাত্র/না-ও থাকতে পারে এমন ফলাফলের জন্য)।</li>
-        </ul>
-      </div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
-          <li>Intermediate আর Terminal operation-এর পার্থক্য কী?</li>
-          <li>একটা number list থেকে: even বের করো, square করো, sort করো, list-এ collect করো।</li>
-          <li><code>joining()</code> আর <code>groupingBy()</code>-এর পার্থক্য কী?</li>
-          <li>একটা <code>List&lt;Book&gt;</code> থেকে নির্দিষ্ট <code>id</code>-র বইটা খুঁজে বের করতে <code>filter</code> + কোন terminal operation ব্যবহার করবে, আর কেন <code>toList()</code> না?</li>
+          <li>Intermediate আর Terminal operation-এর পার্থক্য কী? প্রতিটার ৩টা করে উদাহরণ দাও।</li>
+          <li><code>names.stream().filter(n -> n.startsWith("A"))</code> — এই লাইনের return type কী? এতে <code>.toList()</code> যোগ করলে কী বদলাবে?</li>
+          <li>শুধু কতগুলো element একটা শর্ত মানে সেটা জানতে চাইলে কোন terminal operation ব্যবহার করবে, আর কেন <code>toList()</code> না?</li>
+          <li><code>collect(Collectors.toList())</code> আর <code>.toList()</code>-এর মধ্যে পার্থক্য কী?</li>
+          <li>একটা <code>List&lt;String&gt;</code> থেকে "A" দিয়ে শুরু হওয়া নামগুলোর প্রথমটা বের করতে কোন chain লিখবে, আর তার return type কী হবে?</li>
         </ol>
       </div>
     </section>
@@ -6704,6 +6847,43 @@ nums.stream().sorted().forEach(System.out::println);
 nums.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);</pre>
       </div>
       <div class="code-block">
+        <div class="code-label"><span class="dot"></span>reduce() — identity সহ vs identity ছাড়া (২টা overload)</div>
+        <pre><span class="comment">// ১) identity সহ — identity mandatory, সরাসরি value return করে</span>
+T reduce(T identity, BinaryOperator&lt;T&gt; accumulator)
+
+List&lt;Integer&gt; nums = List.of(1, 2, 3, 4, 5);
+int sum = nums.stream().reduce(0, (a, b) -> a + b);
+System.out.println(sum);  <span class="comment">// 15</span>
+
+<span class="comment">// ২) identity ছাড়া — Java জানে না শুরু কোথা থেকে করবে,</span>
+<span class="comment">// তাই প্রথম element-কে initial ধরে নেয়, আর result Optional-এ wrap করে</span>
+Optional&lt;T&gt; reduce(BinaryOperator&lt;T&gt; accumulator)
+
+Optional&lt;Integer&gt; sum2 = nums.stream().reduce((a, b) -> a + b);
+System.out.println(sum2.get());  <span class="comment">// 15</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Empty list হলে পার্থক্য</div>
+        <pre>List&lt;Integer&gt; nums = List.of();
+
+<span class="comment">// identity সহ — identity-ই সরাসরি return হয়</span>
+int sum = nums.stream().reduce(0, (a, b) -> a + b);
+System.out.println(sum);  <span class="comment">// 0</span>
+
+<span class="comment">// identity ছাড়া — কোনো element-ই নেই তো initial value ঠিক করার উপায় নেই</span>
+Optional&lt;Integer&gt; sum2 = nums.stream().reduce((a, b) -> a + b);
+System.out.println(sum2);  <span class="comment">// Optional.empty</span></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>reduce() version</th><th>Identity</th><th>Return</th><th>Empty stream হলে</th></tr></thead>
+          <tbody>
+            <tr><td><code>reduce(identity, accumulator)</code></td><td>Required</td><td><code>T</code></td><td>identity নিজেই return হয়</td></tr>
+            <tr><td><code>reduce(accumulator)</code></td><td>Not required</td><td><code>Optional&lt;T&gt;</code></td><td><code>Optional.empty</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
         <div class="code-label"><span class="dot"></span>সব একসাথে chain</div>
         <pre>List&lt;String&gt; result = names.stream()
     .filter(name -> name.length() &gt; 3)
@@ -6713,11 +6893,13 @@ nums.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);</p
 <span class="comment">// [ALICE, CHARLIE, NAVIN]</span></pre>
       </div>
       <div class="key-insight"><code>reduce(0, (a,b) -&gt; a+b)</code> — এখানে <code>0</code> হলো identity (initial value)।</div>
+      <div class="key-insight"><strong>identity optional না</strong> — <code>reduce()</code>-এর দুইটা আলাদা overloaded method আছে। identity দিলে সরাসরি <code>T</code> value পাওয়া যায়; identity না দিলে Java প্রথম element-কে initial ধরে নেয় আর result <code>Optional&lt;T&gt;</code>-এ wrap করে দেয় — কারণ stream empty হলে কোনো initial value-ই থাকে না।</div>
       <div class="practice">
         <div class="practice-title">অনুশীলন প্রশ্ন</div>
         <ol>
           <li><code>map</code> আর <code>filter</code>-এর পার্থক্য কী?</li>
           <li>Student list থেকে 80-এর বেশি marks যাদের, তাদের নাম uppercase-এ sorted print করো।</li>
+          <li><code>reduce(0, (a,b)-&gt;a+b)</code> আর <code>reduce((a,b)-&gt;a+b)</code>-এর মধ্যে পার্থক্য কী? Empty list-এ দুইটা কী return করবে?</li>
         </ol>
       </div>
     </section>
@@ -7422,6 +7604,43 @@ try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("stude
     backTop.classList.toggle('visible', window.scrollY > 400);
   }, { passive: true });
   backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // ── Preserve scroll position across tab switches / background reloads ──
+  // Browsers sometimes discard a background tab to save memory; when you switch
+  // back, it reloads the page and jumps to the URL's #section anchor (section
+  // top) instead of remembering exactly where you were. We save scrollY
+  // continuously and restore that exact position instead.
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  const SCROLL_KEY = 'javaNotesScrollY';
+
+  function restoreScroll() {
+    const saved = sessionStorage.getItem(SCROLL_KEY);
+    if (saved === null) return;
+    const prevBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo(0, parseInt(saved, 10));
+    document.documentElement.style.scrollBehavior = prevBehavior;
+  }
+
+  window.addEventListener('load', restoreScroll);
+  window.addEventListener('pageshow', restoreScroll);
+
+  let scrollSaveTimer = null;
+  window.addEventListener('scroll', () => {
+    clearTimeout(scrollSaveTimer);
+    scrollSaveTimer = setTimeout(() => {
+      sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
+    }, 150);
+  }, { passive: true });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      sessionStorage.setItem(SCROLL_KEY, String(window.scrollY));
+    }
+  });
 </script>
 </body>
 </html>

@@ -2,4 +2,7 @@
 public class SlotAlreadyBookedException extends Exception {
 
     // constructor-এ message নাও, super(message) call করো
+    SlotAlreadyBookedException(String message) {
+        super(message);
+    }
 }

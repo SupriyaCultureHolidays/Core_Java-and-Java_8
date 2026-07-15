@@ -1,3 +1,4 @@
+
 /*
  * Final Project — Library Management System (সব OOP + Java 8 Topic এক জায়গায়)
  *
@@ -40,6 +41,8 @@
  * Issued by: Rahim (Student) on 2026-07-11
  * Book not found: B999
  */
+import java.util.List;
+
 public class Demo {
     public static void main(String[] args) {
         // Book b1 = new Book("1", "You Can Do it", "Supriya", BookStatus.AVAILABLE);
@@ -51,6 +54,18 @@ public class Demo {
         service.addBook(new Book("2", "Spring Boot Guide", "Karim", BookStatus.AVAILABLE));
         service.displayAllBooks();
         System.out.println(service.findBookById("2").get());
+
+        try {
+            service.issueBook("1", "S101");
+        } catch (BookNotFoundException | BookAlreadyIssuedException e) {
+            System.out.println(e.getMessage());
+        }
+
+        List<Book> books = service.searchBooks(b -> b.getAuthor().equals("Rahul"));
+        System.out.println(books);
+
+        System.out.println(service.findBookById("3"));
+
     }
 }
 

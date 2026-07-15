@@ -6,4 +6,13 @@ public class Doctor extends Person {
     // চাইলে specialization (String) field যোগ করো, যেমন "Cardiologist"
 
     // getRole() override করো — return "Doctor"
+    String specialization;
+    Doctor(String id, String name, String specialization){
+        super(id, name);
+        this.specialization = specialization;
+    }
+    @Override
+    String getRole(){
+        return "Doctor";
+    }
 }

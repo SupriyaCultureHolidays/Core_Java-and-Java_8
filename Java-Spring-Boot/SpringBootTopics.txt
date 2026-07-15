@@ -1,0 +1,150 @@
+[00:00:00] - Course Introduction and Overview
+[00:12:34] - Tight and Loose Coupling / Strategy Design Pattern
+[00:37:04] - Dependency Injection Types (Constructor, Setter, Field Injection)
+[00:40:45] - Web Framework Overview (Why Use a Web Framework)
+[00:47:47] - Introduction to Spring Framework and its Ecosystem Projects
+[00:53:02] - Spring Core Concepts: Bean, IoC Container, Application Context
+[00:56:43] - Creating First Spring Project with Maven (pom.xml, Spring Core/Context Dependencies)
+[01:07:38] - Build Tools Overview (Maven vs Gradle)
+[01:16:07] - Creating and Retrieving a Bean via XML Configuration
+[01:30:59] - Hands-on Exercise: Notification/User Service Example with Spring-Managed Beans
+[01:43:23] - Recap: Inversion of Control and Dependency Injection
+[01:46:58] - Problems with Manual/XML-Based Configuration
+[01:49:05] - Introduction to Annotations
+[01:50:40] - Annotation-Based Configuration (@Component, @ComponentScan, @Configuration)
+[02:01:38] - @Autowired Annotation for Dependency Injection
+[02:05:49] - Constructor Injection (implicit autowiring with single constructor)
+[02:08:22] - Field Injection using @Autowired and why Constructor Injection is Preferred
+[02:09:25] - Stereotype Annotations (@Service, @Repository, @Controller, @RestController) vs @Component
+[02:13:48] - Layered Architecture Overview (Controller-Service-Repository) — Bank App Example
+[02:16:54] - Resolving Multiple-Bean Ambiguity with @Qualifier
+[02:19:34] - Resolving Multiple-Bean Ambiguity with @Primary
+[02:21:11] - Spring Bean Lifecycle (constructor, DI, init, execution, destroy)
+[02:32:36] - Difference between @Component and @Bean
+[02:35:42] - Mini CRUD Project with Layered Architecture (in-memory DB)
+[03:01:16] - Introduction to Spring Boot (auto-configuration, embedded server, microservices)
+[03:12:04] - Creating a Spring Boot Project via Spring Initializr
+[03:21:16] - Spring Boot Project Structure Walkthrough
+[03:25:02] - @SpringBootApplication Annotation Explained + Embedded Tomcat
+[03:30:08] - Spring Boot Starter Dependencies (web, data-jpa, security, test)
+[03:37:03] - application.properties Configuration File
+[03:41:10] - CommandLineRunner Interface
+[03:44:02] - ApplicationRunner Interface and Application Arguments
+[03:46:57] - Spring Boot Interview Questions Recap
+[03:52:25] - Introduction to APIs (Frontend vs Backend, Client Types)
+[03:53:29] - Frontend vs Backend Architecture Overview
+[03:59:08] - Production-Grade Multi-Platform API Consumption Example
+[04:02:24] - Introduction to REST API (Representational State Transfer)
+[04:03:52] - JSON Data Format Explained
+[04:08:56] - Creating First REST API with Spring Boot (@RestController, @GetMapping)
+[04:13:21] - HTTP Status Codes Overview (1xx-5xx)
+[04:17:32] - HTTP Request Methods Overview (GET, POST, PUT, PATCH, DELETE)
+[04:19:56] - Returning JSON via POJO Classes and Jackson Serialization
+[04:28:31] - @RequestMapping Annotation (Method-Level and Class-Level)
+[04:34:00] - Internal Request Flow: Tomcat, DispatcherServlet, HandlerMapping, Spring MVC
+[04:39:50] - Data Modification APIs: GET/POST/PUT/DELETE Use Cases
+[04:41:59] - Building POST Mapping with @RequestBody (Create User API)
+[04:49:56] - Introduction to Postman for API Testing
+[04:59:18] - PUT Mapping for Updating User Data
+[05:05:51] - DELETE Mapping (Delete User Endpoint)
+[05:08:33] - GET All Users Endpoint (Returning Collections)
+[05:12:18] - Rationale for Distinct HTTP Method Annotations
+[05:16:04] - Motivating Problem for ResponseEntity (Uncontrolled Status Codes)
+[05:19:04] - Using ResponseEntity and HttpStatus Enum
+[05:34:32] - 204 No Content Status Code Usage
+[05:35:12] - Dynamic URLs Concept
+[05:43:26] - Path Variables and @PathVariable Annotation
+[05:51:35] - Multiple Path Variables in a Single URL
+[05:55:28] - Optional Path Variables (required = false)
+[05:56:43] - Combining Multiple URL Mappings in a Single @GetMapping
+[05:58:03] - Request Params and @RequestParam Annotation (Search API)
+[06:00:55] - Mandatory vs Optional Request Params and Default Values
+[06:05:20] - Filtering Data Using Java Streams
+[06:07:37] - Multiple Request Params for Multi-Field Filtering
+[06:10:43] - Query Parameters vs Request Parameters Terminology
+[06:11:53] - Request Headers (@RequestHeader)
+[06:16:19] - Combining PathVariable, RequestParam, and RequestHeader in One Endpoint
+[06:18:41] - Introduction to Exception Handling in Spring Boot
+[06:22:01] - Introducing the Service Layer (Refactoring Controller Logic)
+[06:33:07] - Throwing Exceptions and Default Spring Boot Exception Behavior (500 stack trace)
+[06:38:14] - @ExceptionHandler Annotation for Custom Exception Handling
+[06:44:38] - Custom Error Response Object (timestamp, status, message)
+[06:47:03] - Handling Multiple Exception Types in One Handler Method
+[06:49:31] - @ControllerAdvice / @RestControllerAdvice - Global Exception Handler
+[06:54:12] - Handling Built-in Spring Exceptions (HttpRequestMethodNotSupportedException)
+[06:59:52] - Interview Q&A on ControllerAdvice and ExceptionHandler
+[07:04:12] - Custom Exception Classes (UserNotFoundException)
+[07:08:56] - Logging - Introduction and Use Cases
+[07:10:24] - Logging Levels (TRACE, DEBUG, INFO, WARN, ERROR)
+[07:14:18] - Logging Frameworks (SLF4J, Logback, Log4j)
+[07:16:39] - Using SLF4J Logger in Code
+[07:22:54] - Logging Exception Details in Exception Handler
+[07:27:49] - Logging Best Practices
+[07:28:05] - Why Learn JDBC Before Spring Boot
+[07:33:58] - JDBC Project Setup and MySQL Connector Dependency
+[07:36:30] - JDBC Connection Establishment (Connection, DriverManager)
+[07:45:50] - Try-With-Resources for JDBC Connection Closing
+[07:48:32] - Creating a Table and Inserting Data via JDBC (Statement)
+[07:55:35] - Fetching Data via JDBC (ResultSet)
+[08:01:33] - JDBC UPDATE Query Construction and Execution
+[08:05:36] - JDBC DELETE Query and CRUD Summary
+[08:07:34] - SQL Injection Risk with String-Concatenated Statements
+[08:09:39] - PreparedStatement to Prevent SQL Injection
+[08:14:06] - Transactions: Definition and Concept
+[08:19:03] - Transaction Commit and Rollback (E-commerce Order Example)
+[08:24:37] - ACID Properties of Transactions
+[08:30:24] - Setting Up JDBC Project for Transaction Demo
+[08:32:28] - Designing Orders and Order Items Tables
+[08:39:11] - Writing insertOrder Method with PreparedStatement
+[08:48:03] - Writing insertOrderItem Method
+[08:53:11] - Simulating Exception Mid-Transaction (Inconsistent Data)
+[08:55:28] - Manual Transaction Management (setAutoCommit, commit, rollback)
+[09:03:19] - Why Spring Boot Abstracts Manual Transaction Management (@Transactional Preview)
+[09:06:04] - Problems with Raw JDBC (Boilerplate, Manual Mapping, Schema Fragility)
+[09:10:23] - Introduction to ORM (Object Relational Mapping)
+[09:13:57] - Introducing JPA and Hibernate Terminology
+[09:24:29] - Hibernate Architecture (Entity, SessionFactory, Session, Persistence Context)
+[09:28:30] - Setting Up Hibernate Demo Project (Maven Dependencies)
+[09:30:47] - Creating hibernate.cfg.xml
+[09:33:57] - Building HibernateUtil Class (Static SessionFactory)
+[09:37:23] - Creating Entity Class with @Entity and @Id
+[09:40:03] - Persisting an Object via Session
+[09:44:47] - Debugging Common Hibernate Errors
+[09:49:00] - Fixing "No Current Session" Error (Thread-Bound Session Context)
+[09:50:26] - Successful Run: Auto-Created Table and Inserted Record
+[09:55:58] - @GeneratedValue(strategy = IDENTITY) for Auto-Generated Keys
+[09:57:51] - Interview Q&A: Hibernate vs JDBC
+[09:58:36] - Interview Q&A: SessionFactory vs Session
+[09:59:24] - Interview Q&A: Why Entities Need No-Arg Constructor
+[10:00:07] - JPA vs Hibernate: Specification vs Implementation
+[10:03:10] - Understanding EntityManager as a JPA Interface
+[10:07:59] - Why JPA Exists: Loose Coupling, Switching ORM Providers
+[10:15:50] - Preview: How Spring Boot/Spring Data JPA Use EntityManager Internally
+[10:19:14] - EntityManager/JPA Demo Project Setup
+[10:23:02] - Configuring persistence.xml
+[10:26:53] - Creating JpaUtil Class (EntityManagerFactory, EntityManager)
+[10:29:36] - Refactoring Main Class to Use EntityManager
+[10:34:43] - New Spring Boot Project with Spring Data JPA and MySQL
+[10:36:32] - How Spring Data JPA Works Internally (Wrapper over EntityManager/Hibernate)
+[10:39:01] - Setting Up Entity Class in Spring Boot Project
+[10:40:18] - Configuring application.properties for MySQL Datasource
+[10:41:41] - Understanding hibernate.ddl-auto Values
+[10:46:55] - Running Application and Debugging Dialect/Credential Errors
+[10:53:47] - Introducing Repository Layer and JpaRepository
+[10:58:01] - CrudRepository vs JpaRepository
+[10:59:14] - Building Service Layer (UserService) with Repository Injection
+[11:02:34] - Building REST Controller (UserController) and POST Create-User Endpoint
+[11:07:39] - Testing Create User API in Postman + Viewing Generated SQL
+[11:11:31] - Adding GET All Users Endpoint
+[11:13:28] - Challenge: Upgrade Map-Based REST API to Use Database/Repository
+[11:19:24] - Solution: Adding DB Dependencies and Configuration
+[11:20:14] - Marking Model as JPA Entity with Auto-Generated ID
+[11:21:52] - Creating UserRepository Interface
+[11:22:24] - Refactoring createUser to Use Repository save()
+[11:23:50] - Refactoring updateUser with findById, Optional, orElseThrow
+[11:28:56] - Refactoring deleteUser with existsById and deleteById
+[11:29:38] - Refactoring getAllUsers and getUserById Using Repository Methods
+[11:30:56] - Derived Query Methods (findByNameIgnoreCaseAndEmailIgnoreCase)
+[11:35:28] - Testing All CRUD Endpoints in Postman with DB Verification
+[11:43:02] - Demonstrating Database Portability: MySQL to PostgreSQL
+[11:52:19] - Course Wrap-up and Closing
