@@ -28,7 +28,7 @@
   --header-h:    52px;
 }
 
-html { scroll-behavior: smooth; font-size: 16px; max-width: 100%; overflow-x: hidden; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
   background: var(--bg);
@@ -36,8 +36,6 @@ body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   line-height: 1.65;
   min-height: 100vh;
-  max-width: 100%;
-  overflow-x: hidden;
   overflow-wrap: break-word;
 }
 
@@ -290,7 +288,7 @@ body {
 .page-header p {
   color: var(--muted);
   font-size: 0.9rem;
-  max-width: 52ch;
+  max-width: 100%;
 }
 
 .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
@@ -348,7 +346,7 @@ body {
   font-weight: 700;
 }
 
-.section p { margin-bottom: 0.75rem; max-width: 68ch; }
+.section p { margin-bottom: 0.75rem; max-width: 100%; }
 .section p:last-child { margin-bottom: 0; }
 strong { color: var(--navy-mid); font-weight: 700; }
 
