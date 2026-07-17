@@ -2,6 +2,7 @@ import java.lang.classfile.ClassFile.Option;
 import java.nio.file.OpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -94,7 +95,7 @@ public class HospitalService {
         appoi.setStatus(AppointmentStatus.COMPLETED);
         prescriptionHistory
                 .add(new Prescription(appoi.getPatientId(), appoi.getDoctorId(), appoi.getDate(), "Paracitamal"));
-                System.out.println("Completed Your Appoinment");
+        System.out.println("Completed Your Appoinment");
     }
 
     void cancelAppointment(String appointmentId) throws AppointmentNotFoundException {
@@ -108,9 +109,15 @@ public class HospitalService {
 
     // searchAppointments(AppointmentFilter criteria) — Stream + Lambda দিয়ে filter
     // করো, List<Appointment> রিটার্ন করবে
+    List<Appointment> searchAppointments(AppointmentFilter criteria) {
+        return appointments.stream().filter(appointment -> criteria.matches(appointment)).toList();
+    }
 
     // findAppointmentById(String id) — Optional<Appointment> রিটার্ন করবে (পাওয়া
     // না গেলে Optional.empty())
+    Optional<Appointment> findAppointmentById(String id) {
+        return appointments.stream().filter(f -> f.getId().equals(id)).findFirst();
+    }
 
     // displayAllAppointments() — Comparator ব্যবহার করে date অনুযায়ী sort করে
     // print করো
@@ -118,6 +125,10 @@ public class HospitalService {
     // 47),
     // তবে ছোট list-এ এটা লাভজনক না, বরং overhead বাড়ায় — কখন ব্যবহার করা উচিত
     // সেটা বোঝাই আসল লক্ষ্য
+    void displayAllAppointments() {
+        appointments.sort((d1, d2) -> d1.getDate().compareTo(d2.getDate()));
+        System.out.println(appointments);
+    }
 
     // ── Bonus: Static Nested Class ──
     // Stats নামে static nested class বানাও — totalAppointments ও completedCount ধরে

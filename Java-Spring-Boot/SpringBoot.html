@@ -28,7 +28,7 @@
   --header-h:    52px;
 }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; font-size: 16px; max-width: 100%; overflow-x: hidden; }
 
 body {
   background: var(--bg);
@@ -36,6 +36,9 @@ body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   line-height: 1.65;
   min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-wrap: break-word;
 }
 
 /* ════════════════════════════════
