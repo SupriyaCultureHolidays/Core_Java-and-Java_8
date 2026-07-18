@@ -77,29 +77,85 @@
  */
 public class Demo {
     public static void main(String[] args) {
-        // এখান থেকে শুরু করো:
-        // 1. Appointment a1 = new Appointment(...) বানাও, getStatus()/setStatus() টেস্ট করো, println করে দেখো
-        // 2. HospitalService.getInstance() দিয়ে instance নাও
-        // 3. Doctor/Patient বানাও, bookAppointment() call করো
-        // 4. displayAllAppointments(), completeAppointment(), findAppointmentById() টেস্ট করো
-        // 5. না থাকা appointment-এর জন্য AppointmentNotFoundException, একই slot-এ দ্বিতীয়বার
-        //    বুক করতে গেলে SlotAlreadyBookedException — দুটোই try/catch দিয়ে handle করে দেখাও
+        HospitalService service = HospitalService.getInstance();
 
-        // Anonymous Inner Class practice (topic 24) — searchAppointments()-এ lambda-র বদলে
-        // anonymous class দিয়েও AppointmentFilter implement করে পার্থক্যটা বোঝার চেষ্টা করো:
-        // AppointmentFilter filter = new AppointmentFilter() {
-        //     @Override
-        //     public boolean matches(Appointment a) {
-        //         return a.getStatus() == AppointmentStatus.BOOKED;
-        //     }
-        // };
+        Doctor drKarim = new Doctor("D1", "Dr. Karim", "Cardiologist");
+        Patient rahim = new Patient("P1", "Rahim");
+        Patient karimPatient = new Patient("P2", "Karim Patient");
 
-        // Annotation + Reflection practice (topic 28) — HospitalService.class-এর সব method
-        // ঘুরে দেখো কোনটার উপর @AuditLog বসানো আছে:
-        // for (java.lang.reflect.Method m : HospitalService.class.getDeclaredMethods()) {
-        //     if (m.isAnnotationPresent(AuditLog.class)) {
-        //         System.out.println(m.getName() + " -> " + m.getAnnotation(AuditLog.class).action());
-        //     }
-        // }
+        service.addDoctor(drKarim);
+        service.addPatient(rahim);
+        service.addPatient(karimPatient);
+
+        // 1) booking + display
+        try {
+            System.out.println(service.bookAppointment("A1", "P1", "D1", java.time.LocalDate.of(2026, 7, 15)));
+        } catch (SlotAlreadyBookedException e) {
+            System.out.println(e.getMessage());
+        }
+        service.displayAllAppointments();
+
+        // 2) complete + prescription
+        try {
+            service.completeAppointment("A1");
+            System.out.println("Appointment completed. Prescription added for " + rahim.name + ".");
+        } catch (AppointmentNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // 3) Optional test
+        service.findAppointmentById("A1").ifPresent(System.out::println);
+        System.out.println(service.findAppointmentById("A999"));
+
+        // 4) AppointmentNotFoundException
+        try {
+            service.completeAppointment("A999");
+        } catch (AppointmentNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // 5) SlotAlreadyBookedException — একই doctor + date-এ আবার booking চেষ্টা
+        try {
+            service.bookAppointment("A2", "P2", "D1", java.time.LocalDate.of(2026, 7, 15));
+        } catch (SlotAlreadyBookedException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Anonymous Inner Class practice (topic 17) — lambda-র বদলে anonymous class দিয়ে
+        // AppointmentFilter implement করে পার্থক্যটা বোঝার চেষ্টা
+        AppointmentFilter completedFilter = new AppointmentFilter() {
+            @Override
+            public boolean matches(Appointment a) {
+                return a.getStatus() == AppointmentStatus.COMPLETED;
+            }
+        };
+        System.out.println(service.searchAppointments(completedFilter));
+
+        // Annotation + Reflection practice (topic 15) — HospitalService.class-এর সব method
+        // ঘুরে দেখা হচ্ছে কোনটার উপর @AuditLog বসানো আছে
+        for (java.lang.reflect.Method m : HospitalService.class.getDeclaredMethods()) {
+            if (m.isAnnotationPresent(AuditLog.class)) {
+                System.out.println(m.getName() + " -> " + m.getAnnotation(AuditLog.class).action());
+            }
+        }
+
+        // Interface default/static method practice (topic 14)
+        Notifiable.consoleNotifier().sendDefaultReminder();
+        drKarim.sendDefaultReminder();
+
+        // Inner Class practice (topic 16)
+        Appointment a1 = service.findAppointmentById("A1").orElseThrow();
+        Appointment.ReminderCard card = a1.new ReminderCard();
+        card.print();
+
+        // standalone Generics practice (topic 12) — bounded type + wildcard
+        Repository<Appointment, String> appointmentRepo = new Repository<>();
+        appointmentRepo.save("A1", a1);
+        System.out.println(appointmentRepo.findById("A1"));
+        System.out.println(Repository.max(java.util.Arrays.asList(3, 7, 2, 9, 4)));
+        Repository.printAll(java.util.List.of(drKarim, rahim));
+
+        // Set/Map practice (topic 13) — Stats নেয় appointments থেকেই
+        System.out.println(service.getStats());
     }
 }

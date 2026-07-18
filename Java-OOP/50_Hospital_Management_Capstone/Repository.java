@@ -6,26 +6,50 @@
 // ID = তার identifier-এর type (এখানে String)
 // Spring Data JPA-র Repository<T, ID> interface ঠিক এই pattern-ই follow করে —
 // findById(ID id) -> Optional<T>, তাই এটা practice করলে Spring shekhar shomoy shohoj hobe
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 public class Repository<T, ID> {
 
-    // private Map<ID, T> store = new HashMap<>();
+    private Map<ID, T> store = new HashMap<>();
 
-    // save(ID id, T item) — store.put(id, item)
+    void save(ID id, T item) {
+        store.put(id, item);
+    }
 
-    // findById(ID id) — Optional<T> রিটার্ন করো (store.get(id), না পেলে Optional.empty())
+    Optional<T> findById(ID id) {
+        return Optional.ofNullable(store.get(id));
+    }
 
-    // findAll() — List<T> রিটার্ন করো (store.values() থেকে নতুন List বানিয়ে)
+    List<T> findAll() {
+        return new ArrayList<>(store.values());
+    }
 
-    // deleteById(ID id) — store থেকে remove করো
+    void deleteById(ID id) {
+        store.remove(id);
+    }
 
     // ── Bounded Type Parameter practice ──
-    // public static <E extends Comparable<E>> E max(List<E> list)
-    //     — list-এর সবচেয়ে বড় element বের করো (Comparable.compareTo() ব্যবহার করে)
-    //     — <E extends Comparable<E>> মানে E যেকোনো type হতে পারবে যতক্ষণ সেটা নিজেকে
-    //        compare করতে পারে (bounded type)
+    // <E extends Comparable<E>> মানে E যেকোনো type হতে পারবে যতক্ষণ সেটা নিজেকে
+    // compare করতে পারে (bounded type)
+    public static <E extends Comparable<E>> E max(List<E> list) {
+        E result = list.get(0);
+        for (E item : list) {
+            if (item.compareTo(result) > 0) {
+                result = item;
+            }
+        }
+        return result;
+    }
 
     // ── Wildcard practice ──
-    // public static void printAll(List<? extends Person> people)
-    //     — Patient বা Doctor, যেকোনো Person-এর subtype-এর List নিয়ে print করতে পারবে
-    //     — "? extends Person" মানে "Person অথবা তার যেকোনো child type"-এর list, upper-bounded wildcard
+    // "? extends Person" মানে "Person অথবা তার যেকোনো child type"-এর list, upper-bounded wildcard
+    public static void printAll(List<? extends Person> people) {
+        for (Person p : people) {
+            System.out.println(p.getRole() + ": " + p.name);
+        }
+    }
 }

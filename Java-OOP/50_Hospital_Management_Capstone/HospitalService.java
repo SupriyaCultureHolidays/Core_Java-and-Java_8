@@ -1,5 +1,3 @@
-import java.lang.classfile.ClassFile.Option;
-import java.nio.file.OpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,74 +35,66 @@ public class HospitalService {
     // পারো (দেখো Repository.java) — Spring Data JPA-র Repository<T, ID> ঠিক এভাবেই
     // কাজ করে
 
-    // ── Set/Map practice (topic 42, 43) ──
+    // ── Set/Map practice (topic 13) ──
     private Set<String> specializations = new HashSet<>();
-    // — addDoctor()-এ doctor.getSpecialization() add করো, duplicate থাকবে না
-    // (Set-এর বৈশিষ্ট্য)
+    // — addDoctor()-এ doctor-এর specialization add হয়, duplicate থাকবে না (Set-এর বৈশিষ্ট্য)
     private Map<String, List<Appointment>> scheduleByDoctor = new HashMap<>();
-    // — doctorId অনুযায়ী appointment group করে রাখার জন্য, doctor-এর নিজের
-    // schedule বের করতে কাজে লাগবে
+    // — doctorId অনুযায়ী appointment group করে রাখা হয়, doctor-এর নিজের schedule বের করতে কাজে লাগবে
 
     // ── মূল Method গুলো ──
 
-    // addDoctor(Doctor doctor) / addPatient(Patient patient)
-    // — নিজ নিজ List-এ add করো, doctor-এর specialization থাকলে specializations
-    // Set-এও add করো
     void addDoctor(Doctor doctor) {
         doctors.add(doctor);
+        specializations.add(doctor.specialization);
+        scheduleByDoctor.putIfAbsent(doctor.id, new ArrayList<>());
     }
 
     void addPatient(Patient patient) {
         patients.add(patient);
     }
 
-    // @AuditLog(action = "BOOK") — এই annotation টা bookAppointment()-এর উপর বসাও
-    // (topic 28 practice)
-    // — পরে Demo-তে reflection দিয়ে পড়ে দেখাবে কোন method-এ AuditLog আছে
-    // throws SlotAlreadyBookedException
-    // — একই doctorId + date-এ status BOOKED এমন appointment আগে থেকে থাকলে
-    // exception throw করো
-    // — নাহলে নতুন Appointment বানিয়ে appointments list-এ add করো, status BOOKED
-    // — Threads bonus (ConcurrentBookingDemo.java দেখো): দুইটা Thread একসাথে call
-    // করলে race
-    // condition হতে পারে, তাই method-এর signature-এ "synchronized" keyword যোগ করার
-    // কথা ভাবো
-    String bookAppointment(String appointmentId, String patientId, String doctorId, LocalDate date)
+    // Threads bonus (ConcurrentBookingDemo.java দেখো): দুইটা Thread একসাথে call করলে race
+    // condition হতে পারে, তাই "synchronized" keyword যোগ করা হলো। এটা সরিয়ে ConcurrentBookingDemo
+    // চালিয়ে দেখতে পারো race condition কেমন দেখতে হয়।
+    @AuditLog(action = "BOOK")
+    synchronized String bookAppointment(String appointmentId, String patientId, String doctorId, LocalDate date)
             throws SlotAlreadyBookedException {
-        Optional<Doctor> isPresentDoc = doctors.stream()
-                .filter(d -> d.id.equals(doctorId))
-                .findFirst();
-        if (isPresentDoc.isEmpty()) {
-            throw new SlotAlreadyBookedException("Doctorid Invalid");
+        // CANCELLED appointment-এর slot আবার খালি ধরা হচ্ছে, কিন্তু BOOKED বা COMPLETED —
+        // দুটোই মানে doctor-এর ওই date-এর slot আগেই ব্যবহার হয়ে গেছে
+        boolean slotTaken = appointments.stream()
+                .anyMatch(a -> a.getDoctorId().equals(doctorId) && a.getDate().equals(date)
+                        && a.getStatus() != AppointmentStatus.CANCELLED);
+        if (slotTaken) {
+            String doctorLabel = doctors.stream()
+                    .filter(d -> d.id.equals(doctorId))
+                    .map(d -> d.name)
+                    .findFirst()
+                    .orElse(doctorId);
+            throw new SlotAlreadyBookedException("Slot already booked for " + doctorLabel + " on " + date);
         }
-        Optional<Appointment> app = appointments.stream()
-                .filter(a -> a.getDoctorId().equals(doctorId) && a.getDate().equals(date)).findFirst();
-        if (app != null) {
-            throw new SlotAlreadyBookedException("Doctor already Assign");
-        }
-        appointments.add(new Appointment(appointmentId, patientId, doctorId, date, AppointmentStatus.BOOKED));
-        return "Appointment Booked";
+
+        Appointment appointment = new Appointment(appointmentId, patientId, doctorId, date, AppointmentStatus.BOOKED);
+        appointments.add(appointment);
+        scheduleByDoctor.computeIfAbsent(doctorId, k -> new ArrayList<>()).add(appointment);
+        patients.stream()
+                .filter(p -> p.id.equals(patientId))
+                .findFirst()
+                .ifPresent(p -> p.appointmentIds.add(appointmentId));
+        return "Appointment booked: " + appointmentId;
     }
 
-    // completeAppointment(String appointmentId) throws AppointmentNotFoundException
-    // — appointmentId দিয়ে খুঁজে status COMPLETED করো, prescriptionHistory-তে একটা
-    // Prescription add করো
     void completeAppointment(String appointmentId) throws AppointmentNotFoundException {
-        Appointment appoi = appointments.stream().filter(a -> a.getId().equals(appointmentId)).findFirst()
-                .orElseThrow(() -> new AppointmentNotFoundException(""));
-        appoi.setStatus(AppointmentStatus.COMPLETED);
-        prescriptionHistory
-                .add(new Prescription(appoi.getPatientId(), appoi.getDoctorId(), appoi.getDate(), "Paracitamal"));
-        System.out.println("Completed Your Appoinment");
+        Appointment appointment = findAppointmentById(appointmentId)
+                .orElseThrow(() -> new AppointmentNotFoundException("Appointment not found: " + appointmentId));
+        appointment.setStatus(AppointmentStatus.COMPLETED);
+        prescriptionHistory.add(new Prescription(appointment.getPatientId(), appointment.getDoctorId(),
+                appointment.getDate(), "Paracetamol"));
     }
 
     void cancelAppointment(String appointmentId) throws AppointmentNotFoundException {
-        // — appointmentId দিয়ে খুঁজে status CANCELLED করো
-        Appointment appo = appointments.stream().filter(f -> f.getId().equals(appointmentId)).findFirst()
-                .orElseThrow(() -> new AppointmentNotFoundException("Appointment Id Invalid"));
-        appo.setStatus(AppointmentStatus.CANCELLED);
-        System.out.println("Appoinment Cancleed");
-
+        Appointment appointment = findAppointmentById(appointmentId)
+                .orElseThrow(() -> new AppointmentNotFoundException("Appointment not found: " + appointmentId));
+        appointment.setStatus(AppointmentStatus.CANCELLED);
     }
 
     // searchAppointments(AppointmentFilter criteria) — Stream + Lambda দিয়ে filter
@@ -131,7 +121,23 @@ public class HospitalService {
     }
 
     // ── Bonus: Static Nested Class ──
-    // Stats নামে static nested class বানাও — totalAppointments ও completedCount ধরে
-    // রাখবে
-    // getStats() method দিয়ে এই Stats-এর object রিটার্ন করো
+    static class Stats {
+        final int totalAppointments;
+        final int completedCount;
+
+        Stats(int totalAppointments, int completedCount) {
+            this.totalAppointments = totalAppointments;
+            this.completedCount = completedCount;
+        }
+
+        @Override
+        public String toString() {
+            return "Stats{total=" + totalAppointments + ", completed=" + completedCount + "}";
+        }
+    }
+
+    Stats getStats() {
+        long completed = appointments.stream().filter(a -> a.getStatus() == AppointmentStatus.COMPLETED).count();
+        return new Stats(appointments.size(), (int) completed);
+    }
 }

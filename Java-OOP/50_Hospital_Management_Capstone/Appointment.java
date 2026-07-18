@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Appointment {
+public class Appointment implements Cloneable, Serializable {
 
     // private field: id (String), patientId (String), doctorId (String),
     // date (LocalDate), status (AppointmentStatus)
@@ -70,19 +71,23 @@ public class Appointment {
                 ", status=" + status +
                 '}';
     }
-    // Bonus: Cloneable implement করো, clone() override করো (Object Cloning)
-    // Bonus: Serializable implement করো (appointment list file-এ save/load করার
-    // জন্য)
+    // Bonus: Object Cloning
+    @Override
+    public Appointment clone() {
+        try {
+            return (Appointment) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(e);
+        }
+    }
 
-    // ── Inner Class practice (topic 23) ──
-    // non-static inner class বানাও, যেমন ReminderCard — এটা Appointment-এর ভিতরে
-    // থাকবে বলে
-    // বাইরের (outer) instance-এর private field (id, date...) সরাসরি access করতে
-    // পারবে, getter লাগবে না
-    // class ReminderCard {
-    // void print() { System.out.println("Reminder: Appointment " + id + " is on " +
-    // date); }
-    // }
-    // ব্যবহার: Appointment a = new Appointment(...); Appointment.ReminderCard card
-    // = a.new ReminderCard(); card.print();
+    // ── Inner Class practice (topic 16) ──
+    // non-static inner class — Appointment-এর ভিতরে থাকে বলে বাইরের (outer) instance-এর
+    // private field (id, date...) সরাসরি access করতে পারে, getter লাগে না
+    // ব্যবহার: Appointment a = new Appointment(...); Appointment.ReminderCard card = a.new ReminderCard(); card.print();
+    class ReminderCard {
+        void print() {
+            System.out.println("Reminder: Appointment " + id + " is on " + date);
+        }
+    }
 }
