@@ -3,4 +3,7 @@
 public class CourseFullException extends Exception {
 
     // constructor-এ message নাও, super(message) call করো
+    CourseFullException(String message){
+        super(message);
+    }
 }

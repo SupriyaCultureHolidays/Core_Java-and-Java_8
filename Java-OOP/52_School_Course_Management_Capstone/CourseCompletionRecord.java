@@ -4,3 +4,7 @@
 //
 // public record CourseCompletionRecord(String studentId, String courseId, java.time.LocalDate completionDate, String grade) {}
 // — উপরের এক লাইনই পুরো record definition, আলাদা constructor/getter লেখার দরকার নেই
+
+public record CourseCompletionRecord(String studentId, String courseId, java.time.LocalDate completionDate, String grade) {
+}
+

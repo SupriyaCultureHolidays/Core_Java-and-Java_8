@@ -57,20 +57,46 @@
  *
  * কারণ: প্রত্যেক step আগের step-এর উপর depend করে।
  */
+
+import java.time.LocalDate;
+
 public class Demo {
     public static void main(String[] args) {
-        // 1. SchoolService.getInstance() দিয়ে instance নাও
-        // 2. Instructor বানাও, addInstructor() করো
-        // 3. Course বানাও (capacity = 1), addCourse() করো
-        // 4. দুইজন Student বানাও, addStudent() করো দুইটাই
-        // 5. enrollStudent() call করো প্রথম student-এর জন্য
-        // 6. displayAllEnrollments() call করো
-        // 7. দ্বিতীয় student-কে একই course-এ enroll করার চেষ্টা করো — CourseFullException
-        //    try/catch দিয়ে handle করো
-        // 8. completeEnrollment() call করো প্রথম student-এর enrollment-এ, grade দাও
-        // 9. findEnrollmentById() দিয়ে Optional test করো (থাকা এবং না-থাকা দুইটার জন্যই)
-        // 10. না থাকা enrollment id দিয়ে completeEnrollment() call করে EnrollmentNotFoundException দেখাও
-        // 11. slot খালি হওয়ায় দ্বিতীয় student-কে আবার enroll করার চেষ্টা করো — এবার সফল হবে
-        // 12. searchEnrollments() দিয়ে lambda ব্যবহার করে সব ENROLLED enrollment বের করো
+        try {
+            // 1. SchoolService.getInstance() দিয়ে instance নাও
+            SchoolService service = SchoolService.getInstance();
+            // 2. Instructor বানাও, addInstructor() করো
+            service.addInstructor(new Instructor("K254", "Kamol", "Math_Bangali_English"));
+            // 3. Course বানাও (capacity = 1), addCourse() করো
+            service.addCourse(new Course("C1", "math", 1, "K254"));
+            // 4. দুইজন Student বানাও, addStudent() করো দুইটাই
+            service.addStudent(new Student("S54", "Supriya"));
+            service.addStudent(new Student("S53", "Shuvhamay"));
+            // 5. enrollStudent() call করো প্রথম student-এর জন্য
+            service.enrollStudent("E54", "S54", "C1", LocalDate.now());
+            // 6. displayAllEnrollments() call করো
+            service.displayAllEnrollments();
+            // 7. দ্বিতীয় student-কে একই course-এ enroll করার চেষ্টা করো —
+            // service.enrollStudent("E53", "S53", "C1", LocalDate.now());
+            // CourseFullException
+            // try/catch দিয়ে handle করো
+            // 8. completeEnrollment() call করো প্রথম student-এর enrollment-এ, grade দাও
+            System.out.println(service.completeEnrollment("E54", "A++"));
+            // 9. findEnrollmentById() দিয়ে Optional test করো (থাকা এবং না-থাকা দুইটার
+            // জন্যই)
+            System.out.println(service.findEnrollmentById("E54"));
+            // 10. না থাকা enrollment id দিয়ে completeEnrollment() call করে
+            // EnrollmentNotFoundException দেখাও
+            System.out.println(service.completeEnrollment("E54", "A++"));
+            // 11. slot খালি হওয়ায় দ্বিতীয় student-কে আবার enroll করার চেষ্টা করো — এবার
+            // সফল হবে
+            service.dropEnrollment("E54");
+            service.enrollStudent("E53", "S53", "C1", LocalDate.now());
+            // 12. searchEnrollments() দিয়ে lambda ব্যবহার করে সব ENROLLED enrollment বের
+            // করো
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

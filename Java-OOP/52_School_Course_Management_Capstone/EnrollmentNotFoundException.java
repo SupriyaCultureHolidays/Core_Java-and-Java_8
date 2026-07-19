@@ -2,4 +2,7 @@
 public class EnrollmentNotFoundException extends Exception {
 
     // constructor-এ message নাও, super(message) call করো
+    EnrollmentNotFoundException(String message){
+        super(message);
+    }
 }
