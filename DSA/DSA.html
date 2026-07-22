@@ -769,7 +769,409 @@ a:focus-visible, button:focus-visible {
     <!-- 01 -->
     <section class="section" id="sec-array">
       <div class="section-header"><span class="sec-num">01</span><h2>Array</h2></div>
-      <p class="placeholder-note">এই বিষয়ের নোট শীঘ্রই যোগ করা হবে।</p>
+
+      <p>Array হলো <strong>একই Data Type</strong>-এর কতগুলো Element-কে Memory-তে <strong>পরপর (continuous)</strong> জায়গায় রাখার একটি Structure। DSA-র প্রায় প্রতিটি Problem-এ Array সরাসরি বা পরোক্ষভাবে ব্যবহার হয় — তাই এটাই DSA শেখার সবচেয়ে গুরুত্বপূর্ণ প্রথম Topic।</p>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Array Declaration</div>
+        <pre>int[] arr = {10, 20, 30, 40, 50};</pre>
+      </div>
+
+      <div class="array-strip">
+        <div class="array-cell"><div class="cell-box">10</div><div class="cell-idx">0</div></div>
+        <div class="array-cell"><div class="cell-box">20</div><div class="cell-idx">1</div></div>
+        <div class="array-cell"><div class="cell-box">30</div><div class="cell-idx">2</div></div>
+        <div class="array-cell"><div class="cell-box">40</div><div class="cell-idx">3</div></div>
+        <div class="array-cell"><div class="cell-box">50</div><div class="cell-idx">4</div></div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>বৈশিষ্ট্য</th><th>ব্যাখ্যা</th></tr></thead>
+          <tbody>
+            <tr><td>Index</td><td>সবসময় <code>0</code> থেকে শুরু হয়</td></tr>
+            <tr><td>Size</td><td>একবার তৈরি হলে Fixed — বাড়ানো বা কমানো যায় না</td></tr>
+            <tr><td>Data Type</td><td>সব Element একই Type-এর হতে হবে</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>কেন Array দরকার</h3>
+      <p>Array ছাড়া প্রতিটি Value-এর জন্য আলাদা Variable রাখতে হতো — বেশি Value নিয়ে কাজ করতে গেলে এটা অসম্ভব হয়ে যায়।</p>
+      <div class="js-vs">
+        <div class="pane">
+          <div class="pane-label java-label">Array ছাড়া</div>
+          <div class="code-block"><pre>int a = 10;
+int b = 20;
+int c = 30;
+int d = 40;</pre></div>
+        </div>
+        <div class="pane">
+          <div class="pane-label java-label">Array দিয়ে</div>
+          <div class="code-block"><pre>int[] numbers = {10, 20, 30, 40};</pre></div>
+        </div>
+      </div>
+      <p>Array থাকলে সহজে করা যায় — Store, Search, Sort, Update এবং Traverse।</p>
+
+      <h3>Array তৈরি করার দুটো পদ্ধতি</h3>
+      <p><strong>পদ্ধতি ১ — Declare + Allocate।</strong> শুধু Size দিয়ে Array তৈরি করলে Java নিজে থেকেই প্রতিটি ঘর Default Value দিয়ে ভরে দেয়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>new int[5]</div>
+        <pre>int[] arr = new int[5];</pre>
+      </div>
+      <div class="array-strip">
+        <div class="array-cell"><div class="cell-box">0</div><div class="cell-idx">0</div></div>
+        <div class="array-cell"><div class="cell-box">0</div><div class="cell-idx">1</div></div>
+        <div class="array-cell"><div class="cell-box">0</div><div class="cell-idx">2</div></div>
+        <div class="array-cell"><div class="cell-box">0</div><div class="cell-idx">3</div></div>
+        <div class="array-cell"><div class="cell-box">0</div><div class="cell-idx">4</div></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Default Value</th></tr></thead>
+          <tbody>
+            <tr><td><code>int</code></td><td><code>0</code></td></tr>
+            <tr><td><code>double</code></td><td><code>0.0</code></td></tr>
+            <tr><td><code>boolean</code></td><td><code>false</code></td></tr>
+            <tr><td><code>String</code></td><td><code>null</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>পদ্ধতি ২ — সরাসরি Value দিয়ে Declare।</strong></p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Literal Initialization</div>
+        <pre>int[] arr = {1, 2, 3, 4, 5};</pre>
+      </div>
+
+      <h3>Element Access এবং Length</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Index দিয়ে Value পড়া ও বদলানো</div>
+        <pre>int[] arr = {10, 20, 30};
+
+System.out.println(arr[0]);   <span class="comment">// 10</span>
+
+arr[1] = 100;                 <span class="comment">// value বদলে গেল</span>
+System.out.println(arr[1]);   <span class="comment">// 100</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>arr.length</div>
+        <pre>int[] arr = {10, 20, 30, 40};
+System.out.println(arr.length);   <span class="comment">// 4</span></pre>
+      </div>
+      <div class="insight"><strong>মনে রাখো:</strong> Array-এ <code>arr.length</code> — Property, Parenthesis লাগে না। কিন্তু String-এ <code>str.length()</code> — Method, Parenthesis লাগে।</div>
+
+      <h3>Array Traversal — Loop দিয়ে ঘোরা</h3>
+      <p>DSA-তে সবচেয়ে বেশি ব্যবহৃত Operation।</p>
+      <div class="js-vs">
+        <div class="pane">
+          <div class="pane-label java-label">সাধারণ for loop</div>
+          <div class="code-block"><pre>for (int i = 0; i < arr.length; i++) {
+    System.out.println(arr[i]);
+}</pre></div>
+        </div>
+        <div class="pane">
+          <div class="pane-label java-label">Enhanced for loop</div>
+          <div class="code-block"><pre>for (int value : arr) {
+    System.out.println(value);
+}</pre></div>
+        </div>
+      </div>
+      <div class="insight"><strong>পার্থক্য:</strong> সাধারণ Loop-এ Index (<code>i</code>) পাওয়া যায় — তাই Value বদলাতে বা নির্দিষ্ট Index লাগলে এটা লাগবে। Enhanced Loop-এ শুধু Value পাওয়া যায়, Index পাওয়া যায় না।</div>
+
+      <h3>Scanner দিয়ে Array Input নেওয়া</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>n সংখ্যক input নিয়ে Array ভরা</div>
+        <pre>import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+}</pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Input</th><th>Output</th></tr></thead>
+          <tbody>
+            <tr><td><code>5</code><br><code>10 20 30 40 50</code></td><td><code>10 20 30 40 50</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Array Memory — Stack ও Heap</h3>
+      <p>Array একটি Object — তাই Variable Stack-এ শুধু <strong>reference</strong> রাখে, আসল Array থাকে Heap-এ।</p>
+      <div class="mem-viz">
+        <div class="mem-panel stack-panel">
+          <div class="mem-panel-head">STACK</div>
+          <div class="mem-panel-body">
+            <div class="mem-frame-box">
+              <div class="mem-frame-label">main()</div>
+              <div class="mem-var-row"><span class="mv-name">arr</span><span class="mv-eq">=</span><span class="mv-ref">ref →</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="mem-panel heap-panel">
+          <div class="mem-panel-head">HEAP</div>
+          <div class="mem-panel-body">
+            <div class="mem-obj-box">
+              <div class="mem-obj-label">int[5] array</div>
+              <div class="mem-field-row"><span class="mv-name">[0]</span><span class="mv-eq">=</span><span class="mv-val">0</span></div>
+              <div class="mem-field-row"><span class="mv-name">[1]</span><span class="mv-eq">=</span><span class="mv-val">0</span></div>
+              <div class="mem-field-row"><span class="mv-name">[2]</span><span class="mv-eq">=</span><span class="mv-val">0</span></div>
+              <div class="mem-field-row"><span class="mv-name">[3]</span><span class="mv-eq">=</span><span class="mv-val">0</span></div>
+              <div class="mem-field-row"><span class="mv-name">[4]</span><span class="mv-eq">=</span><span class="mv-val">0</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Time Complexity — Access, Search, Insert, Delete</h3>
+      <p>ধরো Array: <code>[10, 20, 30, 40, 50]</code></p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Operation</th><th>Time Complexity</th><th>কেন</th></tr></thead>
+          <tbody>
+            <tr><td>Access <code>arr[i]</code></td><td><code>O(1)</code></td><td>Index সরাসরি Memory Address বের করে দেয়</td></tr>
+            <tr><td>Search (value খোঁজা)</td><td><code>O(n)</code></td><td>Worst Case-এ শেষ পর্যন্ত সব Element চেক করতে হয়</td></tr>
+            <tr><td>Insert (মাঝখানে)</td><td><code>O(n)</code></td><td>পরের সব Element এক ঘর ডানে Shift করতে হয়</td></tr>
+            <tr><td>Delete (মাঝখান থেকে)</td><td><code>O(n)</code></td><td>পরের সব Element এক ঘর বামে Shift করতে হয়</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Insert ও Delete-এ Shifting</div>
+        <pre>Insert 15 at index 1
+Before:  10  20  30  40
+Shift:   10  15  20  30  40
+
+Delete index 1 (value 20)
+Before:  10  20  30  40
+Shift:   10  30  40</pre>
+      </div>
+
+      <h3>শুরুর গুরুত্বপূর্ণ Problem — Max, Min, Sum, Reverse</h3>
+      <p><strong>সর্বোচ্চ (Maximum) খোঁজা</strong></p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>[5, 8, 2, 10, 3] → 10</div>
+        <pre>int max = arr[0];
+
+for (int i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+        max = arr[i];
+    }
+}</pre>
+      </div>
+      <p><strong>সর্বনিম্ন (Minimum) খোঁজা</strong> — একই Logic, শুধু Comparison উল্টে যায়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>[5, 8, 2, 10, 3] → 2</div>
+        <pre>int min = arr[0];
+
+for (int i = 1; i < arr.length; i++) {
+    if (arr[i] < min) {
+        min = arr[i];
+    }
+}</pre>
+      </div>
+      <p><strong>Sum বের করা — Accumulator Pattern</strong></p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>যোগফল</div>
+        <pre>int sum = 0;
+
+for (int i = 0; i < arr.length; i++) {
+    sum += arr[i];
+}</pre>
+      </div>
+      <p><strong>Reverse করা — Two Pointer</strong></p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Two Pointer — visual</div>
+        <pre>left                right
+
+ 1   2   3   4   5
+ ^               ^
+swap(left, right) → left++, right--
+
+ 5   2   3   4   1</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Two Pointer দিয়ে Reverse</div>
+        <pre>int left = 0, right = arr.length - 1;
+
+while (left < right) {
+    int temp   = arr[left];
+    arr[left]  = arr[right];
+    arr[right] = temp;
+
+    left++;
+    right--;
+}</pre>
+      </div>
+
+      <h3>2D Array (Matrix) — Array-এর ভিতরে Array</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Declaration</div>
+        <pre>int[][] matrix = {
+    {1, 2, 3},
+    {4, 5, 6}
+};</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Structure</div>
+        <pre>1  2  3
+4  5  6</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Access ও Traversal</div>
+        <pre>System.out.println(matrix[0][1]);   <span class="comment">// 2</span>
+
+for (int i = 0; i < matrix.length; i++) {
+    for (int j = 0; j < matrix[i].length; j++) {
+        System.out.print(matrix[i][j] + " ");
+    }
+}</pre>
+      </div>
+
+      <h3>Interview-এর জন্য গুরুত্বপূর্ণ Pattern</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pattern</th><th>কোথায় ব্যবহার হয়</th></tr></thead>
+          <tbody>
+            <tr><td>Prefix Sum</td><td>Range Sum-এর Problem</td></tr>
+            <tr><td>Sliding Window</td><td>Maximum Subarray, Longest Substring</td></tr>
+            <tr><td>Two Pointer</td><td>Reverse, Pair Sum, Duplicate সরানো</td></tr>
+            <tr><td>Kadane's Algorithm</td><td>Maximum Subarray Sum</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Prefix Sum উদাহরণ</strong></p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>প্রতিটি ঘরে আগের সব যোগফল</div>
+        <pre>Array:   [1, 2, 3, 4]
+Prefix:  [1, 3, 6, 10]</pre>
+      </div>
+      <p><strong>Kadane's Algorithm — Maximum Subarray Sum</strong></p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>[-2, 1, -3, 4, -1, 2, 1] → 6</div>
+        <pre>সেরা Subarray: 4 + (-1) + 2 + 1 = 6</pre>
+      </div>
+      <div class="insight"><strong>মূল আইডিয়া:</strong> এখন পর্যন্ত যোগফল Negative হয়ে গেলে সেটা ফেলে দিয়ে নতুন করে শুরু করো — কারণ Negative অংশ পরের যোগফলকে শুধু ছোট করবে।</div>
+      <p><strong>Sorting</strong></p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Arrays.sort()</div>
+        <pre>int[] arr = {5, 2, 8, 1};
+Arrays.sort(arr);
+<span class="comment">// [1, 2, 5, 8]</span></pre>
+      </div>
+
+      <h3>Arrays Utility Class</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>import java.util.Arrays;</div>
+        <pre>System.out.println(Arrays.toString(arr));   <span class="comment">// array print</span>
+
+Arrays.sort(arr);                            <span class="comment">// ascending sort</span>
+
+Arrays.fill(arr, 10);                        <span class="comment">// সব ঘর 10 দিয়ে ভরে দেয়</span>
+
+Arrays.equals(arr1, arr2);                   <span class="comment">// দুটো array সমান কিনা</span></pre>
+      </div>
+
+      <h3>Array vs ArrayList</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Array</th><th>ArrayList</th></tr></thead>
+          <tbody>
+            <tr><td>Size</td><td>Fixed</td><td>Dynamic</td></tr>
+            <tr><td>Speed</td><td>দ্রুত</td><td>একটু ধীর</td></tr>
+            <tr><td>Data Type</td><td>Primitive ও Object দুটোই</td><td>শুধু Object</td></tr>
+            <tr><td>Length</td><td><code>arr.length</code></td><td><code>list.size()</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="practice">
+        <div class="practice-title">অনুশীলন প্রশ্ন</div>
+        <ol>
+          <li>Array-এর Index কোথা থেকে শুরু হয় এবং Size পরে পরিবর্তন করা যায় কি?</li>
+          <li><code>arr.length</code> আর <code>str.length()</code>-এর পার্থক্য কী?</li>
+          <li><code>arr[i]</code> Access করতে <code>O(1)</code> লাগে কেন, কিন্তু Search-এ <code>O(n)</code> লাগে কেন?</li>
+          <li>Two Pointer দিয়ে Array Reverse করার Logic লেখো।</li>
+          <li>Kadane's Algorithm কী সমস্যা সমাধান করে? মূল Idea কী?</li>
+          <li>Array আর ArrayList-এর মধ্যে ৩টি পার্থক্য বলো।</li>
+        </ol>
+      </div>
+
+      <div class="master-practice">
+        <h3>Array Problem Roadmap — ধাপে ধাপে অনুশীলন</h3>
+        <p>একসাথে সব Problem না করে ধাপে ধাপে করো। প্রতিটি Problem-এ — প্রথমে নিজে ২০–৩০ মিনিট চেষ্টা করবে, না পারলে Hint নেবে, তারপর Solution দেখবে, এবং ২ দিন পর Solution না দেখে আবার নিজে করবে।</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>দিন</th><th>কাজ</th></tr></thead>
+            <tbody>
+              <tr><td>Day 1</td><td>Problem 1–5 (Level 1 শুরু)</td></tr>
+              <tr><td>Day 2</td><td>Problem 6–10</td></tr>
+              <tr><td>Day 3</td><td>Problem 11–15</td></tr>
+              <tr><td>Day 4</td><td>Problem 16–18 (Prefix Sum)</td></tr>
+              <tr><td>Day 5–6</td><td>Problem 19–22 (Two Pointer / Sliding Window)</td></tr>
+              <tr><td>Day 7</td><td>Revision — Solution না দেখে আবার Solve করা</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Level 1 — Basic (Must Do)</h3>
+        <ol>
+          <li>Print Array Elements — Traversal</li>
+          <li>Sum of Array</li>
+          <li>Maximum Element খোঁজা</li>
+          <li>Minimum Element খোঁজা</li>
+          <li>Even ও Odd সংখ্যা গোনা</li>
+          <li>Array Reverse করা — Two Pointer</li>
+          <li>এক Array-কে অন্য Array-তে Copy করা</li>
+          <li>Array Sorted কিনা Check করা</li>
+        </ol>
+
+        <h3>Level 2 — Searching Pattern</h3>
+        <ol>
+          <li>Linear Search — <code>O(n)</code></li>
+          <li>Second Largest Element খোঁজা (Sorting ছাড়া)</li>
+          <li>Sorted Array থেকে Duplicate সরানো — Two Pointer</li>
+        </ol>
+
+        <h3>Level 3 — Interview-এর গুরুত্বপূর্ণ ⭐</h3>
+        <ol>
+          <li>Move Zeroes To End ⭐ — Two Pointer</li>
+          <li>Array বামে Rotate করা</li>
+          <li>Array ডানে Rotate করা</li>
+          <li>Missing Number খোঁজা</li>
+          <li>Duplicate Number খোঁজা</li>
+        </ol>
+
+        <h3>Level 4 — Prefix Sum Pattern</h3>
+        <ol>
+          <li>Running Sum of Array</li>
+          <li>Range Sum Query</li>
+        </ol>
+
+        <h3>Level 5 — Two Pointer / Sliding Window ⭐⭐⭐</h3>
+        <ol>
+          <li>Two Sum ⭐⭐⭐</li>
+          <li>Maximum Subarray Sum — Kadane's Algorithm ⭐⭐⭐</li>
+          <li>Best Time To Buy And Sell Stock ⭐⭐</li>
+          <li>Majority Element</li>
+        </ol>
+
+        <div class="insight"><strong>Minimum:</strong> ১৫টি Problem করলেই String-এ যাওয়া যাবে। <strong>Recommended (Interview Level):</strong> সবগুলো ২২টি Problem শেষ করো।</div>
+      </div>
     </section>
 
     <!-- 02 -->
