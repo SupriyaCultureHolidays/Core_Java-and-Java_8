@@ -4,14 +4,15 @@
 public interface Auditable {
 
     // void logAction(String action); — এই abstract method লিখো
+    abstract void logAction(String action);
 
     // default method practice — implementing class override না করলেও এটা কাজ করবে:
-    // default void logDefaultAction() {
-    //     logAction("Account activity recorded");
-    // }
+    default void logDefaultAction() {
+        logAction("Account activity recorded");
+    }
 
     // static method practice — interface-এর মধ্যে static utility method:
-    // static Auditable consoleAuditor() {
-    //     return action -> System.out.println("Audit: " + action);
-    // }
+    static Auditable consoleAuditor() {
+        return action -> System.out.println("Audit: " + action);
+    }
 }

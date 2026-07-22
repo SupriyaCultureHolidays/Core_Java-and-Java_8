@@ -2,4 +2,7 @@
 public class AccountNotFoundException extends Exception {
 
     // constructor-এ message নাও, super(message) call করো
+    AccountNotFoundException(String message){
+        super(message);
+    }
 }

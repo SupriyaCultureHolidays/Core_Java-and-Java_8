@@ -1,12 +1,22 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class BankService {
 
     // ── Singleton Pattern ──
-    // private static final BankService instance = new BankService();
+    private static final BankService instance = new BankService();
     // private constructor + public static BankService getInstance()
+    private BankService(){
+        System.out.println("BankService Call");
+    }
+    public static BankService getInstance(){
+        return instance;
+
+    }
 
     // ── ডেটা রাখার জায়গা (Generics + Collection) ──
-    // private List<Account> accounts = new ArrayList<>();
-    // private List<TransactionRecord> transactionHistory = new ArrayList<>();
+    private List<Account> accounts = new ArrayList<>();
+    private List<TransactionRecord> transactionHistory = new ArrayList<>();
     //
     // চাইলে raw List-এর বদলে নিজের বানানো generic Repository<Account, String>
     // ব্যবহার করতে পারো (দেখো Repository.java)

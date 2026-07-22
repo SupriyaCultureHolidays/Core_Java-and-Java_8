@@ -9,37 +9,91 @@ public abstract class Account {
     // getter/setter লিখো (Encapsulation) — balance-এর জন্য শুধু getter রাখাই ভালো,
     // setter না রেখে deposit()/withdraw() দিয়েই balance বদলানো উচিত
     // toString() override করো — display-এ কাজে লাগবে
+    protected String accountNumber;
+    protected String holderName;
+    protected double balance;
+
+    Account(String accountNumber, String holderName, double balance) {
+        this.accountNumber = accountNumber;
+        this.holderName = holderName;
+        this.balance = balance;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getHolderName() {
+        return holderName;
+    }
+
+    public void setHolderName(String holderName) {
+        this.holderName = holderName;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
 
     // deposit(double amount)
-    // — balance বাড়াও, amount ঋণাত্মক (negative) হলে IllegalArgumentException ছুঁড়ো
+    // — balance বাড়াও, amount ঋণাত্মক (negative) হলে IllegalArgumentException
+    // ছুঁড়ো
+    void deposit(double amount) throws IllegalArgumentException {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Please Enter Positive Ammount");
+        }
+        this.balance += amount;
+        System.out.println("Amount Deposit");
+    }
 
     // withdraw(double amount)
     // — balance কমাও। এখানে insufficient-funds validation না করাই ভালো, সেটা
     // BankService-এ করবা, কারণ account type ভেদে rule আলাদা হতে পারে (যেমন
-    // CurrentAccount-এর overdraft limit পর্যন্ত ঋণাত্মক balance-এ যাওয়ার permission আছে,
+    // CurrentAccount-এর overdraft limit পর্যন্ত ঋণাত্মক balance-এ যাওয়ার
+    // permission আছে,
     // SavingsAccount-এর নেই)
+    void withdraw(double amount) throws IllegalArgumentException {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Please Enter Positive Ammount");
+        }
+        // no validation insufficient-funds
+        // if(this.balance > amount){
+        this.balance -= amount;
+        // }
+        System.out.println("Withdraw Amount : " + amount + " " + "Now Current Balance is :" + getBalance());
+    }
 
     // abstract String getAccountType();
-    // — SavingsAccount এতে "Savings" রিটার্ন করবে, CurrentAccount "Current" রিটার্ন করবে
+    // — SavingsAccount এতে "Savings" রিটার্ন করবে, CurrentAccount "Current" রিটার্ন
+    // করবে
     // — Polymorphism দেখানোর জন্য
+    abstract String getAccountType();
 
     // abstract double applyMonthlyEffect();
     // — SavingsAccount-এ balance-এর উপর সুদ যোগ করে নতুন balance রিটার্ন করবে
     // — CurrentAccount-এ একটা maintenance fee কেটে নতুন balance রিটার্ন করবে
-    // — same method call, দুই child class-এ ভিন্ন ভিন্ন logic চলবে — এটাই আসল Polymorphism
+    // — same method call, দুই child class-এ ভিন্ন ভিন্ন logic চলবে — এটাই আসল
+    // Polymorphism
+    abstract double applyMonthlyEffect();
 
     // ── Inner Class practice (topic: Inner Class) ──
-    // non-static inner class বানাও, যেমন MiniStatement — এটা Account-এর ভিতরে থাকবে বলে
-    // বাইরের (outer) instance-এর private/protected field (accountNumber, balance...)
+    // non-static inner class বানাও, যেমন MiniStatement — এটা Account-এর ভিতরে থাকবে
+    // বলে
+    // বাইরের (outer) instance-এর private/protected field (accountNumber,
+    // balance...)
     // সরাসরি access করতে পারবে, আলাদা getter লাগবে না
     // class MiniStatement {
-    //     void print() {
-    //         System.out.println(accountNumber + " current balance: " + balance);
-    //     }
+    // void print() {
+    // System.out.println(accountNumber + " current balance: " + balance);
+    // }
     // }
     // ব্যবহার: Account a = new SavingsAccount(...);
-    //          Account.MiniStatement stmt = a.new MiniStatement();
-    //          stmt.print();
+    // Account.MiniStatement stmt = a.new MiniStatement();
+    // stmt.print();
 
     // Bonus: Cloneable implement করো, clone() override করো (Object Cloning)
     // Bonus: Serializable implement করো (account list file-এ save/load করার জন্য)

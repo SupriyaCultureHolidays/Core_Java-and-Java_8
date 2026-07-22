@@ -3,3 +3,6 @@
 //
 // public record TransactionRecord(String accountNumber, TransactionType type, double amount, java.time.LocalDate date) {}
 // — উপরের এক লাইনই পুরো record definition, আলাদা constructor/getter লেখার দরকার নেই
+
+public record TransactionRecord(String accountNumber, TransactionType type, double amount, java.time.LocalDate date) {
+}

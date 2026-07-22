@@ -2,4 +2,7 @@
 public class InsufficientFundsException extends Exception {
 
     // constructor-এ message নাও, super(message) call করো
+    InsufficientFundsException(String message) {
+        super(message);
+    }
 }
