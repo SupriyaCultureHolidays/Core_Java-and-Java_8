@@ -14,6 +14,7 @@ public class Demo {
     public static void main(String[] args) {
         Employee employee1 = new Employee(1, "Supriya", "IT", 30000);
         employee1.displayInfo();
+        System.out.println();
 
     }
 }

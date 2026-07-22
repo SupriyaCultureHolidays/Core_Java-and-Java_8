@@ -527,6 +527,17 @@ td code { background: rgba(25,42,64,0.08); color: var(--navy-mid); }
 .master-practice ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1.2rem; }
 .master-practice li { font-size: 0.875rem; line-height: 1.5; }
 
+/* ── Practice problem links (external judge links) ── */
+.master-practice li a, .practice li a {
+  color: var(--orange);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--orange-dim);
+  padding-bottom: 1px;
+}
+.master-practice li a:hover, .practice li a:hover { color: var(--navy-mid); border-bottom-color: var(--navy-mid); }
+.master-practice li .tag, .practice li .tag { margin-left: 0.35rem; }
+
 /* ════════════════════════════════
    QUICK REFERENCE
    ════════════════════════════════ */
@@ -1114,60 +1125,46 @@ Arrays.equals(arr1, arr2);                   <span class="comment">// দুট�
         <h3>Array Problem Roadmap — ধাপে ধাপে অনুশীলন</h3>
         <p>একসাথে সব Problem না করে ধাপে ধাপে করো। প্রতিটি Problem-এ — প্রথমে নিজে ২০–৩০ মিনিট চেষ্টা করবে, না পারলে Hint নেবে, তারপর Solution দেখবে, এবং ২ দিন পর Solution না দেখে আবার নিজে করবে।</p>
 
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>দিন</th><th>কাজ</th></tr></thead>
-            <tbody>
-              <tr><td>Day 1</td><td>Problem 1–5 (Level 1 শুরু)</td></tr>
-              <tr><td>Day 2</td><td>Problem 6–10</td></tr>
-              <tr><td>Day 3</td><td>Problem 11–15</td></tr>
-              <tr><td>Day 4</td><td>Problem 16–18 (Prefix Sum)</td></tr>
-              <tr><td>Day 5–6</td><td>Problem 19–22 (Two Pointer / Sliding Window)</td></tr>
-              <tr><td>Day 7</td><td>Revision — Solution না দেখে আবার Solve করা</td></tr>
-            </tbody>
-          </table>
-        </div>
-
         <h3>Level 1 — Basic (Must Do)</h3>
         <ol>
-          <li>Print Array Elements — Traversal</li>
-          <li>Sum of Array</li>
-          <li>Maximum Element খোঁজা</li>
-          <li>Minimum Element খোঁজা</li>
-          <li>Even ও Odd সংখ্যা গোনা</li>
-          <li>Array Reverse করা — Two Pointer</li>
-          <li>এক Array-কে অন্য Array-তে Copy করা</li>
-          <li>Array Sorted কিনা Check করা</li>
+          <li><a href="https://www.geeksforgeeks.org/problems/array-traversal/1" target="_blank" rel="noopener noreferrer">Print Array Elements — Traversal</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/sum-of-array2326/1" target="_blank" rel="noopener noreferrer">Sum of Array</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/largest-element-in-array4009/1" target="_blank" rel="noopener noreferrer">Maximum Element খোঁজা</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/find-minimum-and-maximum-element-in-an-array4428/1" target="_blank" rel="noopener noreferrer">Minimum Element খোঁজা</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/count-odd-even/1" target="_blank" rel="noopener noreferrer">Even ও Odd সংখ্যা গোনা</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/reverse-an-array/1" target="_blank" rel="noopener noreferrer">Array Reverse করা — Two Pointer</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.naukri.com/code360/problems/copy-arrays_4613605" target="_blank" rel="noopener noreferrer">এক Array-কে অন্য Array-তে Copy করা</a> <span class="tag">Code360</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/check-if-an-array-is-sorted0701/1" target="_blank" rel="noopener noreferrer">Array Sorted কিনা Check করা</a> <span class="tag">GfG</span></li>
         </ol>
 
         <h3>Level 2 — Searching Pattern</h3>
         <ol>
-          <li>Linear Search — <code>O(n)</code></li>
-          <li>Second Largest Element খোঁজা (Sorting ছাড়া)</li>
-          <li>Sorted Array থেকে Duplicate সরানো — Two Pointer</li>
+          <li><a href="https://www.naukri.com/code360/problems/linear-search_624470" target="_blank" rel="noopener noreferrer">Linear Search — <code>O(n)</code></a> <span class="tag">Code360</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/second-largest3735/1" target="_blank" rel="noopener noreferrer">Second Largest Element খোঁজা (Sorting ছাড়া)</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array/" target="_blank" rel="noopener noreferrer">Sorted Array থেকে Duplicate সরানো — Two Pointer</a> <span class="tag">LeetCode #26</span></li>
         </ol>
 
         <h3>Level 3 — Interview-এর গুরুত্বপূর্ণ ⭐</h3>
         <ol>
-          <li>Move Zeroes To End ⭐ — Two Pointer</li>
-          <li>Array বামে Rotate করা</li>
-          <li>Array ডানে Rotate করা</li>
-          <li>Missing Number খোঁজা</li>
-          <li>Duplicate Number খোঁজা</li>
+          <li><a href="https://leetcode.com/problems/move-zeroes/" target="_blank" rel="noopener noreferrer">Move Zeroes To End ⭐ — Two Pointer</a> <span class="tag">LeetCode #283</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/rotate-array-by-n-elements-1587115621/1" target="_blank" rel="noopener noreferrer">Array বামে Rotate করা</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/rotate-array/" target="_blank" rel="noopener noreferrer">Array ডানে Rotate করা</a> <span class="tag">LeetCode #189</span></li>
+          <li><a href="https://leetcode.com/problems/missing-number/" target="_blank" rel="noopener noreferrer">Missing Number খোঁজা</a> <span class="tag">LeetCode #268</span></li>
+          <li><a href="https://leetcode.com/problems/find-the-duplicate-number/" target="_blank" rel="noopener noreferrer">Duplicate Number খোঁজা</a> <span class="tag">LeetCode #287</span></li>
         </ol>
 
         <h3>Level 4 — Prefix Sum Pattern</h3>
         <ol>
-          <li>Running Sum of Array</li>
-          <li>Range Sum Query</li>
+          <li><a href="https://leetcode.com/problems/running-sum-of-1d-array/" target="_blank" rel="noopener noreferrer">Running Sum of Array</a> <span class="tag">LeetCode #1480</span></li>
+          <li><a href="https://leetcode.com/problems/range-sum-query-immutable/" target="_blank" rel="noopener noreferrer">Range Sum Query</a> <span class="tag">LeetCode #303</span></li>
         </ol>
 
         <h3>Level 5 — Two Pointer / Sliding Window ⭐⭐⭐</h3>
         <ol>
-          <li>Two Sum ⭐⭐⭐</li>
-          <li>Maximum Subarray Sum — Kadane's Algorithm ⭐⭐⭐</li>
-          <li>Best Time To Buy And Sell Stock ⭐⭐</li>
-          <li>Majority Element</li>
+          <li><a href="https://leetcode.com/problems/two-sum/" target="_blank" rel="noopener noreferrer">Two Sum ⭐⭐⭐</a> <span class="tag">LeetCode #1</span></li>
+          <li><a href="https://leetcode.com/problems/maximum-subarray/" target="_blank" rel="noopener noreferrer">Maximum Subarray Sum — Kadane's Algorithm ⭐⭐⭐</a> <span class="tag">LeetCode #53</span></li>
+          <li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="noopener noreferrer">Best Time To Buy And Sell Stock ⭐⭐</a> <span class="tag">LeetCode #121</span></li>
+          <li><a href="https://leetcode.com/problems/majority-element/" target="_blank" rel="noopener noreferrer">Majority Element</a> <span class="tag">LeetCode #169</span></li>
         </ol>
 
         <div class="insight"><strong>Minimum:</strong> ১৫টি Problem করলেই String-এ যাওয়া যাবে। <strong>Recommended (Interview Level):</strong> সবগুলো ২২টি Problem শেষ করো।</div>
@@ -1177,19 +1174,497 @@ Arrays.equals(arr1, arr2);                   <span class="comment">// দুট�
     <!-- 02 -->
     <section class="section" id="sec-string">
       <div class="section-header"><span class="sec-num">02</span><h2>String</h2></div>
-      <p class="placeholder-note">এই বিষয়ের নোট শীঘ্রই যোগ করা হবে।</p>
+
+      <div class="insight"><strong>Array skip করে সরাসরি String-এ ঝাঁপ দিও না।</strong> DSA-র অনেক String Problem আসলে Array-এর মতোই Two Pointer আর Sliding Window Pattern ব্যবহার করে — Array-এর Basic শক্ত না থাকলে এখানে সমস্যা হবে।</div>
+
+      <p>Java-তে <code>String</code> একটি <strong>Class</strong>, Primitive নয় — এবং এটি <strong>Immutable</strong> (একবার তৈরি হলে বদলানো যায় না)। ভেতরে এটি আসলে একটি <code>char[]</code>-এর উপর তৈরি, কিন্তু <code>char[]</code>-এর মতো সরাসরি index দিয়ে বদলানো যায় না।</p>
+
+      <div class="js-vs">
+        <div class="pane">
+          <div class="pane-label java-label">char[] — Mutable</div>
+          <div class="code-block"><pre>char[] arr = {'h','i'};
+arr[0] = 'H';
+<span class="comment">// সরাসরি বদলানো যায়</span></pre></div>
+        </div>
+        <div class="pane">
+          <div class="pane-label java-label">String — Immutable</div>
+          <div class="code-block"><pre>String s = "hi";
+<span class="comment">// s.charAt(0) = 'H';  ❌ এভাবে বদলানো যায় না</span>
+s = "Hi";   <span class="comment">// নতুন String তৈরি হয়</span></pre></div>
+        </div>
+      </div>
+
+      <h3>গুরুত্বপূর্ণ String Method — একনজরে</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>কী করে</th><th>উদাহরণ</th></tr></thead>
+          <tbody>
+            <tr><td><code>length()</code></td><td>মোট Character সংখ্যা</td><td><code>"hello".length()</code> → <code>5</code></td></tr>
+            <tr><td><code>charAt(i)</code></td><td><code>i</code>-তম Index-এর Character</td><td><code>"hello".charAt(1)</code> → <code>'e'</code></td></tr>
+            <tr><td><code>substring(a,b)</code></td><td><code>a</code> থেকে <code>b-1</code> পর্যন্ত অংশ</td><td><code>"hello".substring(1,4)</code> → <code>"ell"</code></td></tr>
+            <tr><td><code>equals()</code> vs <code>==</code></td><td><code>equals()</code> Value তুলনা করে, <code>==</code> Reference তুলনা করে</td><td><code>s1.equals(s2)</code></td></tr>
+            <tr><td><code>compareTo()</code></td><td>Lexicographically তুলনা — Negative/0/Positive ফেরত দেয়</td><td><code>"a".compareTo("b")</code> → Negative</td></tr>
+            <tr><td><code>toUpperCase()</code> / <code>toLowerCase()</code></td><td>সব Character বড়/ছোট হাতের করে</td><td><code>"Hi".toUpperCase()</code> → <code>"HI"</code></td></tr>
+            <tr><td><code>trim()</code></td><td>শুরু ও শেষের Space বাদ দেয়</td><td><code>" hi ".trim()</code> → <code>"hi"</code></td></tr>
+            <tr><td><code>split(regex)</code></td><td>Delimiter দিয়ে ভেঙে <code>String[]</code> বানায়</td><td><code>"a,b,c".split(",")</code> → <code>[a, b, c]</code></td></tr>
+            <tr><td><code>replace(old,new)</code></td><td>সব <code>old</code>-কে <code>new</code> দিয়ে বদলায়</td><td><code>"aa".replace('a','b')</code> → <code>"bb"</code></td></tr>
+            <tr><td><code>contains()</code></td><td>Substring আছে কিনা Check করে</td><td><code>"hello".contains("ell")</code> → <code>true</code></td></tr>
+            <tr><td><code>startsWith()</code> / <code>endsWith()</code></td><td>শুরুতে/শেষে দেওয়া অংশ আছে কিনা</td><td><code>"hello".startsWith("he")</code> → <code>true</code></td></tr>
+            <tr><td><code>indexOf()</code> / <code>lastIndexOf()</code></td><td>প্রথম/শেষ Occurrence-এর Index, না পেলে <code>-1</code></td><td><code>"hello".indexOf('l')</code> → <code>2</code></td></tr>
+            <tr><td><code>toCharArray()</code></td><td>String-কে <code>char[]</code>-এ ভাঙে</td><td><code>"hi".toCharArray()</code> → <code>['h','i']</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>String Immutability — কেন Concatenation-এ নতুন String তৈরি হয়</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Immutability উদাহরণ</div>
+        <pre>String name = "Navin";
+name = name + " Reddy";  <span class="comment">// পুরোনো "Navin" বদলায় না — নতুন "Navin Reddy" তৈরি হয়</span>
+
+System.out.println(name);  <span class="comment">// Navin Reddy</span></pre>
+      </div>
+      <div class="insight"><strong>কেন গুরুত্বপূর্ণ:</strong> Loop-এর ভেতর বারবার <code>+</code> দিয়ে String জোড়া দিলে প্রতিবার নতুন Object তৈরি হয় — Performance খারাপ হয়। তখন <strong>Mutable</strong> <code>StringBuilder</code> ব্যবহার করা উচিত।</div>
+
+      <h3>StringBuilder — Mutable String</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>append, reverse, toString</div>
+        <pre>StringBuilder sb = new StringBuilder();
+
+sb.append("Hello");
+sb.append(" World");
+System.out.println(sb.toString());   <span class="comment">// Hello World</span>
+
+sb.reverse();
+System.out.println(sb);              <span class="comment">// dlroW olleH</span></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>String</th><th>StringBuilder</th></tr></thead>
+          <tbody>
+            <tr><td>Mutable?</td><td>না — Immutable</td><td>হ্যাঁ — Mutable</td></tr>
+            <tr><td>Loop-এ বারবার জোড়া লাগালে</td><td>প্রতিবার নতুন Object — ধীর</td><td>একই Object Update হয় — দ্রুত</td></tr>
+            <tr><td>Thread-Safe বিকল্প</td><td>—</td><td><code>StringBuffer</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="practice">
+        <div class="practice-title">অনুশীলন প্রশ্ন</div>
+        <ol>
+          <li>String Immutable মানে কী? <code>name = name + " Reddy"</code> লিখলে Memory-তে কী ঘটে?</li>
+          <li><code>equals()</code> আর <code>==</code>-এর মধ্যে পার্থক্য কী?</li>
+          <li><code>substring(1,4)</code>-এ শেষ Index (৪) কি Include হয়?</li>
+          <li>Loop-এর ভিতর String জোড়া লাগাতে <code>StringBuilder</code> কেন ভালো?</li>
+          <li><code>split()</code> আর <code>toCharArray()</code>-এর Return Type কী কী?</li>
+        </ol>
+      </div>
+
+      <div class="master-practice">
+        <h3>String Problem Roadmap — ধাপে ধাপে অনুশীলন</h3>
+        <p>Array-এর মতোই — প্রতিটি Problem-এ প্রথমে নিজে চেষ্টা করবে, তারপর Solution দেখবে, কিছুদিন পর না দেখে আবার Solve করবে।</p>
+
+        <h3>Level 1 — Basic (Must Know)</h3>
+        <ol>
+          <li>Print every character <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Standard Judge Problem নেই — নিজে ছোট Program লিখে Practice করো)</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/length-of-string/1" target="_blank" rel="noopener noreferrer">Count characters (String Length)</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.naukri.com/code360/problems/count-vowels-consonants-and-spaces_5026361" target="_blank" rel="noopener noreferrer">Count vowels ও consonants</a> <span class="tag">Code360</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/count-type-of-characters3635/1" target="_blank" rel="noopener noreferrer">Upper, Lower, Digit ও Special Character গোনা</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/reverse-string/" target="_blank" rel="noopener noreferrer">Reverse a String</a> <span class="tag">LeetCode #344</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/palindrome-string0817/1" target="_blank" rel="noopener noreferrer">Check Palindrome</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/valid-anagram/" target="_blank" rel="noopener noreferrer">Check Anagram ⭐</a> <span class="tag">LeetCode #242</span></li>
+          <li>Frequency of each character <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Standard Judge Problem নেই — HashMap দিয়ে নিজে লিখে Practice করো)</span></li>
+        </ol>
+
+        <h3>Level 2 — Intermediate</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/remove-duplicates3034/1" target="_blank" rel="noopener noreferrer">Remove duplicate characters</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/first-unique-character-in-a-string/" target="_blank" rel="noopener noreferrer">First non-repeating character ⭐</a> <span class="tag">LeetCode #387</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/find-first-repeated-character4108/1" target="_blank" rel="noopener noreferrer">First repeating character</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/toggle-case/1" target="_blank" rel="noopener noreferrer">Toggle case</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/count-words-in-string/1" target="_blank" rel="noopener noreferrer">Count words</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/reverse-words-in-a-string/" target="_blank" rel="noopener noreferrer">Reverse words</a> <span class="tag">LeetCode #151</span></li>
+          <li>Longest word <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Standard Judge Problem নেই — <code>split()</code> দিয়ে নিজে লিখে Practice করো)</span></li>
+        </ol>
+
+        <h3>Level 3 — Two Pointer Pattern</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/valid-palindrome/" target="_blank" rel="noopener noreferrer">Valid Palindrome ⭐</a> <span class="tag">LeetCode #125</span></li>
+          <li><a href="https://leetcode.com/problems/reverse-vowels-of-a-string/" target="_blank" rel="noopener noreferrer">Reverse only vowels</a> <span class="tag">LeetCode #345</span></li>
+          <li><a href="https://leetcode.com/problems/reverse-only-letters/" target="_blank" rel="noopener noreferrer">Reverse only letters</a> <span class="tag">LeetCode #917</span></li>
+        </ol>
+
+        <h3>Level 4 — Sliding Window</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="noopener noreferrer">Longest substring without repeating characters ⭐⭐⭐</a> <span class="tag">LeetCode #3</span></li>
+          <li><a href="https://leetcode.com/problems/longest-repeating-character-replacement/" target="_blank" rel="noopener noreferrer">Longest repeating character replacement</a> <span class="tag">LeetCode #424</span></li>
+          <li><a href="https://leetcode.com/problems/minimum-window-substring/" target="_blank" rel="noopener noreferrer">Minimum window substring (Advanced)</a> <span class="tag">LeetCode #76</span></li>
+          <li><a href="https://leetcode.com/problems/permutation-in-string/" target="_blank" rel="noopener noreferrer">Permutation in String</a> <span class="tag">LeetCode #567</span></li>
+        </ol>
+
+        <h3>Level 5 — Pattern Matching</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/" target="_blank" rel="noopener noreferrer">Implement <code>strStr()</code></a> <span class="tag">LeetCode #28</span></li>
+          <li><a href="https://leetcode.com/problems/longest-common-prefix/" target="_blank" rel="noopener noreferrer">Longest Common Prefix ⭐</a> <span class="tag">LeetCode #14</span></li>
+          <li><a href="https://leetcode.com/problems/group-anagrams/" target="_blank" rel="noopener noreferrer">Group Anagrams ⭐</a> <span class="tag">LeetCode #49</span></li>
+          <li><a href="https://leetcode.com/problems/isomorphic-strings/" target="_blank" rel="noopener noreferrer">Isomorphic Strings</a> <span class="tag">LeetCode #205</span></li>
+          <li><a href="https://leetcode.com/problems/encode-and-decode-strings/" target="_blank" rel="noopener noreferrer">Encode and Decode Strings</a> <span class="tag">LeetCode #271 · Premium 🔒</span></li>
+        </ol>
+
+        <h3>Level 6 — StringBuilder</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/reverse-string/" target="_blank" rel="noopener noreferrer">Reverse using StringBuilder</a> <span class="tag">LeetCode #344</span></li>
+          <li>Efficient String Concatenation <span style="color:var(--muted);font-style:italic;font-size:0.82em">(এটা Concept — <code>+</code> vs <code>StringBuilder</code> দিয়ে নিজে সময় মেপে তুলনা করো)</span></li>
+          <li><a href="https://leetcode.com/problems/string-compression/" target="_blank" rel="noopener noreferrer">Compress String ⭐</a> <span class="tag">LeetCode #443</span></li>
+        </ol>
+
+        <div class="insight"><strong>নোট:</strong> #27 (Encode and Decode Strings) LeetCode-এ Premium-Locked — চাইলে NeetCode-এর ফ্রি সংস্করণে দেখে নিতে পারো। #30 (Compress String)-এর LeetCode ভার্সনে Run-Length ১ হলে সংখ্যা বাদ যায় (যেমন <code>"abc"</code> → <code>"abc"</code>, <code>"a1b1c1"</code> নয়) — Classic RLE-তে সবসময় সংখ্যা বসে, এই পার্থক্যটা মাথায় রেখো।</div>
+        <div class="insight"><strong>Minimum:</strong> ১৫টি Problem করলেই Recursion-এ যাওয়া যাবে। <strong>Recommended (Interview Level):</strong> সবগুলো ৩০টি Problem শেষ করো।</div>
+      </div>
     </section>
 
     <!-- 03 -->
     <section class="section" id="sec-recursion">
       <div class="section-header"><span class="sec-num">03</span><h2>Recursion</h2></div>
-      <p class="placeholder-note">এই বিষয়ের নোট শীঘ্রই যোগ করা হবে।</p>
+
+      <div class="insight"><strong>আগে Array ও String-এর Basic Problem শেষ করে এসো।</strong> Recursion-এর অনেক Problem আসলে Array/String-এর উপরেই হয় — এবং Recursion ঠিকভাবে শিখলে পরে Tree, Backtracking ও Dynamic Programming অনেক সহজ লাগবে।</div>
+
+      <p>Recursion মানে — একটি Function <strong>নিজেই নিজেকে Call করে</strong>। প্রতিটা Recursive Function-এ দুটো অংশ থাকতেই হয়: একটা <strong>Base Case</strong> (যেখানে থেমে যায়) এবং একটা <strong>Recursive Case</strong> (যেখানে নিজেকে আবার Call করে, কিন্তু ছোট Input নিয়ে)।</p>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Factorial — Base Case + Recursive Case</div>
+        <pre>int factorial(int n) {
+    if (n == 0) return 1;        <span class="comment">// Base Case — এখানে থেমে যায়</span>
+    return n * factorial(n - 1); <span class="comment">// Recursive Case — ছোট Input নিয়ে নিজেকে Call করে</span>
+}</pre>
+      </div>
+
+      <h3>Call Stack — Recursion Memory-তে কীভাবে কাজ করে</h3>
+      <p>প্রতিটা Recursive Call-এর জন্য একটা নতুন <strong>Stack Frame</strong> তৈরি হয়, ঠিক সাধারণ Method Call-এর মতোই। যতক্ষণ Base Case না পাওয়া যায়, ততক্ষণ নতুন Frame Push হতেই থাকে — তারপর Base Case থেকে একে একে Frame Pop হয়ে Result উপরে ফেরত যায়।</p>
+      <div class="mem-viz">
+        <div class="mem-panel stack-panel" style="flex:2">
+          <div class="mem-panel-head">CALL STACK — factorial(3)</div>
+          <div class="mem-panel-body">
+            <div class="mem-frame-box">
+              <div class="mem-frame-label">▲ factorial(0) ← সবার শেষে Push, সবার আগে Pop (Base Case)</div>
+              <div class="mem-var-row"><span class="mv-name">return</span><span class="mv-eq">=</span><span class="mv-val">1</span></div>
+            </div>
+            <div class="mem-frame-box">
+              <div class="mem-frame-label">factorial(1)</div>
+              <div class="mem-var-row"><span class="mv-name">n</span><span class="mv-eq">=</span><span class="mv-val">1</span><span class="mv-note">// অপেক্ষায় — 1 * factorial(0)</span></div>
+            </div>
+            <div class="mem-frame-box">
+              <div class="mem-frame-label">factorial(2)</div>
+              <div class="mem-var-row"><span class="mv-name">n</span><span class="mv-eq">=</span><span class="mv-val">2</span><span class="mv-note">// অপেক্ষায় — 2 * factorial(1)</span></div>
+            </div>
+            <div class="mem-frame-box">
+              <div class="mem-frame-label">▼ factorial(3) ← সবার আগে Push, সবার শেষে Pop</div>
+              <div class="mem-var-row"><span class="mv-name">n</span><span class="mv-eq">=</span><span class="mv-val">3</span><span class="mv-note">// অপেক্ষায় — 3 * factorial(2)</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Unwind — Base Case থেকে ফেরত আসা</div>
+        <pre>factorial(3)
+= 3 * factorial(2)
+= 3 * (2 * factorial(1))
+= 3 * (2 * (1 * factorial(0)))
+= 3 * (2 * (1 * 1))
+= 6</pre>
+      </div>
+
+      <h3>Stack Overflow</h3>
+      <p>Base Case না থাকলে বা ভুল Base Case লিখলে Function নিজেকে থামা ছাড়াই Call করতে থাকে — প্রতিটা Call-এর জন্য নতুন Frame Push হয়, একসময় Stack ভরে গিয়ে Error আসে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Base Case ছাড়া — ভুল Recursion</div>
+        <pre>int badRecursion(int n) {
+    return badRecursion(n - 1);   <span class="comment">// Base Case নেই — কখনো থামবে না</span>
+}
+
+<span class="comment">// Exception in thread "main" java.lang.StackOverflowError</span></pre>
+      </div>
+      <div class="insight"><strong>নিয়ম:</strong> Base Case সবসময় সবার আগে লেখো, এবং নিশ্চিত করো প্রতিটা Recursive Call যেন Base Case-এর <strong>দিকে এগিয়ে যায়</strong> (যেমন <code>n</code> ছোট হতে হতে <code>0</code>-তে পৌঁছাবে)।</div>
+
+      <h3>Dry Run — সবচেয়ে গুরুত্বপূর্ণ Skill</h3>
+      <p>Dry Run মানে কাগজে-কলমে বা মনে মনে প্রতিটা Call ধাপে ধাপে Trace করা। Recursion বোঝার এটাই আসল উপায় — Code দেখে না বুঝলে, ছোট Input নিয়ে হাতে করে দেখো।</p>
+      <ol class="order-list">
+        <li>ছোট একটা Input নাও (যেমন <code>n = 3</code> বা <code>4</code>)</li>
+        <li>প্রতিটা Call আলাদা লাইনে লিখে Stack-এর মতো সাজাও</li>
+        <li>Base Case না পাওয়া পর্যন্ত Call চালিয়ে যাও</li>
+        <li>Base Case থেকে Return শুরু করে, Unwind করে উপরে ওঠো</li>
+        <li>প্রতি ধাপে Return Value মিলিয়ে দেখো — এখান থেকেই Pattern চোখে পড়বে</li>
+      </ol>
+
+      <div class="practice">
+        <div class="practice-title">অনুশীলন প্রশ্ন</div>
+        <ol>
+          <li>Base Case আর Recursive Case-এর মধ্যে পার্থক্য কী?</li>
+          <li>Base Case না থাকলে কী হয় এবং কেন?</li>
+          <li><code>factorial(4)</code>-এর পুরো Call Stack কাগজে এঁকে Dry Run করো।</li>
+          <li>Recursion-এর সময় প্রতিটা Call-এর জন্য Memory-তে কী তৈরি হয়?</li>
+        </ol>
+      </div>
+
+      <div class="master-practice">
+        <h3>Recursion Problem Roadmap — ধাপে ধাপে অনুশীলন</h3>
+        <p>প্রতিটা Problem সমাধানের আগে হাতে Dry Run করে নাও — Recursion-এ এটাই সবচেয়ে বড় শর্টকাট।</p>
+
+        <h3>Level 1 — Basic Recursion</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/print-1-to-n-without-using-loops-1587115620/1" target="_blank" rel="noopener noreferrer">Print 1 to N</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/print-n-to-1-without-loop/1" target="_blank" rel="noopener noreferrer">Print N to 1</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/sum-of-series2811/1" target="_blank" rel="noopener noreferrer">Sum of N Natural Numbers</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/factorial5739/1" target="_blank" rel="noopener noreferrer">Factorial</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/powx-n/" target="_blank" rel="noopener noreferrer">Power (xⁿ)</a> <span class="tag">LeetCode #50</span></li>
+          <li><a href="https://leetcode.com/problems/fibonacci-number/" target="_blank" rel="noopener noreferrer">Fibonacci Number</a> <span class="tag">LeetCode #509</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/count-total-digits-in-a-number/1" target="_blank" rel="noopener noreferrer">Count Digits</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/sum-of-digits1742/1" target="_blank" rel="noopener noreferrer">Sum of Digits</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/reverse-integer/" target="_blank" rel="noopener noreferrer">Reverse Number</a> <span class="tag">LeetCode #7</span></li>
+          <li><a href="https://leetcode.com/problems/palindrome-number/" target="_blank" rel="noopener noreferrer">Check Palindrome Number</a> <span class="tag">LeetCode #9</span></li>
+        </ol>
+
+        <h3>Level 2 — String Recursion</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/reverse-a-string/1" target="_blank" rel="noopener noreferrer">Reverse String</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/palindrome-string0817/1" target="_blank" rel="noopener noreferrer">Check Palindrome String</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/remove-all-occurrences-of-a-character-in-a-string/1" target="_blank" rel="noopener noreferrer">Remove All Occurrences of a Character</a> <span class="tag">GfG</span></li>
+          <li>Count Character Occurrences <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Standard Judge Problem নেই — নিজে ছোট Program লিখে Practice করো)</span></li>
+          <li><a href="https://www.naukri.com/code360/problems/replace-character_625036" target="_blank" rel="noopener noreferrer">Replace Character</a> <span class="tag">Code360</span></li>
+        </ol>
+
+        <h3>Level 3 — Array Recursion</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/sum-of-array2326/1" target="_blank" rel="noopener noreferrer">Sum of Array</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/largest-element-in-array4009--142158/0" target="_blank" rel="noopener noreferrer">Find Maximum</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/find-minimum-and-maximum-element-in-an-array4428/1" target="_blank" rel="noopener noreferrer">Find Minimum</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/check-if-an-array-is-sorted0701/1" target="_blank" rel="noopener noreferrer">Check Array Sorted ⭐</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/search-an-element-in-an-array-1587115621/1" target="_blank" rel="noopener noreferrer">Linear Search Using Recursion</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <h3>Level 4 — Backtracking Basics</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/power-set4302/1" target="_blank" rel="noopener noreferrer">Generate All Subsequences ⭐⭐⭐</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/subsets/" target="_blank" rel="noopener noreferrer">Generate All Subsets</a> <span class="tag">LeetCode #78</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/generate-all-binary-strings/1" target="_blank" rel="noopener noreferrer">Generate All Binary Strings</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/permutations/" target="_blank" rel="noopener noreferrer">Print All Permutations ⭐⭐⭐</a> <span class="tag">LeetCode #46</span></li>
+        </ol>
+
+        <h3>Level 5 — Classic Problems</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/tower-of-hanoi-1587115621/1" target="_blank" rel="noopener noreferrer">Tower of Hanoi ⭐⭐⭐</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/josephus-problem/1" target="_blank" rel="noopener noreferrer">Josephus Problem</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/k-th-symbol-in-grammar/" target="_blank" rel="noopener noreferrer">K-th Symbol in Grammar</a> <span class="tag">LeetCode #779</span></li>
+          <li><a href="https://leetcode.com/problems/binary-search/" target="_blank" rel="noopener noreferrer">Recursive Binary Search</a> <span class="tag">LeetCode #704</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/merge-sort/1" target="_blank" rel="noopener noreferrer">Merge Sort</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/quick-sort/1" target="_blank" rel="noopener noreferrer">Quick Sort</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <div class="insight"><strong>Minimum:</strong> ২০টি Problem করলেই Linked List-এ যাওয়া যাবে। <strong>Recommended (Interview Level):</strong> সবগুলো ৩০টি Problem শেষ করো।</div>
+      </div>
     </section>
 
     <!-- 04 -->
     <section class="section" id="sec-linked-list">
       <div class="section-header"><span class="sec-num">04</span><h2>Linked List</h2></div>
-      <p class="placeholder-note">এই বিষয়ের নোট শীঘ্রই যোগ করা হবে।</p>
+
+      <div class="insight"><strong>Recursion না শিখে এখানে এসো না।</strong> Linked List-এর অনেক Solution (Reverse, Merge, Recursive Traversal) Recursion-এর উপর নির্ভর করে। তবে প্রথমে Iterative Solution শিখবে, তারপর Recursive।</div>
+
+      <p>Linked List হলো একগুচ্ছ <strong>Node</strong>-এর Chain — প্রতিটা Node-এ থাকে <strong>Data</strong> এবং পরের Node-এর ঠিকানা (<strong>next</strong>)। Array-এর মতো Continuous Memory লাগে না — প্রতিটা Node Heap-এর যেকোনো জায়গায় থাকতে পারে, শুধু <code>next</code> দিয়ে একটার সাথে আরেকটা জোড়া লাগানো থাকে।</p>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Node — Linked List-এর একক</div>
+        <pre>class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}</pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>তিনটে Node জোড়া লাগানো</div>
+        <pre>Node head = new Node(10);
+head.next = new Node(20);
+head.next.next = new Node(30);
+
+<span class="comment">// Traverse এবং Print</span>
+Node temp = head;
+while (temp != null) {
+    System.out.print(temp.data + " → ");
+    temp = temp.next;
+}
+System.out.println("null");   <span class="comment">// 10 → 20 → 30 → null</span></pre>
+      </div>
+
+      <div class="mem-viz">
+        <div class="mem-panel heap-panel" style="flex:3">
+          <div class="mem-panel-head">HEAP — Node গুলো ছড়িয়ে ছিটিয়ে, next দিয়ে জোড়া লাগানো</div>
+          <div class="mem-panel-body">
+            <div class="mem-obj-box">
+              <div class="mem-obj-label">Node 1 (Head)</div>
+              <div class="mem-field-row"><span class="mv-name">data</span><span class="mv-eq">=</span><span class="mv-val">10</span></div>
+              <div class="mem-field-row"><span class="mv-name">next</span><span class="mv-eq">=</span><span class="mv-ref">ref →</span></div>
+            </div>
+            <div class="mem-obj-box">
+              <div class="mem-obj-label">Node 2</div>
+              <div class="mem-field-row"><span class="mv-name">data</span><span class="mv-eq">=</span><span class="mv-val">20</span></div>
+              <div class="mem-field-row"><span class="mv-name">next</span><span class="mv-eq">=</span><span class="mv-ref">ref →</span></div>
+            </div>
+            <div class="mem-obj-box">
+              <div class="mem-obj-label">Node 3 (Tail)</div>
+              <div class="mem-field-row"><span class="mv-name">data</span><span class="mv-eq">=</span><span class="mv-val">30</span></div>
+              <div class="mem-field-row"><span class="mv-name">next</span><span class="mv-eq">=</span><span class="mv-null">null</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="insight"><strong>Head</strong> মানে প্রথম Node-এর Reference — এটা হারিয়ে গেলে পুরো Linked List হারিয়ে যায়। <strong>Tail</strong> মানে শেষ Node, যার <code>next</code> সবসময় <code>null</code>।</div>
+
+      <h3>Singly, Doubly ও Circular Linked List</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ধরন</th><th>বৈশিষ্ট্য</th></tr></thead>
+          <tbody>
+            <tr><td>Singly Linked List</td><td>প্রতিটা Node শুধু <strong>পরের</strong> Node-কে চেনে (<code>next</code>)</td></tr>
+            <tr><td>Doubly Linked List</td><td>প্রতিটা Node <strong>আগের ও পরের</strong> দুটো Node-কেই চেনে (<code>prev</code> + <code>next</code>)</td></tr>
+            <tr><td>Circular Linked List</td><td>শেষ Node আবার <strong>Head</strong>-কে Point করে — কোথাও <code>null</code> নেই</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Array vs Linked List</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th></th><th>Array</th><th>Linked List</th></tr></thead>
+          <tbody>
+            <tr><td>Memory</td><td>Continuous</td><td>ছড়িয়ে ছিটিয়ে (Scattered)</td></tr>
+            <tr><td>Size</td><td>Fixed</td><td>Dynamic — দরকারমতো বাড়ে</td></tr>
+            <tr><td>Random Access (<code>arr[i]</code>)</td><td><code>O(1)</code></td><td><code>O(n)</code> — Head থেকে হেঁটে যেতে হয়</td></tr>
+            <tr><td>শুরুতে Insert/Delete</td><td><code>O(n)</code> — সব Shift করতে হয়</td><td><code>O(1)</code> — শুধু Pointer বদলায়</td></tr>
+            <tr><td>Extra Memory</td><td>লাগে না</td><td>প্রতিটা Node-এ <code>next</code> Reference-এর জন্য Extra Memory লাগে</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>গুরুত্বপূর্ণ Pattern ১ — Slow &amp; Fast Pointer</h3>
+      <p>Middle Node খুঁজতে বা Loop Detect করতে সবচেয়ে ব্যবহৃত Pattern। <code>slow</code> এক ঘর করে এগোয়, <code>fast</code> দুই ঘর করে — <code>fast</code> শেষে পৌঁছালে <code>slow</code> ঠিক Middle-এ থাকে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Middle Node খোঁজা</div>
+        <pre>Node slow = head, fast = head;
+
+while (fast != null && fast.next != null) {
+    slow = slow.next;         <span class="comment">// ১ ঘর</span>
+    fast = fast.next.next;    <span class="comment">// ২ ঘর</span>
+}
+<span class="comment">// fast শেষে পৌঁছালে slow মাঝখানে</span></pre>
+      </div>
+      <div class="insight"><strong>Floyd's Cycle Detection:</strong> একই Slow-Fast Pointer দিয়ে Loop আছে কিনা বোঝা যায় — Loop থাকলে <code>fast</code> কোনো একসময় ঘুরে এসে <code>slow</code>-কে ধরে ফেলবে (<code>slow == fast</code>)।</div>
+
+      <h3>গুরুত্বপূর্ণ Pattern ২ — Reverse Linked List (Iterative)</h3>
+      <p>সবচেয়ে বেশি জিজ্ঞেস করা Interview Question। তিনটে Pointer লাগে — <code>prev</code>, <code>curr</code>, <code>next</code>।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>prev / curr / next — তিনটে Pointer</div>
+        <pre>Node prev = null;
+Node curr = head;
+
+while (curr != null) {
+    Node next = curr.next;   <span class="comment">// পরের Node হারিয়ে যাওয়ার আগে ধরে রাখো</span>
+    curr.next = prev;        <span class="comment">// Link উল্টে দাও</span>
+    prev = curr;              <span class="comment">// prev এগিয়ে যাক</span>
+    curr = next;              <span class="comment">// curr এগিয়ে যাক</span>
+}
+
+head = prev;   <span class="comment">// নতুন Head এখন শেষের Node</span></pre>
+      </div>
+
+      <div class="practice">
+        <div class="practice-title">অনুশীলন প্রশ্ন</div>
+        <ol>
+          <li>Linked List-এ Array-এর মতো <code>arr[i]</code> দিয়ে সরাসরি Access করা যায় না কেন?</li>
+          <li>Slow-Fast Pointer দিয়ে কীভাবে Middle Node এবং Loop — দুটোই বের করা যায়?</li>
+          <li>Reverse করার সময় <code>next</code> Pointer আগে থেকে ধরে না রাখলে কী সমস্যা হবে?</li>
+          <li>Singly, Doubly এবং Circular Linked List-এর মধ্যে পার্থক্য বলো।</li>
+          <li>Array-এর তুলনায় Linked List-এ কোন Operation দ্রুত, আর কোনটা ধীর?</li>
+        </ol>
+      </div>
+
+      <div class="master-practice">
+        <h3>Linked List Problem Roadmap — ধাপে ধাপে অনুশীলন</h3>
+        <p>প্রথমে Iterative Solution শিখবে, Recursive Solution পরে। প্রতিটা Problem-এ Pointer-গুলো কাগজে এঁকে Dry Run করো — Linked List-এ এটাই সবচেয়ে কার্যকর।</p>
+
+        <h3>Level 1 — Basic Operations (Must Do)</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/introduction-to-linked-list/1" target="_blank" rel="noopener noreferrer">Create a Linked List</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/print-linked-list-elements/1" target="_blank" rel="noopener noreferrer">Traverse and Print</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/count-nodes-of-linked-list/1" target="_blank" rel="noopener noreferrer">Count Nodes</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/search-in-linked-list-1664434326/1" target="_blank" rel="noopener noreferrer">Search an Element</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/linked-list-insertion-at-beginning/1" target="_blank" rel="noopener noreferrer">Insert at Beginning ⭐</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/linked-list-insertion-1587115620/1" target="_blank" rel="noopener noreferrer">Insert at End ⭐</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/insertion-at-a-given-position-in-a-linked-list/1" target="_blank" rel="noopener noreferrer">Insert at Given Position</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/delete-head-of-linked-list/1" target="_blank" rel="noopener noreferrer">Delete First Node ⭐</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/deletion-at-the-end-of-a-linked-list/1" target="_blank" rel="noopener noreferrer">Delete Last Node</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/remove-linked-list-elements/" target="_blank" rel="noopener noreferrer">Delete by Value</a> <span class="tag">LeetCode #203</span></li>
+        </ol>
+
+        <h3>Level 2 — Intermediate</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/middle-of-the-linked-list/" target="_blank" rel="noopener noreferrer">Find Middle Node ⭐</a> <span class="tag">LeetCode #876</span></li>
+          <li><a href="https://leetcode.com/problems/reverse-linked-list/" target="_blank" rel="noopener noreferrer">Reverse Linked List ⭐⭐⭐</a> <span class="tag">LeetCode #206</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/nth-node-from-end-of-linked-list/1" target="_blank" rel="noopener noreferrer">Find Nth Node From End ⭐</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/" target="_blank" rel="noopener noreferrer">Remove Nth Node From End</a> <span class="tag">LeetCode #19</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/detect-loop-in-linked-list/1" target="_blank" rel="noopener noreferrer">Detect Loop (HashSet)</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank" rel="noopener noreferrer">Detect Loop (Floyd Cycle Detection) ⭐⭐⭐</a> <span class="tag">LeetCode #141</span></li>
+          <li><a href="https://leetcode.com/problems/linked-list-cycle-ii/" target="_blank" rel="noopener noreferrer">Find Starting Point of Loop</a> <span class="tag">LeetCode #142</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/find-length-of-loop/1" target="_blank" rel="noopener noreferrer">Length of Loop</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <h3>Level 3 — Sorting / Merge</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/merge-two-sorted-lists/" target="_blank" rel="noopener noreferrer">Merge Two Sorted Linked Lists ⭐</a> <span class="tag">LeetCode #21</span></li>
+          <li><a href="https://leetcode.com/problems/remove-duplicates-from-sorted-list/" target="_blank" rel="noopener noreferrer">Remove Duplicates From Sorted List</a> <span class="tag">LeetCode #83</span></li>
+          <li><a href="https://leetcode.com/problems/sort-list/" target="_blank" rel="noopener noreferrer">Sort Linked List</a> <span class="tag">LeetCode #148</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/sort-a-linked-list/1" target="_blank" rel="noopener noreferrer">Merge Sort on Linked List ⭐⭐</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <h3>Level 4 — Advanced</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/palindrome-linked-list/" target="_blank" rel="noopener noreferrer">Palindrome Linked List ⭐</a> <span class="tag">LeetCode #234</span></li>
+          <li><a href="https://leetcode.com/problems/odd-even-linked-list/" target="_blank" rel="noopener noreferrer">Odd Even Linked List</a> <span class="tag">LeetCode #328</span></li>
+          <li><a href="https://leetcode.com/problems/rotate-list/" target="_blank" rel="noopener noreferrer">Rotate Linked List</a> <span class="tag">LeetCode #61</span></li>
+          <li><a href="https://leetcode.com/problems/partition-list/" target="_blank" rel="noopener noreferrer">Partition List</a> <span class="tag">LeetCode #86</span></li>
+          <li><a href="https://leetcode.com/problems/reorder-list/" target="_blank" rel="noopener noreferrer">Reorder List ⭐</a> <span class="tag">LeetCode #143</span></li>
+          <li><a href="https://leetcode.com/problems/swap-nodes-in-pairs/" target="_blank" rel="noopener noreferrer">Swap Nodes in Pairs</a> <span class="tag">LeetCode #24</span></li>
+          <li><a href="https://leetcode.com/problems/reverse-nodes-in-k-group/" target="_blank" rel="noopener noreferrer">Reverse Nodes in K Groups ⭐⭐⭐</a> <span class="tag">LeetCode #25</span></li>
+          <li><a href="https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/" target="_blank" rel="noopener noreferrer">Flatten Linked List</a> <span class="tag">LeetCode #430</span></li>
+          <li><a href="https://leetcode.com/problems/copy-list-with-random-pointer/" target="_blank" rel="noopener noreferrer">Copy List with Random Pointer ⭐⭐⭐</a> <span class="tag">LeetCode #138</span></li>
+          <li><a href="https://leetcode.com/problems/intersection-of-two-linked-lists/" target="_blank" rel="noopener noreferrer">Intersection of Two Linked Lists</a> <span class="tag">LeetCode #160</span></li>
+          <li><a href="https://leetcode.com/problems/add-two-numbers/" target="_blank" rel="noopener noreferrer">Add Two Numbers Represented by Linked Lists ⭐⭐</a> <span class="tag">LeetCode #2</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/clone-a-linked-list-with-next-and-random-pointer/1" target="_blank" rel="noopener noreferrer">Clone Linked List</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/lru-cache/" target="_blank" rel="noopener noreferrer">LRU Cache (Doubly Linked List + HashMap) ⭐⭐⭐</a> <span class="tag">LeetCode #146</span></li>
+        </ol>
+
+        <h3>Doubly Linked List</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/insert-a-node-in-doubly-linked-list/1" target="_blank" rel="noopener noreferrer">Insert at Beginning</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/insert-a-node-in-doubly-linked-list/1" target="_blank" rel="noopener noreferrer">Insert at End</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/delete-node-in-doubly-linked-list/1" target="_blank" rel="noopener noreferrer">Delete Node</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/reverse-a-doubly-linked-list/1" target="_blank" rel="noopener noreferrer">Reverse Doubly Linked List</a> <span class="tag">GfG</span></li>
+        </ol>
+        <div class="insight"><strong>নোট:</strong> GfG-তে DLL Insertion-এর একটাই Problem আছে ("Position <code>p</code>-তে Insert করো") — Position <code>0</code> দিলে Beginning, শেষে দিলে End হয়ে যায়, তাই উপরের দুটো Link একই Problem-এর দিকে যায়।</div>
+
+        <h3>Circular Linked List</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/insertion-at-the-beginning-of-circular-linked-list/1" target="_blank" rel="noopener noreferrer">Insert</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/deletion-and-reverse-in-linked-list/1" target="_blank" rel="noopener noreferrer">Delete</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/circular-linked-list-traversal/1" target="_blank" rel="noopener noreferrer">Traverse</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <div class="insight"><strong>Minimum:</strong> ২০টি Problem করলেই Stack-এ যাওয়া যাবে। <strong>Recommended (Interview Level):</strong> ৩৫–৪২টি Problem শেষ করো (Doubly ও Circular সহ)।</div>
+      </div>
     </section>
 
     <!-- 05 -->
