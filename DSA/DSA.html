@@ -735,6 +735,7 @@ a:focus-visible, button:focus-visible {
       <li><a href="#sec-heap"><span class="toc-num">13</span>Heap</a></li>
       <li><a href="#sec-graph"><span class="toc-num">14</span>Graph</a></li>
       <li><a href="#sec-dp"><span class="toc-num">15</span>Dynamic Programming</a></li>
+      <li><a href="#sec-pattern-map"><span class="toc-num">🎯</span>Master Pattern Map</a></li>
     </ul>
   </nav>
 </div>
@@ -766,6 +767,7 @@ a:focus-visible, button:focus-visible {
       <li><a href="#sec-heap"><span class="toc-num">13</span>Heap</a></li>
       <li><a href="#sec-graph"><span class="toc-num">14</span>Graph</a></li>
       <li><a href="#sec-dp"><span class="toc-num">15</span>Dynamic Programming</a></li>
+      <li><a href="#sec-pattern-map"><span class="toc-num">🎯</span>Master Pattern Map</a></li>
     </ul>
   </aside>
 
@@ -1202,6 +1204,26 @@ Arrays.fill(arr, 10);                        <span class="comment">// সব ঘ
 Arrays.equals(arr1, arr2);                   <span class="comment">// দুটো array সমান কিনা</span></pre>
       </div>
 
+      <h3>গুরুত্বপূর্ণ Array Method — একনজরে</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>কী করে</th><th>উদাহরণ</th></tr></thead>
+          <tbody>
+            <tr><td><code>length</code></td><td>মোট Element সংখ্যা — Property, Parenthesis লাগে না</td><td><code>arr.length</code> → <code>5</code></td></tr>
+            <tr><td><code>arr[i]</code></td><td><code>i</code>-তম Index-এর Element Access/Update করে</td><td><code>arr[2]</code> → <code>3</code>-য় Element</td></tr>
+            <tr><td><code>Arrays.sort(arr)</code></td><td>Array-কে Ascending Order-এ Sort করে</td><td><code>{5,2,8,1}</code> → <code>[1,2,5,8]</code></td></tr>
+            <tr><td><code>Arrays.fill(arr,v)</code></td><td>সব ঘর <code>v</code> দিয়ে ভরে দেয়</td><td><code>Arrays.fill(arr,10)</code> → <code>[10,10,10]</code></td></tr>
+            <tr><td><code>Arrays.equals(a1,a2)</code></td><td>দুটো Array-এর সব Element একই কিনা Check করে</td><td><code>Arrays.equals(a,b)</code> → <code>true</code>/<code>false</code></td></tr>
+            <tr><td><code>Arrays.toString(arr)</code></td><td>Array-কে Readable String বানায়</td><td><code>Arrays.toString(arr)</code> → <code>"[1, 2, 3]"</code></td></tr>
+            <tr><td><code>Arrays.copyOf(arr,n)</code></td><td>নতুন Size <code>n</code>-এর একটি Copy বানায়</td><td><code>Arrays.copyOf(arr,5)</code></td></tr>
+            <tr><td><code>Arrays.copyOfRange(arr,a,b)</code></td><td><code>a</code> থেকে <code>b-1</code> পর্যন্ত অংশের Copy বানায়</td><td><code>Arrays.copyOfRange(arr,1,4)</code></td></tr>
+            <tr><td><code>Arrays.binarySearch(arr,key)</code></td><td>Sorted Array-তে <code>key</code> খুঁজে Index ফেরত দেয়</td><td><code>Arrays.binarySearch(arr,8)</code> → Index</td></tr>
+            <tr><td><code>arr.clone()</code></td><td>Array-এর একটি Shallow Copy বানায়</td><td><code>int[] b = arr.clone();</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight"><strong>মনে রাখো:</strong> <code>arr.length</code> — Property (Parenthesis নেই), কিন্তু <code>str.length()</code> — Method (Parenthesis আছে)। এটাই সবচেয়ে বেশি Confusion তৈরি করে — নিচে String Method Table-এর পর দুটোর একটা Side-by-Side তুলনা দেওয়া আছে।</div>
+
       <h3>Array vs ArrayList</h3>
       <div class="table-wrap">
         <table>
@@ -1338,6 +1360,69 @@ s = "Hi";   <span class="comment">// নতুন String তৈরি হয়<
           </tbody>
         </table>
       </div>
+
+      <h3>গুরুত্বপূর্ণ Character Method — একনজরে</h3>
+      <p><code>char</code> একটি Primitive Type, কিন্তু <code>Character</code> হলো তার জন্য একটি Wrapper Class — যেটাতে এক-একটা Character Check/Convert করার Static Method থাকে। এই Method গুলো <code>str.xxx()</code>-এর মতো নয় — এগুলো লেখা হয় <code>Character.xxx(c)</code> আকারে, মানে Character আগে, তারপর Method, ভেতরে যে <code>char</code>-টা নিয়ে কাজ করবে সেটা Argument হিসেবে যায়।</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>কী করে</th><th>উদাহরণ</th></tr></thead>
+          <tbody>
+            <tr><td><code>Character.isDigit(c)</code></td><td><code>c</code> একটি সংখ্যা (0-9) কিনা Check করে</td><td><code>Character.isDigit('5')</code> → <code>true</code></td></tr>
+            <tr><td><code>Character.isLetter(c)</code></td><td><code>c</code> একটি Letter (a-z, A-Z) কিনা Check করে</td><td><code>Character.isLetter('a')</code> → <code>true</code></td></tr>
+            <tr><td><code>Character.isLetterOrDigit(c)</code></td><td><code>c</code> Letter অথবা Digit কিনা Check করে</td><td><code>Character.isLetterOrDigit('@')</code> → <code>false</code></td></tr>
+            <tr><td><code>Character.isUpperCase(c)</code> / <code>isLowerCase(c)</code></td><td><code>c</code> বড়/ছোট হাতের Letter কিনা Check করে</td><td><code>Character.isUpperCase('A')</code> → <code>true</code></td></tr>
+            <tr><td><code>Character.isWhitespace(c)</code></td><td><code>c</code> Space/Tab/Newline কিনা Check করে</td><td><code>Character.isWhitespace(' ')</code> → <code>true</code></td></tr>
+            <tr><td><code>Character.toUpperCase(c)</code> / <code>toLowerCase(c)</code></td><td>একটা মাত্র <code>char</code>-কে বড়/ছোট হাতের করে — Return Type <code>char</code></td><td><code>Character.toUpperCase('a')</code> → <code>'A'</code></td></tr>
+            <tr><td><code>Character.getNumericValue(c)</code></td><td><code>c</code> Digit হলে তার Numeric Value <code>int</code> হিসেবে ফেরত দেয়</td><td><code>Character.getNumericValue('7')</code> → <code>7</code></td></tr>
+            <tr><td><code>(int) c</code></td><td><code>char</code>-কে সরাসরি তার ASCII/Unicode Value-তে Convert করে (Method না, Type Cast)</td><td><code>(int) 'A'</code> → <code>65</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight"><strong>মূল Confusion যেটা পরিষ্কার হওয়া দরকার:</strong> <code>str.charAt(i)</code> তোমাকে একটা <code>char</code> ফেরত দেয় (String Method, Return Type char) — সেই <code>char</code>-টাকে নিয়ে তারপর <code>Character.isDigit()</code>, <code>Character.isLetter()</code> ইত্যাদি দিয়ে Check করো। মানে দুটো ধাপ: প্রথমে String থেকে Character বের করো (<code>charAt</code>), তারপর সেই Character-এ Character Class-এর Method Apply করো।</div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>String থেকে Character বের করে Check করা — দুই ধাপ একসাথে</div>
+        <pre>String s = "abc123";
+for (int i = 0; i &lt; s.length(); i++) {
+    char c = s.charAt(i);              <span class="comment">// ধাপ ১: String → char</span>
+    if (Character.isDigit(c)) {        <span class="comment">// ধাপ ২: char → Check</span>
+        System.out.println(c + " is a digit");
+    }
+}</pre>
+      </div>
+
+      <h3>Character vs String Method — Confusion Buster</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>কাজ</th><th>Character (একটা char নিয়ে কাজ করে)</th><th>String (পুরো String নিয়ে কাজ করে)</th></tr></thead>
+          <tbody>
+            <tr><td>Uppercase করা</td><td><code>Character.toUpperCase(c)</code> → <code>char</code> Return করে</td><td><code>str.toUpperCase()</code> → নতুন <code>String</code> Return করে</td></tr>
+            <tr><td>Digit কিনা Check</td><td><code>Character.isDigit(c)</code></td><td>সরাসরি নেই — প্রতিটা <code>char</code> Loop করে Check করতে হয়</td></tr>
+            <tr><td>দুটো সমান কিনা</td><td><code>c1 == c2</code> (Primitive, তাই <code>==</code> নিরাপদ)</td><td><code>s1.equals(s2)</code> (<code>==</code> ব্যবহার করা যাবে না)</td></tr>
+            <tr><td>Call করার ধরন</td><td><code>Character.xxx(c)</code> — Static Method, Class-এর নামে Call হয়</td><td><code>str.xxx()</code> — Instance Method, Object-এর নামে Call হয়</td></tr>
+            <tr><td>একটা থেকে আরেকটায় যাওয়া</td><td><code>str.charAt(i)</code> দিয়ে String থেকে char বের করা যায়</td><td><code>String.valueOf(c)</code> দিয়ে char থেকে String বানানো যায়</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight"><strong>সহজে মনে রাখার উপায়:</strong> <code>char</code> Primitive বলে তার Method গুলো <code>Character</code> ক্লাসে আলাদাভাবে থাকে এবং Static (আগে Class-এর নাম লাগে)। <code>String</code> নিজেই একটা Object বলে তার Method গুলো সরাসরি তার Object থেকে Call হয় (Instance Method)।</div>
+
+      <h3>Array vs String Method — Confusion Buster</h3>
+      <p>Array আর String-এর Method Name অনেকটা একই রকম শোনায়, কিন্তু আলাদা — এই Table পাশাপাশি রাখলে গুলিয়ে ফেলার সম্ভাবনা কমে যায়।</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>কাজ</th><th>Array</th><th>String</th></tr></thead>
+          <tbody>
+            <tr><td>মোট Size জানা</td><td><code>arr.length</code> (Property)</td><td><code>str.length()</code> (Method)</td></tr>
+            <tr><td><code>i</code>-তম Element</td><td><code>arr[i]</code></td><td><code>str.charAt(i)</code></td></tr>
+            <tr><td>অংশ (Part) বের করা</td><td><code>Arrays.copyOfRange(arr,a,b)</code></td><td><code>str.substring(a,b)</code></td></tr>
+            <tr><td>Print / Readable রূপ</td><td><code>Arrays.toString(arr)</code></td><td>সরাসরি <code>str</code> (নিজেই Readable)</td></tr>
+            <tr><td>দুটো সমান কিনা</td><td><code>Arrays.equals(a1,a2)</code></td><td><code>s1.equals(s2)</code></td></tr>
+            <tr><td>Sort করা</td><td><code>Arrays.sort(arr)</code></td><td><code>char[]</code>-এ ভেঙে Sort, তারপর <code>new String(chars)</code></td></tr>
+            <tr><td>Reverse করা</td><td>Two Pointer দিয়ে Manual Swap</td><td><code>new StringBuilder(str).reverse()</code></td></tr>
+            <tr><td>একটা থেকে আরেকটায় রূপান্তর</td><td><code>str.toCharArray()</code> → <code>char[]</code></td><td><code>new String(charArray)</code> → String</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight"><strong>মূল কথা:</strong> Array-এর Method গুলো বেশিরভাগ Static — <code>Arrays.xxx(arr)</code> আকারে (Utility Class থেকে আসে)। String-এর Method গুলো Instance Method — সরাসরি <code>str.xxx()</code> আকারে (String নিজেই একটা Object)।</div>
 
       <h3>String Immutability — কেন Concatenation-এ নতুন String তৈরি হয়</h3>
       <div class="code-block">
@@ -2683,19 +2768,764 @@ Queue
     <!-- 11 -->
     <section class="section" id="sec-trees">
       <div class="section-header"><span class="sec-num">11</span><h2>Trees</h2></div>
-      <p class="placeholder-note">এই বিষয়ের নোট শীঘ্রই যোগ করা হবে।</p>
+
+      <div class="insight"><strong>Recursion আর BFS (Queue) আগে থেকে জানা থাকা দরকার।</strong> Tree-এর প্রায় প্রতিটা Pattern-ই এই দুটোর উপর দাঁড়িয়ে আছে — DFS মানে Recursion, Level Order মানে Queue দিয়ে BFS।</div>
+
+      <p>এতদিন যা শিখেছ (Array, String, Linked List) সবই <strong>Linear</strong> — একটার পর একটা সোজা লাইনে। Tree প্রথম <strong>Non-Linear</strong> Data Structure — একটা Node-এর একাধিক Child থাকতে পারে, ফলে Data একটা Hierarchy (গাছের মতো, উপর থেকে নিচে শাখা-প্রশাখা) আকারে সাজানো থাকে।</p>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>একটা ছোট Binary Tree</div>
+        <pre>        1
+       / \
+      2   3
+     / \   \
+    4   5   6</pre>
+      </div>
+
+      <h3>Tree-এর Basic Concept গুলো</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Term</th><th>মানে কী</th></tr></thead>
+          <tbody>
+            <tr><td>Node</td><td>Tree-এর প্রতিটা ঘর — Data এবং Child-দের Reference থাকে</td></tr>
+            <tr><td>Root</td><td>সবচেয়ে উপরের Node — যার কোনো Parent নেই (উদাহরণে <code>1</code>)</td></tr>
+            <tr><td>Parent / Child</td><td>একটা Node সরাসরি যে Node-কে Point করে, সেটা তার Child; আর সে নিজে সেই Child-এর Parent</td></tr>
+            <tr><td>Leaf</td><td>যে Node-এর কোনো Child নেই (উদাহরণে <code>4, 5, 6</code>)</td></tr>
+            <tr><td>Height</td><td>একটা Node থেকে সবচেয়ে নিচের Leaf পর্যন্ত সবচেয়ে বেশি Edge-এর সংখ্যা</td></tr>
+            <tr><td>Depth</td><td>Root থেকে ওই Node পর্যন্ত Edge-এর সংখ্যা (Root-এর Depth সবসময় <code>0</code>)</td></tr>
+            <tr><td>Level</td><td>একই Depth-এর সব Node মিলে একটা Level</td></tr>
+            <tr><td>Degree</td><td>একটা Node-এর মোট Child সংখ্যা</td></tr>
+            <tr><td>Subtree</td><td>যেকোনো একটা Node আর তার সব Descendant মিলে যে ছোট Tree তৈরি হয়</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Binary Tree-এর ধরন</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ধরন</th><th>বৈশিষ্ট্য</th></tr></thead>
+          <tbody>
+            <tr><td>Binary Tree</td><td>প্রতিটা Node-এর সর্বোচ্চ ২টা Child (Left, Right)</td></tr>
+            <tr><td>Full Binary Tree</td><td>প্রতিটা Node-এর Child সংখ্যা হয় <code>0</code>, নয় <code>2</code> — কখনো <code>1</code> না</td></tr>
+            <tr><td>Complete Binary Tree</td><td>শেষ Level ছাড়া বাকি সব Level পুরোপুরি ভরা, আর শেষ Level-এর Node গুলো বাম দিক থেকে ভরাট</td></tr>
+            <tr><td>Perfect Binary Tree</td><td>সব Leaf একই Level-এ, আর প্রতিটা Internal Node-এর ঠিক ২টা Child</td></tr>
+            <tr><td>Balanced Binary Tree</td><td>যেকোনো Node-এর Left ও Right Subtree-এর Height-এর পার্থক্য সর্বোচ্চ <code>1</code></td></tr>
+            <tr><td>BST (Binary Search Tree)</td><td>প্রতিটা Node-এর জন্য — Left Subtree-এর সব Value ছোট, Right Subtree-এর সব Value বড়</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>TreeNode — Tree-এর একক</div>
+        <pre>class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+}</pre>
+      </div>
+
+      <h3>Pattern ১ — DFS Traversal (Preorder / Inorder / Postorder)</h3>
+      <p>তিনটেই Recursion দিয়ে হয়, শুধু Root Print করার জায়গাটা বদলায়। <strong>Preorder</strong> — Root → Left → Right। <strong>Inorder</strong> — Left → Root → Right (BST-এ Inorder করলে Sorted Order পাওয়া যায়)। <strong>Postorder</strong> — Left → Right → Root।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>তিনটে Recursive Traversal</div>
+        <pre>void preorder(TreeNode root) {
+    if (root == null) return;
+    System.out.print(root.val + " ");   <span class="comment">// Root আগে</span>
+    preorder(root.left);
+    preorder(root.right);
+}
+
+void inorder(TreeNode root) {
+    if (root == null) return;
+    inorder(root.left);
+    System.out.print(root.val + " ");   <span class="comment">// Root মাঝখানে</span>
+    inorder(root.right);
+}
+
+void postorder(TreeNode root) {
+    if (root == null) return;
+    postorder(root.left);
+    postorder(root.right);
+    System.out.print(root.val + " ");   <span class="comment">// Root সবার শেষে</span>
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Inorder — Iterative (Stack দিয়ে)</div>
+        <pre>List&lt;Integer&gt; inorderIterative(TreeNode root) {
+    List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+    Deque&lt;TreeNode&gt; stack = new ArrayDeque&lt;&gt;();
+    TreeNode curr = root;
+
+    while (curr != null || !stack.isEmpty()) {
+        while (curr != null) {          <span class="comment">// যতদূর Left যাওয়া যায়</span>
+            stack.push(curr);
+            curr = curr.left;
+        }
+        curr = stack.pop();             <span class="comment">// এটাই এখন Visit করার Node</span>
+        result.add(curr.val);
+        curr = curr.right;              <span class="comment">// এবার Right-এ যাও</span>
+    }
+    return result;
+}</pre>
+      </div>
+      <div class="insight"><strong>মনে রাখো:</strong> Recursive Solution সবসময় Call Stack ব্যবহার করে (Implicit Stack) — Iterative Solution-এ সেটাই তুমি নিজে <code>Deque</code> দিয়ে Explicit করছ।</div>
+
+      <h3>Pattern ২ — BFS / Level Order Traversal</h3>
+      <p>Queue দিয়ে Level ধরে ধরে ঘোরা হয়। প্রতিটা Level শুরু করার আগে <code>queue.size()</code> ধরে রাখলে বোঝা যায় ঠিক কতগুলো Node এই Level-এ আছে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Level Order Traversal</div>
+        <pre>List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) {
+    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
+    if (root == null) return result;
+
+    Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
+    queue.offer(root);
+
+    while (!queue.isEmpty()) {
+        int size = queue.size();        <span class="comment">// এই Level-এ কতগুলো Node</span>
+        List&lt;Integer&gt; level = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; size; i++) {
+            TreeNode node = queue.poll();
+            level.add(node.val);
+            if (node.left != null)  queue.offer(node.left);
+            if (node.right != null) queue.offer(node.right);
+        }
+        result.add(level);
+    }
+    return result;
+}</pre>
+      </div>
+      <div class="insight"><strong>এই <code>size</code> ধরে রাখার Trick</strong>-টাই Zigzag, Right/Left View, Average of Levels — সব Level-ভিত্তিক Problem-এর ভিত্তি।</div>
+
+      <h3>Pattern ৩ — Height / Depth</h3>
+      <p>Height/Depth-এর প্রতিটা Problem একই আকারে — নিজের Left আর Right Subtree-র Answer নিয়ে, তার সাথে <code>1</code> যোগ করে নিজের Answer বানানো (Bottom-Up)।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Maximum Depth</div>
+        <pre>int maxDepth(TreeNode root) {
+    if (root == null) return 0;                              <span class="comment">// Base Case</span>
+    return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Diameter of Binary Tree — Height বের করার সময়ই Diameter Update</div>
+        <pre>int diameter = 0;
+
+int height(TreeNode node) {
+    if (node == null) return 0;
+    int left  = height(node.left);
+    int right = height(node.right);
+    diameter = Math.max(diameter, left + right);   <span class="comment">// এই Node দিয়ে যাওয়া দীর্ঘতম Path</span>
+    return 1 + Math.max(left, right);
+}</pre>
+      </div>
+      <div class="insight"><strong>Diameter</strong> মানে Root দিয়ে যেতেই হবে এমন কথা নেই — যেকোনো দুটো Node-এর মধ্যে দীর্ঘতম Path। তাই প্রতিটা Node-এ <code>left + right</code> Check করেই Global Maximum রাখা হয়।</div>
+
+      <h3>Pattern ৪ — LCA (Lowest Common Ancestor)</h3>
+      <p><code>p</code> আর <code>q</code> — দুটো Node-এর সবচেয়ে কাছের Common Ancestor। Bottom-Up Recursion — যদি <code>p</code> Left-এ পাওয়া যায় আর <code>q</code> Right-এ, তাহলে বর্তমান Node-ই LCA।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>LCA in Binary Tree</div>
+        <pre>TreeNode lca(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null || root == p || root == q) return root;
+
+    TreeNode left  = lca(root.left, p, q);
+    TreeNode right = lca(root.right, p, q);
+
+    if (left != null &amp;&amp; right != null) return root;   <span class="comment">// দুই পাশে দুজন — এটাই LCA</span>
+    return left != null ? left : right;                 <span class="comment">// দুজনেই এক পাশে</span>
+}</pre>
+      </div>
+      <div class="insight"><strong>BST হলে সহজ হয়ে যায়:</strong> <code>p.val</code> আর <code>q.val</code>-এর সাথে <code>root.val</code> তুলনা করেই বোঝা যায় LCA বাম না ডানে, নাকি বর্তমান Node-ই — Recursion লাগেই না, Iterative-ও করা যায়।</div>
+
+      <h3>Pattern ৫ — BST Operations</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Search + Validate BST</div>
+        <pre>TreeNode searchBST(TreeNode root, int val) {
+    if (root == null || root.val == val) return root;
+    return val &lt; root.val ? searchBST(root.left, val) : searchBST(root.right, val);
+}
+
+boolean isValidBST(TreeNode node, long min, long max) {
+    if (node == null) return true;
+    if (node.val &lt;= min || node.val &gt;= max) return false;
+    return isValidBST(node.left, min, node.val) &amp;&amp; isValidBST(node.right, node.val, max);
+}
+<span class="comment">// প্রথম Call: isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE)</span></pre>
+      </div>
+      <div class="insight"><strong>ভুল যেটা বেশি হয়:</strong> শুধু <code>node.left.val &lt; node.val &lt; node.right.val</code> Check করলে হবে না — পুরো Left Subtree-এর প্রতিটা Value <code>node.val</code>-এর চেয়ে ছোট হতে হবে, শুধু সরাসরি Child না। তাই <code>min</code>/<code>max</code> Range নিচে পাঠাতে হয়।</div>
+
+      <h3>Pattern ৬ — Construction (Traversal থেকে Tree বানানো)</h3>
+      <p>Preorder-এর প্রথম Element সবসময় Root। Inorder-এ সেই Root-এর বাম দিকের অংশ পুরো Left Subtree, ডান দিকের অংশ পুরো Right Subtree — এই দুটো Fact দিয়েই পুরো Tree Recursively বানানো যায়।</p>
+      <div class="insight">Postorder থেকে বানালে Root থাকে সবার <strong>শেষে</strong> — তাই Postorder-এর Array-টা <strong>পেছন থেকে</strong> পড়তে হয়। দ্রুত Index বের করতে HashMap-এ Inorder-এর Value → Index রাখা হয়, তাহলে প্রতিবার Linear Search করতে হয় না।</div>
+
+      <h3>Pattern ৭ ও ৮ — Tree Modification</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Invert Binary Tree</div>
+        <pre>TreeNode invertTree(TreeNode root) {
+    if (root == null) return null;
+
+    TreeNode temp = root.left;
+    root.left  = invertTree(root.right);
+    root.right = invertTree(temp);
+    return root;
+}</pre>
+      </div>
+      <div class="insight"><strong>Serialize/Deserialize:</strong> Preorder-এ Traverse করে <code>null</code>-কেও একটা Marker (যেমন <code>"#"</code>) হিসেবে String-এ লিখে রাখলে, সেই String থেকে আবার হুবহু একই Tree ফিরিয়ে আনা যায় — কারণ <code>null</code> Marker গুলোই বলে দেয় কোথায় Left/Right Subtree শেষ।</div>
+
+      <h3>Pattern ৯ — View Problems</h3>
+      <p>বেশিরভাগ View Problem-এর মূলে থাকে <strong>Horizontal Distance</strong> (HD) — Root-এর HD <code>0</code>, Left-এ গেলে <code>-1</code>, Right-এ গেলে <code>+1</code>। এই HD ধরে রাখলেই Top/Bottom/Vertical View বের হয়ে যায়।</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>View</th><th>কীভাবে বের করা হয়</th></tr></thead>
+          <tbody>
+            <tr><td>Right / Left View</td><td>Level Order (BFS) করে প্রতি Level-এর শেষ/প্রথম Node নাও</td></tr>
+            <tr><td>Top / Bottom View</td><td>প্রতিটা HD-তে প্রথম (Top) বা শেষে (Bottom) পাওয়া Node রাখো — <code>TreeMap&lt;Integer, Integer&gt;</code>-এ HD → Value</td></tr>
+            <tr><td>Vertical Order</td><td>HD একই হলে Level অনুযায়ী, Level-ও একই হলে Value অনুযায়ী Sort করে Group করা হয়</td></tr>
+            <tr><td>Boundary Traversal</td><td>Left Boundary + Leaf গুলো + Right Boundary (উল্টো দিক থেকে) — তিন ভাগে ভেঙে Traverse করা হয়</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>গুরুত্বপূর্ণ Pattern — Trees (সারাংশ)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pattern</th><th>কেন এই Pattern ব্যবহার করি</th><th>Example Problems</th></tr></thead>
+          <tbody>
+            <tr><td>DFS Traversal ⭐⭐⭐⭐⭐</td><td>Root-Left-Right ক্রম বদলে Preorder/Inorder/Postorder — Tree-এর সবচেয়ে Basic Building Block, Recursive ও Iterative দুটোই আসতে হবে</td><td>Preorder, Inorder, Postorder Traversal</td></tr>
+            <tr><td>BFS / Level Order ⭐⭐⭐⭐⭐</td><td>Level ধরে ধরে কিছু করতে হলে Queue-তে <code>size()</code> ধরে রেখে এক Level এক Level করে Process করা হয়</td><td>Level Order, Zigzag Level Order, Right/Left View</td></tr>
+            <tr><td>Height / Depth ⭐⭐⭐⭐</td><td>Left ও Right Subtree-র Answer নিয়ে <code>1</code> যোগ করলেই (Bottom-Up) নিজের Answer পাওয়া যায়</td><td>Maximum Depth, Balanced Binary Tree, Diameter</td></tr>
+            <tr><td>Path Problems ⭐⭐⭐⭐⭐</td><td>Root থেকে Leaf বা যেকোনো Node থেকে Node পর্যন্ত Sum/Path রাখতে হলে DFS-এর সাথে একটা Running Value বহন করে নিয়ে যেতে হয়</td><td>Path Sum, Path Sum II, Maximum Path Sum</td></tr>
+            <tr><td>LCA ⭐⭐⭐⭐⭐</td><td>দুই Node কোথায় আলাদা হয়ে যাচ্ছে সেটাই তাদের Common Ancestor — Bottom-Up Recursion দিয়ে এক Traversal-এই বের হয়</td><td>LCA in Binary Tree, LCA in BST</td></tr>
+            <tr><td>BST ⭐⭐⭐⭐⭐</td><td>Sorted প্রপার্টি (Left ছোট, Right বড়) ব্যবহার করে প্রতি ধাপে অর্ধেক Tree বাদ দেওয়া যায়</td><td>Search/Insert/Delete in BST, Validate BST, Kth Smallest</td></tr>
+            <tr><td>Construction ⭐⭐⭐⭐⭐</td><td>Preorder/Postorder-এর প্রথম বা শেষ Element সবসময় Root — Inorder দিয়ে Left/Right Subtree আলাদা করে Recursively Tree বানানো হয়</td><td>Construct from Preorder+Inorder, Inorder+Postorder</td></tr>
+            <tr><td>Tree Modification ⭐⭐⭐⭐</td><td>Tree-কে নতুন আকারে বদলাতে (Invert, Flatten) বা String-এ Encode/Decode করতে DFS-এর সাথে সামান্য Extra Logic যোগ করা হয়</td><td>Invert Binary Tree, Flatten Binary Tree, Serialize/Deserialize</td></tr>
+            <tr><td>View Problems ⭐⭐⭐⭐⭐</td><td>Horizontal Distance বা Level ধরে রাখলে Top/Bottom/Vertical/Boundary — সব View Problem একই Idea দিয়ে সমাধান হয়</td><td>Top View, Bottom View, Vertical Order, Boundary Traversal</td></tr>
+            <tr><td>Advanced</td><td>দুই Tree তুলনা, Node Count, বা Tree + DP মিলিয়ে Optimal Choice বের করার মতো Special Case গুলো এই Group-এ পড়ে</td><td>Symmetric Tree, Same Tree, Binary Tree Cameras, House Robber III</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="insight">
+        <strong>Tree Pattern চেনার Shortcut:</strong><br>
+        "Root to Leaf" → <strong>DFS</strong><br>
+        "Level Order" → <strong>BFS</strong><br>
+        "Height / Depth" → <strong>Recursion (Bottom-Up)</strong><br>
+        "Ancestor" → <strong>LCA</strong><br>
+        "Sorted Tree" → <strong>BST</strong><br>
+        "Maximum Path" → <strong>Tree DP</strong>
+      </div>
+
+      <div class="practice">
+        <div class="practice-title">প্রতিটা Tree Problem-এ নিজেকে জিজ্ঞেস করবে</div>
+        <ol>
+          <li>DFS নাকি BFS লাগবে?</li>
+          <li>Recursion লাগবে? Base Case কী?</li>
+          <li>Function-এর Return Value আসলে কী বহন করছে?</li>
+          <li>Bottom-Up (Child থেকে Parent-এ Answer আসছে) নাকি Top-Down (Parent থেকে Child-এ Info যাচ্ছে)?</li>
+          <li>Tree শুধু Traverse করছি, নাকি আসলে Modify করছি?</li>
+        </ol>
+      </div>
+
+      <div class="master-practice">
+        <h3>Trees Problem Roadmap — ধাপে ধাপে অনুশীলন</h3>
+        <p>Pattern অনুযায়ী ভাগ করা — প্রতিটা Group-এর সব Problem শেষ করেই পরের Group-এ যাও।</p>
+
+        <h3>Pattern 1 — DFS Traversal ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener noreferrer">Preorder Traversal</a> <span class="tag">LeetCode #144</span></li>
+          <li><a href="https://leetcode.com/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener noreferrer">Inorder Traversal</a> <span class="tag">LeetCode #94</span></li>
+          <li><a href="https://leetcode.com/problems/binary-tree-postorder-traversal/" target="_blank" rel="noopener noreferrer">Postorder Traversal</a> <span class="tag">LeetCode #145</span></li>
+        </ol>
+        <div class="insight"><strong>নোট:</strong> তিনটেই আগে Recursive-এ করো, তারপর Stack দিয়ে Iterative Version — দুই ধরনের Solution-ই Interview-তে চাওয়া হয়।</div>
+
+        <h3>Pattern 2 — BFS ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/binary-tree-level-order-traversal/" target="_blank" rel="noopener noreferrer">Level Order Traversal ⭐⭐⭐</a> <span class="tag">LeetCode #102</span></li>
+          <li><a href="https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/" target="_blank" rel="noopener noreferrer">Zigzag Level Order ⭐⭐⭐</a> <span class="tag">LeetCode #103</span></li>
+          <li><a href="https://leetcode.com/problems/binary-tree-right-side-view/" target="_blank" rel="noopener noreferrer">Right Side View ⭐⭐⭐</a> <span class="tag">LeetCode #199</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/left-view-of-binary-tree/1" target="_blank" rel="noopener noreferrer">Left View</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/average-of-levels-in-binary-tree/" target="_blank" rel="noopener noreferrer">Average of Levels</a> <span class="tag">LeetCode #637</span></li>
+        </ol>
+
+        <h3>Pattern 3 — Height / Depth</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">Maximum Depth ⭐⭐⭐</a> <span class="tag">LeetCode #104</span></li>
+          <li><a href="https://leetcode.com/problems/minimum-depth-of-binary-tree/" target="_blank" rel="noopener noreferrer">Minimum Depth</a> <span class="tag">LeetCode #111</span></li>
+          <li><a href="https://leetcode.com/problems/balanced-binary-tree/" target="_blank" rel="noopener noreferrer">Balanced Binary Tree ⭐⭐⭐⭐</a> <span class="tag">LeetCode #110</span></li>
+          <li><a href="https://leetcode.com/problems/diameter-of-binary-tree/" target="_blank" rel="noopener noreferrer">Diameter of Binary Tree ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #543</span></li>
+        </ol>
+
+        <h3>Pattern 4 — Path Problems ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/path-sum/" target="_blank" rel="noopener noreferrer">Path Sum</a> <span class="tag">LeetCode #112</span></li>
+          <li><a href="https://leetcode.com/problems/path-sum-ii/" target="_blank" rel="noopener noreferrer">Path Sum II</a> <span class="tag">LeetCode #113</span></li>
+          <li><a href="https://leetcode.com/problems/binary-tree-maximum-path-sum/" target="_blank" rel="noopener noreferrer">Maximum Path Sum ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #124</span></li>
+          <li><a href="https://leetcode.com/problems/binary-tree-paths/" target="_blank" rel="noopener noreferrer">Root to Leaf Paths</a> <span class="tag">LeetCode #257</span></li>
+        </ol>
+
+        <h3>Pattern 5 — LCA ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">LCA in Binary Tree ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #236</span></li>
+          <li><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/" target="_blank" rel="noopener noreferrer">LCA in BST</a> <span class="tag">LeetCode #235</span></li>
+        </ol>
+
+        <h3>Pattern 6 — BST</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/search-in-a-binary-search-tree/" target="_blank" rel="noopener noreferrer">Search in BST</a> <span class="tag">LeetCode #700</span></li>
+          <li><a href="https://leetcode.com/problems/insert-into-a-binary-search-tree/" target="_blank" rel="noopener noreferrer">Insert into BST</a> <span class="tag">LeetCode #701</span></li>
+          <li><a href="https://leetcode.com/problems/delete-node-in-a-bst/" target="_blank" rel="noopener noreferrer">Delete Node in BST ⭐⭐⭐⭐</a> <span class="tag">LeetCode #450</span></li>
+          <li><a href="https://leetcode.com/problems/validate-binary-search-tree/" target="_blank" rel="noopener noreferrer">Validate BST ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #98</span></li>
+          <li><a href="https://leetcode.com/problems/kth-smallest-element-in-a-bst/" target="_blank" rel="noopener noreferrer">Kth Smallest in BST</a> <span class="tag">LeetCode #230</span></li>
+        </ol>
+
+        <h3>Pattern 7 — Construction ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" target="_blank" rel="noopener noreferrer">Construct Tree from Preorder + Inorder ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #105</span></li>
+          <li><a href="https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/" target="_blank" rel="noopener noreferrer">Construct Tree from Inorder + Postorder</a> <span class="tag">LeetCode #106</span></li>
+        </ol>
+
+        <h3>Pattern 8 — Tree Modification</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/invert-binary-tree/" target="_blank" rel="noopener noreferrer">Invert Binary Tree</a> <span class="tag">LeetCode #226</span></li>
+          <li><a href="https://leetcode.com/problems/flatten-binary-tree-to-linked-list/" target="_blank" rel="noopener noreferrer">Flatten Binary Tree ⭐⭐⭐⭐</a> <span class="tag">LeetCode #114</span></li>
+          <li><a href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/" target="_blank" rel="noopener noreferrer">Serialize &amp; Deserialize Binary Tree ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #297</span></li>
+        </ol>
+
+        <h3>Pattern 9 — View Problems</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/1" target="_blank" rel="noopener noreferrer">Top View</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/bottom-view-of-binary-tree/1" target="_blank" rel="noopener noreferrer">Bottom View</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/" target="_blank" rel="noopener noreferrer">Vertical Order Traversal ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #987</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1" target="_blank" rel="noopener noreferrer">Boundary Traversal</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <h3>Pattern 10 — Advanced</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/symmetric-tree/" target="_blank" rel="noopener noreferrer">Symmetric Tree</a> <span class="tag">LeetCode #101</span></li>
+          <li><a href="https://leetcode.com/problems/same-tree/" target="_blank" rel="noopener noreferrer">Same Tree</a> <span class="tag">LeetCode #100</span></li>
+          <li><a href="https://leetcode.com/problems/count-complete-tree-nodes/" target="_blank" rel="noopener noreferrer">Count Complete Tree Nodes</a> <span class="tag">LeetCode #222</span></li>
+          <li><a href="https://leetcode.com/problems/binary-tree-cameras/" target="_blank" rel="noopener noreferrer">Binary Tree Cameras ⭐⭐⭐⭐</a> <span class="tag">LeetCode #968</span></li>
+          <li><a href="https://leetcode.com/problems/house-robber-iii/" target="_blank" rel="noopener noreferrer">House Robber III ⭐⭐⭐⭐</a> <span class="tag">LeetCode #337</span></li>
+          <li><a href="https://leetcode.com/problems/recover-binary-search-tree/" target="_blank" rel="noopener noreferrer">Recover BST ⭐⭐⭐⭐</a> <span class="tag">LeetCode #99</span></li>
+          <li><a href="https://www.geeksforgeeks.org/dsa/inorder-tree-traversal-without-recursion-and-without-stack/" target="_blank" rel="noopener noreferrer">Morris Traversal ⭐⭐⭐⭐</a> <span class="tag">GfG Article</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Standard Practice Problem নেই — Inorder Traversal-কে O(1) Space-এ করার Technique হিসেবে পড়ো)</span></li>
+        </ol>
+
+        <div class="insight"><strong>Minimum (এখনই করার মতো):</strong> ৩৫টি Problem — Advanced Group-এর Morris Traversal ও Recover BST বাদ দিয়ে বাকি সব। <strong>Interview Ready:</strong> সবগুলো ৪০টি Problem শেষ করো।</div>
+      </div>
     </section>
 
     <!-- 12 -->
     <section class="section" id="sec-tries">
       <div class="section-header"><span class="sec-num">12</span><h2>Tries</h2></div>
-      <p class="placeholder-note">এই বিষয়ের নোট শীঘ্রই যোগ করা হবে।</p>
+
+      <div class="insight">Trie সব Company জিজ্ঞেস করে না, কিন্তু Product-based Company-তে (Amazon, Google) খুব Common — বিশেষ করে Autocomplete/Search জাতীয় Problem-এ।</div>
+
+      <p>Trie (পড়া হয় "Try") আসলে একটা <strong>বিশেষ ধরনের Tree</strong>, যেখানে প্রতিটা Path একটা করে Word/Prefix বহন করে। একসাথে অনেক Word Store করে রাখলে, কমন Prefix গুলো একই Path Share করে — এতে Prefix-ভিত্তিক Search অনেক দ্রুত হয়ে যায়।</p>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>"cat" ও "car" — কমন Prefix "ca" Share করছে</div>
+        <pre>root
+ └── c
+      └── a
+           ├── t (end)
+           └── r (end)</pre>
+      </div>
+
+      <h3>Trie-এর Basic Concept গুলো</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Term</th><th>মানে কী</th></tr></thead>
+          <tbody>
+            <tr><td>Trie Node</td><td>প্রতিটা Character-এর জন্য একটা Node — Array বা HashMap-এ পরের সম্ভাব্য Character গুলো ধরে রাখে</td></tr>
+            <tr><td>Children</td><td>একটা Node থেকে পরের যে Character গুলো যেতে পারে — সাধারণত <code>26</code> সাইজের Array (a-z), অথবা HashMap</td></tr>
+            <tr><td>End Of Word</td><td>একটা <code>boolean</code> Flag — এই Node পর্যন্ত এলে একটা সম্পূর্ণ Word শেষ হয়েছে কিনা বোঝায়</td></tr>
+            <tr><td>Prefix</td><td>Root থেকে যেকোনো Node পর্যন্ত গেলে যে Character গুলো পাওয়া যায়, সেটাই সেই Node পর্যন্ত-এর Prefix</td></tr>
+            <tr><td>Alphabet Mapping</td><td>প্রতিটা Character-কে Array-এর কোন Index-এ রাখা হবে তার হিসাব — যেমন <code>c - 'a'</code> দিয়ে <code>'a'</code>-কে <code>0</code>, <code>'b'</code>-কে <code>1</code> বানানো</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Pattern ১ — Basic Trie (Insert / Search / StartsWith)</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>TrieNode + Insert + Search + StartsWith</div>
+        <pre>class TrieNode {
+    TrieNode[] children = new TrieNode[26];
+    boolean isEndOfWord = false;
+}
+
+class Trie {
+    TrieNode root = new TrieNode();
+
+    void insert(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            int idx = c - 'a';
+            if (node.children[idx] == null) {
+                node.children[idx] = new TrieNode();   <span class="comment">// এই Character এখনো নেই, নতুন Node বানাও</span>
+            }
+            node = node.children[idx];
+        }
+        node.isEndOfWord = true;   <span class="comment">// Word এখানে শেষ হয়েছে, মনে রাখো</span>
+    }
+
+    boolean search(String word) {
+        TrieNode node = find(word);
+        return node != null &amp;&amp; node.isEndOfWord;   <span class="comment">// পুরো Word হিসেবেই আছে কিনা</span>
+    }
+
+    boolean startsWith(String prefix) {
+        return find(prefix) != null;   <span class="comment">// Prefix হিসেবে থাকলেই যথেষ্ট</span>
+    }
+
+    private TrieNode find(String s) {
+        TrieNode node = root;
+        for (char c : s.toCharArray()) {
+            int idx = c - 'a';
+            if (node.children[idx] == null) return null;
+            node = node.children[idx];
+        }
+        return node;
+    }
+}</pre>
+      </div>
+      <div class="insight"><strong>search() vs startsWith() — এখানেই আসল পার্থক্য:</strong> দুটোই একই পথ ধরে <code>find()</code> করে, কিন্তু <code>search()</code> শেষে <code>isEndOfWord</code> Check করে (পুরো Word), আর <code>startsWith()</code> করে না (শুধু Path থাকলেই হলো)।</div>
+
+      <h3>Pattern ২ — Prefix Search</h3>
+      <p>যেকোনো "Prefix", "Autocomplete", "Starts With" Keyword দেখলেই Trie-তে Root থেকে সেই Prefix পর্যন্ত হেঁটে যাওয়ার কথা ভাবো — সেই Node থেকে DFS করলেই ওই Prefix দিয়ে শুরু হওয়া সব Word পাওয়া যায়।</p>
+
+      <h3>Pattern ৩ — Word Search (DFS + Trie)</h3>
+      <p>Grid-এর মধ্যে একসাথে অনেক Word খুঁজতে হলে প্রতিটা Word আলাদাভাবে খোঁজার বদলে সব Word একটা Trie-তে Insert করে, Grid-এর উপর একবার DFS চালিয়ে Trie-এর সাথে মিলিয়ে মিলিয়ে এগোনো হয় — এতে Common Prefix-ওয়ালা Word গুলোর জন্য বারবার একই কাজ করতে হয় না।</p>
+
+      <h3>Pattern ৪ — Dictionary / Wildcard Search</h3>
+      <p><code>'.'</code>-এর মতো Wildcard Character (যেকোনো Letter Match করবে) থাকলে, সেই Position-এ Node-এর সব Children-এর উপর DFS Branch করে সবগুলো Try করতে হয়।</p>
+
+      <h3>Pattern ৫ — XOR Trie (Advanced)</h3>
+      <p>প্রতিটা Number-কে তার Binary Representation (সাধারণত Fixed 32 Bit) হিসেবে একটা Trie-তে Insert করা হয় — Bit ধরে ধরে Path বানিয়ে। তারপর কোনো Number-এর সাথে Maximum XOR পেতে, প্রতিটা Bit-এ সম্ভব হলে উল্টো Bit-এর Path বেছে নেওয়া হয় (Greedy)।</p>
+
+      <h3>গুরুত্বপূর্ণ Pattern — Trie (সারাংশ)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pattern</th><th>কেন এই Pattern ব্যবহার করি</th><th>Example Problems</th></tr></thead>
+          <tbody>
+            <tr><td>Basic Trie ⭐⭐⭐⭐⭐</td><td>Word Store করে দ্রুত Search/Prefix Check করতে হলে প্রতিটা Character-কে এক ধাপ করে Node বানিয়ে রাখা হয়</td><td>Implement Trie, Design Dictionary</td></tr>
+            <tr><td>Prefix Search ⭐⭐⭐⭐⭐</td><td>Prefix পর্যন্ত হেঁটে গিয়ে সেখান থেকে DFS করলে ওই Prefix-এর সব সম্ভাব্য Word/Suggestion পাওয়া যায়</td><td>Replace Words, Search Suggestions System</td></tr>
+            <tr><td>Word Search ⭐⭐⭐⭐⭐</td><td>Grid-এ একাধিক Word একসাথে খুঁজতে হলে সব Word-কে আগে Trie-তে রেখে, Grid DFS-এর সাথে Trie Traverse করা হয়</td><td>Word Search II</td></tr>
+            <tr><td>Dictionary / Wildcard ⭐⭐⭐⭐</td><td>Wildcard (<code>.</code>) থাকলে সেই Position-এর সব Children Branch করে DFS দিয়ে Try করতে হয়</td><td>Design Add and Search Words, Magic Dictionary</td></tr>
+            <tr><td>XOR Trie ⭐⭐⭐⭐⭐</td><td>Number-কে Bit-ভিত্তিক Path হিসেবে Trie-তে রাখলে, প্রতি Bit-এ Greedy-ভাবে উল্টো Bit বেছে Maximum XOR বের করা যায়</td><td>Maximum XOR of Two Numbers, Maximum XOR Queries</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="insight">
+        <strong>Trie Pattern চেনার Shortcut:</strong><br>
+        "Prefix" → <strong>Trie</strong><br>
+        "Dictionary" → <strong>Trie</strong><br>
+        "Auto Complete" → <strong>Trie</strong><br>
+        "Search Suggestion" → <strong>Trie</strong><br>
+        "Starts With" → <strong>Trie</strong>
+      </div>
+
+      <div class="practice">
+        <div class="practice-title">প্রতিটা Trie Problem-এ নিজেকে জিজ্ঞেস করবে</div>
+        <ol>
+          <li>Prefix Search লাগছে কি?</li>
+          <li>Character Mapping দরকার (Array না HashMap)?</li>
+          <li>Children Array (26 সাইজ) নাকি HashMap লাগবে — শুধু Lowercase নাকি সব Character?</li>
+          <li>End-of-Word Flag দরকার?</li>
+          <li>DFS-এর সাথে Trie Combine করতে হচ্ছে কি?</li>
+        </ol>
+      </div>
+
+      <div class="master-practice">
+        <h3>Trie Problem Roadmap — ধাপে ধাপে অনুশীলন</h3>
+        <p>Pattern অনুযায়ী ভাগ করা — প্রতিটা Group-এর সব Problem শেষ করেই পরের Group-এ যাও।</p>
+
+        <h3>Pattern 1 — Basic Trie ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/implement-trie-prefix-tree/" target="_blank" rel="noopener noreferrer">Implement Trie ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #208</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/trie-insert-and-search0651/1" target="_blank" rel="noopener noreferrer">Trie — Insert and Search</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/dsa/implement-a-dictionary-using-trie/" target="_blank" rel="noopener noreferrer">Design Dictionary</a> <span class="tag">GfG Article</span></li>
+        </ol>
+
+        <h3>Pattern 2 — Prefix Search ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/longest-common-prefix/" target="_blank" rel="noopener noreferrer">Longest Common Prefix</a> <span class="tag">LeetCode #14</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Trie Approach দিয়েও Try করো, না হলে শুধু Two Pointer Solution-ই শেখা হবে)</span></li>
+          <li><a href="https://leetcode.com/problems/replace-words/" target="_blank" rel="noopener noreferrer">Replace Words ⭐⭐⭐⭐</a> <span class="tag">LeetCode #648</span></li>
+          <li><a href="https://leetcode.com/problems/search-suggestions-system/" target="_blank" rel="noopener noreferrer">Search Suggestions System ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #1268</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Amazon Interview Favourite)</span></li>
+        </ol>
+
+        <h3>Pattern 3 — Word Search</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/word-search-ii/" target="_blank" rel="noopener noreferrer">Word Search II ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #212</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">(DFS + Trie — খুব গুরুত্বপূর্ণ)</span></li>
+        </ol>
+
+        <h3>Pattern 4 — Dictionary</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/design-add-and-search-words-data-structure/" target="_blank" rel="noopener noreferrer">Design Add and Search Words ⭐⭐⭐⭐</a> <span class="tag">LeetCode #211</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">('.' Wildcard)</span></li>
+          <li><a href="https://leetcode.com/problems/implement-magic-dictionary/" target="_blank" rel="noopener noreferrer">Magic Dictionary</a> <span class="tag">LeetCode #676</span></li>
+        </ol>
+
+        <h3>Pattern 5 — XOR Trie (Advanced)</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/" target="_blank" rel="noopener noreferrer">Maximum XOR ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #421</span></li>
+          <li><a href="https://leetcode.com/problems/maximum-xor-with-an-element-from-array/" target="_blank" rel="noopener noreferrer">Maximum XOR Queries</a> <span class="tag">LeetCode #1707</span></li>
+        </ol>
+
+        <div class="insight"><strong>Minimum:</strong> ১০টি Problem করলেই Heap-এ যাওয়া যাবে। <strong>Interview Ready:</strong> সবগুলো ১৫টি Problem শেষ করো (Bit Trie Advanced, প্রথমবার শেখার সময় Skip করা যায়)।</div>
+      </div>
     </section>
 
     <!-- 13 -->
     <section class="section" id="sec-heap">
       <div class="section-header"><span class="sec-num">13</span><h2>Heap</h2></div>
-      <p class="placeholder-note">এই বিষয়ের নোট শীঘ্রই যোগ করা হবে।</p>
+
+      <div class="insight"><strong>Heap মানেই বেশিরভাগ Interview-তে আসলে "Top-K Pattern"।</strong> অনেকে শুধু Heap Implement (Array দিয়ে Heapify) শিখেই থেমে যায় — কিন্তু Java Backend Interview-তে তোমাকে <code>PriorityQueue</code> ব্যবহার করে Efficient Solution দিতে পারা বেশি গুরুত্বপূর্ণ।</div>
+
+      <p>Heap হলো একটা বিশেষ <strong>Complete Binary Tree</strong> (Trees Section-এ শেখা), যেখানে প্রতিটা Parent-এর সাথে তার Child-দের একটা নিয়ম মানতে হয় — <strong>Max Heap</strong>-এ Parent সবসময় Child-দের চেয়ে বড়, <strong>Min Heap</strong>-এ Parent সবসময় Child-দের চেয়ে ছোট। Java-তে Heap নিজে Implement করতে হয় না — সরাসরি <code>PriorityQueue</code> ব্যবহার করা যায়, যেটার ভেতরেই Heap বসানো আছে।</p>
+
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>একটা Min Heap</div>
+        <pre>        2
+       / \
+      5   3
+     / \   \
+    9   8   7</pre>
+      </div>
+      <div class="insight">লক্ষ্য করো — এটা কোনো Sorted Tree না (BST না)। শুধু নিয়ম এটুকুই: প্রতিটা Parent তার নিজের দুই Child-এর চেয়ে ছোট (Min Heap)। Sibling দুটোর মধ্যে কোনো Order থাকার দরকার নেই।</div>
+
+      <h3>Array দিয়ে Heap — Index-এর হিসাব</h3>
+      <p>Heap সবসময় একটা <strong>Complete</strong> Binary Tree বলে, Pointer (<code>left</code>/<code>right</code>) ছাড়াই শুধু একটা সাধারণ Array দিয়ে পুরো Tree Represent করা যায়।</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>সম্পর্ক</th><th>Index <code>i</code>-এর Formula</th></tr></thead>
+          <tbody>
+            <tr><td>Parent</td><td><code>(i - 1) / 2</code></td></tr>
+            <tr><td>Left Child</td><td><code>2*i + 1</code></td></tr>
+            <tr><td>Right Child</td><td><code>2*i + 2</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight"><strong>Heapify</strong> মানে — একটা Node-কে তার সঠিক জায়গায় বসানো। <strong>Insert</strong> করলে নতুন Element একদম শেষে বসে, তারপর Parent-এর সাথে তুলনা করে করে উপরে ওঠে (<strong>Sift-Up</strong>)। <strong>Delete</strong> (সবসময় Root-এর) করলে শেষ Element Root-এ বসিয়ে দিয়ে, নিচের দিকে ঠিক জায়গা খুঁজে নামানো হয় (<strong>Sift-Down</strong>)। <strong>Build Heap</strong> মানে গোটা Array-কে একবারে Heap বানানো — শেষ Non-Leaf Node থেকে শুরু করে Root পর্যন্ত পেছন দিকে Heapify করলে <code>O(n)</code>-এই হয়ে যায় (প্রতিটা Element আলাদা Insert করলে যেটা <code>O(n log n)</code> লাগত)।</div>
+
+      <h3>Java PriorityQueue — Core Operations</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Min Heap (Default) ও Max Heap</div>
+        <pre>PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();                          <span class="comment">// Default — Min Heap</span>
+PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder());  <span class="comment">// Max Heap</span>
+
+minHeap.offer(10);     <span class="comment">// Insert — O(log n)</span>
+minHeap.poll();        <span class="comment">// সবচেয়ে ছোট/বড়টা Remove করে Return করে — O(log n)</span>
+minHeap.peek();        <span class="comment">// শুধু দেখা, সরানো হয় না — O(1)</span>
+minHeap.isEmpty();     <span class="comment">// খালি কিনা</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Custom Comparator — Pair/Array Heap</div>
+        <pre>PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a[1] - b[1]);  <span class="comment">// দ্বিতীয় Value অনুযায়ী ছোট থেকে বড়</span>
+pq.offer(new int[]{5, 2});
+pq.offer(new int[]{3, 8});
+pq.peek();   <span class="comment">// {5, 2} — কারণ 2 &lt; 8</span></pre>
+      </div>
+      <div class="insight">নিজের Class বা <code>record</code> ব্যবহার করলে Comparator-এ সেই Object-এর যেকোনো Field দিয়ে Order ঠিক করা যায় — শুধু <code>int[]</code>/<code>Integer</code>-এই আটকে থাকতে হবে না।</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Operation</th><th>Time Complexity</th></tr></thead>
+          <tbody>
+            <tr><td><code>offer()</code> (Insert)</td><td><code>O(log n)</code></td></tr>
+            <tr><td><code>poll()</code> (Remove)</td><td><code>O(log n)</code></td></tr>
+            <tr><td><code>peek()</code></td><td><code>O(1)</code></td></tr>
+            <tr><td>Build Heap (সবগুলো একসাথে)</td><td><code>O(n)</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Pattern ১ — Top K ⭐⭐⭐⭐⭐</h3>
+      <p>Heap-এর সবচেয়ে গুরুত্বপূর্ণ Pattern। মূল Trick — K Largest খুঁজতে <strong>Min Heap</strong> রাখো Size <code>k</code>-এ বেঁধে; Heap-এর Size <code>k</code> ছাড়িয়ে গেলেই সবচেয়ে ছোটটা ফেলে দাও, শেষে Heap-এর Top-ই তোমার Kth Largest।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Kth Largest Element — Min Heap আকারে k</div>
+        <pre>int findKthLargest(int[] nums, int k) {
+    PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();
+
+    for (int num : nums) {
+        minHeap.offer(num);
+        if (minHeap.size() &gt; k) {
+            minHeap.poll();          <span class="comment">// সবচেয়ে ছোটটা বাদ — বড় k-টাই Heap-এ রাখো</span>
+        }
+    }
+    return minHeap.peek();          <span class="comment">// এখন Heap-এর Top-ই Kth Largest</span>
+}</pre>
+      </div>
+      <div class="insight"><strong>উল্টো দিকেও কাজ করে:</strong> K Smallest খুঁজতে হলে <strong>Max Heap</strong> Size <code>k</code>-এ রাখো — যুক্তি ঠিক উল্টো।</div>
+
+      <h3>Pattern ২ — Merge Pattern ⭐⭐⭐⭐⭐</h3>
+      <p><code>k</code>-টা আলাদা Sorted List/Array মেলাতে হলে, প্রতিটার প্রথম Element একসাথে একটা Heap-এ রাখো। Heap থেকে সবচেয়ে ছোটটা তোলো, Result-এ যোগ করো, আর সেই একই List-এর পরের Element Heap-এ ঢোকাও — এভাবে সবসময় Heap-এ ঠিক <code>k</code>-টা Element থাকে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Merge K Sorted Lists — Heap-এ ListNode রাখা</div>
+        <pre>ListNode mergeKLists(ListNode[] lists) {
+    PriorityQueue&lt;ListNode&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a.val - b.val);
+
+    for (ListNode node : lists) {
+        if (node != null) pq.offer(node);   <span class="comment">// প্রতিটা List-এর প্রথম Node</span>
+    }
+
+    ListNode dummy = new ListNode(-1), tail = dummy;
+    while (!pq.isEmpty()) {
+        ListNode smallest = pq.poll();
+        tail.next = smallest;
+        tail = tail.next;
+        if (smallest.next != null) pq.offer(smallest.next);   <span class="comment">// একই List-এর পরের Node ঢোকাও</span>
+    }
+    return dummy.next;
+}</pre>
+      </div>
+
+      <h3>Pattern ৩ — Stream Problems (Two Heaps) ⭐⭐⭐⭐⭐</h3>
+      <p>Data ক্রমাগত আসতে থাকলে (Stream) পুরোটা প্রতিবার Sort করা যায় না। <strong>Find Median from Data Stream</strong>-এর মূল Trick — দুটো Heap দিয়ে সংখ্যাগুলোকে সমান দুই ভাগে ভাগ করে রাখা: ছোট অর্ধেকের জন্য <strong>Max Heap</strong>, বড় অর্ধেকের জন্য <strong>Min Heap</strong>। দুটোর Top মিলিয়েই Median বেরিয়ে আসে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Two Heaps দিয়ে Median বের করা</div>
+        <pre>PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder()); <span class="comment">// ছোট অর্ধেক</span>
+PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;();                           <span class="comment">// বড় অর্ধেক</span>
+
+void addNum(int num) {
+    maxHeap.offer(num);
+    minHeap.offer(maxHeap.poll());              <span class="comment">// ছোট অর্ধেকের Maximum-টা বড় অর্ধেকে পাঠাও</span>
+
+    if (minHeap.size() &gt; maxHeap.size()) {
+        maxHeap.offer(minHeap.poll());          <span class="comment">// Size Balance রাখো (সমান বা maxHeap ১ বেশি)</span>
+    }
+}
+
+double findMedian() {
+    if (maxHeap.size() &gt; minHeap.size()) return maxHeap.peek();
+    return (maxHeap.peek() + minHeap.peek()) / 2.0;
+}</pre>
+      </div>
+      <div class="insight">এই Pattern-এর নাম মনে রাখার শর্টকাট: <strong>"Stream" → Two Heaps</strong> (একটা Max Heap ছোট অর্ধেকের জন্য, একটা Min Heap বড় অর্ধেকের জন্য)।</div>
+
+      <h3>Pattern ৪ — Closest Problems</h3>
+      <p>Origin/Target থেকে Distance বের করে সেই Distance অনুযায়ী একটা Heap (সাধারণত Max Heap Size <code>k</code>-এ বেঁধে) রাখলেই <code>k</code>-টা Closest Element পাওয়া যায় — Top-K-এরই একটা Variation, শুধু Comparator Distance দিয়ে হয়।</p>
+
+      <h3>Pattern ৫ — Scheduling ⭐⭐⭐⭐</h3>
+      <p>Meeting/Task-এর End Time বা Available Time একটা Min Heap-এ রাখলে, সবসময় সবচেয়ে আগে ফাঁকা হওয়া Room/CPU বের করা যায় <code>O(log n)</code>-এ।</p>
+
+      <h3>Pattern ৬ — Greedy + Heap</h3>
+      <p>প্রতি ধাপে সবচেয়ে ছোট (বা সবচেয়ে বড়) দুটো Element নিয়ে কিছু একটা করে আবার Heap-এ ফেরত দেওয়ার দরকার হলে (যেমন দুটো Rope জোড়া লাগানো) সেটাই Greedy + Heap — প্রতিটা ধাপে Local সবচেয়ে ভালো Choice নিলে Global Optimal Cost পাওয়া যায়।</p>
+
+      <h3>Pattern ৭ — Matrix + Heap</h3>
+      <p>প্রতিটা Row (বা Column) আগে থেকে Sorted থাকা একটা Matrix-এ Heap ব্যবহার করলে পুরো Matrix Flatten করে Sort না করেই Kth Smallest বা অন্য কোনো Rank-ভিত্তিক Answer বের করা যায়।</p>
+
+      <h3>Pattern ৮ — Design Problems</h3>
+      <p>Real-world System (Twitter Feed, IPO Selection) Model করতে হলে HashMap দিয়ে Lookup আর Heap দিয়ে Priority/Order — এই দুটো Data Structure একসাথে মিলিয়ে ব্যবহার করা হয়।</p>
+
+      <h3>গুরুত্বপূর্ণ Pattern — Heap (সারাংশ, Priority Order অনুযায়ী)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pattern</th><th>কেন এই Pattern ব্যবহার করি</th><th>Example Problems</th></tr></thead>
+          <tbody>
+            <tr><td>Top K ⭐⭐⭐⭐⭐</td><td>K Largest/Smallest খুঁজতে পুরো Array Sort না করে, Size <code>k</code>-এর একটা Heap রাখলেই <code>O(n log k)</code>-এ Answer পাওয়া যায়</td><td>Kth Largest Element, Top K Frequent Elements</td></tr>
+            <tr><td>Two Heaps (Median) ⭐⭐⭐⭐⭐</td><td>ক্রমাগত আসতে থাকা Data-কে Max Heap (ছোট অর্ধেক) ও Min Heap (বড় অর্ধেক) দিয়ে ভাগ করে রাখলে যেকোনো মুহূর্তে <code>O(1)</code>-এ Median পাওয়া যায়</td><td>Find Median from Data Stream</td></tr>
+            <tr><td>Merge K ⭐⭐⭐⭐⭐</td><td>একসাথে অনেক Sorted List/Array-র প্রথম Element Heap-এ রেখে একটা একটা করে তুললে সবগুলো Merge হয়ে যায় <code>O(n log k)</code>-এ</td><td>Merge K Sorted Lists, Smallest Range Covering K Lists</td></tr>
+            <tr><td>Closest Elements ⭐⭐⭐⭐</td><td>Origin/Target থেকে Distance অনুযায়ী Heap রাখলে Top-K-এর মতোই <code>k</code>-টা Closest Element বের হয়ে যায়</td><td>K Closest Points to Origin, K Closest Elements</td></tr>
+            <tr><td>Scheduling ⭐⭐⭐⭐</td><td>Meeting/Task-এর End Time Heap-এ রাখলে সবসময় সবচেয়ে আগে Free হওয়া Room/CPU সহজে বের করা যায়</td><td>Meeting Rooms II, Task Scheduler, Single Threaded CPU</td></tr>
+            <tr><td>Greedy + Heap ⭐⭐⭐⭐</td><td>প্রতি ধাপে Heap থেকে সবচেয়ে ছোট/বড় দুটো Element নিয়ে Combine করে আবার Heap-এ ফেরত দিলে Global Optimal Cost পাওয়া যায়</td><td>Connect Ropes, Minimum Cost to Connect Sticks, Reorganize String</td></tr>
+            <tr><td>Matrix + Heap ⭐⭐⭐</td><td>Row/Column আগে থেকে Sorted থাকা Matrix-এ পুরোটা Flatten না করে Heap দিয়ে Rank-ভিত্তিক Answer বের করা যায়</td><td>Kth Smallest Element in Sorted Matrix, K Weakest Rows</td></tr>
+            <tr><td>Design Problems</td><td>HashMap (Lookup) আর Heap (Priority/Order) একসাথে মিলিয়ে Real-world System Model করা হয়</td><td>Design Twitter, IPO Problem</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="insight">
+        <strong>Heap Pattern চেনার Shortcut:</strong><br>
+        "Top K" → <strong>Heap</strong><br>
+        "Largest" / "Smallest" → <strong>Heap</strong><br>
+        "Stream" → <strong>Two Heaps</strong><br>
+        "Priority" → <strong>PriorityQueue</strong><br>
+        "Merge K" → <strong>Heap</strong><br>
+        "Closest" → <strong>Heap</strong>
+      </div>
+
+      <div class="practice">
+        <div class="practice-title">প্রতিটা Heap Problem-এ নিজেকে জিজ্ঞেস করবে</div>
+        <ol>
+          <li>Min Heap নাকি Max Heap লাগবে?</li>
+          <li>Heap-এ কী Store করব — Value, Index, Pair, নাকি Custom Object?</li>
+          <li>Heap-এর Size <code>k</code>-এ বেঁধে রাখলেই যথেষ্ট হবে?</li>
+          <li>পুরো Array Sort করলে কি বরং Slow হয়ে যাবে (Heap-এর দরকারই নেই কি না)?</li>
+          <li>Custom Comparator লাগবে?</li>
+        </ol>
+      </div>
+
+      <div class="master-practice">
+        <h3>Heap Problem Roadmap — ধাপে ধাপে অনুশীলন</h3>
+        <p>Pattern অনুযায়ী ভাগ করা — প্রতিটা Group-এর সব Problem শেষ করেই পরের Group-এ যাও।</p>
+
+        <h3>Pattern 1 — Basic Heap</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/implement-a-min-heap/1" target="_blank" rel="noopener noreferrer">Implement Min Heap ⭐</a> <span class="tag">GfG</span></li>
+          <li>Implement Max Heap <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Min Heap-এর মতোই, শুধু Comparison উল্টে দাও — আলাদা Judge Problem নেই)</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/heap-sort/1" target="_blank" rel="noopener noreferrer">Heap Sort (Concept)</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <h3>Pattern 2 — Top K ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/kth-largest-element-in-an-array/" target="_blank" rel="noopener noreferrer">Kth Largest Element ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #215</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/kth-smallest-element5635/1" target="_blank" rel="noopener noreferrer">Kth Smallest Element</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/top-k-frequent-elements/" target="_blank" rel="noopener noreferrer">Top K Frequent Elements ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #347</span></li>
+          <li><a href="https://leetcode.com/problems/top-k-frequent-words/" target="_blank" rel="noopener noreferrer">Top K Frequent Words</a> <span class="tag">LeetCode #692</span></li>
+        </ol>
+
+        <h3>Pattern 3 — Merge Pattern ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener noreferrer">Merge K Sorted Lists ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #23</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/merge-k-sorted-arrays/1" target="_blank" rel="noopener noreferrer">Merge K Sorted Arrays</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/" target="_blank" rel="noopener noreferrer">Smallest Range Covering Elements ⭐⭐⭐⭐</a> <span class="tag">LeetCode #632</span></li>
+        </ol>
+
+        <h3>Pattern 4 — Stream Problems ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/kth-largest-element-in-a-stream/" target="_blank" rel="noopener noreferrer">Kth Largest in Stream ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #703</span></li>
+          <li><a href="https://leetcode.com/problems/find-median-from-data-stream/" target="_blank" rel="noopener noreferrer">Find Median from Data Stream ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #295</span></li>
+        </ol>
+
+        <h3>Pattern 5 — Closest Problems</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/k-closest-points-to-origin/" target="_blank" rel="noopener noreferrer">K Closest Points to Origin ⭐⭐⭐⭐</a> <span class="tag">LeetCode #973</span></li>
+          <li><a href="https://leetcode.com/problems/find-k-closest-elements/" target="_blank" rel="noopener noreferrer">K Closest Elements ⭐⭐⭐⭐</a> <span class="tag">LeetCode #658</span></li>
+          <li>K Closest Numbers <span style="color:var(--muted);font-style:italic;font-size:0.82em">(K Closest Elements-এরই একটা Variation — Sorted Array-তে একই Idea Apply করো)</span></li>
+        </ol>
+
+        <h3>Pattern 6 — Scheduling ⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/meeting-rooms-ii/" target="_blank" rel="noopener noreferrer">Meeting Rooms II ⭐⭐⭐⭐</a> <span class="tag">LeetCode #253 · Premium 🔒</span></li>
+          <li><a href="https://leetcode.com/problems/task-scheduler/" target="_blank" rel="noopener noreferrer">Task Scheduler ⭐⭐⭐</a> <span class="tag">LeetCode #621</span></li>
+          <li><a href="https://leetcode.com/problems/single-threaded-cpu/" target="_blank" rel="noopener noreferrer">Single Threaded CPU ⭐⭐⭐⭐</a> <span class="tag">LeetCode #1834</span></li>
+        </ol>
+
+        <h3>Pattern 7 — Greedy + Heap</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/minimum-cost-of-ropes-1587115620/1" target="_blank" rel="noopener noreferrer">Connect Ropes ⭐⭐⭐⭐</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/minimum-cost-to-connect-sticks/" target="_blank" rel="noopener noreferrer">Minimum Cost to Connect Sticks</a> <span class="tag">LeetCode #1167</span></li>
+          <li><a href="https://leetcode.com/problems/reorganize-string/" target="_blank" rel="noopener noreferrer">Reorganize String ⭐⭐⭐⭐</a> <span class="tag">LeetCode #767</span></li>
+        </ol>
+
+        <h3>Pattern 8 — Matrix + Heap</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/" target="_blank" rel="noopener noreferrer">Kth Smallest Element in Sorted Matrix ⭐⭐⭐⭐</a> <span class="tag">LeetCode #378</span></li>
+          <li><a href="https://leetcode.com/problems/the-k-weakest-rows-in-a-matrix/" target="_blank" rel="noopener noreferrer">K Weakest Rows</a> <span class="tag">LeetCode #1337</span></li>
+        </ol>
+
+        <h3>Pattern 9 — Design Problems</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/design-twitter/" target="_blank" rel="noopener noreferrer">Design Twitter ⭐⭐⭐⭐</a> <span class="tag">LeetCode #355</span></li>
+          <li><a href="https://leetcode.com/problems/ipo/" target="_blank" rel="noopener noreferrer">IPO Problem</a> <span class="tag">LeetCode #502</span></li>
+        </ol>
+
+        <div class="insight"><strong>নোট:</strong> Meeting Rooms II LeetCode-এ Premium-Locked — GfG-তে সমতুল্য Problem খুঁজে (যেমন "Minimum Number of Platforms") Practice চালিয়ে যাও, না হলে শুধু Approach পড়ে Dry Run করো।</div>
+        <div class="insight"><strong>Minimum (এখনই করার মতো):</strong> ১৫টি Problem — Implement Min Heap, Kth Largest Element, Top K Frequent Elements, Merge K Sorted Lists, Kth Largest in Stream, Find Median from Data Stream, K Closest Points, Meeting Rooms II (বা Minimum Platforms), Connect Ropes, Minimum Cost to Connect Sticks, Reorganize String, Kth Smallest Matrix, K Weakest Rows, Heap Sort (Concept), আর PriorityQueue নিয়ে হাতে-কলমে Practice। <strong>Interview Ready:</strong> সবগুলো ২০–২৫টা Problem শেষ করো।</div>
+      </div>
     </section>
 
     <!-- 14 -->
@@ -2708,6 +3538,37 @@ Queue
     <section class="section" id="sec-dp">
       <div class="section-header"><span class="sec-num">15</span><h2>Dynamic Programming</h2></div>
       <p class="placeholder-note">এই বিষয়ের নোট শীঘ্রই যোগ করা হবে।</p>
+    </section>
+
+    <!-- Master Pattern Map -->
+    <section class="section" id="sec-pattern-map">
+      <div class="section-header"><span class="sec-num">🎯</span><h2>Master Pattern Map</h2></div>
+
+      <p>DSA-তে আসল জিনিস <strong>Topic না, Pattern</strong>। প্রতিটা Topic থেকে যে কয়েকটা মূল Pattern বের হয়ে আসে, সেগুলোর একটা এক-নজর Summary — নতুন কোনো Problem দেখলে প্রথমেই ভাবো "এটা কোন Topic-এর কোন Pattern-এর মতো দেখতে?"</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Topic</th><th>Main Patterns</th></tr></thead>
+          <tbody>
+            <tr><td>Array</td><td>Traversal, Two Pointer, Prefix Sum, Sliding Window, Kadane</td></tr>
+            <tr><td>String</td><td>Two Pointer, Sliding Window, Hashing, StringBuilder</td></tr>
+            <tr><td>HashMap</td><td>Frequency, Lookup, Prefix Sum</td></tr>
+            <tr><td>Sorting</td><td>Merge, Quick, Comparator, Interval</td></tr>
+            <tr><td>Binary Search</td><td>Lower/Upper Bound, Rotated Array, Binary Search on Answer</td></tr>
+            <tr><td>Recursion</td><td>Backtracking, Divide &amp; Conquer</td></tr>
+            <tr><td>Linked List</td><td>Slow/Fast Pointer, Reverse, Cycle Detection</td></tr>
+            <tr><td>Stack</td><td>Monotonic Stack, Parentheses, Expression</td></tr>
+            <tr><td>Queue</td><td>BFS, Deque</td></tr>
+            <tr><td>Trees</td><td>DFS, BFS, BST, LCA, Path, Serialization</td></tr>
+            <tr><td>Trie</td><td>Prefix Search, Dictionary, Auto-complete</td></tr>
+            <tr><td>Heap</td><td>Priority Queue, Top-K, Merge K Lists</td></tr>
+            <tr><td>Graph</td><td>BFS, DFS, Topological Sort, Union-Find, Dijkstra</td></tr>
+            <tr><td>DP</td><td>1D DP, 2D DP, Knapsack, LIS, LCS, Partition</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="insight"><strong>এই Table-টা একটা Map, নোট না।</strong> Graph ও DP এখনো পূর্ণাঙ্গ Section আকারে লেখা হয়নি (শীঘ্রই আসবে), কিন্তু পুরো Roadmap-এর ছবিটা যেন শুরু থেকেই মাথায় থাকে, তাই সব কটা Topic-কে একসাথে এখানে রাখা হলো। নতুন কোনো Topic শেষ করার পর মাঝে মাঝে এই Table-এ ফিরে এসে ঝালিয়ে নাও।</div>
     </section>
 
   </main>
