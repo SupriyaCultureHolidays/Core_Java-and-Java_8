@@ -3531,13 +3531,738 @@ double findMedian() {
     <!-- 14 -->
     <section class="section" id="sec-graph">
       <div class="section-header"><span class="sec-num">14</span><h2>Graph</h2></div>
-      <p class="placeholder-note">এই বিষয়ের নোট শীঘ্রই যোগ করা হবে।</p>
+
+      <div class="insight"><strong>Trees ও Queue (BFS) আগে থেকে জানা থাকা দরকার।</strong> Graph ভালো হলে Trees সহজ লাগবে, Grid Problem সহজ হবে, আর Shortest Path-ও পরিষ্কার বোঝা যাবে। শুধু DFS/BFS জানলেই Graph শেষ হয়ে যায় না — Graph-এর আসল গভীরতা এর ৯টা আলাদা Pattern-এ।</div>
+
+      <p>Tree-তে যা শিখেছ তার একটা সাধারণীকরণ (Generalization) হলো Graph — Tree-তে একটাই Root থাকে আর Cycle থাকে না, কিন্তু Graph-এ কোনো নির্দিষ্ট Root নেই, একটা Node একাধিক Node-এর সাথে যুক্ত থাকতে পারে, এমনকি Cycle-ও থাকতে পারে। প্রতিটা Tree আসলে একটা বিশেষ ধরনের Graph, কিন্তু প্রতিটা Graph Tree না।</p>
+
+      <h3>Graph-এর Basic Concept গুলো</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Term</th><th>মানে কী</th></tr></thead>
+          <tbody>
+            <tr><td>Vertex / Node</td><td>Graph-এর প্রতিটা Point/Entity</td></tr>
+            <tr><td>Edge</td><td>দুটো Vertex-এর মধ্যে Connection</td></tr>
+            <tr><td>Directed Graph</td><td>Edge-এর একটা নির্দিষ্ট দিক আছে — <code>u → v</code> থাকলেই <code>v → u</code> থাকতে হবে এমন কথা নেই</td></tr>
+            <tr><td>Undirected Graph</td><td>Edge দুই দিকেই কাজ করে — <code>u</code>-<code>v</code> Connected মানে <code>v</code>-ও <code>u</code>-তে যেতে পারবে</td></tr>
+            <tr><td>Weighted Graph</td><td>প্রতিটা Edge-এর একটা Cost/Weight আছে (যেমন Distance)</td></tr>
+            <tr><td>Unweighted Graph</td><td>সব Edge-এর গুরুত্ব সমান (প্রতিটা Edge-এর Weight ধরে নেওয়া হয় <code>1</code>)</td></tr>
+            <tr><td>Cyclic Graph</td><td>যেখানে একটা Path আছে যেটা ঘুরে আবার নিজের কাছেই ফিরে আসে</td></tr>
+            <tr><td>Acyclic Graph</td><td>কোনো Cycle নেই — Directed হলে এটাকে বলে <strong>DAG</strong> (Directed Acyclic Graph)</td></tr>
+            <tr><td>Connected Graph</td><td>যেকোনো Node থেকে যেকোনো Node-এ Path দিয়ে পৌঁছানো যায়</td></tr>
+            <tr><td>Disconnected Graph</td><td>একাধিক আলাদা আলাদা Component আছে, একটা থেকে আরেকটায় Path নেই</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Graph Representation</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Adjacency Matrix — কোন Node কার সাথে যুক্ত তা 2D Grid-এ</div>
+        <pre>    0 1 2
+
+0   0 1 1
+1   1 0 0
+2   1 0 0
+
+<span class="comment">// matrix[i][j] = 1 মানে i ও j-এর মধ্যে Edge আছে</span>
+<span class="comment">// Space: O(V²) — V বড় হলে অনেক জায়গা নষ্ট হয়, বেশিরভাগ Edge না-ও থাকতে পারে</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Adjacency List ⭐⭐⭐⭐⭐ — Interview-এ সবচেয়ে বেশি ব্যবহৃত</div>
+        <pre>List&lt;List&lt;Integer&gt;&gt; graph = new ArrayList&lt;&gt;();
+
+<span class="comment">// graph.get(0) = [1, 2]  → 0, 1 আর 2-এর সাথে যুক্ত</span>
+<span class="comment">// graph.get(1) = [0]     → 1 শুধু 0-এর সাথে যুক্ত</span>
+<span class="comment">// graph.get(2) = [0]     → 2 শুধু 0-এর সাথে যুক্ত</span>
+
+<span class="comment">// Space: O(V + E) — শুধু যে Edge গুলো আসলে আছে সেগুলোই Store হয়</span></pre>
+      </div>
+      <div class="insight"><strong>কখন কোনটা:</strong> Edge কম হলে (Sparse Graph) Adjacency List ব্যবহার করো — প্রায় সবসময় এটাই সঠিক Choice। Edge অনেক বেশি হলে (Dense Graph, <code>E</code> প্রায় <code>V²</code>-এর কাছাকাছি) তখনই Adjacency Matrix বিবেচনা করা যায়।</div>
+
+      <h3>Pattern ১ — Graph Traversal (DFS + BFS) ⭐⭐⭐⭐⭐</h3>
+      <p>সব Graph Pattern-এর Foundation। <strong>DFS</strong> চলে Recursion (বা Stack) দিয়ে — যতদূর যাওয়া যায় গভীরে গিয়ে তারপর ফেরত আসে। <strong>BFS</strong> চলে Queue দিয়ে — Level ধরে ধরে ছড়িয়ে পড়ে, তাই Unweighted Graph-এ Shortest Path বের করতে BFS-ই সঠিক Pattern।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>DFS ও BFS — দুটোই Visited Array সহ</div>
+        <pre>void dfs(int node, boolean[] visited, List&lt;List&lt;Integer&gt;&gt; adj) {
+    visited[node] = true;
+    System.out.print(node + " ");
+    for (int neighbor : adj.get(node)) {
+        if (!visited[neighbor]) {
+            dfs(neighbor, visited, adj);
+        }
+    }
+}
+
+void bfs(int start, boolean[] visited, List&lt;List&lt;Integer&gt;&gt; adj) {
+    Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+    queue.offer(start);
+    visited[start] = true;              <span class="comment">// Queue-তে ঢোকানোর সময়ই Mark করো</span>
+
+    while (!queue.isEmpty()) {
+        int node = queue.poll();
+        System.out.print(node + " ");
+        for (int neighbor : adj.get(node)) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;   <span class="comment">// poll() করার সময় না, offer() করার সময়ই Mark</span>
+                queue.offer(neighbor);
+            }
+        }
+    }
+}</pre>
+      </div>
+      <div class="insight"><strong>ভুল যেটা বেশি হয়:</strong> BFS-এ Node Queue-তে <code>poll()</code> করার সময় <code>visited</code> Mark করলে একই Node একাধিকবার Queue-তে ঢুকে যেতে পারে — তাই Queue-তে <code>offer()</code> করার মুহূর্তেই Mark করতে হয়।</div>
+      <div class="insight"><strong>Multi-Source BFS:</strong> একসাথে একাধিক Start Point থেকে BFS শুরু করতে হলে (যেমন Rotting Oranges-এ সব পচা Orange একসাথে) শুরুতেই সবগুলো Node Queue-তে ঢুকিয়ে দাও — Level ধরে ধরে সবগুলো একসাথে ছড়াবে।</div>
+
+      <h3>Pattern ২ — Cycle Detection ⭐⭐⭐⭐⭐</h3>
+      <p>Graph Interview-এর Favourite। Undirected আর Directed Graph-এ Cycle Check করার Logic আলাদা।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Undirected Graph — Parent মনে রাখো</div>
+        <pre>boolean hasCycleUndirected(int node, int parent, boolean[] visited, List&lt;List&lt;Integer&gt;&gt; adj) {
+    visited[node] = true;
+    for (int neighbor : adj.get(node)) {
+        if (!visited[neighbor]) {
+            if (hasCycleUndirected(neighbor, node, visited, adj)) return true;
+        } else if (neighbor != parent) {
+            return true;   <span class="comment">// Visited, কিন্তু Parent না — মানে অন্য Path দিয়ে ঘুরে এসেছে (Cycle)</span>
+        }
+    }
+    return false;
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Directed Graph — Recursion Stack (বর্তমান Path) মনে রাখো</div>
+        <pre>boolean hasCycleDirected(int node, boolean[] visited, boolean[] inStack, List&lt;List&lt;Integer&gt;&gt; adj) {
+    visited[node] = true;
+    inStack[node] = true;             <span class="comment">// এই Node এখন বর্তমান DFS Path-এ আছে</span>
+
+    for (int neighbor : adj.get(node)) {
+        if (!visited[neighbor]) {
+            if (hasCycleDirected(neighbor, visited, inStack, adj)) return true;
+        } else if (inStack[neighbor]) {
+            return true;               <span class="comment">// একই Path-এ আবার ফিরে এসেছে — Cycle</span>
+        }
+    }
+    inStack[node] = false;            <span class="comment">// এই Node-এর সব Path শেষ, Stack থেকে সরিয়ে দাও</span>
+    return false;
+}</pre>
+      </div>
+      <div class="insight"><strong>পার্থক্যটা মনে রাখো:</strong> Undirected-এ শুধু "Parent বাদে অন্য কোথাও Visited পেলে Cycle" — কিন্তু Directed-এ Parent দিয়ে হবে না, কারণ <code>a → b</code> আর <code>c → b</code> দুটোই Valid, Cycle না। তাই Directed-এ পুরো বর্তমান <strong>Recursion Stack</strong> মনে রাখতে হয়।</div>
+
+      <h3>Pattern ৩ — Topological Sort ⭐⭐⭐⭐⭐</h3>
+      <p>"Dependency", "Course Schedule", "Task Ordering" Keyword দেখলেই Topological Sort মনে করবে — এটা শুধু <strong>DAG</strong>-তেই সম্ভব (Cycle থাকলে কোনো Valid Order-ই নেই)।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Kahn's Algorithm (BFS ভিত্তিক)</div>
+        <pre>List&lt;Integer&gt; topoSort(int n, List&lt;List&lt;Integer&gt;&gt; adj) {
+    int[] indegree = new int[n];
+    for (List&lt;Integer&gt; neighbors : adj) {
+        for (int v : neighbors) indegree[v]++;
+    }
+
+    Queue&lt;Integer&gt; queue = new LinkedList&lt;&gt;();
+    for (int i = 0; i &lt; n; i++) {
+        if (indegree[i] == 0) queue.offer(i);    <span class="comment">// যাদের কোনো Dependency নেই, তারাই শুরু</span>
+    }
+
+    List&lt;Integer&gt; order = new ArrayList&lt;&gt;();
+    while (!queue.isEmpty()) {
+        int node = queue.poll();
+        order.add(node);
+        for (int neighbor : adj.get(node)) {
+            if (--indegree[neighbor] == 0) {
+                queue.offer(neighbor);           <span class="comment">// এর সব Dependency মিটে গেছে, এবার এর পালা</span>
+            }
+        }
+    }
+    return order;   <span class="comment">// order.size() < n হলে বুঝবে Cycle আছে, DAG-ই না</span>
+}</pre>
+      </div>
+      <div class="insight"><strong>DFS দিয়েও হয়:</strong> DFS Postorder-এ Node Add করে শেষে পুরো List Reverse করলেই Topological Order পাওয়া যায় — কারণ একটা Node-এর সব Dependency শেষ হওয়ার পরই সে Postorder-এ Add হয়।</div>
+
+      <h3>Pattern ৪ — Shortest Path ⭐⭐⭐⭐⭐</h3>
+      <p>Graph-এর সবচেয়ে Important Pattern। কোন Algorithm লাগবে সেটা নির্ভর করে Graph-এর ধরনের উপর।</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Situation</th><th>Algorithm</th><th>Time Complexity</th></tr></thead>
+          <tbody>
+            <tr><td>Unweighted Graph</td><td>BFS</td><td><code>O(V + E)</code></td></tr>
+            <tr><td>Weighted, সব Positive Weight</td><td>Dijkstra Algorithm</td><td><code>O(E log V)</code></td></tr>
+            <tr><td>Weighted, Negative Edge থাকতে পারে</td><td>Bellman-Ford Algorithm</td><td><code>O(V × E)</code></td></tr>
+            <tr><td>সব Pair-এর মধ্যে Shortest Path</td><td>Floyd-Warshall Algorithm</td><td><code>O(V³)</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Dijkstra — PriorityQueue দিয়ে (Heap Section মনে করো)</div>
+        <pre>int[] dijkstra(int n, List&lt;List&lt;int[]&gt;&gt; adj, int src) {
+    int[] dist = new int[n];
+    Arrays.fill(dist, Integer.MAX_VALUE);
+    dist[src] = 0;
+
+    PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((a, b) -&gt; a[1] - b[1]);  <span class="comment">// {node, distance}</span>
+    pq.offer(new int[]{src, 0});
+
+    while (!pq.isEmpty()) {
+        int[] curr = pq.poll();
+        int node = curr[0], d = curr[1];
+        if (d &gt; dist[node]) continue;              <span class="comment">// পুরনো, Stale Entry — Skip</span>
+
+        for (int[] edge : adj.get(node)) {
+            int next = edge[0], weight = edge[1];
+            if (dist[node] + weight &lt; dist[next]) {
+                dist[next] = dist[node] + weight;
+                pq.offer(new int[]{next, dist[next]});
+            }
+        }
+    }
+    return dist;
+}</pre>
+      </div>
+      <div class="insight"><strong>Dijkstra Negative Weight-এ কেন কাজ করে না:</strong> Dijkstra ধরে নেয় একবার কোনো Node-এর <code>dist</code> Finalize হয়ে গেলে সেটা আর ছোট হবে না — Negative Edge থাকলে এই ধারণাটাই ভেঙে যায়। তখন Bellman-Ford লাগে, যেটা সব Edge বারবার (মোট <code>V-1</code> বার) Relax করে দেখে।</div>
+
+      <h3>Pattern ৫ — Minimum Spanning Tree (MST) ⭐⭐⭐⭐⭐</h3>
+      <p>একটা Weighted, Connected, Undirected Graph-এর সব Node-কে সবচেয়ে কম মোট Cost-এ একসাথে জোড়া লাগানো (কোনো Cycle ছাড়াই) — এটাই MST।</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Algorithm</th><th>কীভাবে কাজ করে</th></tr></thead>
+          <tbody>
+            <tr><td>Prim's Algorithm</td><td>একটা Node থেকে শুরু করে, MST-তে যুক্ত Set থেকে বাইরের সবচেয়ে ছোট Edge বেছে বেছে যোগ করা হয় (Heap দিয়ে) — Dense Graph-এ ভালো</td></tr>
+            <tr><td>Kruskal's Algorithm</td><td>সব Edge Weight অনুযায়ী Sort করে, ছোট থেকে বড় দেখে, Cycle তৈরি না করলে (DSU দিয়ে Check করে) যোগ করা হয় — Sparse Graph-এ ভালো</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight">দুটো Algorithm-ই <strong>Greedy</strong> — প্রতি ধাপে সবচেয়ে ছোট Edge বেছে নিলেও শেষে Global Minimum Cost পাওয়া যায়। Kruskal-এর জন্য Cycle Check করতে DSU (Pattern ৬) লাগে।</div>
+
+      <h3>Pattern ৬ — Disjoint Set Union (Union-Find) ⭐⭐⭐⭐⭐</h3>
+      <p>Graph-এর Advanced কিন্তু খুবই গুরুত্বপূর্ণ Pattern — Connected Components বের করা, Cycle Detect করা, আর MST (Kruskal) বানানো — তিনটাতেই ব্যবহার হয়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>DSU — find() + union() (Path Compression + Union by Rank)</div>
+        <pre>class DSU {
+    int[] parent, rank;
+
+    DSU(int n) {
+        parent = new int[n];
+        rank = new int[n];
+        for (int i = 0; i &lt; n; i++) parent[i] = i;   <span class="comment">// প্রথমে সবাই নিজের Parent</span>
+    }
+
+    int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]);   <span class="comment">// Path Compression — পরের বার সরাসরি Root-এ যাবে</span>
+        }
+        return parent[x];
+    }
+
+    void union(int x, int y) {
+        int rootX = find(x), rootY = find(y);
+        if (rootX == rootY) return;             <span class="comment">// ইতিমধ্যে একই Group-এ</span>
+
+        if (rank[rootX] &lt; rank[rootY]) {
+            parent[rootX] = rootY;
+        } else if (rank[rootX] &gt; rank[rootY]) {
+            parent[rootY] = rootX;
+        } else {
+            parent[rootY] = rootX;
+            rank[rootX]++;
+        }
+    }
+}</pre>
+      </div>
+      <div class="insight"><strong>Cycle Detection-এ ব্যবহার:</strong> একটা Edge <code>(u, v)</code> যোগ করার আগে <code>find(u) == find(v)</code> Check করো — সমান হলে মানে দুজন আগে থেকেই একই Group-এ আছে, তাই এই Edge যোগ করলে Cycle তৈরি হবে।</div>
+
+      <h3>Pattern ৭ — Bipartite Graph ⭐⭐⭐⭐</h3>
+      <p>"Two Groups", "Coloring" Keyword দেখলে Bipartite মনে করবে। একটা Graph Bipartite হয় যদি প্রতিটা Node-কে দুটো Color দিয়ে এমনভাবে রাঙানো যায় যে কোনো Edge-এর দুই প্রান্তের Color একই না হয়। BFS/DFS দিয়ে প্রতিটা Neighbor-কে উল্টো Color দিতে দিতে গেলেই Check হয়ে যায়।</p>
+
+      <h3>Pattern ৮ — Grid Graph ⭐⭐⭐⭐⭐</h3>
+      <p>Interview-এ খুব বেশি আসে। Matrix-কেও একটা Graph হিসেবে ভাবা যায় — <strong>প্রতিটা Cell একটা Node</strong>, আর <strong>Up/Down/Left/Right Movement একটা Edge</strong>। এই সহজ Mapping-টা মাথায় থাকলে Grid-এর যেকোনো Problem-এ DFS/BFS Apply করা সহজ হয়ে যায়।</p>
+
+      <h3>Pattern ৯ — Advanced Graph</h3>
+      <p><strong>Articulation Point</strong> মানে যে Node সরিয়ে দিলে Graph ভেঙে একাধিক Component হয়ে যায়। <strong>Bridge</strong> মানে একই জিনিস, শুধু Node না, Edge-এর ক্ষেত্রে। দুটোই বের হয় DFS করার সময় প্রতিটা Node-এর <code>discovery time</code> আর <code>low value</code> (নিজের বা Descendant-দের মধ্য দিয়ে সবচেয়ে আগে পৌঁছানো যায় এমন Node-এর Discovery Time) ট্র্যাক করে — এই Technique-এর নাম <strong>Tarjan's Algorithm</strong>। <strong>Strongly Connected Components (SCC)</strong> মানে Directed Graph-এর এমন Group যেখানে প্রতিটা Node থেকে প্রতিটা Node-এ Path আছে — <strong>Kosaraju's Algorithm</strong> দিয়ে বের হয়: একবার DFS করে Finish Time-অনুযায়ী Stack বানাও, Graph-এর সব Edge Reverse করো, তারপর সেই Stack Order ধরে আবার DFS করো — প্রতিটা নতুন DFS একটা করে SCC।</p>
+
+      <h3>গুরুত্বপূর্ণ Pattern — Graph (সারাংশ)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pattern</th><th>কেন এই Pattern ব্যবহার করি</th><th>Example Problems</th></tr></thead>
+          <tbody>
+            <tr><td>Graph Traversal (DFS+BFS) ⭐⭐⭐⭐⭐</td><td>সব Graph Pattern-এর Foundation — Recursion দিয়ে DFS, Queue দিয়ে BFS, Grid-এ Multi-Source BFS</td><td>Number of Islands, Flood Fill, Rotting Oranges</td></tr>
+            <tr><td>Cycle Detection ⭐⭐⭐⭐⭐</td><td>Undirected-এ Parent ট্র্যাক করে, Directed-এ Recursion Stack ট্র্যাক করে Cycle Check করা হয়</td><td>Detect Cycle (Undirected), Detect Cycle (Directed)</td></tr>
+            <tr><td>Topological Sort ⭐⭐⭐⭐⭐</td><td>Dependency/Order থাকা DAG-তে Indegree (Kahn's) বা DFS Postorder দিয়ে একটা Valid Order বের করা হয়</td><td>Course Schedule, Course Schedule II, Alien Dictionary</td></tr>
+            <tr><td>Shortest Path ⭐⭐⭐⭐⭐</td><td>Unweighted-এ BFS, Positive Weight-এ Dijkstra, Negative Edge থাকলে Bellman-Ford, সব Pair লাগলে Floyd-Warshall</td><td>Network Delay Time, Cheapest Flights, Path With Minimum Effort</td></tr>
+            <tr><td>MST ⭐⭐⭐⭐⭐</td><td>সব Node-কে ন্যূনতম Cost-এ Cycle ছাড়াই জোড়া লাগাতে Prim's (Heap) বা Kruskal's (Sort + DSU) Greedy-ভাবে ব্যবহার করা হয়</td><td>Min Cost to Connect All Points, Connecting Cities</td></tr>
+            <tr><td>Union-Find (DSU) ⭐⭐⭐⭐⭐</td><td>একই Group-এ আছে কিনা <code>O(α(n))</code>-এ Check/Merge করতে হলে Path Compression + Union by Rank সহ DSU ব্যবহার হয়</td><td>Number of Provinces, Redundant Connection, Accounts Merge</td></tr>
+            <tr><td>Bipartite Graph ⭐⭐⭐⭐</td><td>দুই Group-এ ভাগ করা যায় কিনা বুঝতে BFS/DFS দিয়ে প্রতিটা Neighbor-কে উল্টো Color দেওয়া হয়</td><td>Is Graph Bipartite, Possible Bipartition</td></tr>
+            <tr><td>Grid Graph ⭐⭐⭐⭐⭐</td><td>Matrix-এর প্রতিটা Cell-কে Node আর Movement-কে Edge ভাবলে DFS/BFS সরাসরি Apply করা যায়</td><td>Number of Islands, Surrounded Regions, Pacific Atlantic</td></tr>
+            <tr><td>Advanced (Tarjan/Kosaraju)</td><td>Discovery Time ও Low Value ট্র্যাক করে Critical Node/Edge (Articulation Point, Bridge) বা Directed Graph-এর SCC বের করা হয়</td><td>Critical Connections, Bridges, Strongly Connected Components</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="insight">
+        <strong>Graph Pattern চেনার Shortcut:</strong><br>
+        "Connected Components" → <strong>DFS / BFS / DSU</strong><br>
+        "Shortest Path" (Unweighted) → <strong>BFS</strong><br>
+        "Weighted Shortest Path" → <strong>Dijkstra</strong><br>
+        "Dependency / Order" → <strong>Topological Sort</strong><br>
+        "Minimum Connection Cost" → <strong>MST (Prim/Kruskal)</strong><br>
+        "Cycle Detection" → <strong>DFS / DSU</strong><br>
+        "Group Merging" → <strong>Union-Find</strong>
+      </div>
+
+      <div class="practice">
+        <div class="practice-title">প্রতিটা Graph Problem-এ নিজেকে জিজ্ঞেস করবে</div>
+        <ol>
+          <li>Node কী, Edge কী?</li>
+          <li>Directed নাকি Undirected?</li>
+          <li>Weighted নাকি Unweighted?</li>
+          <li>Traversal লাগবে — DFS নাকি BFS?</li>
+          <li>Shortest Path লাগছে কি?</li>
+          <li>Cycle আছে কিনা Check করতে হচ্ছে?</li>
+          <li>Connected Components বের করতে হচ্ছে?</li>
+          <li>Topological Ordering দরকার?</li>
+        </ol>
+      </div>
+
+      <div class="master-practice">
+        <h3>Graph Problem Roadmap — ধাপে ধাপে অনুশীলন</h3>
+        <p>Pattern অনুযায়ী ভাগ করা — প্রতিটা Group-এর সব Problem শেষ করেই পরের Group-এ যাও। সব একসাথে শেখার চেষ্টা করো না।</p>
+
+        <h3>Pattern 1 — Graph Traversal (DFS + BFS) ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1" target="_blank" rel="noopener noreferrer">DFS Traversal</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/bfs-traversal-of-graph/1" target="_blank" rel="noopener noreferrer">BFS Traversal</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/number-of-provinces/" target="_blank" rel="noopener noreferrer">Number of Provinces ⭐⭐⭐</a> <span class="tag">LeetCode #547</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Connected Components)</span></li>
+          <li><a href="https://leetcode.com/problems/number-of-islands/" target="_blank" rel="noopener noreferrer">Number of Islands ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #200</span></li>
+          <li><a href="https://leetcode.com/problems/flood-fill/" target="_blank" rel="noopener noreferrer">Flood Fill ⭐⭐⭐</a> <span class="tag">LeetCode #733</span></li>
+          <li><a href="https://leetcode.com/problems/max-area-of-island/" target="_blank" rel="noopener noreferrer">Max Area of Island ⭐⭐⭐⭐</a> <span class="tag">LeetCode #695</span></li>
+          <li><a href="https://leetcode.com/problems/surrounded-regions/" target="_blank" rel="noopener noreferrer">Surrounded Regions</a> <span class="tag">LeetCode #130</span></li>
+          <li><a href="https://leetcode.com/problems/rotting-oranges/" target="_blank" rel="noopener noreferrer">Rotting Oranges ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #994</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Multi Source BFS)</span></li>
+          <li><a href="https://leetcode.com/problems/shortest-path-in-binary-matrix/" target="_blank" rel="noopener noreferrer">Shortest Path in Binary Matrix ⭐⭐⭐⭐</a> <span class="tag">LeetCode #1091</span></li>
+          <li><a href="https://leetcode.com/problems/word-ladder/" target="_blank" rel="noopener noreferrer">Word Ladder ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #127</span></li>
+          <li><a href="https://leetcode.com/problems/clone-graph/" target="_blank" rel="noopener noreferrer">Clone Graph ⭐⭐⭐</a> <span class="tag">LeetCode #133</span></li>
+        </ol>
+
+        <h3>Pattern 2 — Cycle Detection ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1" target="_blank" rel="noopener noreferrer">Detect Cycle using DFS (Undirected)</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/detect-cycle-using-dsu/1" target="_blank" rel="noopener noreferrer">Detect Cycle using BFS/DSU (Undirected)</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/detect-cycle-in-a-directed-graph/1" target="_blank" rel="noopener noreferrer">Detect Cycle in Directed Graph ⭐⭐⭐⭐</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <h3>Pattern 3 — Topological Sort ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/course-schedule/" target="_blank" rel="noopener noreferrer">Course Schedule ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #207</span></li>
+          <li><a href="https://leetcode.com/problems/course-schedule-ii/" target="_blank" rel="noopener noreferrer">Course Schedule II</a> <span class="tag">LeetCode #210</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/topological-sort/1" target="_blank" rel="noopener noreferrer">Topological Sort (Kahn's Algorithm)</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/alien-dictionary/1" target="_blank" rel="noopener noreferrer">Alien Dictionary ⭐⭐⭐⭐⭐</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <h3>Pattern 4 — Shortest Path ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/shortest-path-in-undirected-graph-having-unit-distance/1" target="_blank" rel="noopener noreferrer">Shortest Path in Unweighted Graph</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/network-delay-time/" target="_blank" rel="noopener noreferrer">Network Delay Time ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #743</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Dijkstra)</span></li>
+          <li><a href="https://leetcode.com/problems/path-with-minimum-effort/" target="_blank" rel="noopener noreferrer">Path With Minimum Effort ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #1631</span></li>
+          <li><a href="https://leetcode.com/problems/cheapest-flights-within-k-stops/" target="_blank" rel="noopener noreferrer">Cheapest Flights Within K Stops ⭐⭐⭐⭐</a> <span class="tag">LeetCode #787</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/1" target="_blank" rel="noopener noreferrer">Bellman-Ford Algorithm</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/implementing-floyd-warshall2042/1" target="_blank" rel="noopener noreferrer">Floyd-Warshall Algorithm</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <h3>Pattern 5 — Minimum Spanning Tree ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/connecting-cities-with-minimum-cost/" target="_blank" rel="noopener noreferrer">Connecting Cities With Minimum Cost</a> <span class="tag">LeetCode #1135 · Premium 🔒</span></li>
+          <li><a href="https://leetcode.com/problems/min-cost-to-connect-all-points/" target="_blank" rel="noopener noreferrer">Min Cost to Connect All Points ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #1584</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/minimum-spanning-tree-kruskals-algorithm/1" target="_blank" rel="noopener noreferrer">Kruskal's Algorithm</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1" target="_blank" rel="noopener noreferrer">Prim's Algorithm</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <h3>Pattern 6 — Union-Find (DSU) ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/number-of-provinces/" target="_blank" rel="noopener noreferrer">Number of Provinces (DSU দিয়ে আবার করো)</a> <span class="tag">LeetCode #547</span></li>
+          <li><a href="https://leetcode.com/problems/redundant-connection/" target="_blank" rel="noopener noreferrer">Redundant Connection ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #684</span></li>
+          <li><a href="https://leetcode.com/problems/accounts-merge/" target="_blank" rel="noopener noreferrer">Accounts Merge ⭐⭐⭐⭐</a> <span class="tag">LeetCode #721</span></li>
+          <li><a href="https://leetcode.com/problems/evaluate-division/" target="_blank" rel="noopener noreferrer">Evaluate Division ⭐⭐⭐⭐</a> <span class="tag">LeetCode #399</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Weighted Graph + DFS/DSU)</span></li>
+        </ol>
+
+        <h3>Pattern 7 — Bipartite Graph ⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/is-graph-bipartite/" target="_blank" rel="noopener noreferrer">Is Graph Bipartite ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #785</span></li>
+          <li><a href="https://leetcode.com/problems/possible-bipartition/" target="_blank" rel="noopener noreferrer">Possible Bipartition</a> <span class="tag">LeetCode #886</span></li>
+        </ol>
+
+        <h3>Pattern 8 — Grid Graph ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li>Number of Islands, Surrounded Regions <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Pattern 1-এ আগেই করা হয়েছে — Grid = Graph-এর Classic উদাহরণ হিসেবে এখানে আবার মনে করিয়ে দেওয়া হলো)</span></li>
+          <li><a href="https://leetcode.com/problems/pacific-atlantic-water-flow/" target="_blank" rel="noopener noreferrer">Pacific Atlantic Water Flow ⭐⭐⭐⭐</a> <span class="tag">LeetCode #417</span></li>
+          <li>Treasure Island <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Amazon OA Problem — Public Judge-এ নেই, তবে Shortest Path in Binary Matrix-এর সাথে হুবহু একই Idea, তাই আলাদা করে খোঁজার দরকার নেই)</span></li>
+        </ol>
+
+        <h3>Pattern 9 — Advanced Graph</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/critical-connections-in-a-network/" target="_blank" rel="noopener noreferrer">Critical Connections ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #1192</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Tarjan's Algorithm)</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/articulation-point-1/1" target="_blank" rel="noopener noreferrer">Articulation Point</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/bridge-edge-in-graph/1" target="_blank" rel="noopener noreferrer">Bridges in Graph</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/strongly-connected-components-kosarajus-algo/1" target="_blank" rel="noopener noreferrer">Strongly Connected Components (Kosaraju)</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <div class="insight"><strong>নোট:</strong> Connecting Cities With Minimum Cost LeetCode-এ Premium-Locked — Min Cost to Connect All Points দিয়েই MST-এর Practice যথেষ্ট, চাইলে পরে ফিরে এসো।</div>
+        <div class="insight"><strong>Minimum (এখনই করার মতো):</strong> ৩৫টি Problem — DFS/BFS Traversal, Number of Islands, Flood Fill, Max Area of Island, Rotting Oranges, Shortest Path Binary Matrix, Word Ladder, Cycle Detection (Undirected + Directed), Course Schedule I/II, Topological Sort, Number of Provinces, Is Graph Bipartite, Dijkstra, Network Delay Time, Cheapest Flights, Bellman-Ford, Floyd-Warshall, Prim's, Kruskal's, Min Cost to Connect Points, Union-Find, Redundant Connection, Accounts Merge, Pacific Atlantic, Alien Dictionary, Critical Connections, Bridges, Articulation Point, SCC, Clone Graph, Evaluate Division। <strong>Interview Ready:</strong> Pattern-ভিত্তিক সবগুলো Problem শেষ করো।</div>
+      </div>
     </section>
 
     <!-- 15 -->
     <section class="section" id="sec-dp">
       <div class="section-header"><span class="sec-num">15</span><h2>Dynamic Programming</h2></div>
-      <p class="placeholder-note">এই বিষয়ের নোট শীঘ্রই যোগ করা হবে।</p>
+
+      <div class="insight"><strong>Recursion, Array, HashMap, Trees, Graph DFS আগে থেকে জানা থাকা দরকার।</strong> DP-তে আসল চ্যালেঞ্জ Code লেখা না — Problem-কে ছোট ছোট Subproblem-এ ভাঙতে পারা, সেই Thinking Process-টাই এখানে গুরুত্বপূর্ণ।</div>
+
+      <p>DP আসলে চারটা ধাপের একটা Chain — <strong>Recursion</strong> দিয়ে শুরু (Brute Force, সব সম্ভাবনা Try করা), তারপর <strong>Memoization</strong> (একই Subproblem দ্বিতীয়বার Solve না করে আগের Result ব্যবহার), তারপর <strong>Tabulation</strong> (Recursion উল্টে Bottom থেকে Table বানানো), শেষে <strong>Space Optimization</strong> (পুরো Table না রেখে যতটুকু লাগে ততটুকুই রাখা)।</p>
+
+      <div class="insight"><strong>DP কখন লাগবে বোঝার উপায়:</strong> (১) একই Subproblem বারবার আসছে (Overlapping Subproblems), আর (২) ছোট Subproblem-এর Optimal Answer দিয়ে বড় Problem-এর Optimal Answer বানানো যায় (Optimal Substructure) — এই দুটো শর্ত একসাথে মিললেই DP।</div>
+
+      <h3>Fibonacci দিয়ে পুরো Chain দেখা</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Normal Recursion — একই Subproblem বারবার Calculate হচ্ছে</div>
+        <pre>          fib(5)
+         /      \
+     fib(4)      fib(3)
+     /    \      /    \
+  fib(3) fib(2) fib(2) fib(1)
+
+<span class="comment">// fib(3) দুইবার, fib(2) তিনবার — একই কাজ বারবার হচ্ছে</span></pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ধাপ ১ — Plain Recursion (Exponential — <code>O(2ⁿ)</code>)</div>
+        <pre>int fib(int n) {
+    if (n &lt;= 1) return n;                 <span class="comment">// Base Case</span>
+    return fib(n - 1) + fib(n - 2);
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ধাপ ২ — Memoization (Top-Down, <code>O(n)</code>)</div>
+        <pre>int fib(int n, int[] memo) {
+    if (n &lt;= 1) return n;
+    if (memo[n] != -1) return memo[n];    <span class="comment">// আগে করা থাকলে সরাসরি Return</span>
+    return memo[n] = fib(n - 1, memo) + fib(n - 2, memo);
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ধাপ ৩ — Tabulation (Bottom-Up, <code>O(n)</code>)</div>
+        <pre>int fib(int n) {
+    int[] dp = new int[n + 1];
+    dp[0] = 0;
+    if (n &gt;= 1) dp[1] = 1;
+    for (int i = 2; i &lt;= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>ধাপ ৪ — Space Optimization (<code>O(1)</code> Space)</div>
+        <pre>int fib(int n) {
+    if (n &lt;= 1) return n;
+    int prev2 = 0, prev1 = 1;
+    for (int i = 2; i &lt;= n; i++) {
+        int curr = prev1 + prev2;
+        prev2 = prev1;
+        prev1 = curr;                      <span class="comment">// পুরো Array না রেখে শুধু শেষ দুটো Value-ই যথেষ্ট</span>
+    }
+    return prev1;
+}</pre>
+      </div>
+      <div class="insight">Interview-এ Brute Force Recursion দিয়ে শুরু করে, তারপর "এখানে Overlapping Subproblem আছে" বলে Memoization-এ যাওয়াটাই সবচেয়ে ভালো Approach দেখায় — সরাসরি Tabulation লিখে ফেললে Thinking Process দেখানো হয় না।</div>
+
+      <h3>Pattern ১ — 1D DP ⭐⭐⭐⭐⭐</h3>
+      <p>সবচেয়ে প্রথম DP Pattern। <code>dp[i]</code> মানে "<code>i</code> পর্যন্ত Answer" — আগের এক বা দুইটা State থেকেই বর্তমান State বের হয়ে যায়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Climbing Stairs — <code>dp[i] = dp[i-1] + dp[i-2]</code></div>
+        <pre>int climbStairs(int n) {
+    if (n &lt;= 2) return n;
+    int[] dp = new int[n + 1];
+    dp[1] = 1;
+    dp[2] = 2;
+    for (int i = 3; i &lt;= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];    <span class="comment">// শেষ ধাপে ১ Step বা ২ Step দিয়ে আসা যায়</span>
+    }
+    return dp[n];
+}</pre>
+      </div>
+
+      <h3>Pattern ২ — Take / Not Take DP ⭐⭐⭐⭐⭐</h3>
+      <p>DP-এর সবচেয়ে Important Pattern। "Choose", "Pick", "Not Pick", "Maximum Profit" Keyword দেখলেই এই Pattern মনে করবে — প্রতিটা Element-এ দুটো Choice থাকে, দুটো Try করে যেটা ভালো সেটা নাও।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>House Robber — Take করলে কী, Skip করলে কী</div>
+        <pre>int houseRobber(int[] nums) {
+    int n = nums.length;
+    int[] dp = new int[n + 1];
+    dp[0] = 0;
+    dp[1] = nums[0];
+
+    for (int i = 2; i &lt;= n; i++) {
+        int take    = nums[i - 1] + dp[i - 2];   <span class="comment">// এই বাড়ি চুরি করো — পাশেরটা বাদ</span>
+        int notTake = dp[i - 1];                 <span class="comment">// এই বাড়ি Skip করো</span>
+        dp[i] = Math.max(take, notTake);
+    }
+    return dp[n];
+}</pre>
+      </div>
+      <div class="insight">House Robber II-তে বাড়িগুলো Circle-এ সাজানো (প্রথম আর শেষ বাড়ি পাশাপাশি) — তাই একবার প্রথম বাড়ি বাদ দিয়ে, একবার শেষ বাড়ি বাদ দিয়ে, দুটো Normal House Robber চালিয়ে যেটা বেশি সেটাই Answer।</div>
+
+      <h3>Pattern ৩ — Knapsack DP ⭐⭐⭐⭐⭐</h3>
+      <p><strong>0/1 Knapsack</strong>-এ প্রতিটা Item সর্বোচ্চ একবার নেওয়া যায়। <strong>Unbounded Knapsack</strong>-এ একই Item বারবার নেওয়া যায় (যেমন Coin Change)।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>0/1 Knapsack — 2D Table</div>
+        <pre>int knapsack(int[] wt, int[] val, int W) {
+    int n = wt.length;
+    int[][] dp = new int[n + 1][W + 1];
+
+    for (int i = 1; i &lt;= n; i++) {
+        for (int w = 0; w &lt;= W; w++) {
+            int notTake = dp[i - 1][w];
+            int take = (wt[i - 1] &lt;= w)
+                ? val[i - 1] + dp[i - 1][w - wt[i - 1]]
+                : 0;
+            dp[i][w] = Math.max(take, notTake);
+        }
+    }
+    return dp[n][W];
+}</pre>
+      </div>
+      <div class="insight"><strong>Subset Sum, Partition Equal Subset Sum, Count Subsets with Sum</strong> — এই সবগুলোই আসলে 0/1 Knapsack-এরই Variation, শুধু "Value Maximize করা"-র বদলে "Sum মিলছে কিনা" বা "কতভাবে মেলানো যায়" জিজ্ঞেস করে। <strong>Coin Change</strong> Unbounded Knapsack, কারণ একই Coin বারবার ব্যবহার করা যায়।</div>
+
+      <h3>Pattern ৪ — String DP ⭐⭐⭐⭐⭐</h3>
+      <p>Interview-এর Favourite। দুটো String-এর প্রতিটা Character জোড়া তুলনা করে একটা 2D <code>dp[i][j]</code> Table বানানো হয়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Longest Common Subsequence (LCS)</div>
+        <pre>int lcs(String a, String b) {
+    int n = a.length(), m = b.length();
+    int[][] dp = new int[n + 1][m + 1];
+
+    for (int i = 1; i &lt;= n; i++) {
+        for (int j = 1; j &lt;= m; j++) {
+            if (a.charAt(i - 1) == b.charAt(j - 1)) {
+                dp[i][j] = 1 + dp[i - 1][j - 1];       <span class="comment">// Character মিলল — দুজনেই এক ঘর পিছিয়ে যাও</span>
+            } else {
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);  <span class="comment">// একজন এক ঘর পিছিয়ে সেরাটা নাও</span>
+            }
+        }
+    }
+    return dp[n][m];
+}</pre>
+      </div>
+      <div class="insight"><strong>Edit Distance</strong> একই Table-এর উপর বসে, শুধু না মিললে Insert/Delete/Replace তিনটার মধ্যে Minimum নেওয়া হয়। <strong>Longest Palindromic Subsequence</strong> আসলে "String ও তার Reverse-এর LCS"।</div>
+
+      <h3>Pattern ৫ — LIS (Longest Increasing Subsequence) ⭐⭐⭐⭐⭐</h3>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>LIS — <code>O(n²)</code> DP</div>
+        <pre>int lengthOfLIS(int[] nums) {
+    int n = nums.length;
+    int[] dp = new int[n];
+    Arrays.fill(dp, 1);              <span class="comment">// প্রতিটা Element একা নিজেই দৈর্ঘ্য ১-এর LIS</span>
+
+    int maxLen = 1;
+    for (int i = 1; i &lt; n; i++) {
+        for (int j = 0; j &lt; i; j++) {
+            if (nums[j] &lt; nums[i]) {
+                dp[i] = Math.max(dp[i], dp[j] + 1);
+            }
+        }
+        maxLen = Math.max(maxLen, dp[i]);
+    }
+    return maxLen;
+}</pre>
+      </div>
+      <div class="insight"><strong>দ্রুত Solution:</strong> Binary Search + একটা "Tails" Array ব্যবহার করলে LIS <code>O(n log n)</code>-এ বের করা যায় — প্রথমে <code>O(n²)</code> ভালোভাবে বুঝে তারপর এই Optimization শেখো। Russian Doll Envelopes আসলে 2D LIS — একটা Dimension Sort করে অন্যটার উপর সাধারণ LIS চালানো হয়।</div>
+
+      <h3>Pattern ৬ — Matrix/Grid DP ⭐⭐⭐⭐⭐</h3>
+      <p>"Grid", "Path", "Movement" Keyword দেখলে মনে করবে — Grid DP-তে <code>dp[i][j]</code> মানে সাধারণত "<code>(i,j)</code> পর্যন্ত পৌঁছানোর Answer", আর সেটা আসে উপরের ঘর আর বাম ঘর থেকে।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Unique Paths</div>
+        <pre>int uniquePaths(int m, int n) {
+    int[][] dp = new int[m][n];
+    for (int i = 0; i &lt; m; i++) dp[i][0] = 1;   <span class="comment">// প্রথম Column-এ যাওয়ার একটাই রাস্তা</span>
+    for (int j = 0; j &lt; n; j++) dp[0][j] = 1;   <span class="comment">// প্রথম Row-তে যাওয়ার একটাই রাস্তা</span>
+
+    for (int i = 1; i &lt; m; i++) {
+        for (int j = 1; j &lt; n; j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];   <span class="comment">// উপর থেকে + বাম থেকে</span>
+        }
+    }
+    return dp[m - 1][n - 1];
+}</pre>
+      </div>
+      <div class="insight">Minimum Path Sum ও Triangle একই Idea, শুধু <code>+</code>-এর বদলে <code>Math.min()</code> ব্যবহার হয়। Dungeon Game উল্টো দিক থেকে (নিচ-ডান কোণ থেকে শুরু করে উপর-বামে) ভাবতে হয়, কারণ Health কখনো <code>0</code>-এর নিচে যেতে পারে না।</div>
+
+      <h3>Pattern ৭ — Stock DP ⭐⭐⭐⭐⭐</h3>
+      <p>খুবই Common। সবচেয়ে সহজ Version — একবার কেনা, একবার বেচা।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Best Time to Buy and Sell Stock (একবার Transaction)</div>
+        <pre>int maxProfit(int[] prices) {
+    int minPrice = Integer.MAX_VALUE, maxProfit = 0;
+    for (int price : prices) {
+        minPrice = Math.min(minPrice, price);          <span class="comment">// এখন পর্যন্ত সবচেয়ে কম দামে কেনা</span>
+        maxProfit = Math.max(maxProfit, price - minPrice);  <span class="comment">// আজ বেচলে কত লাভ</span>
+    }
+    return maxProfit;
+}</pre>
+      </div>
+      <div class="insight">একাধিক Transaction (II, III, IV, Cooldown) লাগলে <code>dp[day][holding]</code> — মানে "সেই দিনে Stock হাতে আছে না নেই" এই দুটো State দিয়ে DP বানাতে হয়। Cooldown-এ Sell করার পরের দিন আবার Buy করা যায় না — সেটা একটা Extra State হিসেবে যোগ হয়।</div>
+
+      <h3>Pattern ৮ — Partition DP ⭐⭐⭐⭐⭐</h3>
+      <p>Advanced Pattern — একটা Range <code>[i, j]</code>-কে কোথায় ভাঙলে (Partition Point <code>k</code>) সবচেয়ে ভালো Result পাওয়া যায়, সেটা সব সম্ভাব্য <code>k</code> Try করে বের করা হয়।</p>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Matrix Chain Multiplication — সব সম্ভাব্য Partition Point Try করা</div>
+        <pre>int mcm(int[] dims, int i, int j, int[][] memo) {
+    if (i == j) return 0;                     <span class="comment">// একটাই Matrix — Multiplication লাগবে না</span>
+    if (memo[i][j] != -1) return memo[i][j];
+
+    int min = Integer.MAX_VALUE;
+    for (int k = i; k &lt; j; k++) {
+        int cost = mcm(dims, i, k, memo) + mcm(dims, k + 1, j, memo)
+                 + dims[i - 1] * dims[k] * dims[j];    <span class="comment">// k-তে ভাঙলে যত Multiplication লাগবে</span>
+        min = Math.min(min, cost);
+    }
+    return memo[i][j] = min;
+}</pre>
+      </div>
+      <div class="insight">Palindrome Partitioning II, Burst Balloons, Boolean Parenthesization — সবগুলোতেই একই কাঠামো: একটা Range নিয়ে, সেটাকে সব সম্ভাব্য জায়গায় ভেঙে, প্রতিটা ভাঙনের Result মিলিয়ে সেরাটা বেছে নেওয়া।</div>
+
+      <h3>Pattern ৯ — Tree DP ⭐⭐⭐⭐</h3>
+      <p>Tree Section-এ ইতিমধ্যে এই Pattern দেখেছ, নাম না জেনেই — যেখানে একটা Node-এর Answer তার Left ও Right Subtree-র Answer থেকে Bottom-Up-এ বের হয়, সেটাই আসলে Tree DP।</p>
+      <div class="insight"><strong>মনে করো:</strong> <strong>Diameter of Binary Tree</strong> (Height ফেরত দিতে দিতে <code>left + right</code> Track করা), <strong>House Robber III</strong> (প্রতিটা Node-এ "নিলে" আর "না নিলে" দুটো Answer ফেরত পাঠানো), <strong>Maximum Path Sum</strong> (Subtree-র Best Path-এর সাথে বর্তমান Node যোগ করে Global Maximum Update করা) — এই তিনটাই Tree DP।</div>
+
+      <h3>Pattern ১০ — DP on Graph ⭐⭐⭐⭐</h3>
+      <p>Graph Section-এর Topological Sort-এর সাথেই এই Pattern জোড়া লাগানো — DAG-তে Topological Order ধরে ধরে প্রতিটা Node Process করলে Shortest/Longest Path একবারেই বের হয়ে যায়, Dijkstra/Bellman-Ford লাগে না।</p>
+      <div class="insight">Topological Order-এ Node গুলো এমনভাবে সাজানো থাকে যে কোনো Node Process হওয়ার আগে তার সব Predecessor Process হয়ে গেছে — তাই প্রতিটা Node-এ পৌঁছানোর সময় তার <code>dist</code> ততক্ষণে Final হয়ে যায়, আলাদা করে Priority Queue লাগে না।</div>
+
+      <h3>গুরুত্বপূর্ণ Pattern — Dynamic Programming (সারাংশ)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pattern</th><th>কেন এই Pattern ব্যবহার করি</th><th>Example Problems</th></tr></thead>
+          <tbody>
+            <tr><td>1D DP ⭐⭐⭐⭐⭐</td><td>বর্তমান Answer আগের ১-২টা State থেকে সরাসরি বের হয়ে যায় — DP শেখার সবচেয়ে সহজ শুরু</td><td>Fibonacci, Climbing Stairs, House Robber</td></tr>
+            <tr><td>Take / Not Take ⭐⭐⭐⭐⭐</td><td>প্রতিটা Element-এ দুটো Choice (Take/Skip) থেকে দুটোই Try করে ভালোটা বেছে নেওয়া হয়</td><td>House Robber, Delete and Earn, Partition Equal Subset Sum</td></tr>
+            <tr><td>Knapsack ⭐⭐⭐⭐⭐</td><td>Weight/Capacity Limit-এর মধ্যে থেকে Item নিয়ে Value Maximize বা Sum মেলানো হয় — 0/1 (একবার) বা Unbounded (বারবার)</td><td>0/1 Knapsack, Subset Sum, Coin Change</td></tr>
+            <tr><td>String DP ⭐⭐⭐⭐⭐</td><td>দুটো String-এর প্রতিটা Character-Pair তুলনা করে 2D Table বানালে Common/Edit/Palindrome সম্পর্কিত Answer বের হয়</td><td>LCS, Edit Distance, Longest Palindromic Subsequence</td></tr>
+            <tr><td>LIS ⭐⭐⭐⭐⭐</td><td>প্রতিটা Index পর্যন্ত সেরা Increasing Subsequence-এর Length আগের সব ছোট Index থেকে বের করা হয়</td><td>Longest Increasing Subsequence, Number of LIS</td></tr>
+            <tr><td>Grid DP ⭐⭐⭐⭐⭐</td><td><code>dp[i][j]</code>-এর Answer উপরের ঘর ও বাম ঘর থেকে আসে — Path Count বা Min/Max Path Sum বের করা যায়</td><td>Unique Paths, Minimum Path Sum, Triangle</td></tr>
+            <tr><td>Stock DP ⭐⭐⭐⭐⭐</td><td>"Stock হাতে আছে না নেই" এই State দিয়ে প্রতিদিনের Best Decision (Buy/Sell/Rest) ট্র্যাক করা হয়</td><td>Best Time to Buy and Sell Stock I–IV, with Cooldown</td></tr>
+            <tr><td>Partition DP ⭐⭐⭐⭐⭐</td><td>একটা Range-কে সব সম্ভাব্য জায়গায় ভেঙে (Partition Point <code>k</code>) প্রতিটা ভাঙনের Result মিলিয়ে সেরাটা বাছা হয়</td><td>Matrix Chain Multiplication, Palindrome Partitioning II, Burst Balloons</td></tr>
+            <tr><td>Tree DP ⭐⭐⭐⭐</td><td>Left ও Right Subtree-র Answer থেকে Bottom-Up-এ নিজের Answer বানানো হয় — Tree Section-এই আসলে শেখা হয়ে গেছে</td><td>House Robber III, Diameter of Binary Tree, Maximum Path Sum</td></tr>
+            <tr><td>DP on Graph ⭐⭐⭐⭐</td><td>DAG-তে Topological Order ধরে Node Process করলে Priority Queue ছাড়াই Shortest/Longest Path বের হয়</td><td>Shortest Path in DAG, Longest Path in DAG</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="insight">
+        <strong>DP Pattern চেনার Shortcut:</strong><br>
+        "Maximum / Minimum" → <strong>DP</strong><br>
+        "How Many Ways" → <strong>DP</strong><br>
+        "Choose or Skip" → <strong>Take / Not Take DP</strong><br>
+        "Subsequence" → <strong>DP</strong><br>
+        "Grid Path" → <strong>Grid DP</strong><br>
+        "Buy/Sell" → <strong>Stock DP</strong>
+      </div>
+
+      <div class="practice">
+        <div class="practice-title">প্রতিটা DP Problem-এ নিজেকে জিজ্ঞেস করবে</div>
+        <ol>
+          <li><strong>State কী?</strong> (যেমন <code>dp[i]</code> মানে ঠিক কী বোঝায়?)</li>
+          <li><strong>Choice কী?</strong> (যেমন Take অথবা Skip)</li>
+          <li><strong>Transition কী?</strong> (যেমন <code>dp[i] = dp[i-1] + dp[i-2]</code>)</li>
+          <li><strong>Base Case কী?</strong></li>
+          <li>Memoization সম্ভব?</li>
+          <li>Tabulation করা যাবে?</li>
+          <li>Space Optimize করা যাবে?</li>
+        </ol>
+      </div>
+
+      <div class="master-practice">
+        <h3>DP Problem Roadmap — ধাপে ধাপে অনুশীলন</h3>
+        <p>এই Order-টা মেনে চলো: Recursion Revision → Memoization → Tabulation → Space Optimization → 1D DP → Knapsack → String DP → LIS → Grid DP → Stock DP → Partition DP। Pattern এড়িয়ে সরাসরি Hard Problem-এ যেয়ো না।</p>
+
+        <h3>Pattern 1 — 1D DP ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/fibonacci-number/" target="_blank" rel="noopener noreferrer">Fibonacci Number</a> <span class="tag">LeetCode #509</span></li>
+          <li><a href="https://leetcode.com/problems/climbing-stairs/" target="_blank" rel="noopener noreferrer">Climbing Stairs ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #70</span></li>
+          <li><a href="https://leetcode.com/problems/min-cost-climbing-stairs/" target="_blank" rel="noopener noreferrer">Min Cost Climbing Stairs</a> <span class="tag">LeetCode #746</span></li>
+          <li><a href="https://leetcode.com/problems/house-robber/" target="_blank" rel="noopener noreferrer">House Robber ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #198</span></li>
+          <li><a href="https://leetcode.com/problems/house-robber-ii/" target="_blank" rel="noopener noreferrer">House Robber II</a> <span class="tag">LeetCode #213</span></li>
+          <li><a href="https://leetcode.com/problems/decode-ways/" target="_blank" rel="noopener noreferrer">Decode Ways</a> <span class="tag">LeetCode #91</span></li>
+        </ol>
+
+        <h3>Pattern 2 — Take / Not Take DP ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/maximum-subarray/" target="_blank" rel="noopener noreferrer">Maximum Subarray (DP View)</a> <span class="tag">LeetCode #53</span></li>
+          <li><a href="https://leetcode.com/problems/delete-and-earn/" target="_blank" rel="noopener noreferrer">Delete and Earn</a> <span class="tag">LeetCode #740</span></li>
+          <li><a href="https://leetcode.com/problems/partition-equal-subset-sum/" target="_blank" rel="noopener noreferrer">Partition Equal Subset Sum ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #416</span></li>
+        </ol>
+
+        <h3>Pattern 3 — Knapsack DP ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1" target="_blank" rel="noopener noreferrer">0/1 Knapsack ⭐⭐⭐⭐⭐</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/subset-sum-problem-1611555638/1" target="_blank" rel="noopener noreferrer">Subset Sum</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/perfect-sum-problem5633/1" target="_blank" rel="noopener noreferrer">Count Subsets with Given Sum</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/target-sum/" target="_blank" rel="noopener noreferrer">Target Sum ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #494</span></li>
+          <li><a href="https://leetcode.com/problems/coin-change/" target="_blank" rel="noopener noreferrer">Coin Change ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #322</span></li>
+          <li><a href="https://leetcode.com/problems/coin-change-ii/" target="_blank" rel="noopener noreferrer">Coin Change II</a> <span class="tag">LeetCode #518</span></li>
+        </ol>
+
+        <h3>Pattern 4 — String DP ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/longest-common-subsequence/" target="_blank" rel="noopener noreferrer">Longest Common Subsequence (LCS) ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #1143</span></li>
+          <li><a href="https://leetcode.com/problems/longest-palindromic-subsequence/" target="_blank" rel="noopener noreferrer">Longest Palindromic Subsequence</a> <span class="tag">LeetCode #516</span></li>
+          <li><a href="https://leetcode.com/problems/edit-distance/" target="_blank" rel="noopener noreferrer">Edit Distance ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #72</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/longest-common-substring1452/1" target="_blank" rel="noopener noreferrer">Longest Common Substring</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/distinct-subsequences/" target="_blank" rel="noopener noreferrer">Distinct Subsequences</a> <span class="tag">LeetCode #115</span></li>
+        </ol>
+
+        <h3>Pattern 5 — LIS ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener noreferrer">Longest Increasing Subsequence ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #300</span></li>
+          <li><a href="https://leetcode.com/problems/number-of-longest-increasing-subsequence/" target="_blank" rel="noopener noreferrer">Number of LIS</a> <span class="tag">LeetCode #673</span></li>
+          <li><a href="https://leetcode.com/problems/russian-doll-envelopes/" target="_blank" rel="noopener noreferrer">Russian Doll Envelopes ⭐⭐⭐⭐</a> <span class="tag">LeetCode #354</span></li>
+        </ol>
+
+        <h3>Pattern 6 — Matrix/Grid DP ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/unique-paths/" target="_blank" rel="noopener noreferrer">Unique Paths ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #62</span></li>
+          <li><a href="https://leetcode.com/problems/unique-paths-ii/" target="_blank" rel="noopener noreferrer">Unique Paths II</a> <span class="tag">LeetCode #63</span></li>
+          <li><a href="https://leetcode.com/problems/minimum-path-sum/" target="_blank" rel="noopener noreferrer">Minimum Path Sum ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #64</span></li>
+          <li><a href="https://leetcode.com/problems/triangle/" target="_blank" rel="noopener noreferrer">Triangle</a> <span class="tag">LeetCode #120</span></li>
+          <li><a href="https://leetcode.com/problems/dungeon-game/" target="_blank" rel="noopener noreferrer">Dungeon Game ⭐⭐⭐⭐</a> <span class="tag">LeetCode #174</span></li>
+        </ol>
+
+        <h3>Pattern 7 — Stock DP ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" target="_blank" rel="noopener noreferrer">Best Time to Buy and Sell Stock ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #121</span></li>
+          <li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/" target="_blank" rel="noopener noreferrer">Best Time to Buy and Sell Stock II</a> <span class="tag">LeetCode #122</span></li>
+          <li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/" target="_blank" rel="noopener noreferrer">Best Time to Buy and Sell Stock III</a> <span class="tag">LeetCode #123</span></li>
+          <li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/" target="_blank" rel="noopener noreferrer">Best Time to Buy and Sell Stock IV</a> <span class="tag">LeetCode #188</span></li>
+          <li><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/" target="_blank" rel="noopener noreferrer">Best Time to Buy and Sell Stock with Cooldown</a> <span class="tag">LeetCode #309</span></li>
+        </ol>
+
+        <h3>Pattern 8 — Partition DP ⭐⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1" target="_blank" rel="noopener noreferrer">Matrix Chain Multiplication</a> <span class="tag">GfG</span></li>
+          <li><a href="https://leetcode.com/problems/palindrome-partitioning-ii/" target="_blank" rel="noopener noreferrer">Palindrome Partitioning II ⭐⭐⭐⭐</a> <span class="tag">LeetCode #132</span></li>
+          <li><a href="https://leetcode.com/problems/burst-balloons/" target="_blank" rel="noopener noreferrer">Burst Balloons ⭐⭐⭐⭐⭐</a> <span class="tag">LeetCode #312</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/boolean-parenthesization5610/1" target="_blank" rel="noopener noreferrer">Boolean Parenthesization</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <h3>Pattern 9 — Tree DP ⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://leetcode.com/problems/house-robber-iii/" target="_blank" rel="noopener noreferrer">House Robber III ⭐⭐⭐⭐</a> <span class="tag">LeetCode #337</span></li>
+          <li><a href="https://leetcode.com/problems/diameter-of-binary-tree/" target="_blank" rel="noopener noreferrer">Diameter of Binary Tree</a> <span class="tag">LeetCode #543</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Trees Section-এ আগেই করা হয়েছে)</span></li>
+          <li><a href="https://leetcode.com/problems/binary-tree-maximum-path-sum/" target="_blank" rel="noopener noreferrer">Maximum Path Sum</a> <span class="tag">LeetCode #124</span> <span style="color:var(--muted);font-style:italic;font-size:0.82em">(Trees Section-এ আগেই করা হয়েছে)</span></li>
+        </ol>
+
+        <h3>Pattern 10 — DP on Graph ⭐⭐⭐⭐</h3>
+        <ol>
+          <li><a href="https://www.geeksforgeeks.org/problems/shortest-path-in-directed-acyclic-graph/1" target="_blank" rel="noopener noreferrer">Shortest Path in DAG</a> <span class="tag">GfG</span></li>
+          <li><a href="https://www.geeksforgeeks.org/problems/longest-path-in-a-directed-acyclic-graph/1" target="_blank" rel="noopener noreferrer">Longest Path in DAG</a> <span class="tag">GfG</span></li>
+        </ol>
+
+        <div class="insight"><strong>Minimum (এখনই করার মতো):</strong> ৪০টি Problem — Fibonacci, Climbing Stairs, Min Cost Climbing, House Robber I/II, Partition Equal Subset Sum, 0/1 Knapsack, Subset Sum, Coin Change, Target Sum, LCS, Edit Distance, Longest Palindromic Subsequence, LIS, Number of LIS, Unique Paths, Minimum Path Sum, Stock Problems (সবগুলো), House Robber III, Matrix Chain Multiplication। <strong>Interview Ready:</strong> Pattern-ভিত্তিক সবগুলো Problem শেষ করো।</div>
+      </div>
     </section>
 
     <!-- Master Pattern Map -->
