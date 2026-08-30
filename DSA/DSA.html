@@ -1589,6 +1589,58 @@ for (Map.Entry&lt;String, Integer&gt; entry : map.entrySet()) {
       </div>
       <div class="insight"><strong>Interview Note:</strong> Worst Case <code>O(n)</code> হতে পারে (Hash Collision-এর কারণে), কিন্তু Interview-এ Average Case <code>O(1)</code> বললেই যথেষ্ট।</div>
 
+      <h3>আরও Important Method — যেগুলো Interview-এ কাজে লাগে</h3>
+      <p>শুধু <code>put/get/containsKey/remove</code> জানলেই চলে যায়, কিন্তু নিচের Method গুলো জানা থাকলে Code অনেক ছোট আর Clean হয়ে যায় — বিশেষ করে Frequency Count আর Grouping Pattern-এ।</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>কী করে</th></tr></thead>
+          <tbody>
+            <tr><td><code>getOrDefault(key, default)</code></td><td>Key না থাকলে <code>null</code>/Exception না দিয়ে একটা Default Value ফেরত দেয়</td></tr>
+            <tr><td><code>putIfAbsent(key, value)</code></td><td>Key আগে থেকে না থাকলেই শুধু Insert করে — থাকলে কিছু বদলায় না</td></tr>
+            <tr><td><code>computeIfAbsent(key, fn)</code></td><td>Key না থাকলে <code>fn()</code> দিয়ে নতুন Value বানিয়ে Insert করে, Value ফেরত দেয় — Grouping-এ খুব কাজে লাগে</td></tr>
+            <tr><td><code>computeIfPresent(key, fn)</code></td><td>Key থাকলেই শুধু <code>fn()</code> দিয়ে তার Value Update করে</td></tr>
+            <tr><td><code>merge(key, value, fn)</code></td><td>Key থাকলে <code>fn()</code> দিয়ে পুরনো ও নতুন Value Combine করে, না থাকলে সরাসরি Value বসায়</td></tr>
+            <tr><td><code>containsValue(value)</code></td><td>এই Value কোনো Key-এর সাথে আছে কিনা Check করে (<code>O(n)</code>, Key-এর মতো <code>O(1)</code> না)</td></tr>
+            <tr><td><code>keySet()</code></td><td>সব Key-এর একটা Set ফেরত দেয়</td></tr>
+            <tr><td><code>values()</code></td><td>সব Value-এর একটা Collection ফেরত দেয়</td></tr>
+            <tr><td><code>remove(key, value)</code></td><td>Key-এর Value ঠিক এটাই হলে তবেই Remove করে</td></tr>
+            <tr><td><code>forEach((k, v) -&gt; ...)</code></td><td>আলাদা Loop না লিখে প্রতিটা Key-Value Pair-এ সরাসরি একটা কাজ চালায়</td></tr>
+            <tr><td><code>isEmpty()</code></td><td>Map খালি কিনা — <code>size() == 0</code>-এর Shortcut</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>Frequency Count — একই কাজ তিনভাবে</div>
+        <pre>Map&lt;Character, Integer&gt; freq = new HashMap&lt;&gt;();
+
+<span class="comment">// ধাপ ১ — containsKey দিয়ে (সবচেয়ে সাধারণ, শুরুতে এভাবেই ভাবা হয়)</span>
+if (freq.containsKey(ch)) {
+    freq.put(ch, freq.get(ch) + 1);
+} else {
+    freq.put(ch, 1);
+}
+
+<span class="comment">// ধাপ ২ — getOrDefault দিয়ে ছোট করা (Interview-এ এটাই সবচেয়ে বেশি লেখা হয়)</span>
+freq.put(ch, freq.getOrDefault(ch, 0) + 1);
+
+<span class="comment">// ধাপ ৩ — merge() দিয়ে সবচেয়ে Short</span>
+freq.merge(ch, 1, Integer::sum);</pre>
+      </div>
+      <div class="code-block">
+        <div class="code-label"><span class="dot"></span>computeIfAbsent — Grouping Pattern-এ ব্যবহার</div>
+        <pre>Map&lt;String, List&lt;String&gt;&gt; groups = new HashMap&lt;&gt;();
+
+<span class="comment">// ধাপ ১ — containsKey দিয়ে (পুরনো Style)</span>
+if (!groups.containsKey(key)) {
+    groups.put(key, new ArrayList&lt;&gt;());
+}
+groups.get(key).add(word);
+
+<span class="comment">// ধাপ ২ — computeIfAbsent দিয়ে (এক লাইনেই হয়ে যায়)</span>
+groups.computeIfAbsent(key, k -&gt; new ArrayList&lt;&gt;()).add(word);</pre>
+      </div>
+      <div class="insight"><strong>getOrDefault</strong> সবচেয়ে বেশি ব্যবহৃত হয় — না জানলেও চলে, কিন্তু জানলে প্রতিটা Frequency Count Problem-এ ৩-৪ লাইন Code বেঁচে যায়। <strong>Group Anagrams</strong>-এর মতো Problem-এ <code>computeIfAbsent</code> লিখলে Code অনেক Clean দেখায় — Key না থাকলে নতুন List/Set বানিয়ে সেখানে Add করতে হয়, এমন জায়গাতেই এটা ব্যবহার করো।</div>
+
       <h3>গুরুত্বপূর্ণ Pattern — HashMap</h3>
       <div class="table-wrap">
         <table>
