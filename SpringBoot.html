@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spring Framework Full Course — বাংলা নোটস (Lecture 1-3)</title>
-<meta name="description" content="Spring Framework Full Course (Coder Army)-এর প্রথম তিনটি লেকচারের সম্পূর্ণ বাংলা স্টাডি নোট — Client-Server/HTTP/Servlet, প্রথম Spring Boot Application এবং Maven Deep-Dive।">
+<meta name="theme-color" content="#1B2A40">
+<title>Spring Framework Full Course — বাংলা নোটস (Lecture 1-4)</title>
+<meta name="description" content="Spring Framework Full Course (Coder Army)-এর প্রথম চারটি লেকচারের সম্পূর্ণ বাংলা স্টাডি নোট — Client-Server/HTTP/Servlet, প্রথম Spring Boot Application, Maven Deep-Dive এবং Dependency Injection ও IoC।">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -28,7 +29,7 @@
   --header-h:    52px;
 }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; font-size: 16px; width: 100%; }
 
 body {
   background: var(--bg);
@@ -36,6 +37,8 @@ body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   line-height: 1.65;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
   overflow-wrap: break-word;
 }
 
@@ -563,26 +566,45 @@ a:focus-visible, button:focus-visible {
   .sidebar { display: none; }
   .shell { display: block; }
 
-  .main { padding: 1.25rem 1rem 4rem; }
+  .main { padding: 1.5rem 1.1rem 4rem; }
+
+  body { line-height: 1.8; }
 
   .page-header {
-    margin-bottom: 1.75rem;
-    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.4rem;
   }
 
-  .section { margin-bottom: 2.5rem; }
-  .section-header { margin-bottom: 1rem; padding-bottom: 0.6rem; }
+  .page-header .eyebrow { letter-spacing: 0.07em; line-height: 1.5; }
+  .page-header p { line-height: 1.75; }
 
-  pre { font-size: 0.74rem; padding: 0.85rem 0.9rem; }
+  .section { margin-bottom: 3rem; }
+  .section-header { margin-bottom: 1.2rem; padding-bottom: 0.7rem; }
+  .section p { margin-bottom: 1.05rem; }
+
+  pre { font-size: 0.78rem; padding: 1rem; line-height: 1.75; }
+
+  .diagram {
+    font-size: 0.76rem;
+    padding: 1.1rem 1rem;
+    line-height: 1.9;
+    margin: 1.3rem 0;
+  }
+
+  .insight { padding: 1rem 1.1rem; font-size: 0.9rem; line-height: 1.65; margin: 1.3rem 0; }
+
+  .order-list { gap: 0.65rem; margin: 1rem 0; }
+  .order-list li { font-size: 0.9rem; line-height: 1.6; }
 
   table { font-size: 0.78rem; }
   thead th { padding: 0.5rem 0.7rem; }
   tbody td { padding: 0.45rem 0.7rem; }
 
-  .practice { padding: 0.85rem 1rem; }
-  .practice li { font-size: 0.84rem; }
+  .practice { padding: 1rem 1.1rem; margin-top: 1.75rem; }
+  .practice li { font-size: 0.88rem; line-height: 1.6; }
+  .practice ol { gap: 0.6rem; }
 
-  .lecture-divider { margin: 2.5rem 0 1.5rem; }
+  .lecture-divider { margin: 3rem 0 1.75rem; }
   .lecture-divider .badge { font-size: 0.85rem; }
 
   .back-top { bottom: 1rem; right: 1rem; width: 36px; height: 36px; font-size: 0.9rem; }
