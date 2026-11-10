@@ -2,7 +2,8 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes">
+<meta name="color-scheme" content="light">
 <meta name="theme-color" content="#1B2A40">
 <title>Spring Framework Full Course — বাংলা নোটস (Lecture 1-4)</title>
 <meta name="description" content="Spring Framework Full Course (Coder Army)-এর প্রথম চারটি লেকচারের সম্পূর্ণ বাংলা স্টাডি নোট — Client-Server/HTTP/Servlet, প্রথম Spring Boot Application, Maven Deep-Dive এবং Dependency Injection ও IoC।">
@@ -29,7 +30,7 @@
   --header-h:    52px;
 }
 
-html { scroll-behavior: smooth; font-size: 16px; width: 100%; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
   background: var(--bg);
@@ -37,8 +38,6 @@ body {
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   line-height: 1.65;
   min-height: 100vh;
-  width: 100%;
-  overflow-x: hidden;
   overflow-wrap: break-word;
 }
 
@@ -402,6 +401,7 @@ pre {
   overflow-x: auto;
   white-space: pre;
   -webkit-overflow-scrolling: touch;
+  box-shadow: inset -18px 0 12px -12px rgba(0,0,0,0.35);
 }
 
 code {
@@ -419,7 +419,13 @@ pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
 /* ════════════════════════════════
    TABLES
    ════════════════════════════════ */
-.table-wrap { overflow-x: auto; margin: 1rem 0; -webkit-overflow-scrolling: touch; }
+.table-wrap {
+  overflow-x: auto;
+  margin: 1rem 0;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 7px;
+  box-shadow: inset -18px 0 12px -12px rgba(0,0,0,0.15);
+}
 
 table {
   width: 100%;
@@ -489,11 +495,13 @@ td code { background: rgba(25,42,64,0.08); color: var(--navy-mid); }
   line-height: 1.75;
   -webkit-overflow-scrolling: touch;
   white-space: pre;
+  box-shadow: inset -18px 0 12px -12px rgba(0,0,0,0.35);
 }
 
-.order-list { list-style: none; counter-reset: step; padding: 0; margin: 0.75rem 0; display: flex; flex-direction: column; gap: 0.45rem; }
-.order-list li { counter-increment: step; display: flex; align-items: baseline; gap: 0.6rem; font-size: 0.875rem; }
-.order-list li::before { content: counter(step); font-size: 0.65rem; font-weight: 700; color: var(--orange); min-width: 1.2rem; letter-spacing: 0.05em; }
+.order-list { list-style: none; counter-reset: step; padding: 0; margin: 0.75rem 0; }
+.order-list li { counter-increment: step; position: relative; padding-left: 1.75rem; font-size: 0.875rem; margin-bottom: 0.45rem; }
+.order-list li:last-child { margin-bottom: 0; }
+.order-list li::before { content: counter(step); position: absolute; left: 0; top: 0.15em; font-size: 0.65rem; font-weight: 700; color: var(--orange); letter-spacing: 0.05em; }
 
 /* ════════════════════════════════
    BACK TO TOP BUTTON
@@ -593,8 +601,8 @@ a:focus-visible, button:focus-visible {
 
   .insight { padding: 1rem 1.1rem; font-size: 0.9rem; line-height: 1.65; margin: 1.3rem 0; }
 
-  .order-list { gap: 0.65rem; margin: 1rem 0; }
-  .order-list li { font-size: 0.9rem; line-height: 1.6; }
+  .order-list { margin: 1rem 0; }
+  .order-list li { font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.65rem; }
 
   table { font-size: 0.78rem; }
   thead th { padding: 0.5rem 0.7rem; }
@@ -745,25 +753,37 @@ a:focus-visible, button:focus-visible {
     <span class="sec-num">1</span>
     <h2>ক্লায়েন্ট-সার্ভার আর্কিটেকচার ও HTTP প্রোটোকল</h2>
   </div>
-  <p>Spring Framework বোঝার আগে একদম বেসিক প্রশ্ন থেকে শুরু করা দরকার — আমরা যখন ব্রাউজারে একটা ওয়েবসাইটের URL (যেমন <strong>www.amazon.com</strong>) দিই, তখন পেছনে আসলে কী ঘটে? এটাই হলো <strong>client-server architecture</strong> এর মূল আইডিয়া।</p>
-  <p>যে <strong>request</strong> পাঠায় তাকে বলা হয় <strong>client</strong>, আর যে সেই request গ্রহণ করে প্রসেস করে <strong>response</strong> ফেরত পাঠায় তাকে বলা হয় <strong>server</strong>। সহজ কথায়, server আসলে একটা কম্পিউটার যেখানে অ্যাপ্লিকেশন hosted থাকে। client কিন্তু শুধু ব্রাউজার নয় — এটা mobile app, React frontend, Postman, এমনকি অন্য একটা server-ও হতে পারে (যেমন microservice architecture-এ এক service অন্য service-কে call করলে, সেই কলার নিজেও client হয়ে যায়)।</p>
+  <p>ব্রাউজারে URL (যেমন <strong>www.amazon.com</strong>) দিলে পেছনে যা ঘটে, সেটাই <strong>client-server architecture</strong>।</p>
+
+  <ul class="order-list">
+    <li><strong>Client</strong> — যে request পাঠায় (browser, mobile app, React frontend, Postman, এমনকি অন্য একটা server-ও — microservice-এ এক service অন্য service-কে call করলে কলার নিজেও client)।</li>
+    <li><strong>Server</strong> — যে request গ্রহণ করে process করে response ফেরত পাঠায়; মূলত একটা কম্পিউটার যেখানে অ্যাপ্লিকেশন hosted থাকে।</li>
+  </ul>
 
   <div class="diagram">Browser (Client)  ──── HTTP Request ────►  Amazon Server
                    ◄──── HTTP Response ────</div>
 
-  <p>Client আর server যেন একে অপরের সাথে গুছিয়ে কথা বলতে পারে, তার জন্য দরকার একটা কমন ভাষা বা ফরম্যাট — এটাই হলো <strong>HTTP (HyperText Transfer Protocol)</strong>। এটা একটা rule book, যা ঠিক করে দেয় request-এর structure কেমন হবে, response-এর structure কেমন হবে। ডিফল্টভাবে HTTP-তে ডেটা এনক্রিপ্ট করা থাকে না, তাই সেটাকে secure করার জন্য এসেছে <strong>HTTPS</strong> (S = Secured) — যেখানে client ও server-এর মধ্যে যাওয়া-আসা সব ডেটা এনক্রিপ্টেড থাকে, যাতে মাঝপথে কেউ শুনে (listen) ফেলতে না পারে।</p>
-
-  <div class="insight"><strong>খেয়াল রাখো:</strong> HTTP request-এ বিভিন্ন operation বোঝানোর জন্য আলাদা আলাদা <strong>method</strong> থাকে — <strong>GET</strong> (তথ্য পড়া/retrieve), <strong>POST</strong> (নতুন তথ্য store করা), <strong>PUT</strong> (আপডেট করা), <strong>DELETE</strong> (মুছে ফেলা), <strong>PATCH</strong> (নির্দিষ্ট অংশ আপডেট করা)।</div>
-
-  <p>একটা পূর্ণাঙ্গ HTTP request-এর মূলত চারটা অংশ থাকে:</p>
   <ul class="order-list">
-    <li><strong>Method</strong> — কোন ধরনের কল করা হয়েছে (GET/POST/PUT/DELETE/PATCH)।</li>
-    <li><strong>URL / Endpoint (Path)</strong> — কোন হোস্টের কোন নির্দিষ্ট রিসোর্সে request যাচ্ছে (যেমন <code>www.codermy.in/courses</code>)।</li>
-    <li><strong>Headers</strong> — key-value আকারে extra মেটাডেটা, যেমন <code>Accept: application/json</code> (কোন ফরম্যাটে response চাই) বা authentication তথ্য।</li>
-    <li><strong>Body</strong> — বিস্তারিত ডেটা, যেমন login করার সময় email আর password পাঠানো (এটা সাধারণত POST-জাতীয় call-এই থাকে, শুধু data retrieve করা GET call-এ body লাগে না)।</li>
+    <li><strong>HTTP (HyperText Transfer Protocol)</strong> — client-server-এর মধ্যে common rule book; request/response-এর structure ঠিক করে দেয়।</li>
+    <li><strong>HTTPS</strong> — HTTP-র secured ভার্সন; সব ডেটা এনক্রিপ্টেড থাকে, মাঝপথে কেউ শুনে (listen) ফেলতে পারে না। HTTP ডিফল্টে এনক্রিপ্টেড নয়।</li>
   </ul>
 
-  <p>একইভাবে server-এর response-ও নির্দিষ্ট structure মেনে চলে — এতে থাকে <strong>status code</strong> (যেমন <strong>200 OK</strong> মানে সফল, <strong>201</strong> মানে resource তৈরি হয়েছে, <strong>404</strong> মানে resource পাওয়া যায়নি, <strong>500</strong> মানে internal server error), তারপর <strong>headers</strong> এবং <strong>body</strong>।</p>
+  <div class="insight"><strong>HTTP Methods:</strong> <strong>GET</strong> (retrieve), <strong>POST</strong> (নতুন তথ্য store), <strong>PUT</strong> (আপডেট), <strong>DELETE</strong> (মুছে ফেলা), <strong>PATCH</strong> (নির্দিষ্ট অংশ আপডেট)।</div>
+
+  <p>HTTP <strong>request</strong>-এর ৪টা অংশ:</p>
+  <ul class="order-list">
+    <li><strong>Method</strong> — GET/POST/PUT/DELETE/PATCH।</li>
+    <li><strong>URL / Endpoint (Path)</strong> — কোন হোস্টের কোন resource-এ request যাচ্ছে (যেমন <code>www.codermy.in/courses</code>)।</li>
+    <li><strong>Headers</strong> — key-value মেটাডেটা, যেমন <code>Accept: application/json</code> বা authentication তথ্য।</li>
+    <li><strong>Body</strong> — বিস্তারিত ডেটা (যেমন login-এ email/password); সাধারণত POST-জাতীয় call-এ থাকে, GET-এ লাগে না।</li>
+  </ul>
+
+  <p>HTTP <strong>response</strong>-এর ৩টা অংশ:</p>
+  <ul class="order-list">
+    <li><strong>Status code</strong> — <strong>200</strong> সফল, <strong>201</strong> resource তৈরি হয়েছে, <strong>404</strong> resource পাওয়া যায়নি, <strong>500</strong> internal server error।</li>
+    <li><strong>Headers</strong> — response-এর মেটাডেটা।</li>
+    <li><strong>Body</strong> — আসল ডেটা।</li>
+  </ul>
 </section>
 
 <section class="section" id="sec-2">
@@ -771,21 +791,25 @@ a:focus-visible, button:focus-visible {
     <span class="sec-num">2</span>
     <h2>কোর জাভা দিয়ে ওয়েব সার্ভার বানানোর চেষ্টা — সমস্যাগুলো</h2>
   </div>
-  <p>এখন পর্যন্ত আমরা Core Java জানি — class, object, method লেখা জানি। প্রশ্ন হলো, একটা <code>/courses</code> endpoint-এ হিট করলে ভেতরে কোনো না কোনো java method-ই তো call হচ্ছে। কিন্তু normal java program run হয়ে instructions execute করে exit করে যায় — অথচ একটা website 24/7 চালু থাকে, কখনো exit করে না। এটাই প্রথম পার্থক্য: <strong>website একটা প্রোগ্রাম যা একবার চলে exit করে না, বরং কন্টিনিউয়াসলি চলতে থাকে এবং request-এর জন্য অপেক্ষা করে।</strong></p>
+  <div class="insight"><strong>মূল পার্থক্য:</strong> normal java program run হয়ে exit করে যায়, কিন্তু website 24/7 চালু থাকে — কন্টিনিউয়াসলি চলে request-এর জন্য অপেক্ষা করে।</div>
 
-  <p>Core Java-তে নেটওয়ার্কিং করার সুবিধা আছে — <strong>java.net</strong> প্যাকেজ (Java 1 থেকেই আছে), যেখানে <code>ServerSocket</code>-এর মতো ক্লাস দিয়ে একটা নির্দিষ্ট <strong>port</strong>-এ (যেমন 8080) incoming request শোনা (listen) যায়। একটা কম্পিউটারে একসাথে অনেক অ্যাপ্লিকেশন চলে (WhatsApp, Chrome, Spotify...), তাই কোন request কোন অ্যাপ্লিকেশনের জন্য এসেছে তা বোঝাতেই port number ব্যবহার হয়।</p>
+  <ul class="order-list">
+    <li><strong>java.net</strong> প্যাকেজ (Java 1 থেকেই আছে) দিয়ে networking করা যায়।</li>
+    <li><strong>ServerSocket</strong> ক্লাস দিয়ে একটা নির্দিষ্ট <strong>port</strong>-এ (যেমন 8080) incoming request listen করা যায়।</li>
+    <li><strong>Port number</strong> লাগে কারণ — একটা কম্পিউটারে একসাথে অনেক অ্যাপ্লিকেশন চলে (WhatsApp, Chrome, Spotify...), port দিয়েই বোঝা যায় কোন request কোন অ্যাপ্লিকেশনের জন্য।</li>
+  </ul>
 
-  <div class="insight"><strong>মূল সমস্যা:</strong> java.net দিয়ে raw bytes পড়া গেলেও, জাভার কোড HTTP ফরম্যাট বোঝে না। ওর কাছে সেটা শুধুই একটা stream of bytes — GET, endpoint, host — কোনো কিছুর মানেই সে জানে না।</div>
+  <div class="insight"><strong>মূল সমস্যা:</strong> java.net দিয়ে raw bytes পড়া গেলেও, জাভার কোড HTTP ফরম্যাট বোঝে না — ওর কাছে সেটা শুধুই একটা stream of bytes।</div>
 
-  <p>ফলে ServerSocket ব্যবহার করলে ডেভেলপারকে সবকিছু <strong>ম্যানুয়ালি</strong> করতে হতো:</p>
+  <p>ServerSocket ব্যবহার করলে ম্যানুয়ালি করতে হতো:</p>
   <ul class="order-list">
     <li>Input stream read করা (BufferedReader দিয়ে)।</li>
-    <li>Request ম্যানুয়ালি parse করা — method, endpoint, host আলাদা করে বের করা।</li>
-    <li>if/else দিয়ে নিজে থেকে endpoint অনুযায়ী সঠিক method call করা (map a method to an endpoint)।</li>
-    <li>Method-এর রিটার্ন থেকে ম্যানুয়ালি HTTP response তৈরি করা।</li>
-    <li>একসাথে একাধিক ইউজারকে সামলাতে নিজে থেকে multi-threading implement করা (নাহলে একটা request-এর কাজ চলাকালীন অন্য request আটকে থাকবে)।</li>
+    <li>Request parse করা — method, endpoint, host আলাদা করে বের করা।</li>
+    <li>if/else দিয়ে endpoint অনুযায়ী সঠিক method call করা (routing)।</li>
+    <li>Method-এর রিটার্ন থেকে HTTP response তৈরি করা।</li>
+    <li>একসাথে একাধিক ইউজার সামলাতে নিজে multi-threading implement করা।</li>
   </ul>
-  <p>এই বিপুল পরিমাণ <strong>boilerplate code</strong>-ই ছিল আসল সমস্যা — প্রতিটা ওয়েব অ্যাপ্লিকেশনে ডেভেলপারকে এই একই কাজ বারবার করতে হতো।</p>
+  <p>➜ এই বিপুল <strong>boilerplate code</strong>-ই আসল সমস্যা — প্রতিটা ওয়েব অ্যাপ্লিকেশনে বারবার করতে হতো।</p>
 </section>
 
 <section class="section" id="sec-3">
@@ -793,22 +817,25 @@ a:focus-visible, button:focus-visible {
     <span class="sec-num">3</span>
     <h2>Servlet ও Servlet Container — বয়লারপ্লেটের সমাধান</h2>
   </div>
-  <p>এই ম্যানুয়াল কাজের সমাধান হিসেবে ১৯৯৭ সালে (Java Enterprise Edition-এর অংশ হিসেবে) এলো <strong>Servlet ও Servlet Container</strong> — java-তে web development-এর জন্য তৈরি প্রথম প্যাকেজ।</p>
-  <p><strong>Servlet</strong> আসলে একটা সাধারণ java class, যেটা রান হয় একটা <strong>Servlet Container</strong>-এর ভেতরে। এই Servlet Container-কেই সাধারণত আমরা "server" বলি — এর মধ্যে সবচেয়ে জনপ্রিয় হলো <strong>Tomcat</strong> (এছাড়া আছে Jetty, Undertow)।</p>
-
-  <p>Tomcat-এর মতো servlet container আগের সব boilerplate কাজ নিজে করে দেয়:</p>
   <ul class="order-list">
-    <li>Port ওপেন রাখা এবং incoming bytes read করা।</li>
-    <li>সেই raw bytes-কে HTTP request-এ decode/convert করা।</li>
-    <li>URL অনুযায়ী ঠিক করা কোন servlet-কে call করতে হবে (routing)।</li>
-    <li>Multi-threading নিজে থেকে handle করা।</li>
-    <li>Servlet-এর response থেকে প্রপার HTTP response বানিয়ে client-কে ফেরত পাঠানো।</li>
+    <li><strong>Servlet ও Servlet Container</strong> — ১৯৯৭ সালে (J2EE-এর অংশ) এলো, java-তে web development-এর প্রথম প্যাকেজ।</li>
+    <li><strong>Servlet</strong> — একটা সাধারণ java class, রান হয় Servlet Container-এর ভেতরে।</li>
+    <li><strong>Servlet Container</strong> — একেই সাধারণত "server" বলি; জনপ্রিয় হলো <strong>Tomcat</strong> (আরও আছে Jetty, Undertow)।</li>
+  </ul>
+
+  <p>Tomcat নিজে করে দেয়:</p>
+  <ul class="order-list">
+    <li>Port ওপেন রাখা ও incoming bytes read করা।</li>
+    <li>Raw bytes-কে HTTP request-এ decode করা।</li>
+    <li>URL অনুযায়ী কোন servlet call হবে ঠিক করা (routing)।</li>
+    <li>Multi-threading handle করা।</li>
+    <li>Servlet-এর response থেকে HTTP response বানিয়ে client-কে ফেরত পাঠানো।</li>
   </ul>
 
   <div class="diagram">Client ──HTTP Request──► Tomcat (Servlet Container) ──HttpServletRequest──► Servlet
 Client ◄──HTTP Response── Tomcat (Servlet Container) ◄──HttpServletResponse── Servlet</div>
 
-  <p>ফলে ডেভেলপার হিসেবে এখন শুধু নিজের business logic-টুকু servlet-এর ভেতরে লিখলেই হয় — port খোলা, byte parse করা, thread manage করার ঝামেলা আর নিতে হয় না। Tomcat সবসময় চালু থাকে, ঠিক অন্য যেকোনো ওয়েবসাইটের মতো, এবং request এলেই উপযুক্ত servlet-কে ডেকে দেয়।</p>
+  <p>➜ ডেভেলপারের কাজ শুধু business logic servlet-এর ভেতরে লেখা — port/byte/thread-এর ঝামেলা Tomcat-ই সামলায়।</p>
 </section>
 
 <section class="section" id="sec-4">
@@ -816,9 +843,11 @@ Client ◄──HTTP Response── Tomcat (Servlet Container) ◄──HttpServ
     <span class="sec-num">4</span>
     <h2>Spring Framework কেন এলো — ইকোসিস্টেম ও কোর্স রোডম্যাপ</h2>
   </div>
-  <p>Servlet দিয়ে সমস্যা সমাধান হলেও, যখন অ্যাপ্লিকেশন বড় হয়ে <strong>enterprise-level</strong> স্কেলে পৌঁছায়, তখন servlet-oriented কোড খুবই <strong>tightly coupled</strong> হয়ে যায় — অর্থাৎ প্রচুর object আপসে interlinked হয়ে যায়, ফলে অ্যাপ্লিকেশন স্কেল করা কঠিন হয়ে পড়ে। এই সমস্যা সমাধানের জন্যই এলো <strong>Spring Framework</strong>, যা নিজস্ব কিছু core concept নিয়ে এলো — যেমন <strong>Dependency Injection</strong> ও <strong>Inversion of Control (IoC)</strong> — যা অ্যাপ্লিকেশনকে <strong>loosely coupled</strong> বানিয়ে স্কেল করা সহজ করে দেয়।</p>
-
-  <p>Spring-কে শুধু একটা "framework" বলাটা ঠিক না — এটা আসলে একটা পুরো <strong>ecosystem</strong>, যার ভেতরে অনেকগুলো আলাদা framework/module আছে। শুধু web application-ই নয়, Spring দিয়ে microservices, reactive applications, cloud applications, event-driven system, serverless architecture, batch processing — সবকিছু বানানো যায়।</p>
+  <ul class="order-list">
+    <li>Servlet দিয়ে অ্যাপ্লিকেশন <strong>enterprise-level</strong>-এ বড় হলে কোড <strong>tightly coupled</strong> হয়ে যায় (প্রচুর object আপসে interlinked) — স্কেল করা কঠিন হয়।</li>
+    <li><strong>Spring Framework</strong> এলো এই সমস্যা সমাধানে — core concept: <strong>Dependency Injection</strong> ও <strong>Inversion of Control (IoC)</strong>, যা অ্যাপ্লিকেশনকে <strong>loosely coupled</strong> করে।</li>
+    <li>Spring শুধু একটা "framework" নয়, একটা পুরো <strong>ecosystem</strong> — web application ছাড়াও microservices, reactive apps, cloud apps, event-driven system, serverless, batch processing সবই বানানো যায়।</li>
+  </ul>
 
   <div class="table-wrap">
   <table>
@@ -836,16 +865,26 @@ Client ◄──HTTP Response── Tomcat (Servlet Container) ◄──HttpServ
   </table>
   </div>
 
-  <div class="insight"><strong>খেয়াল রাখো:</strong> Spring Boot কিন্তু Spring Framework-কে replace করেনি, এবং Spring Boot নিজে কোনো "স্কিল" নয়। এটা একটা <strong>opinionated system</strong> — কিছু default configuration ধরে নিয়ে দ্রুত project বুট-আপ করিয়ে দেয়। কিন্তু ভেতরে Spring MVC, Spring Data, Spring AOP, Spring Security-র কোর টেকনোলজি একই থাকে — শুধু Spring Boot শিখে, বাকিগুলো না শিখে কেউ পুরোপুরি Spring জানে না।</div>
+  <div class="insight"><strong>খেয়াল রাখো:</strong> Spring Boot, Spring Framework-কে replace করেনি — এটা একটা <strong>opinionated system</strong>, default configuration ধরে দ্রুত project বুট-আপ করায়। ভেতরে Spring MVC/Data/AOP/Security-র কোর টেকনোলজি একই থাকে।</div>
 
-  <p>Database connectivity-র লেয়ারটাও একটা চেইন হিসেবে বোঝা দরকার: <strong>Spring Data JPA</strong> → এই আইডিয়াটা বাস্তবে implement করে <strong>Hibernate</strong> → আর Hibernate ভেতরে ব্যবহার করে <strong>JDBC (Java Database Connectivity)</strong>-কে, যেটা দিয়ে আগে সরাসরি SQL query লিখতে হতো। অর্থাৎ JPA একটা spec/rule book মাত্র, তার আসল implementation Hibernate, আর Hibernate-এর নিচেও শেষমেশ JDBC-ই কাজ করে।</p>
+  <p>Database connectivity চেইন:</p>
+  <ul class="order-list">
+    <li><strong>Spring Data JPA</strong> — একটা spec/rule book মাত্র।</li>
+    <li><strong>Hibernate</strong> — JPA-র আসল implementation।</li>
+    <li><strong>JDBC</strong> — Hibernate-এর নিচে থাকে, আগে যা দিয়ে সরাসরি SQL query লিখতে হতো।</li>
+  </ul>
 
   <div class="diagram">Client ──► Spring Boot Application
               │  (Spring MVC, Spring Security, Spring AOP — সব Spring Core ভিত্তিক)
               ▼
         Spring Data JPA ──► Hibernate ──► JDBC ──► Database</div>
 
-  <p>শেষে একটা গুরুত্বপূর্ণ ডিজাইন প্রশ্ন — <strong>microservices vs monolithic</strong>। মাইক্রোসার্ভিস কোনো আলাদা Spring module না, এটা একটা <strong>architecture design</strong>: হয় গোটা অ্যাপ্লিকেশন একটাই (monolithic) সব endpoint handle করে, অথবা কাজ ভাগ করে একাধিক ছোট ছোট service (যেমন Order Service, Payment Service, User Service) বানানো হয় যারা একে অপরকে HTTP call করে কথা বলে। এই পুরো architecture — Client → Spring Boot → (MVC/Security/AOP/Data, সব Spring Core-ভিত্তিক) → JPA → Hibernate → JDBC → Database — বুঝে ফেললেই একজনকে সত্যিকারের <strong>Java Full Stack Developer</strong> বলা যায়, এবং পুরো কোর্সের লক্ষ্যও এটাই।</p>
+  <ul class="order-list">
+    <li><strong>Microservices vs Monolithic</strong> — Spring module নয়, একটা architecture design।</li>
+    <li><strong>Monolithic</strong> — গোটা অ্যাপ্লিকেশন একটাই, সব endpoint handle করে।</li>
+    <li><strong>Microservices</strong> — কাজ ভাগ করে একাধিক ছোট service (Order/Payment/User Service), একে অপরকে HTTP call করে কথা বলে।</li>
+  </ul>
+  <p>➜ এই পুরো architecture (Client → Spring Boot → JPA → Hibernate → JDBC → Database) বুঝলেই <strong>Java Full Stack Developer</strong> — পুরো কোর্সের লক্ষ্য এটাই।</p>
 
   <div class="practice">
     <div class="practice-title">অনুশীলন প্রশ্ন</div>
@@ -864,15 +903,20 @@ Client ◄──HTTP Response── Tomcat (Servlet Container) ◄──HttpServ
     <span class="sec-num">5</span>
     <h2>ব্রাউজার থেকে Server পর্যন্ত: Client-Server, IP, Port ও localhost</h2>
   </div>
-  <p>এই লেকচারে লক্ষ্য খুব সিম্পল: ব্রাউজারে একটা URL টাইপ করব আর স্ক্রিনে "Hello World" দেখব। কিন্তু কোড লেখার আগে বোঝা দরকার আসলে request-টা কোন পথ ধরে সার্ভার পর্যন্ত পৌঁছায়। আমাদের ক্ষেত্রে <strong>client</strong> হলো নিজেদের ব্রাউজার (যেমন Chrome), আর <strong>server</strong> হলো আমাদের নিজের কম্পিউটারে চলা Spring Boot অ্যাপ্লিকেশন।</p>
+  <p>লক্ষ্য: ব্রাউজারে URL টাইপ করে "Hello World" দেখা। এই লেকচারে <strong>client</strong> = ব্রাউজার (Chrome), <strong>server</strong> = নিজের কম্পিউটারে চলা Spring Boot অ্যাপ্লিকেশন।</p>
 
-  <p>বাস্তবে যখন কেউ কোনো ওয়েবসাইট (যেমন codermy.in) হিট করে, তখন প্রথমে ব্রাউজার <strong>DNS</strong>-এর কাছে গিয়ে সেই domain name-এর জন্য একটা <strong>IP address</strong> খুঁজে বের করে, কারণ প্রতিটা ডিভাইসের নিজস্ব একটা ইউনিক IP address থাকে। তারপর সেই IP address ব্যবহার করে আসল request সার্ভারে পাঠানো হয়।</p>
+  <ul class="order-list">
+    <li>কোনো ওয়েবসাইট (যেমন codermy.in) হিট করলে ব্রাউজার প্রথমে <strong>DNS</strong>-এর কাছে গিয়ে domain name-এর জন্য <strong>IP address</strong> বের করে (প্রতিটা ডিভাইসের ইউনিক IP থাকে)।</li>
+    <li>সেই IP address দিয়ে request সার্ভারে পাঠানো হয়।</li>
+    <li><strong>Port number</strong> লাগে কারণ — একই IP-তে একসাথে অনেক অ্যাপ্লিকেশন (Chrome, WhatsApp, Spotify, Spring Boot app) চলে; port দিয়ে বোঝা যায় কোন ডেটা কোন অ্যাপ্লিকেশনের।</li>
+  </ul>
 
-  <p>এখন প্রশ্ন হলো — একই IP address-এ তো একটা কম্পিউটারে অনেকগুলো অ্যাপ্লিকেশন (Chrome, WhatsApp, Spotify, আমাদের Spring Boot app) একসাথে চলতে পারে। তাহলে অপারেটিং সিস্টেম কীভাবে বুঝবে কোন ডেটা কোন অ্যাপ্লিকেশনের জন্য? এখানেই কাজে লাগে <strong>port number</strong>। একটা IP address-এ একাধিক port থাকতে পারে, আর প্রতিটা port-এ একটা করে আলাদা অ্যাপ্লিকেশন চলে।</p>
+  <div class="insight"><strong>খেয়াল রাখো:</strong> HTTP ডিফল্টে port <strong>80</strong>-তে, HTTPS port <strong>443</strong>-এ যায়। সার্ভারের ভেতরের অ্যাপ্লিকেশন (Spring Boot) হয়তো 8080-এ চলে — তখন <strong>reverse proxy</strong> 443/80 থেকে 8080-এ ম্যাপ করে দেয়।</div>
 
-  <div class="insight"><strong>খেয়াল রাখো:</strong> HTTP-এর ট্রাফিক by-default port <strong>80</strong>-তে যায়, আর HTTPS-এর ট্রাফিক port <strong>443</strong>-এ যায়। কিন্তু বাস্তবে সার্ভারের ভেতরের অ্যাপ্লিকেশন (যেমন Spring Boot) হয়তো port 8080-এ চলছে — তখন একটা <strong>reverse proxy</strong> 443/80-এর incoming request-কে 8080-এ ম্যাপ করে দেয়।</div>
-
-  <p>যখন client এবং server দুটোই আমাদের নিজের কম্পিউটার, তখন আলাদা কোনো IP address লাগে না — তার বদলে একটা বিশেষ, ফিক্সড address ব্যবহার হয়: <strong>127.0.0.1</strong>, যাকে সহজে <strong>localhost</strong> নামে লেখা যায়। এর মানে হলো "নিজেকেই request পাঠানো"। তাই আমাদের URL হবে <code>localhost:8080/hello</code> — এখানে <code>8080</code> হলো port number আর <code>/hello</code> হলো সেই API endpoint যেটা আমরা হিট করতে চাই।</p>
+  <ul class="order-list">
+    <li><strong>localhost / 127.0.0.1</strong> — client ও server একই কম্পিউটার হলে ব্যবহৃত fixed address; মানে "নিজেকেই request পাঠানো"।</li>
+    <li>তাই URL: <code>localhost:8080/hello</code> — <code>8080</code> = port, <code>/hello</code> = API endpoint।</li>
+  </ul>
 
   <ul class="order-list">
     <li>Client (ব্রাউজার) → DNS দিয়ে হোস্টের IP খোঁজে (localhost-এর ক্ষেত্রে এই ধাপ লাগে না)</li>
@@ -887,9 +931,10 @@ Client ◄──HTTP Response── Tomcat (Servlet Container) ◄──HttpServ
     <span class="sec-num">6</span>
     <h2>Spring Initializr দিয়ে প্রথম Spring Boot প্রজেক্ট তৈরি</h2>
   </div>
-  <p>Java দিয়ে scratch থেকে একটা web application বানাতে গেলে অনেক কিছু নিজে হাতে সেটআপ করতে হতো — proper <strong>folder structure</strong> বানানো, দরকারি <strong>configuration</strong> লেখা, আর প্রয়োজনীয় <strong>dependency</strong> (মানে অন্য কারো লেখা external library, যেমন কোনো DB connector) ডাউনলোড করা। এসবের একটাও কিন্তু আসল business logic নয়।</p>
-
-  <p>ঠিক এই সমস্যার সমাধানের জন্যই আছে <strong>Spring Initializr</strong> (<code>start.spring.io</code>) — এটা একটা ওয়েবসাইট, যেখানে কিছু অপশন সিলেক্ট করলেই একটা রেডি-মেড প্রজেক্ট skeleton (zip ফাইল আকারে) তৈরি করে দেয়। ফোল্ডার স্ট্রাকচার, Java version, Spring Boot version — সব আগে থেকেই কনফিগার করা থাকে, শুধু business logic লেখাটাই বাকি থাকে।</p>
+  <ul class="order-list">
+    <li>Scratch থেকে web application বানাতে নিজে হাতে করতে হতো — <strong>folder structure</strong>, <strong>configuration</strong>, দরকারি <strong>dependency</strong> ডাউনলোড। এসবের একটাও business logic নয়।</li>
+    <li><strong>Spring Initializr</strong> (<code>start.spring.io</code>) — অপশন সিলেক্ট করলেই রেডি-মেড প্রজেক্ট skeleton (zip) দেয়; folder structure, Java/Spring Boot version আগে থেকেই কনফিগার করা থাকে।</li>
+  </ul>
 
   <p>Spring Initializr-এ যেসব অপশন সিলেক্ট করা হয়েছে:</p>
   <ul class="order-list">
@@ -902,7 +947,7 @@ Client ◄──HTTP Response── Tomcat (Servlet Container) ◄──HttpServ
     <li><strong>Dependency:</strong> <strong>Spring Web</strong> — এটা যোগ করলে অ্যাপ্লিকেশন RESTful web request handle করতে পারবে এবং by default <strong>embedded Apache Tomcat</strong> সার্ভার হিসেবে চলে আসবে (আলাদা করে Tomcat ইনস্টল করতে হবে না)</li>
   </ul>
 
-  <p>Generate করার পর zip ফাইলটা (এখানে নাম দেওয়া হয়েছে <strong>demo</strong>) unzip করে IDE-তে (IntelliJ IDEA) ওপেন করলে <code>src/main/java/com/example/demo</code>-এর ভেতর একটা মেইন ক্লাস পাওয়া যায়:</p>
+  <p>Generate করে zip (নাম <strong>demo</strong>) unzip করে IntelliJ-তে ওপেন করলে <code>src/main/java/com/example/demo</code>-এর ভেতর মেইন ক্লাস পাওয়া যায়:</p>
 
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>DemoApplication.java</div>
@@ -921,9 +966,12 @@ public class DemoApplication {
 }</code></pre>
   </div>
 
-  <p><code>public static void main</code> চেনা লাগছে — এটাই Java-র সাধারণ entry point। কিন্তু <code>@SpringBootApplication</code> অ্যানোটেশন আর <code>SpringApplication.run(...)</code> মেথড এখনো বোঝার দরকার নেই। শুধু এটা মনে রাখো — এই একটা লাইনই পুরো Spring Boot অ্যাপ্লিকেশনকে (embedded server-সহ) চালু করে দেয়।</p>
+  <ul class="order-list">
+    <li><code>public static void main</code> — Java-র সাধারণ entry point।</li>
+    <li><code>@SpringBootApplication</code> ও <code>SpringApplication.run(...)</code> — এখনো বোঝার দরকার নেই, শুধু মনে রাখো এই এক লাইনই পুরো Spring Boot অ্যাপ্লিকেশন (embedded server-সহ) চালু করে দেয়।</li>
+  </ul>
 
-  <div class="insight"><strong>খেয়াল রাখো:</strong> এই পর্যায়ে একটাও লাইন "business logic" লেখা হয়নি — শুধু কনফিগারেশন আর স্ট্রাকচার রেডি হয়েছে। Spring Boot-এর আসল সুবিধা হলো এই পুরো ধাপটা সে নিজে অটোমেটিক করে দেয়, যাতে ডেভেলপার সরাসরি নিজের লজিকে ফোকাস করতে পারে।</div>
+  <div class="insight"><strong>খেয়াল রাখো:</strong> এই পর্যায়ে একটাও লাইন business logic লেখা হয়নি — শুধু কনফিগারেশন/স্ট্রাকচার রেডি হয়েছে, সেটাই Spring Boot অটোমেটিক করে দেয়।</div>
 </section>
 
 <section class="section" id="sec-7">
@@ -931,9 +979,12 @@ public class DemoApplication {
     <span class="sec-num">7</span>
     <h2>@RestController ও @GetMapping দিয়ে প্রথম Endpoint লেখা</h2>
   </div>
-  <p>শুরুতে সবচেয়ে সহজ পথ ছিল <code>com.example.demo</code> প্যাকেজে একটা নতুন Java class বানানো, নাম <strong>HelloController</strong>, আর তার ভেতর একটা সাধারণ মেথড লেখা যা একটা String রিটার্ন করে। এই মেথডকে main থেকে manual-ভাবে object বানিয়ে কল করেও console-এ print করানো যায় — কিন্তু সেটা তো পুরনো Java-র কায়দা, ব্রাউজার থেকে কল করার উপায় নয়।</p>
+  <ul class="order-list">
+    <li><code>com.example.demo</code> প্যাকেজে নতুন class <strong>HelloController</strong> — ভেতরে একটা মেথড যা String রিটার্ন করে।</li>
+    <li>Main থেকে manual object বানিয়ে কল করে console-এ print করা যায় — কিন্তু এটা পুরনো Java-র কায়দা, ব্রাউজার থেকে কল করার উপায় নয়।</li>
+  </ul>
 
-  <p>ব্রাউজার থেকে <code>/hello</code> লিখলেই যেন এই মেথড অটোমেটিক কল হয়, তার জন্য দুটো অ্যানোটেশন লাগে —</p>
+  <p>ব্রাউজার থেকে <code>/hello</code> লিখলেই মেথড অটোমেটিক কল হতে দুটো অ্যানোটেশন লাগে —</p>
   <ul class="order-list">
     <li><strong>@RestController</strong> — ক্লাসটাকে বলে দেয় এটা একটা "gateway", অর্থাৎ এখানে API endpoint লেখা হবে</li>
     <li><strong>@GetMapping("hello")</strong> — বলে দেয় কোন URL path (GET request) হিট হলে ঠিক এই মেথডটা কল হবে</li>
@@ -965,9 +1016,12 @@ public class HelloController {
 }</code></pre>
   </div>
 
-  <p>লক্ষ করার বিষয়, মেথডের নাম (<code>hello</code>, <code>greetBye</code>) আর endpoint path (<code>hello</code>, <code>bye</code>) এক হতে হবে এমন কোনো নিয়ম নেই — <code>@GetMapping</code>-এর ভেতরে যে string লেখা থাকে সেটাই আসল path ঠিক করে। এখানে return value-তে সরাসরি <code>&lt;h1&gt;</code> ট্যাগ ব্যবহার করা হয়েছে, ফলে ব্রাউজার সেটাকে HTML হিসেবে render করবে (শুধু plain text না)।</p>
+  <ul class="order-list">
+    <li>মেথডের নাম (<code>hello</code>, <code>greetBye</code>) আর endpoint path (<code>hello</code>, <code>bye</code>) এক হতে হবে — এমন নিয়ম নেই; <code>@GetMapping</code>-এর ভেতরের string-ই path ঠিক করে।</li>
+    <li>Return value-তে সরাসরি <code>&lt;h1&gt;</code> ট্যাগ থাকলে ব্রাউজার সেটাকে HTML হিসেবে render করবে (plain text না)।</li>
+  </ul>
 
-  <div class="insight"><strong>খেয়াল রাখো:</strong> এই পর্যায়ে <code>@RestController</code> বা <code>@GetMapping</code> ঠিক কীভাবে ভেতরে কাজ করে (mapping কীভাবে হয়, Tomcat কীভাবে শুরু হয়) — সেই internals এখনো ইচ্ছাকৃতভাবে শেখানো হয়নি। এই লেকচারের উদ্দেশ্য শুধু দেখানো যে Spring Boot দিয়ে কত দ্রুত একটা working endpoint বানানো যায়।</div>
+  <div class="insight"><strong>খেয়াল রাখো:</strong> <code>@RestController</code>/<code>@GetMapping</code>-এর internals এখনো শেখানো হয়নি — এই লেকচারের উদ্দেশ্য শুধু দেখানো Spring Boot দিয়ে কত দ্রুত working endpoint বানানো যায়।</div>
 </section>
 
 <section class="section" id="sec-8">
@@ -975,11 +1029,13 @@ public class HelloController {
     <span class="sec-num">8</span>
     <h2>অ্যাপ্লিকেশন Run করা, Response দেখা ও পরের ধাপের ইঙ্গিত</h2>
   </div>
-  <p>DemoApplication ক্লাস run করলেই console-এ কিছু লগ দেখা যায়, যার মধ্যে গুরুত্বপূর্ণ লাইন — <strong>"Tomcat started on port 8080"</strong>। এর মানে, আমরা নিজে থেকে কোনো সার্ভার ইনস্টল করিনি; Spring Web dependency যোগ করার সাথে সাথেই embedded Tomcat সার্ভার অটোমেটিক চালু হয়ে গেছে।</p>
+  <ul class="order-list">
+    <li>DemoApplication run করলে console-এ <strong>"Tomcat started on port 8080"</strong> — Spring Web dependency যোগ করা মাত্র embedded Tomcat অটোমেটিক চালু হয়ে যায়, আলাদা ইনস্টল লাগে না।</li>
+    <li>Endpoint তৈরির আগে <code>localhost:8080/hello</code> হিট করলে <strong>Whitelabel Error Page</strong> ("no explicit mapping for /error") — সার্ভার চলছে, কিন্তু ওই path-এর mapping নেই।</li>
+    <li>HelloController বানিয়ে rerun করলে ব্রাউজারে <strong>"Hello World"</strong> দেখা যায় (<code>&lt;h1&gt;</code>-সহ)।</li>
+  </ul>
 
-  <p><code>localhost:8080/hello</code>-এ গিয়ে endpoint তৈরির আগে হিট করলে একটা <strong>Whitelabel Error Page</strong> দেখা যায় ("no explicit mapping for /error") — এর মানে সার্ভার চলছে ঠিকই, কিন্তু ওই path-এর জন্য কোনো mapping (আমাদের controller মেথড) নেই। HelloController তৈরি ও অ্যানোটেশন যোগ করার পর অ্যাপ্লিকেশন আবার run (rerun) করলে ব্রাউজারে ঠিক ঠিক <strong>"Hello World"</strong> (এখানে <code>&lt;h1&gt;</code> ট্যাগ-সহ বড় হরফে) দেখা যায়।</p>
-
-  <p>Server-এর port পরিবর্তন করাও সহজ — <code>src/main/resources/application.properties</code> ফাইলে <code>server.port</code> সেট করলেই Tomcat সেই নতুন port-এ চালু হবে:</p>
+  <p><code>src/main/resources/application.properties</code>-এ <code>server.port</code> সেট করলে Tomcat নতুন port-এ চালু হয়:</p>
 
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>application.properties</div>
@@ -987,11 +1043,12 @@ public class HelloController {
 server.port=9090</code></pre>
   </div>
 
-  <p>এই পরিবর্তনের পর পুরনো <code>localhost:8080</code> আর কাজ করবে না ("this site can't be reached") — এখন হিট করতে হবে <code>localhost:9090/hello</code>। এখান থেকে বোঝা যায়, port শোনার (listen) কাজটা Spring Boot অ্যাপ্লিকেশন নয়, বরং তার ভেতরের embedded Tomcat সার্ভার করে।</p>
+  <ul class="order-list">
+    <li>পরিবর্তনের পর পুরনো <code>localhost:8080</code> কাজ করে না — নতুন <code>localhost:9090/hello</code> হিট করতে হয়। বোঝা যায়, port listen করার কাজ Spring Boot অ্যাপ্লিকেশন নয়, embedded Tomcat করে।</li>
+    <li>প্রায় ১০ মিনিটে একটা কাজ করা Spring Boot অ্যাপ্লিকেশন তৈরি — কোনো manual configuration ছাড়াই।</li>
+  </ul>
 
-  <p>প্রায় ১০ মিনিটে একটা সম্পূর্ণ কাজ করা Spring Boot অ্যাপ্লিকেশন তৈরি হয়ে গেল — কোনোরকম manual configuration ছাড়াই। এখানেই দেখানো হলো Spring Boot কতটা দ্রুত auto-configuration করে দেয়, যাতে ডেভেলপার সরাসরি business logic-এ মন দিতে পারে।</p>
-
-  <div class="insight"><strong>পরের লেকচারের ইঙ্গিত:</strong> Spring Initializr-এ যে "Maven" বেছে নেওয়া হয়েছিল, সেটা আসলে একটা <strong>project management tool</strong> — Java প্রজেক্টের dependency এবং build পরিচালনা করে। Maven ঠিক কীভাবে কাজ করে, তার গভীর আলোচনা পরের লেকচারে হবে; এই লেকচারে শুধু এটুকু জানলেই যথেষ্ট যে Maven আমাদের প্রজেক্ট ম্যানেজ করছে। একইভাবে <code>@RestController</code>, <code>@GetMapping</code>, বা <code>Tomcat</code> কীভাবে ভেতরে ভেতরে কাজ করে (Spring Core-এর internals) — সেটাও পরের ক্লাসগুলোতে ধাপে ধাপে খোলা হবে।</div>
+  <div class="insight"><strong>পরের লেকচারের ইঙ্গিত:</strong> Spring Initializr-এ বেছে নেওয়া "Maven" একটা <strong>project management tool</strong> — dependency ও build পরিচালনা করে, গভীর আলোচনা পরের লেকচারে। <code>@RestController</code>/<code>@GetMapping</code>/<code>Tomcat</code>-এর internals-ও পরে ধাপে ধাপে খোলা হবে।</div>
 
   <div class="practice">
     <div class="practice-title">অনুশীলন প্রশ্ন</div>
@@ -1010,13 +1067,25 @@ server.port=9090</code></pre>
     <span class="sec-num">9</span>
     <h2>JAR ফাইল ও Maven কেন দরকার</h2>
   </div>
-  <p>Maven বোঝার আগে বুঝতে হবে <strong>JAR (Java Archive)</strong> ফাইল আসলে কী। ধরো তুমি জাভায় একটা প্রোজেক্ট লিখছো — <code>Order.java</code>, <code>User.java</code>, <code>Payment.java</code> এরকম অনেক ক্লাস আছে। এগুলো এক এক করে কম্পাইল করলে অনেক <code>.class</code> ফাইল তৈরি হবে। এখন এই পুরো প্রোজেক্টটা যদি বন্ধুর সাথে শেয়ার করতে হয়, প্রতিটা ফাইল আলাদা করে পাঠানো খুবই বাজে পদ্ধতি — ফোল্ডার স্ট্রাকচার নষ্ট হতে পারে, কিছু রিসোর্স ফাইল মিস হয়ে যেতে পারে।</p>
-  <p>এই সমস্যার সমাধান হিসেবে এসেছে JAR — এটা অনেকটা একটা ZIP ফাইলের মতো, যার ভেতরে একাধিক <code>.class</code> ফাইল, রিসোর্স (image, properties file) এবং প্যাকেজ/ফোল্ডার একসাথে প্যাক করা থাকে। JAR-কে তাই একটা <strong>প্যাকেজ</strong> বলা যায়, যেটা কারো সাথে শেয়ার করা অনেক সহজ।</p>
-  <p>JAR এর দুইটা বড় সুবিধা আছে। প্রথমত, নিজের কোড/লাইব্রেরি সহজে শেয়ার করা যায়। দ্বিতীয়ত, অন্যের বানানো <strong>third-party library</strong>-ও একই ভাবে JAR হিসেবে নিজের প্রোজেক্টে ব্যবহার করা যায় — যেমন ডেটাবেসের সাথে কানেক্ট করতে হলে MySQL Connector-এর JAR লাগবে।</p>
-  <p><strong>Library বনাম Application</strong> — Library হলো এমন কোড যেটা নিজে থেকে রান হয় না (কোনো <code>main</code> ফাংশন নেই), শুধু কিছু ক্লাস/মেথড থাকে যেগুলো অন্য কেউ ব্যবহার করে। Application হলো যেটা independently রান করা যায় — এর ভেতরে একটা <code>main</code> ফাংশন থাকে। যখন কোনো লাইব্রেরি কোনো অ্যাপ্লিকেশনের ভেতরে ব্যবহার হয়, তখন সেই লাইব্রেরিকে বলা হয় ওই অ্যাপ্লিকেশনের <strong>dependency</strong>।</p>
-  <div class="insight"><strong>খেয়াল রাখো:</strong> Library-র JAR বানালে তার ভেতরে external dependency-র JAR গুলো থাকে না — শুধু নিজের কোড থাকে। কিন্তু কোনো Application (যেমন Spring Boot অ্যাপ)-এর JAR বানালে সেটা হয়ে যায় <strong>executable JAR</strong> — সব dependency সহ, যেটা independently রান করা যায়। Library-র JAR হলো <strong>non-executable JAR</strong> — এর dependency-র তথ্য থাকে একটা স্পেশাল ফাইলে, যার নাম <code>pom.xml</code> (Maven ব্যবহার করলে)।</div>
-  <p>রান-টাইমে যখন নিজের কোড এবং third-party লাইব্রেরির কোড একসাথে দরকার হয়, তখন JVM একটা বিশেষ জায়গায় ক্লাস খুঁজে বের করে — একে বলে <strong>classpath</strong>। প্রথমে নিজের কোডে খোঁজে, না পেলে dependency-র JAR গুলোর bytecode-এ খোঁজে।</p>
-  <p>এখন আসল সমস্যা — এই dependency-গুলো কীভাবে জোগাড় করবে? একটা উপায় হলো ম্যানুয়ালি গিয়ে গুগল করে JAR ডাউনলোড করা (যেমন mysql.com থেকে সরাসরি)। এটা একটা-দুইটা dependency-র জন্য ঠিক আছে, কিন্তু বাস্তব প্রোজেক্টে শত শত dependency লাগে, যার প্রতিটার version মেলাতে হয়, আর একটা dependency আবার আরেকটার উপর নির্ভর করে (একে বলে <strong>transitive dependency</strong>)। এই পুরো ম্যানুয়াল ঝামেলা, version mismatch-এর ঝুঁকি, আর transitive dependency ট্র্যাক করার কষ্ট — এসবের সমাধান হিসেবেই আসে <strong>Maven</strong>।</p>
+  <ul class="order-list">
+    <li><strong>JAR (Java Archive)</strong> — অনেক ক্লাস (<code>Order.java</code>, <code>User.java</code>...) কম্পাইল করলে অনেক <code>.class</code> ফাইল হয়; সবগুলো আলাদা শেয়ার করা বাজে পদ্ধতি (ফোল্ডার স্ট্রাকচার নষ্ট/ফাইল মিস হওয়ার ঝুঁকি)।</li>
+    <li>JAR একটা ZIP-এর মতো <strong>প্যাকেজ</strong> — <code>.class</code> ফাইল, রিসোর্স (image, properties), প্যাকেজ/ফোল্ডার একসাথে প্যাক করে।</li>
+    <li>দুই সুবিধা — নিজের কোড/লাইব্রেরি সহজে শেয়ার করা যায়, এবং অন্যের <strong>third-party library</strong>-ও JAR হিসেবে নিজের প্রোজেক্টে ব্যবহার করা যায় (যেমন MySQL Connector)।</li>
+  </ul>
+
+  <ul class="order-list">
+    <li><strong>Library</strong> — নিজে রান হয় না (<code>main</code> নেই), শুধু ক্লাস/মেথড থাকে যা অন্যে ব্যবহার করে।</li>
+    <li><strong>Application</strong> — independently রান করা যায়, ভেতরে <code>main</code> থাকে।</li>
+    <li>কোনো library কোনো application-এর ভেতরে ব্যবহার হলে সেটা ওই application-এর <strong>dependency</strong>।</li>
+  </ul>
+
+  <div class="insight"><strong>খেয়াল রাখো:</strong> Library-র JAR-এ external dependency থাকে না — এটা <strong>non-executable JAR</strong> (dependency তথ্য থাকে <code>pom.xml</code>-এ)। Application (Spring Boot অ্যাপ)-এর JAR সব dependency সহ <strong>executable JAR</strong> — independently রান করা যায়।</div>
+
+  <ul class="order-list">
+    <li><strong>Classpath</strong> — রান-টাইমে JVM যেখানে ক্লাস খোঁজে; প্রথমে নিজের কোডে, না পেলে dependency-র JAR-এ।</li>
+    <li>Dependency ম্যানুয়ালি গুগল করে ডাউনলোড করা (mysql.com থেকে সরাসরি) ছোট প্রোজেক্টে চলে, কিন্তু বাস্তবে শত শত dependency, version mismatch, আর <strong>transitive dependency</strong> (এক dependency আরেকটার উপর নির্ভরশীল) সামলানো কঠিন।</li>
+    <li>➜ এই ঝামেলার সমাধান — <strong>Maven</strong>।</li>
+  </ul>
 </section>
 
 <section class="section" id="sec-10">
@@ -1024,13 +1093,17 @@ server.port=9090</code></pre>
     <span class="sec-num">10</span>
     <h2>Maven আসলে কী — একটি Project Management Tool</h2>
   </div>
-  <p>সংক্ষেপে বলতে গেলে, <strong>Maven</strong> হলো একটা <strong>project management tool</strong> — যেটা তোমার প্রোজেক্ট ম্যানেজ করার সব ঝামেলা নিজে হ্যান্ডেল করে নেয়, যাতে তুমি শুধু নিজের business logic নিয়ে ফোকাস করতে পারো। বাজারে Maven ছাড়াও Gradle আছে, কিন্তু Maven সবচেয়ে বেশি ব্যবহৃত হয় এবং শেখাও তুলনামূলক সহজ।</p>
-  <p>মূলত Maven চারটা কাজ করে —</p>
   <ul class="order-list">
-    <li>একটা <strong>নির্দিষ্ট ফোল্ডার স্ট্রাকচার</strong> মেইনটেইন করে — টিমের সবাই যেন একই স্ট্যান্ডার্ড স্ট্রাকচার ফলো করে, কেউ নিজের মতো আলাদা প্লেসে ফাইল না রাখে</li>
-    <li>জাভা কোড <strong>কম্পাইল</strong> করে দেয় — এক ক্লিকে পুরো প্রোজেক্টের সব ক্লাস কম্পাইল হয়ে যায়</li>
-    <li>কোডের <strong>JAR ফাইল বানিয়ে দেয়</strong> (packaging)</li>
-    <li>প্রয়োজনীয় সব <strong>dependency ডাউনলোড</strong> করে দেয় ইন্টারনেট থেকে — transitive dependency সহ, ম্যানুয়ালি কিছুই করতে হয় না</li>
+    <li><strong>Maven</strong> — একটা <strong>project management tool</strong>, প্রোজেক্ট ম্যানেজমেন্টের ঝামেলা নিজে হ্যান্ডেল করে যাতে ডেভেলপার business logic-এ ফোকাস করতে পারে।</li>
+    <li>Gradle-ও বিকল্প আছে, কিন্তু Maven সবচেয়ে বেশি ব্যবহৃত ও শেখা সহজ।</li>
+  </ul>
+
+  <p>Maven চারটা কাজ করে —</p>
+  <ul class="order-list">
+    <li><strong>ফোল্ডার স্ট্রাকচার</strong> মেইনটেইন করে — টিমের সবাই একই স্ট্যান্ডার্ড ফলো করে।</li>
+    <li>জাভা কোড <strong>কম্পাইল</strong> করে — এক ক্লিকে পুরো প্রোজেক্ট।</li>
+    <li>JAR ফাইল বানায় (<strong>packaging</strong>)।</li>
+    <li>প্রয়োজনীয় সব <strong>dependency ডাউনলোড</strong> করে — transitive dependency সহ, ম্যানুয়াল কাজ নেই।</li>
   </ul>
   <div class="table-wrap">
     <table>
@@ -1042,7 +1115,7 @@ server.port=9090</code></pre>
       </tbody>
     </table>
   </div>
-  <p>Build system বলতে বোঝায় — তোমার কোড কীভাবে বিল্ড হবে, কীভাবে কম্পাইল হবে, কীভাবে প্যাকেজ হবে, dependency কীভাবে ডাউনলোড হবে — সেই পুরো নিয়মকানুন। টিমে সবাই একই build system ব্যবহার করলে কনসিসটেন্সি বজায় থাকে।</p>
+  <p><strong>Build system</strong> = কোড কীভাবে বিল্ড/কম্পাইল/প্যাকেজ হবে, dependency কীভাবে আসবে — সেই নিয়মকানুন। টিমে একই build system থাকলে কনসিসটেন্সি বজায় থাকে।</p>
 </section>
 
 <section class="section" id="sec-11">
@@ -1050,9 +1123,13 @@ server.port=9090</code></pre>
     <span class="sec-num">11</span>
     <h2>Maven প্রজেক্ট ও ফোল্ডার স্ট্রাকচার (IntelliJ)</h2>
   </div>
-  <p>IntelliJ-তে Maven প্রি-ইনস্টলড থাকে, তাই আলাদা করে ইনস্টল করার দরকার নেই। New Project করার সময় build system হিসেবে Maven বেছে নিলে, groupId ও artifactId জিজ্ঞেস করা হয় — এই লেকচারের ডেমো প্রোজেক্টের নাম <code>MavenDemo</code>, groupId <code>org.example</code>।</p>
-  <p>প্রোজেক্ট তৈরি হলে দুইটা মূল জিনিস গুরুত্বপূর্ণ — <code>src</code> ফোল্ডার এবং <code>pom.xml</code> ফাইল। বাকি (<code>.idea</code>, <code>.gitignore</code>, <code>.mvn</code>) IDE/Maven-এর internal ফাইল, ইগনোর করা যায়।</p>
-  <p><code>src</code>-এর ভেতরে দুইটা ফোল্ডার — <strong>main</strong> ও <strong>test</strong>। আসল বিজনেস লজিক থাকে <code>main</code>-এ, আর ইউনিট টেস্ট কেস (JUnit, Mockito দিয়ে লেখা) থাকে <code>test</code>-এ। <code>main</code>-এর ভেতরে আবার দুইটা ফোল্ডার — <strong>java</strong> (সব <code>.java</code> ফাইল) এবং <strong>resources</strong> (non-java ফাইল, যেমন properties, static image)।</p>
+  <ul class="order-list">
+    <li>IntelliJ-তে Maven প্রি-ইনস্টলড থাকে — আলাদা ইনস্টল লাগে না।</li>
+    <li>New Project-এ Maven বেছে নিলে groupId/artifactId জিজ্ঞেস করে — এই ডেমো: artifactId <code>MavenDemo</code>, groupId <code>org.example</code>।</li>
+    <li>দুইটা মূল জিনিস — <code>src</code> ফোল্ডার ও <code>pom.xml</code>; বাকি (<code>.idea</code>, <code>.gitignore</code>, <code>.mvn</code>) internal ফাইল, ইগনোর করা যায়।</li>
+    <li><code>src</code>-এর ভেতরে <strong>main</strong> (business logic) ও <strong>test</strong> (JUnit/Mockito টেস্ট)।</li>
+    <li><code>main</code>-এর ভেতরে <strong>java</strong> (<code>.java</code> ফাইল) ও <strong>resources</strong> (non-java, properties/static image)।</li>
+  </ul>
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>ফোল্ডার স্ট্রাকচার (groupId = org.example)</div>
     <pre><code>MavenDemo/
@@ -1070,9 +1147,11 @@ server.port=9090</code></pre>
     └── test/
         └── java/</code></pre>
   </div>
-  <p>লক্ষ্য করো — <code>groupId</code> ছিল <code>org.example</code>, আর Maven সেই অনুযায়ী <code>java</code> ফোল্ডারের ভেতরে <code>org</code>-এর ভেতরে <code>example</code> নামে ফোল্ডার বানিয়ে দিয়েছে (ডট মানেই নেস্টেড ফোল্ডার)। নিজের সব জাভা ফাইল এই <code>org/example</code>-এর ভেতরেই লিখতে হয়, যেমন এখানে <code>controller</code> নামে সাব-প্যাকেজ বানিয়ে <code>HelloController</code> রাখা হয়েছে।</p>
-  <div class="insight"><strong>খেয়াল রাখো:</strong> যখন কম্পাইল/রান করা হয়, Maven একটা <code>target</code> ফোল্ডার বানায় যেখানে <code>classes</code> সাব-ফোল্ডারে ঠিক একই ফোল্ডার হায়ারার্কি (<code>org/example/...</code>) বজায় রেখে <code>.class</code> (bytecode) ফাইলগুলো রাখা হয়। <code>target</code> ফোল্ডার ডিলিট করে দিলেও চিন্তা নেই — আবার compile/run করলেই সেটা রিজেনারেট হয়ে যায়।</div>
-  <p>IntelliJ-এর ডান পাশে একটা Maven প্যানেল থাকে যেখানে <strong>Lifecycle</strong>, <strong>Plugins</strong>, ও <strong>Dependencies</strong> ট্যাব দেখা যায় — এখান থেকে ক্লিক করেই compile, package ইত্যাদি ফেজ রান করা যায়।</p>
+  <ul class="order-list">
+    <li><code>groupId</code> (<code>org.example</code>) অনুযায়ী Maven <code>java</code>-এর ভেতরে <code>org/example</code> ফোল্ডার বানায় (ডট = নেস্টেড ফোল্ডার); সব জাভা ফাইল এর ভেতরেই লিখতে হয় (যেমন <code>controller</code> সাব-প্যাকেজে <code>HelloController</code>)।</li>
+  </ul>
+  <div class="insight"><strong>খেয়াল রাখো:</strong> কম্পাইল/রান করলে Maven <code>target</code> ফোল্ডার বানায়, যেখানে <code>classes</code>-এ একই হায়ারার্কি বজায় রেখে <code>.class</code> ফাইল রাখে। <code>target</code> ডিলিট করলেও চিন্তা নেই — আবার build করলেই রিজেনারেট হয়।</div>
+  <p>IntelliJ-এর Maven প্যানেলে <strong>Lifecycle</strong>, <strong>Plugins</strong>, <strong>Dependencies</strong> ট্যাব থেকে compile/package ফেজ রান করা যায়।</p>
 </section>
 
 <section class="section" id="sec-12">
@@ -1080,7 +1159,7 @@ server.port=9090</code></pre>
     <span class="sec-num">12</span>
     <h2>pom.xml — প্রজেক্টের পরিচয়পত্র</h2>
   </div>
-  <p><code>pom.xml</code> হলো Maven-এর সবচেয়ে গুরুত্বপূর্ণ ফাইল। এর ফুল ফর্ম <strong>Project Object Model XML</strong>। এটাতে প্রোজেক্ট সম্পর্কে সব তথ্য থাকে — নাম, ভার্সন, কী কী third-party লাইব্রেরি লাগবে, কী কী plugin লাগবে ইত্যাদি।</p>
+  <p><code>pom.xml</code> (<strong>Project Object Model XML</strong>) — Maven-এর সবচেয়ে গুরুত্বপূর্ণ ফাইল; নাম, ভার্সন, dependency, plugin — প্রোজেক্টের সব তথ্য এখানে।</p>
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>pom.xml (আসল প্রোজেক্ট থেকে)</div>
     <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -1120,17 +1199,24 @@ server.port=9090</code></pre>
 
 &lt;/project&gt;</code></pre>
   </div>
-  <p>প্রতিটা <code>pom.xml</code> শুরু হয় রুট ট্যাগ <code>&lt;project&gt;</code> দিয়ে। এর পরের <code>xmlns</code>/<code>xsi:schemaLocation</code> লাইনগুলো হলো <strong>schema</strong> — এটা বলে দেয় কোন ট্যাগ ব্যবহার করা বৈধ (allowed), কোনটা না। মনগড়া কোনো ট্যাগ বসালে IntelliJ সাথে সাথে "invalid context" এরর দেখাবে।</p>
-  <p><code>&lt;modelVersion&gt;</code> মানে pom-এর নিজের মডেলের ভার্সন (৪.০.০), এটা Maven সফটওয়্যারের ভার্সন থেকে আলাদা জিনিস।</p>
-  <p>সবচেয়ে গুরুত্বপূর্ণ তিনটা ট্যাগ — <strong>GAV (groupId, artifactId, version)</strong>। এই তিনটা মিলে সারা পৃথিবীতে প্রোজেক্টকে ইউনিকলি আইডেন্টিফাই করে।</p>
   <ul class="order-list">
-    <li><strong>groupId</strong> — সাধারণত নিজের ডোমেইন নাম উল্টো করে লেখা হয় (কনভেনশন), যেমন <code>coderarmy.in</code> থাকলে <code>in.coderarmy</code>। নিজের ডোমেইন না থাকলে <code>org.example</code>-এর মতো কিছু ব্যবহার করা যায়</li>
-    <li><strong>artifactId</strong> — প্রোজেক্টের নাম, এখানে <code>MavenDemo</code></li>
-    <li><strong>version</strong> — যেমন <code>1.0-SNAPSHOT</code>। "SNAPSHOT" মানে প্রোজেক্ট এখনো কাজ চলছে (working phase); কাজ শেষ হলে SNAPSHOT সরিয়ে একটা স্থায়ী ভার্সন নাম্বার দেওয়া হয়</li>
+    <li>রুট ট্যাগ <code>&lt;project&gt;</code>; <code>xmlns</code>/<code>xsi:schemaLocation</code> হলো <strong>schema</strong> — কোন ট্যাগ বৈধ তা ঠিক করে (মনগড়া ট্যাগ বসালে IntelliJ "invalid context" এরর দেখাবে)।</li>
+    <li><code>&lt;modelVersion&gt;</code> — pom মডেলের ভার্সন (৪.০.০), Maven সফটওয়্যারের ভার্সন থেকে আলাদা।</li>
   </ul>
-  <p><code>&lt;properties&gt;</code> ট্যাগে key-value পেয়ার রাখা যায় — যেমন <code>maven.compiler.source</code>। চাইলে নিজের কাস্টম key-ও বানানো যায় (যেমন <code>author.name</code>), এবং পুরো ফাইলে যেকোনো জায়গায় সেটা <code>${key.name}</code> সিনট্যাক্স দিয়ে রেফার করা যায়।</p>
-  <p><code>&lt;packaging&gt;</code> ট্যাগে <code>jar</code> বা <code>war</code> (Web Archive) লেখা যায়; কিছু না লিখলে ডিফল্ট <code>jar</code>-ই হয়।</p>
-  <div class="insight"><strong>খেয়াল রাখো:</strong> pom.xml-এও ইনহেরিটেন্স আছে। প্রতিটা pom-এর একটা parent থাকে — কিছু উল্লেখ না করলে ডিফল্ট parent হয় <strong>Super POM</strong> (ঠিক যেমন জাভায় কোনো ক্লাস কিছু extend না করলে বাই ডিফল্ট Object ক্লাস inherit করে)। IntelliJ-তে <em>Show Effective POM</em>-এ ক্লিক করলে দেখা যায় নিজের pom + সব parent pom মিলিয়ে চূড়ান্ত যে pom Maven আসলে ব্যবহার করে, সেটাকে বলে <strong>Effective POM</strong>। Spring Boot প্রোজেক্টে parent হিসেবে <code>spring-boot-starter-parent</code> থাকে, যেটার আবার নিজস্ব parent chain আছে, শেষে গিয়ে Super POM-এ পৌঁছায়।</div>
+
+  <p><strong>GAV (groupId, artifactId, version)</strong> — সারা পৃথিবীতে প্রোজেক্টকে ইউনিকলি আইডেন্টিফাই করে:</p>
+  <ul class="order-list">
+    <li><strong>groupId</strong> — নিজের ডোমেইন উল্টো করে লেখা কনভেনশন (<code>coderarmy.in</code> → <code>in.coderarmy</code>); না থাকলে <code>org.example</code>।</li>
+    <li><strong>artifactId</strong> — প্রোজেক্টের নাম, এখানে <code>MavenDemo</code>।</li>
+    <li><strong>version</strong> — যেমন <code>1.0-SNAPSHOT</code>; "SNAPSHOT" মানে এখনো কাজ চলছে, শেষ হলে স্থায়ী ভার্সন নাম্বার দেওয়া হয়।</li>
+  </ul>
+
+  <ul class="order-list">
+    <li><code>&lt;properties&gt;</code> — key-value পেয়ার (<code>maven.compiler.source</code>); কাস্টম key বানিয়ে <code>${key.name}</code> দিয়ে ফাইলে যেকোনো জায়গায় রেফার করা যায়।</li>
+    <li><code>&lt;packaging&gt;</code> — <code>jar</code> বা <code>war</code>; না লিখলে ডিফল্ট <code>jar</code>।</li>
+  </ul>
+
+  <div class="insight"><strong>খেয়াল রাখো:</strong> pom.xml-এও ইনহেরিটেন্স আছে — কিছু উল্লেখ না করলে ডিফল্ট parent <strong>Super POM</strong> (জাভায় কোনো ক্লাস extend না করলে বাই ডিফল্ট Object inherit করার মতো)। নিজের pom + সব parent মিলিয়ে যে pom Maven আসলে ব্যবহার করে, সেটা <strong>Effective POM</strong> (IntelliJ-এ <em>Show Effective POM</em>)। Spring Boot প্রোজেক্টে parent <code>spring-boot-starter-parent</code>, যার নিজস্ব chain শেষে Super POM-এ পৌঁছায়।</div>
 </section>
 
 <section class="section" id="sec-13">
@@ -1138,11 +1224,17 @@ server.port=9090</code></pre>
     <span class="sec-num">13</span>
     <h2>Dependency যোগ করা — Maven Repository ওয়েবসাইট ও Transitive Dependency</h2>
   </div>
-  <p>কোনো dependency-র exact groupId/artifactId/version মুখস্থ রাখার দরকার নেই। এর জন্য আছে <strong>mvnrepository.com</strong> নামের একটা ওয়েবসাইট — এখানে dependency-র নাম সার্চ করলে তার সব ভার্সনের Maven স্নিপেট পাওয়া যায়, সোজা কপি-পেস্ট করে <code>&lt;dependencies&gt;</code> ট্যাগের ভেতরে বসিয়ে দিলেই হয়।</p>
-  <div class="insight"><strong>খেয়াল রাখো:</strong> সবসময় একদম সর্বশেষ (latest) ভার্সন নেওয়া ভালো প্র্যাকটিস নয় — এতে বাগ থাকার সম্ভাবনা বেশি, কম মানুষ ব্যবহার করে থাকে। আবার খুব পুরনো ভার্সনও নেওয়া ঠিক না। মাঝামাঝি একটা স্টেবল, বহুল-ব্যবহৃত ভার্সন বেছে নেওয়াই ভালো (যেমন mysql-connector-j-এর জন্য 9.5.0)।</div>
-  <p>শুধু <code>pom.xml</code>-এ dependency লিখলেই সেটা অটোমেটিক ডাউনলোড হয়ে যায় না — IntelliJ-তে একটা reload/sync আইকনে ক্লিক করতে হয় (বা Maven প্যানেল থেকে reload), তখনই Maven সেই dependency ইন্টারনেট থেকে ডাউনলোড করে এবং <strong>External Libraries</strong>-এর ভেতরে দেখা যায়।</p>
-  <p>এখানে একটা ইন্টারেস্টিং জিনিস দেখা যায় — শুধু একটা <code>mysql-connector-j</code> লিখলেও এর সাথে আরেকটা dependency (যেমন Google Protobuf) নিজে থেকেই চলে আসে। এটাকে বলে <strong>transitive dependency</strong> — অর্থাৎ যে dependency চাওয়া হয়েছে, সেটা চলতে গেলে নিজেই আরও কিছু dependency-র উপর নির্ভর করে, আর Maven সেগুলোও নিজে থেকেই ডাউনলোড করে দেয়।</p>
-  <p>একইভাবে <code>hibernate-core</code> যোগ করলে দেখা যায় সেটা নিজে অনেকগুলো dependency-র উপর নির্ভর করে (Jakarta, Glassfish, Eclipse ইত্যাদির প্যাকেজ), আর সেগুলোর প্রতিটাও আবার আরও গভীরে নিজস্ব transitive dependency টেনে আনে। Maven প্যানেলের Dependencies ট্যাবে এই পুরো হায়ারার্কি (tree) দেখা যায়।</p>
+  <ul class="order-list">
+    <li>Dependency-র exact GAV মুখস্থ রাখার দরকার নেই — <strong>mvnrepository.com</strong>-এ সার্চ করলে সব ভার্সনের Maven স্নিপেট পাওয়া যায়, কপি-পেস্ট করে <code>&lt;dependencies&gt;</code>-এ বসিয়ে দিলেই হয়।</li>
+  </ul>
+
+  <div class="insight"><strong>খেয়াল রাখো:</strong> একদম latest ভার্সন নেওয়া ভালো প্র্যাকটিস নয় (বাগের সম্ভাবনা বেশি), খুব পুরনোও না — মাঝামাঝি স্টেবল, বহুল-ব্যবহৃত ভার্সন বেছে নেওয়াই ভালো।</div>
+
+  <ul class="order-list">
+    <li><code>pom.xml</code>-এ dependency লিখলেই অটো ডাউনলোড হয় না — IntelliJ-তে reload/sync করতে হয়, তখন Maven ডাউনলোড করে <strong>External Libraries</strong>-এ দেখায়।</li>
+    <li><strong>Transitive dependency</strong> — একটা dependency (যেমন <code>mysql-connector-j</code>) চাইলে তার নিজের নির্ভরতাও (Google Protobuf) নিজে থেকে চলে আসে।</li>
+    <li><code>hibernate-core</code> যোগ করলে আরও গভীর নির্ভরতা (Jakarta, Glassfish, Eclipse প্যাকেজ) টেনে আনে — Maven প্যানেলের Dependencies ট্যাবে পুরো tree দেখা যায়।</li>
+  </ul>
   <div class="table-wrap">
     <table>
       <thead><tr><th>ট্যাগ</th><th>মানে</th></tr></thead>
@@ -1154,7 +1246,7 @@ server.port=9090</code></pre>
       </tbody>
     </table>
   </div>
-  <p>ম্যানুয়ালি করলে যে কাজে অনেক সময় ও effort লাগতো, সেই একই কাজ এখানে শুধু dependency-র নাম বসিয়ে দিয়ে সেকেন্ডের মধ্যে হয়ে যায় — এটাই Maven-এর সবচেয়ে বড় সুবিধা।</p>
+  <p>➜ ম্যানুয়ালি করলে যা সময়সাপেক্ষ, তা এখানে dependency-র নাম বসিয়ে সেকেন্ডে হয়ে যায় — এটাই Maven-এর সবচেয়ে বড় সুবিধা।</p>
 </section>
 
 <section class="section" id="sec-14">
@@ -1162,7 +1254,7 @@ server.port=9090</code></pre>
     <span class="sec-num">14</span>
     <h2>Local vs Remote Repository — Maven Central ও .m2 ফোল্ডার</h2>
   </div>
-  <p>Maven মূলত দুই ধরনের repository ব্যবহার করে — <strong>Maven Central</strong> (remote) এবং <strong>Local Repository</strong>। এছাড়াও কোম্পানি-নির্দিষ্ট প্রাইভেট রিমোট repository-ও থাকতে পারে।</p>
+  <p>Maven দুই ধরনের repository ব্যবহার করে — <strong>Maven Central</strong> (remote) ও <strong>Local Repository</strong>; কোম্পানি-নির্দিষ্ট প্রাইভেট রিমোট repository-ও থাকতে পারে।</p>
   <div class="table-wrap">
     <table>
       <thead><tr><th>Repository</th><th>বিবরণ</th></tr></thead>
@@ -1181,8 +1273,11 @@ server.port=9090</code></pre>
     <li>লোকালি না পেলে <strong>Maven Central</strong> (বা override করা থাকলে কোম্পানির নিজস্ব রিমোট রিপোজিটরি) থেকে ডাউনলোড করে</li>
     <li>ডাউনলোড করার পরে সেটা <code>.m2</code>-তেও কপি রেখে দেয় (cache করে), যাতে পরের বার আর ইন্টারনেট থেকে আনতে না হয়</li>
   </ul>
-  <div class="insight"><strong>খেয়াল রাখো:</strong> এই জন্যই প্রথমবার প্রোজেক্ট বিল্ড করলে একটু সময় লাগে (সব dependency ইন্টারনেট থেকে আসে), কিন্তু পরের বার থেকে অনেক দ্রুত হয়ে যায় (local cache থেকে আসে)। ডিফল্টে <code>&lt;repository&gt;</code> ট্যাগ override করে নিজের কোম্পানির রিমোট repository-র URL ব্যবহার করা সম্ভব <code>&lt;repositories&gt;</code> ট্যাগ দিয়ে।</div>
-  <p>নিজের বানানো JAR-এর নামকরণও এই একই GAV কনভেনশন মেনে হয় — <code>artifactId-version.jar</code>। যেমন এই ডেমো প্রোজেক্টের artifactId <code>MavenDemo</code> আর version <code>1.0-SNAPSHOT</code> হওয়ায় জেনারেট হওয়া JAR-এর নাম হয় <code>MavenDemo-1.0-SNAPSHOT.jar</code>। এই একই নিয়মে <code>.m2</code>-এর ভেতরে ফোল্ডার স্ট্রাকচারও তৈরি হয় — <code>groupId/artifactId/version/artifactId-version.jar</code>।</p>
+  <div class="insight"><strong>খেয়াল রাখো:</strong> প্রথমবার বিল্ড করলে সময় লাগে (ইন্টারনেট থেকে dependency আসে), পরের বার দ্রুত (local cache থেকে)। <code>&lt;repositories&gt;</code> ট্যাগ দিয়ে কোম্পানির নিজস্ব রিমোট repository override করা যায়।</div>
+  <ul class="order-list">
+    <li>নিজের JAR-এর নামকরণও GAV কনভেনশন মানে — <code>artifactId-version.jar</code> (এখানে <code>MavenDemo-1.0-SNAPSHOT.jar</code>)।</li>
+    <li><code>.m2</code>-এর ভেতরে ফোল্ডার স্ট্রাকচার — <code>groupId/artifactId/version/artifactId-version.jar</code>।</li>
+  </ul>
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>.m2 local repository — ফোল্ডার স্ট্রাকচার</div>
     <pre><code>~/.m2/repository/
@@ -1200,7 +1295,7 @@ server.port=9090</code></pre>
     <span class="sec-num">15</span>
     <h2>Maven Build Lifecycle — Validate থেকে Deploy পর্যন্ত</h2>
   </div>
-  <p>যখন জাভা কোড লিখে সেটাকে রান করা হয়, তখন এর মাঝখানে অনেকগুলো অদৃশ্য ফেজ (phase) থাকে। Maven এই সব ফেজকে সুসংগঠিতভাবে হ্যান্ডেল করে — একে বলে <strong>Build Lifecycle</strong>। Maven-এর পুরো lifecycle মূলত তিন ভাগে ভাগ করা —</p>
+  <p>কোড রান করার মাঝে অনেক অদৃশ্য ফেজ থাকে, Maven সেগুলো সুসংগঠিতভাবে হ্যান্ডেল করে — একে বলে <strong>Build Lifecycle</strong>, তিন ভাগে ভাগ করা —</p>
   <div class="table-wrap">
     <table>
       <thead><tr><th>Lifecycle</th><th>ফেজ</th></tr></thead>
@@ -1211,18 +1306,21 @@ server.port=9090</code></pre>
       </tbody>
     </table>
   </div>
-  <p><strong>Default Lifecycle</strong>-ই সবচেয়ে গুরুত্বপূর্ণ, কারণ এখানে একাধিক ফেজ আছে যেগুলো নির্দিষ্ট ক্রম মেনে একের পর এক ঘটে —</p>
+  <p><strong>Default Lifecycle</strong>-এর ফেজ নির্দিষ্ট ক্রমে একের পর এক ঘটে —</p>
   <ul class="order-list">
-    <li><strong>validate</strong> — প্রোজেক্টের স্ট্রাকচার ঠিক আছে কিনা চেক করে; <code>pom.xml</code> আছে কিনা, সেটা readable কিনা, দরকারি সব ডিটেইল ঠিকঠাক আছে কিনা</li>
-    <li><strong>compile</strong> — <code>.java</code> ফাইলগুলোকে <code>.class</code>-এ কনভার্ট করে, <code>target/classes</code>-এর ভেতরে রাখে</li>
-    <li><strong>test</strong> — নিজের লেখা ইউনিট টেস্ট কেসগুলো (JUnit/Mockito দিয়ে) রান করে</li>
-    <li><strong>package</strong> — কম্পাইল হওয়া কোড থেকে JAR (বা WAR) ফাইল বানায়, <code>target</code>-এর ভেতরে রাখে</li>
-    <li><strong>verify</strong> — integration testing বা code quality চেক করার জায়গা; এখানে অতিরিক্ত plugin (pom.xml-এর <code>&lt;plugins&gt;</code> ট্যাগে) যোগ করে বাড়তি চেক করা যায়</li>
-    <li><strong>install</strong> — বানানো JAR-কে নিজের local repository (<code>.m2</code>)-তে ইনস্টল করে দেয়, যাতে অন্য লোকাল প্রোজেক্ট থেকেও এটা dependency হিসেবে ব্যবহার করা যায়</li>
-    <li><strong>deploy</strong> — install করা আর্টিফ্যাক্টকে কোম্পানির রিমোট রিপোজিটরিতে আপলোড করে দেয়, যাতে টিমের অন্য সবাই এটা ব্যবহার করতে পারে</li>
+    <li><strong>validate</strong> — প্রোজেক্ট স্ট্রাকচার ঠিক আছে কিনা চেক (<code>pom.xml</code> readable কিনা ইত্যাদি)।</li>
+    <li><strong>compile</strong> — <code>.java</code> → <code>.class</code>, <code>target/classes</code>-এ রাখে।</li>
+    <li><strong>test</strong> — ইউনিট টেস্ট (JUnit/Mockito) রান করে।</li>
+    <li><strong>package</strong> — JAR/WAR বানায়, <code>target</code>-এ রাখে।</li>
+    <li><strong>verify</strong> — integration testing/code quality চেক (<code>&lt;plugins&gt;</code> দিয়ে বাড়তি চেক যোগ করা যায়)।</li>
+    <li><strong>install</strong> — JAR নিজের local repository (<code>.m2</code>)-তে বসায়, অন্য লোকাল প্রোজেক্টও dependency হিসেবে ব্যবহার করতে পারে।</li>
+    <li><strong>deploy</strong> — install করা artifact কোম্পানির রিমোট রিপোজিটরিতে আপলোড করে, টিমের সবাই ব্যবহার করতে পারে।</li>
   </ul>
-  <div class="insight"><strong>খেয়াল রাখো:</strong> এই ফেজগুলো লিনিয়ার — কোনো একটা ফেজে ক্লিক করলে তার আগের সব ফেজ automatically ঘটে যায়। যেমন <code>package</code>-এ ক্লিক করলে আগে validate, তারপর compile, তারপর test — এই সব হয়ে তবেই JAR বানানো হয়। আর <code>deploy</code> মানে কিন্তু Git-এ push করা না — এটা শুধু নিজের কোম্পানির private remote repository-তে JAR/artifact আপলোড করা, যাতে টিমের বাকিরা সেটা dependency হিসেবে ব্যবহার করতে পারে।</div>
-  <p>এই ফেজগুলো IntelliJ-এর Maven প্যানেল থেকে ক্লিক করেও চালানো যায়, আবার টার্মিনাল থেকে কমান্ড দিয়েও — যেমন <code>mvn compile</code>, <code>mvn install</code>। দুইটা ভিন্ন lifecycle-এর ফেজ একসাথেও চালানো যায়, যেমন সবচেয়ে জনপ্রিয় কমান্ড <code>mvn clean install</code> — এটা প্রথমে পুরোনো <code>target</code> ফোল্ডার মুছে (clean lifecycle থেকে), তারপর validate → compile → test → package → verify → install (default lifecycle থেকে) — পুরো চেইন চালিয়ে local repository-তে ফ্রেশ JAR বসিয়ে দেয়।</p>
+  <div class="insight"><strong>খেয়াল রাখো:</strong> ফেজগুলো লিনিয়ার — যেকোনো ফেজে ক্লিক করলে তার আগের সব ফেজ automatically চলে (যেমন <code>package</code>-এ ক্লিক করলে validate→compile→test আগে হয়ে যায়)। <code>deploy</code> মানে Git push নয় — কোম্পানির private remote repository-তে artifact আপলোড।</div>
+  <ul class="order-list">
+    <li>ফেজ IntelliJ Maven প্যানেল থেকে বা টার্মিনাল কমান্ড দিয়ে চালানো যায় (<code>mvn compile</code>, <code>mvn install</code>)।</li>
+    <li>জনপ্রিয় কমান্ড <code>mvn clean install</code> — আগে <code>target</code> মুছে (clean), তারপর validate→...→install (default) — ফ্রেশ JAR local repository-তে বসায়।</li>
+  </ul>
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>টার্মিনাল কমান্ড</div>
     <pre><code><span class="comment"># নির্দিষ্ট একটা ফেজ পর্যন্ত চালানো (আগের সব ফেজ auto চলবে)</span>
@@ -1233,7 +1331,7 @@ mvn install
 <span class="comment"># সবচেয়ে জনপ্রিয় কমান্ড — আগে clean, তারপর পুরো default lifecycle</span>
 mvn clean install</code></pre>
   </div>
-  <p>প্রোজেক্ট তৈরির সময় IntelliJ-তে <strong>Archetype</strong> নামে একটা অপশনও থাকে — এগুলো বানানো-বানানো টেমপ্লেট (boilerplate কোড, প্রি-ইনস্টলড dependency সহ), যেমন Maven Central-এর ক্যাটালগ থেকে "Spring Boot Web Starter" আর্কেটাইপ বেছে নিলে শুরু থেকে কোড না লিখেও একটা রেডি প্রোজেক্ট পাওয়া যায়।</p>
+  <p><strong>Archetype</strong> (IntelliJ New Project অপশন) — রেডি টেমপ্লেট (boilerplate কোড + প্রি-ইনস্টলড dependency), যেমন "Spring Boot Web Starter" বেছে নিলে কোড না লিখেই রেডি প্রোজেক্ট পাওয়া যায়।</p>
   <div class="practice">
     <div class="practice-title">অনুশীলন প্রশ্ন</div>
     <ol>
@@ -1251,8 +1349,11 @@ mvn clean install</code></pre>
     <span class="sec-num">16</span>
     <h2>টাইট কাপলিং সমস্যা — OrderService নিজেই EmailService বানাচ্ছে</h2>
   </div>
-  <p>Spring শেখার আগে এই লেকচারে ইচ্ছে করেই <strong>Spring ছাড়া প্লেইন Java</strong>-তে একটা ছোট্ট কনসোল প্রজেক্ট (<code>CoreDemo</code>) বানানো হয়েছে, শুধু এটা বোঝানোর জন্য যে Dependency Injection আর Inversion of Control (IoC) আসলে কোন সমস্যার সমাধান — এগুলো Spring-এর নিজস্ব আবিষ্কার নয়, এগুলো ভালো Java ডিজাইনের নিয়ম, যেটার উপর Spring-এর পুরো আইডিওলজি দাঁড়িয়ে আছে।</p>
-  <p>শুরুতে সবচেয়ে সহজ, সরল একটা ডিজাইন দিয়ে শুরু হয়েছে। একটা <code>OrderService</code> ক্লাস আছে যার কাজ অর্ডার প্লেস করা, আর অর্ডার প্লেস হলে ইউজারকে একটা নোটিফিকেশনও পাঠাতে হবে — তার জন্য একটা <code>EmailService</code> ক্লাস। সবচেয়ে সোজা উপায় হলো <code>OrderService</code>-এর ভেতরেই সরাসরি <code>new EmailService()</code> লিখে অবজেক্ট বানিয়ে ফেলা।</p>
+  <ul class="order-list">
+    <li>এই লেকচারে ইচ্ছে করেই <strong>Spring ছাড়া প্লেইন Java</strong>-তে ছোট কনসোল প্রজেক্ট (<code>CoreDemo</code>) — দেখানোর জন্য যে DI ও IoC Spring-এর নিজস্ব আবিষ্কার নয়, ভালো Java ডিজাইনের নিয়ম, যার উপর Spring দাঁড়িয়ে।</li>
+    <li><code>OrderService</code> — অর্ডার প্লেস করে; অর্ডার প্লেস হলে নোটিফিকেশন পাঠাতে <code>EmailService</code> লাগে।</li>
+    <li>সবচেয়ে সোজা উপায় — <code>OrderService</code>-এর ভেতরেই সরাসরি <code>new EmailService()</code> লেখা।</li>
+  </ul>
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>শুরুর ডিজাইন (এখনো interface ছাড়া)</div>
     <pre><code>public class OrderService {
@@ -1267,8 +1368,8 @@ mvn clean install</code></pre>
     }
 }</code></pre>
   </div>
-  <p>এখানে <code>OrderService</code> একটা <code>EmailService</code>-এর উপর <strong>ডিপেন্ডেন্ট</strong> — যতক্ষণ না <code>EmailService</code>-এর অবজেক্ট বানানো হয়েছে, ততক্ষণ <code>placeOrder()</code> মেথডটাই কাজ করবে না। এটাকেই বলে <strong>dependency</strong>। কোডে dependency থাকা কোনো সমস্যা না — বাস্তব প্রজেক্টে শত শত ক্লাস একে অপরের উপর নির্ভর করেই থাকবে। আসল সমস্যাটা অন্য জায়গায়।</p>
-  <p>এখানে দুটো জিনিস একসাথে ঘটছে যেটা <strong>টাইট কাপলিং (tight coupling)</strong> তৈরি করে —</p>
+  <p><code>OrderService</code> এখানে <code>EmailService</code>-এর উপর <strong>ডিপেন্ডেন্ট</strong> — এটাই <strong>dependency</strong>, এটা নিজে সমস্যা না (বাস্তব প্রজেক্টে শত শত ক্লাস একে অপরের উপর নির্ভর করে)। আসল সমস্যা অন্য জায়গায়:</p>
+  <p><strong>টাইট কাপলিং (tight coupling)</strong> তৈরি হচ্ছে দুইভাবে —</p>
   <ul class="order-list">
     <li><code>OrderService</code> সরাসরি একটা <strong>concrete class</strong> (<code>EmailService</code>)-এর সাথে বাঁধা পড়ে গেছে, কোনো abstraction / <code>interface</code> ছাড়াই — কাল যদি SMS বা Pop-up নোটিফিকেশন পাঠাতে হয়, তাহলে <code>OrderService</code>-এর ভেতরে ঢুকে কোড পাল্টাতে হবে, যেটা <strong>Open-Closed Principle</strong> ভাঙে (ক্লাস extend করা যাবে, কিন্তু modify করা উচিত না)।</li>
     <li><code>OrderService</code> নিজের dependency নিজেই তৈরি করছে — অর্থাৎ সে অর্ডার ম্যানেজ করার পাশাপাশি নোটিফিকেশন অবজেক্ট বানানোর কাজটাও করছে। এতে <strong>Single Responsibility Principle</strong> ভাঙে, কারণ একটা ক্লাসের একাধিক কাজ (multiple responsibility) থেকে যাচ্ছে।</li>
@@ -1281,7 +1382,7 @@ mvn clean install</code></pre>
     <span class="sec-num">17</span>
     <h2>ইন্টারফেস দিয়ে ধাপ ১ — NotificationService abstraction, তবু আসল সমস্যা রয়েই গেল</h2>
   </div>
-  <p>Java-তে সাধারণ নিয়ম হলো, যতটা সম্ভব <strong>interface</strong>-এর সাথে কোড করা উচিত, concrete class-এর সাথে নয়। তাই প্রথম ধাপ হলো একটা কমন <code>NotificationService</code> interface বানানো — কারণ Email, SMS বা Pop-up, এরা সবাই আসলে এক ধরনের নোটিফিকেশনই পাঠায়।</p>
+  <p>Java-নিয়ম: যতটা সম্ভব <strong>interface</strong>-এর সাথে কোড করা উচিত, concrete class নয়। প্রথম ধাপ — কমন <code>NotificationService</code> interface (Email/SMS/Pop-up সবাই এক ধরনের নোটিফিকেশন পাঠায়)।</p>
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>NotificationService.java</div>
     <pre><code>package in.coderarmy.notification;
@@ -1290,7 +1391,10 @@ public interface NotificationService {
     void sendNotification();
 }</code></pre>
   </div>
-  <p>এরপর <code>EmailService</code>-কে এই interface <code>implements</code> করানো হয়, আর কোড পরিষ্কার রাখতে সব নোটিফিকেশন-রিলেটেড ক্লাসকে আলাদা <code>notification</code> প্যাকেজে সরিয়ে নেওয়া হয়। <code>OrderService</code>-এর ভেতরেও ভ্যারিয়েবলের টাইপ এখন concrete class না হয়ে interface হয়ে যায়।</p>
+  <ul class="order-list">
+    <li><code>EmailService</code> এই interface <code>implements</code> করে; নোটিফিকেশন-রিলেটেড সব ক্লাস আলাদা <code>notification</code> প্যাকেজে।</li>
+    <li><code>OrderService</code>-এর ভ্যারিয়েবল টাইপ এখন concrete class না হয়ে interface।</li>
+  </ul>
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>মাঝামাঝি ধাপ — টাইপ interface, কিন্তু object তৈরি এখনও ভেতরেই</div>
     <pre><code>public class OrderService {
@@ -1303,8 +1407,8 @@ public interface NotificationService {
     }
 }</code></pre>
   </div>
-  <p>এখন <code>notification</code> ভ্যারিয়েবলের রেফারেন্স টাইপ <code>NotificationService</code> (interface), <code>EmailService</code> নয় — এই পর্যন্ত ভালো লাগছে। <code>EmailService</code>-এর বদলে <code>SmsService</code> লিখলেও কোড ঠিকভাবে কম্পাইল ও রান হয়ে যায়, কারণ parent interface-এর reference variable child class-এর object কল করতে পারে (Java-এর বেসিক পলিমরফিজম নিয়ম)।</p>
-  <div class="insight"><strong>খেয়াল রাখো:</strong> এখানে একটা ফাঁদ আছে — ভ্যারিয়েবলের <em>টাইপ</em> interface হয়ে গেলেও, আসল object টা এখনো <code>OrderService</code>-এর ভেতরেই <code>new EmailService()</code> দিয়ে concrete-ভাবে তৈরি হচ্ছে। তাই টাইট কাপলিং আসলে এখনো দূর হয়নি — শুধু ভ্যারিয়েবলের ডিক্লেয়ারেশন বদলেছে, দায়িত্ব বদলায়নি। নতুন নোটিফিকেশন টাইপে সুইচ করতে গেলে এখনো <code>OrderService</code>-এর ভেতরেই ঢুকে কোড এডিট করতে হচ্ছে।</div>
+  <p><code>notification</code>-এর রেফারেন্স টাইপ এখন <code>NotificationService</code> (interface), <code>EmailService</code> নয় — <code>SmsService</code> লিখলেও কম্পাইল/রান হয় (parent interface reference child class object কল করতে পারে, পলিমরফিজম)।</p>
+  <div class="insight"><strong>ফাঁদ:</strong> ভ্যারিয়েবলের <em>টাইপ</em> interface হলেও, আসল object এখনো <code>OrderService</code>-এর ভেতরেই <code>new EmailService()</code> দিয়ে concrete-ভাবে তৈরি হচ্ছে — টাইট কাপলিং দূর হয়নি, শুধু ডিক্লেয়ারেশন বদলেছে। নতুন টাইপে সুইচ করতে এখনো <code>OrderService</code>-এর কোড এডিট করতে হয়।</div>
 </section>
 
 <section class="section" id="sec-18">
@@ -1312,7 +1416,7 @@ public interface NotificationService {
     <span class="sec-num">18</span>
     <h2>একাধিক Implementation — Email, SMS, Pop-up ও টেস্টের জন্য Fake</h2>
   </div>
-  <p><code>NotificationService</code> interface-টা একবার ঠিকমতো বানানো হয়ে গেলে, তার একাধিক implementation বানানো খুব সহজ — প্রতিটা ক্লাস শুধু নিজের মতো করে <code>sendNotification()</code> মেথডটা <code>@Override</code> করে দেয়।</p>
+  <p><code>NotificationService</code> interface একবার বানানো হলে একাধিক implementation বানানো সহজ — প্রতিটা ক্লাস নিজের মতো <code>sendNotification()</code> <code>@Override</code> করে।</p>
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>EmailService.java</div>
     <pre><code>package in.coderarmy.notification;
@@ -1350,7 +1454,7 @@ public class PopUpNotificationService implements NotificationService {
     }
 }</code></pre>
   </div>
-  <p>এছাড়াও একটা <code>FakeEmailService</code> বানানো হয়েছে, যেটা আসলে কোনো ইমেইল পাঠায় না — শুধু একটা ডামি মেসেজ প্রিন্ট করে। এটা বানানোর উদ্দেশ্য <strong>ইউনিট টেস্টিং</strong>-এর সময় কাজে লাগানো — যখন <code>OrderService</code>-এর <code>placeOrder()</code> লজিক টেস্ট করতে হবে, তখন প্রতিবার সত্যিকারের ইমেইল/SMS পাঠানোর দরকার নেই।</p>
+  <p><code>FakeEmailService</code> — কোনো ইমেইল পাঠায় না, শুধু ডামি মেসেজ প্রিন্ট করে; <strong>ইউনিট টেস্টিং</strong>-এর জন্য (তখন সত্যিকারের ইমেইল/SMS পাঠানোর দরকার নেই)।</p>
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>FakeEmailService.java</div>
     <pre><code>package in.coderarmy.notification;
@@ -1368,7 +1472,7 @@ public class FakeEmailService implements NotificationService {
 NotificationService (interface) ──┤── SmsService
    sendNotification()             ├── PopUpNotificationService
                                    └── FakeEmailService (শুধু টেস্টের জন্য)</div>
-  <p><code>OrderService</code>-এর কিন্তু কোনো ধারণাই নেই যে ঠিক কোন implementation তার কাছে আসছে — সে শুধু জানে তার কাছে একটা <code>NotificationService</code> আছে এবং সে তার <code>sendNotification()</code> কল করতে পারবে। এটাই <strong>loose coupling</strong>-এর আসল সুবিধা।</p>
+  <p><code>OrderService</code>-এর কোনো ধারণা নেই ঠিক কোন implementation আসছে — শুধু জানে <code>NotificationService</code> আছে ও <code>sendNotification()</code> কল করা যাবে। এটাই <strong>loose coupling</strong>-এর সুবিধা।</p>
 </section>
 
 <section class="section" id="sec-19">
@@ -1376,7 +1480,7 @@ NotificationService (interface) ──┤── SmsService
     <span class="sec-num">19</span>
     <h2>Main-এ ম্যানুয়াল Dependency Injection — Constructor ও Setter Injection</h2>
   </div>
-  <p>এখন আসল সমাধান — <code>OrderService</code> নিজে থেকে কোনো <code>NotificationService</code> তৈরি করবে না, বরং বাইরে থেকে কেউ তাকে সেই dependency-টা <strong>পাঠিয়ে দেবে (inject করবে)</strong>। এর জন্য একটা <strong>constructor</strong> বানানো হয়, যেখানে <code>OrderService</code> শুধু বলে দেয় তার কী চাই — একটা <code>NotificationService</code> — কীভাবে সেটা বানানো হবে সেটা তার মাথাব্যথা নয়।</p>
+  <p>আসল সমাধান — <code>OrderService</code> নিজে <code>NotificationService</code> তৈরি করবে না, বাইরে থেকে কেউ সেটা <strong>পাঠিয়ে দেবে (inject করবে)</strong>। <strong>constructor</strong>-এ শুধু বলে দেয় তার কী চাই — কীভাবে বানানো হবে সেটা তার মাথাব্যথা নয়।</p>
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>OrderService.java (আসল কোড)</div>
     <pre><code>package in.coderarmy;
@@ -1414,7 +1518,7 @@ public class OrderService {
     <li><strong>Constructor Injection</strong> — প্যারামিটার-ওয়ালা কনস্ট্রাক্টর দিয়ে, অবজেক্ট তৈরির সময়েই dependency পাস করে দেওয়া।</li>
     <li><strong>Setter Injection</strong> — একটা খালি (no-arg) কনস্ট্রাক্টর দিয়ে আগে অবজেক্ট বানিয়ে, পরে <code>setNotification()</code> মেথড কল করে dependency বসিয়ে দেওয়া।</li>
   </ul>
-  <p>এই পুরো কাজটা — কে কার dependency, কীভাবে সেগুলো একসাথে জোড়া লাগবে (wiring) — এখন <code>Main</code> ক্লাসের দায়িত্ব হয়ে গেছে।</p>
+  <p>➜ কে কার dependency, কীভাবে জোড়া লাগবে (wiring) — এখন <code>Main</code> ক্লাসের দায়িত্ব।</p>
   <div class="code-block">
     <div class="code-label"><span class="dot"></span>Main.java (আসল কোড)</div>
     <pre><code>package in.coderarmy;
@@ -1436,8 +1540,11 @@ public class Main {
 
 // IOC --> Inversion of control</code></pre>
   </div>
-  <p>এখানে <code>Main</code>-ই প্রথমে <code>EmailService</code>-এর অবজেক্ট বানাচ্ছে, তারপর <code>OrderService</code>-এর অবজেক্ট বানাচ্ছে, আর শেষে <code>setNotification()</code> দিয়ে dependency-টা জোড়া লাগিয়ে দিচ্ছে (কমেন্ট করা লাইনটা দেখালে বোঝা যায়, চাইলে constructor injection দিয়েও একই কাজ সরাসরি এক লাইনে করা যেত)। নোটিফিকেশন টাইপ বদলাতে হলে এখন শুধু <code>Main</code>-এর একটা লাইন বদলালেই হয় (<code>new EmailService()</code> → <code>new SmsService()</code>) — <code>OrderService</code>-এর কোডে কোনো হাতই দিতে হয় না।</p>
-  <div class="insight"><strong>খেয়াল রাখো:</strong> এই কৌশলের বিখ্যাত এক লাইনের সারমর্ম — <em>"Don't create your own dependency, get your dependency"</em>, অথবা <em>"A class should ask what it needs and not build everything itself"</em>। Dependency Injection-এর তিন নম্বর একটা ধরনও আছে — <strong>Field Injection</strong> — কিন্তু প্লেইন Java-তে সেটা সরাসরি সম্ভব না; সেটা Spring Framework ব্যবহার করলে তবেই বোঝা যাবে।</div>
+  <ul class="order-list">
+    <li><code>Main</code> প্রথমে <code>EmailService</code>, তারপর <code>OrderService</code> বানায়, শেষে <code>setNotification()</code> দিয়ে জোড়া লাগায় (constructor injection দিয়েও এক লাইনে করা যেত)।</li>
+    <li>নোটিফিকেশন টাইপ বদলাতে এখন শুধু <code>Main</code>-এর এক লাইন বদলালেই হয় (<code>new EmailService()</code> → <code>new SmsService()</code>) — <code>OrderService</code>-এর কোডে হাত দিতে হয় না।</li>
+  </ul>
+  <div class="insight"><strong>খেয়াল রাখো:</strong> সারমর্ম — <em>"Don't create your own dependency, get your dependency"</em> / <em>"A class should ask what it needs and not build everything itself"</em>। তৃতীয় ধরন <strong>Field Injection</strong>-ও আছে, কিন্তু প্লেইন Java-তে সরাসরি সম্ভব না — Spring Framework-এই বোঝা যাবে।</div>
 </section>
 
 <section class="section" id="sec-20">
@@ -1445,8 +1552,12 @@ public class Main {
     <span class="sec-num">20</span>
     <h2>Inversion of Control (IoC) — কন্ট্রোলের ফ্লো উল্টে যাওয়া</h2>
   </div>
-  <p>Dependency Injection বোঝা হয়ে গেলে <strong>Inversion of Control (IoC)</strong> বোঝা কঠিন কিছু না — অনেকে এই দুটো টার্ম মিলিয়েও ফেলে, কিন্তু আসলে এরা আলাদা জিনিস, শুধু খুব কাছাকাছি সম্পর্কিত। IoC হলো একটা <strong>principle / আইডিয়া</strong>, আর Dependency Injection হলো সেই আইডিয়া বাস্তবায়ন করার একটা <strong>টেকনিক</strong>।</p>
-  <p>জিনিসটা বোঝার জন্য দেখা যাক, dependency injection-এর আগে আর পরে "কন্ট্রোল" কোন দিকে বইছিল —</p>
+  <ul class="order-list">
+    <li>অনেকে DI আর <strong>IoC</strong> মিলিয়ে ফেলে, কিন্তু এরা আলাদা — সম্পর্কিত মাত্র।</li>
+    <li><strong>IoC</strong> = একটা <strong>principle/আইডিয়া</strong>; <strong>Dependency Injection</strong> = সেই আইডিয়া বাস্তবায়নের <strong>টেকনিক</strong>।</li>
+  </ul>
+
+  <p>DI-এর আগে ও পরে "কন্ট্রোল" কোন দিকে বইছিল —</p>
   <div class="diagram">Injection-এর আগে:
    Main ──creates──► OrderService ──creates──► EmailService
                         (কন্ট্রোল OrderService-এর ভেতরে ছিল)
@@ -1456,8 +1567,12 @@ Injection-এর পরে:
    Main ──creates──► OrderService
    Main ──provides (EmailService)──► OrderService
                         (কন্ট্রোল এখন বাইরে, Main-এর হাতে)</div>
-  <p>Injection-এর আগে <code>OrderService</code>-ই সিদ্ধান্ত নিচ্ছিল কোন <code>EmailService</code> ব্যবহার হবে এবং কীভাবে সেটা তৈরি হবে — অর্থাৎ কন্ট্রোল ছিল <code>OrderService</code>-এর নিজের ভেতরে (<em>inside</em>)। Injection করার পর সেই সিদ্ধান্তটা <code>OrderService</code>-এর হাত থেকে বেরিয়ে গিয়ে <code>Main</code>-এর হাতে চলে গেছে — এখন <code>OrderService</code> শুধু যেটা পাচ্ছে সেটা ব্যবহার করে, নিজে কিছু ঠিক করে না। অর্থাৎ কন্ট্রোল আগে যেখানে ছিল (<em>inside</em>), সেখান থেকে সরে বাইরে (<em>outside</em>) চলে গেছে — কন্ট্রোলের এই দিক পাল্টে যাওয়াকেই বলে <strong>Inversion of Control</strong>।</p>
-  <div class="insight"><strong>খেয়াল রাখো:</strong> সম্পর্কটা এভাবে মনে রাখা যায় — IoC একটা principle ("dependency-র ব্যাপারে সিদ্ধান্ত নেওয়ার কন্ট্রোল ক্লাসের বাইরে থাকা উচিত"), আর Dependency Injection হলো সেই principle অর্জন করার (achieve করার) একটা concrete approach বা টেকনিক।</div>
+  <ul class="order-list">
+    <li>Injection-এর আগে <code>OrderService</code> নিজেই সিদ্ধান্ত নিচ্ছিল কোন <code>EmailService</code>, কীভাবে তৈরি হবে — কন্ট্রোল ছিল ভেতরে (<em>inside</em>)।</li>
+    <li>Injection-এর পর সিদ্ধান্তটা <code>Main</code>-এর হাতে — <code>OrderService</code> শুধু যা পায় তা ব্যবহার করে।</li>
+    <li>কন্ট্রোল <em>inside</em> থেকে <em>outside</em>-এ সরে যাওয়াকেই বলে <strong>Inversion of Control</strong>।</li>
+  </ul>
+  <div class="insight"><strong>খেয়াল রাখো:</strong> IoC একটা principle ("dependency-র সিদ্ধান্ত ক্লাসের বাইরে থাকা উচিত"), Dependency Injection সেই principle অর্জনের concrete টেকনিক।</div>
 </section>
 
 <section class="section" id="sec-21">
@@ -1465,15 +1580,22 @@ Injection-এর পরে:
     <span class="sec-num">21</span>
     <h2>Bean ও IoC Container — পরের লেকচারের প্রিভিউ</h2>
   </div>
-  <p>এখন পর্যন্ত <code>Main</code>-ই সব dependency তৈরি করছে, সবাইকে একসাথে জুড়ে দিচ্ছে (wiring), এবং পুরো ব্যাপারটা কনফিগার করছে। এখনকার মতো ছোট প্রজেক্টে এটা ঠিকঠাক চলছে, কারণ মাত্র একটা <code>OrderService</code> আর একটা নোটিফিকেশন dependency আছে। কিন্তু বাস্তব প্রজেক্টে যদি শত শত সার্ভিস ক্লাস (UserService, PaymentService...) থাকে, আর তাদের সবার dependency <code>Main</code>-এর ভেতর দিয়েই ম্যানুয়ালি ইনজেক্ট করতে হয়, তাহলে <code>Main</code> নিজেই ভীষণ জটিল ও অগোছালো হয়ে যাবে।</p>
-  <p>এই সমস্যার উত্তর দেয় Spring Framework। Spring-এর কাছে থাকে একটা <strong>IoC Container</strong> (Inversion of Control Container) — এটাই আসলে সেই কাজগুলো করে যেগুলো এখন <code>Main</code> ম্যানুয়ালি করছে —</p>
+  <ul class="order-list">
+    <li>এখন পর্যন্ত <code>Main</code>-ই সব dependency তৈরি, wiring, কনফিগারেশন করছে — ছোট প্রজেক্টে ঠিক আছে।</li>
+    <li>বাস্তব প্রজেক্টে শত শত সার্ভিস ক্লাস (UserService, PaymentService...) থাকলে সব <code>Main</code>-এ ম্যানুয়ালি ইনজেক্ট করলে সেটা জটিল/অগোছালো হয়ে যাবে।</li>
+  </ul>
+
+  <p>Spring Framework-এর <strong>IoC Container</strong> এই সমস্যার উত্তর — যা এখন <code>Main</code> ম্যানুয়ালি করছে তা নিজে করে —</p>
   <ul class="order-list">
     <li>প্রয়োজনীয় সব অবজেক্ট নিজে থেকে <strong>তৈরি (create)</strong> করে</li>
     <li>সেই অবজেক্টগুলোকে <strong>ম্যানেজ (manage)</strong> করে — কবে তৈরি হবে, কবে ধ্বংস হবে</li>
     <li>একটা অবজেক্টের যা যা dependency লাগবে, সেগুলো অন্য অবজেক্টের সাথে নিজে থেকেই <strong>কানেক্ট (connect / wire)</strong> করে দেয়</li>
   </ul>
-  <p>Spring-এর ভাষায় এই container-এর হাতে ম্যানেজ হওয়া অবজেক্টগুলোকেই বলা হয় <strong>Bean</strong>। সহজ কথায়, প্রতিটা Bean আসলে একটা অবজেক্টই — কিন্তু প্রতিটা অবজেক্ট Bean না, শুধু সেই অবজেক্টগুলোই Bean যেগুলোকে IoC Container নিজে তৈরি করে ও ম্যানেজ করে। যখন Spring কোড লেখা শুরু হবে, তখন নিজের হাতে <code>new</code> কীওয়ার্ড লেখা প্রায় দেখাই যাবে না — বেশিরভাগ অবজেক্ট তৈরি ও তাদের মধ্যেকার রিলেশনশিপ ম্যানেজ করার কাজ Spring-এর IoC Container নিজেই সামলে নেবে।</p>
-  <div class="insight"><strong>খেয়াল রাখো:</strong> এই তিনটা ডায়াগ্রামেই (create, manage, connect) যেখানে এতক্ষণ <code>Main</code> ছিল, পরের লেকচার থেকে সেই জায়গাটা নেবে <strong>IoC Container</strong>। কীভাবে ঠিক এই container-এর সাথে ইন্টার‍্যাক্ট করতে হয়, সেটাই হবে পরের লেকচারের বিষয়।</div>
+  <ul class="order-list">
+    <li><strong>Bean</strong> — IoC Container-এর হাতে ম্যানেজ হওয়া অবজেক্ট; প্রতিটা Bean একটা অবজেক্ট, কিন্তু প্রতিটা অবজেক্ট Bean না।</li>
+    <li>Spring কোডে নিজের হাতে <code>new</code> লেখা প্রায় দেখা যাবে না — অবজেক্ট তৈরি ও রিলেশনশিপ ম্যানেজ করা IoC Container-ই সামলাবে।</li>
+  </ul>
+  <div class="insight"><strong>খেয়াল রাখো:</strong> এই তিনটা কাজেই (create, manage, connect) যেখানে এতক্ষণ <code>Main</code> ছিল, পরের লেকচার থেকে সেই জায়গাটা নেবে <strong>IoC Container</strong>। কীভাবে ঠিক এই container-এর সাথে ইন্টার‍্যাক্ট করতে হয়, সেটাই হবে পরের লেকচারের বিষয়।</div>
   <div class="practice">
     <div class="practice-title">অনুশীলন প্রশ্ন</div>
     <ol>
