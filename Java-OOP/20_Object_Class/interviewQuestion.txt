@@ -1,0 +1,13 @@
+Interview Questions - Object Class
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+*** 1. Explain the difference between == and .equals() in Java.   [Core Java - Level I → Q 21]
+*** 2. What is the difference between == and .equals() in Java?   [Core Java - Level II → Q 5.3]
+*** 3. Can you describe how hashCode() and equals() work together in a collection   [Core Java - Level II → Q 31.2]
+*** 4. Why is it important to override the hashCode method when you override equals?   [Core Java - Level II → Q 31.3]
+**  5. What are the methods available in the Object class, and how are they used?   [Core Java - Level II → Q 13.3]
+**  6. What would be the consequence if we don’t?   [Core Java - Level II → Q 31.4]
+*   7. Whats the role of finalized() method in garbage collection?   [Core Java - Level II → Q 2.1]

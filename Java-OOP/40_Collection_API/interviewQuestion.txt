@@ -1,0 +1,19 @@
+Interview Questions - Collection API
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+*** 1. What are the main interfaces of the Java Collection Framework?   [Core Java - Level II → Q 30.1]
+**  2. What is the Collections Framework in Java?   [Core Java - Level I → Q 23]
+**  3. What is collection framework in java?   [Core Java - Level II → Q 30]
+**  4. Can you explain how Iterator works within the Java Collection Framework?   [Core Java - Level II → Q 30.2]
+**  5. How does Java Collection Framework handle concurrency?   [Core Java - Level II → Q 30.4]
+**  6. How do you choose the right collection type for a specific problem?   [Core Java - Level II → Q 30.5]
+**  7. What is the difference between Iterator and listIterator?   [Core Java - Level II → Q 30.7]
+**  8. How do you store elements in a set to preserve insertion order?   [Core Java - Level II → Q 30.9]
+**  9. How do you store elements in a way that they are sorted?   [Core Java - Level II → Q 30.10]
+**  10. Why we use wrapper class in collections   [Core Java - Level II → Q 6.2]
+*   11. What are some common methods available in all Collection types?   [Core Java - Level II → Q 30.3]
+*   12. What enhancements were made to the Java Collection Framework in Java 8?   [Core Java - Level II → Q 30.6]
+*   13. Name of algorithm used by Arrays.sort(..) and Collections.sort(..)?   [Core Java - Level II → Q 30.8]

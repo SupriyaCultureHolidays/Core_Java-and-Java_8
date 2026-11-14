@@ -1,0 +1,10 @@
+Interview Questions - Getters Setters
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+*** 1. Explain encapsulation with an example in Java.   [Core Java - Level I → Q 9]
+*** 2. What does mean by encapsulation in java?   [Core Java - Level II → Q 21]
+**  3. What are access modifies in java?   [Core Java - Level II → Q 12]
+*   4. Why do we use getters setter when we can make fields publick and setting getting directly?   [Core Java - Level II → Q 12.2]

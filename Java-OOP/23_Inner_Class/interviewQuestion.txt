@@ -1,0 +1,9 @@
+Interview Questions - Inner Class
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+Note: Inner class niye list-e direct question nei. Nicher question ta related.
+
+*   1. What are anonymous classes and their advantages?   [Core Java - Level II → Q 13.4]

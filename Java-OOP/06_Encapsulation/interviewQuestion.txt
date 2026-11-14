@@ -1,0 +1,13 @@
+Interview Questions - Encapsulation
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+*** 1. Explain encapsulation with an example in Java.   [Core Java - Level I → Q 9]
+*** 2. What does mean by encapsulation in java?   [Core Java - Level II → Q 21]
+**  3. What are access modifies in java?   [Core Java - Level II → Q 12]
+*   4. How Encapsulation Enhances Software Security and Integrity:   [Core Java - Level II → Q 21.1]
+*   5. Can you provide examples of when to use each type of access modifier?   [Core Java - Level II → Q 12.1]
+*   6. Why do we use getters setter when we can make fields publick and setting getting directly?   [Core Java - Level II → Q 12.2]
+*   7. Can a top-level class be private or protected in Java?   [Core Java - Level II → Q 12.3]

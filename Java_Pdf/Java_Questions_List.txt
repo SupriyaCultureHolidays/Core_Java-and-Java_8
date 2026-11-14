@@ -1,0 +1,639 @@
+﻿Java Full Stack - Questions List (with importance)
+==================================================
+
+*** = Must do first  (very often asked for 1-1.5 years experience)
+**  = Important      (asked quite often, do after ***)
+*   = Good to know   (do if you have time)
+
+Study order: first all *** questions of every section, then all **, then *.
+Total: 588  |  ***: 147  |  **: 198  |  *: 243
+
+1. Java Coding Questions (25 questions, *** 10)
+--------------------------------------------------
+*** 1. Write a Java Program to reverse a string without using String inbuilt function.
+*** 2. Write a Java Program to swap two numbers without using the third variable.
+*** 3. Write a Java Program to count the number of words in a string using HashMap.
+**  4. Write a Java Program to iterate HashMap using While and advance for loop.
+**  5. Write a Java Program to find whether a number is prime or not in the most efficient way?
+*** 6. Write a Java Program to find whether a string or number is palindrome or not.
+*** 7. Write a Java Program for the Fibonacci series in recursion.
+*   8. Write a Java Program to iterate ArrayList using for-loop, while-loop, and advance for-loop.
+*** 9. Write a Java Program to find the duplicate characters in a string.
+*** 10. Write a Java Program to find the second-highest number in an array.
+**  11. Write a Java Program to check Armstrong number.
+**  12. Write a Java Program to remove all white spaces from a string without using replace().
+*** 13. Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+*   14. Write a program that accepts comma-separated strings, sorts the strings in ascending order, and outputs the concatenated string of sorted strings.
+*   15. Given a string s, return true if s is a "good" string, or false otherwise.
+**  16. Given an array nums and a value val, remove all instances of that value in-place and return the new length of the array. Do not allocate extra space for another array. You must modify the input array in-place with O(1) extra memory.
+*   17. You are given an integer array nums and an array of queries queries where queries[i] = [val, index]. For each query, add val to nums[index]. Then, return the sum of all even numbers in nums.
+**  18. Given two strings s and p, find all the start indices of p's anagrams in s.
+*** 19. Given a string s, find the length of the longest substring without repeating characters.
+**  20. Merge two sorted linked lists and return it as a new sorted list.
+*   21. You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+*   22. Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
+*   23. Given an integer, write a function to determine if it is a power of two.
+*** 24. Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+*   25. Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all the integers in the range [1, n] that do not appear in nums.
+
+2. Stream API Coding Questions (20 questions, *** 5)
+--------------------------------------------------
+*** 1. Filter Even Numbers
+*** 2. Find Maximum
+**  3. Sum of Elements
+**  4. List of Names to Uppercase
+*** 5. Sort List
+**  6. Count Elements
+**  7. Get Distinct Elements
+**  8. Reduce to Sum
+*   9. Find Any
+*   10. List First Names
+*   11. All Match
+*   12. None Match
+**  13. Find First
+*** 14. FlatMap for Nested Lists
+*** 15. Grouping Elements
+*   16. Peek Elements
+*   17. Limit Stream
+*   18. Skip Elements
+**  19. Convert to Set
+*   20. Summarizing Statistics
+
+3. Core Java - Level I (30 questions, *** 13)
+--------------------------------------------------
+*   1. What is Java?
+**  2. What are the features of Java?
+**  3. What is JVM and why is it important?
+*** 4. What is the difference between JDK, JRE, and JVM?
+**  5. What is the use of the public static void main(String[] args) method?
+*** 6. Explain the concept of Object-Oriented Programming in Java.
+*** 7. What is inheritance in Java?
+*** 8. What is polymorphism in Java?
+*** 9. Explain encapsulation with an example in Java.
+*** 10. What is an interface in Java?
+*** 11. Explain the concept of an abstract class.
+**  12. What are constructors in Java?
+*** 13. What is method overloading?
+*** 14. What is method overriding?
+*   15. What is a package in Java?
+*** 16. Explain the final keyword in Java.
+**  17. What are Java Exceptions?
+*** 18. What is the difference between checked and unchecked exceptions?
+*** 19. What is the static keyword used for in Java?
+**  20. What is a thread in Java?
+*** 21. Explain the difference between == and .equals() in Java.
+**  22. What is garbage collection in Java?
+**  23. What is the Collections Framework in Java?
+**  24. Explain synchronized keyword in Java.
+**  25. What are generics in Java?
+**  26. What is the use of ‘this’ keyword in Java?
+*   27. What is Enum in Java?
+*   28. What are threads?
+**  29. What is multithreading?
+**  30. Explain volatile keyword in Java.
+
+4. Core Java - Level II (194 questions, *** 52)
+--------------------------------------------------
+*** 1. Can you tell me the difference between JVM, JRE, and JDK?
+**        1.1 What are the key components of JVM Architecture?
+*         1.2 Can a Java application be run without installing the JRE?
+*         1.3 Is it possible to have the JDK installed without having the JRE?
+***       1.4 What are Memory storages available with JVM?
+**        1.5 Which is faster to access between heap and stack, and why?
+**  2. How does garbage collection work in Java?
+*         2.1 Whats the role of finalized() method in garbage collection?
+*         2.2 Can you tell me what algorithm JVM uses for garbage collection?
+**        2.3 How can memory leaks occur in Java even we have automatic garbage collection?
+**  3. Is java 100% object oriented programming language ?
+*         3.1 What are the advantages of Java being partially object-oriented?
+*         3.2 What is the use of object-oriented programming languages in the enterprise projects?
+**  4. Explain public static void main(string args[])?
+**        4.1 What will happen if we declare don’t declare the main as static?
+**        4.2 Can we override the main method?
+**        4.3 Can we oveload the main method?
+*         4.4 Can JVM execute our overloaded main method ?
+**  5. Whats the difference between primitive data types and non primitive data types ?
+*         5.1 Can primitive data types be NULL ?
+*         5.2 Can we declare pointer in java ?
+***       5.3 What is the difference between == and .equals() in Java?
+**  6. What are wrapper classes?
+**        6.1 Why do we need wrapper classes?
+**        6.2 Why we use wrapper class in collections
+**  7. Can you explain the difference between unboxing and autoboxing in Java?
+*         7.1 Can you provide an example where autoboxing could lead to unexpected behavior?
+*         7.2 Is there a scenario where autoboxing and unboxing could cause a NullPointerException?
+*** 8. Can you explain the role of each try, catch, and finally block in exception handling?
+***       8.1 What happens if a return statement is executed inside the try or catch block? Does the finally block still execute?
+**        8.2 Is it possible to execute a program without a catch block? If so, how would you use try and finally together?
+*         8.3 How does exception handling with try-catch-finally affect the performance of a Java application?
+**        8.4 Can you tell me a condition where the finally block will not be executed?
+*         8.5 Can we write multiple finally blocks in Java?
+***       8.6 What is the exception and the differences between checked and unchecked exceptions?
+**        8.7 How would you handle multiple exceptions in a single catch block
+*         8.8 What is the difference between a Throwable and an Exception in Java?
+**        8.9 Discuss the difference between finalize() and finally. Under what circumstances might finalize() not get called in a Java application?
+*** 9. What is string pool?
+*         9.1 Are there any scenarios where using the string pool might not be beneficial?
+*** 10. Can you please tell me about String and string buffer?
+***       10.1 How does StringBuilder differ from StringBuffer, and when should each be used?
+*         10.2 Give a scenario where StringBuffer is better than the String?
+***       10.3 What is the difference between a String literal and a String object?
+***       10.4 Why is String immutable?
+*   11. What are the packages in Java?
+*         11.1 Why packages are used?
+**  12. What are access modifies in java?
+*         12.1 Can you provide examples of when to use each type of access modifier?
+*         12.2 Why do we use getters setter when we can make fields publick and setting getting directly?
+*         12.3 Can a top-level class be private or protected in Java?
+**  13. Explain the concepts of classes and objects in Java.
+**        13.1 What are the ways to create an object?
+*         13.2 Can a class in Java be without any methods or fields?
+**        13.3 What are the methods available in the Object class, and how are they used?
+*         13.4 What are anonymous classes and their advantages?
+*** 14. What is Singleton Class?
+***       14.1 How can we create this singleton class?
+**        14.2 Are these threads safe?
+**  15. What is a constructor in Java?
+**        15.1 Can we use a private constructor?
+**        15.2 Can constructor be overloaded?
+*** 16. What is immutability mean in Java?
+*         16.1 Why immutable objects are useful for concorrent programming?
+**        16.2 What are immutable classes?
+***       16.3 How can we create immutable class?
+*** 17. What does Java's inheritance mean?
+*         17.1 Can a class extends on its own?
+***       17.2 Why multiple inheritance is not possible in java?
+**        17.3 What is the difference between inheritance and composition?
+*         17.4 Discuss the principle of "composition over inheritance". Provide an example where this principle should be applied in Java application design.
+**        17.5 What is the difference between association, aggregation, and composition in Java?
+**        17.6 Explain the IS-A (inheritance) and Has-A (composition) relationships in Java.
+*** 18. What does mean by polymorphism in Java?
+**        18.1 How does method overloading relate to polymorphism?
+**        18.2 What is dynamic method dispatch in Java?
+*         18.3 Can constructors be polymorphic?
+*** 19. What does mean by abstraction in java?
+*         19.1 Can you provide examples of where abstraction is effectively used in Java libraries?
+**        19.2 What happens if a class includes an abstract method?
+*         19.3 How does abstraction help in achieving loose coupling in software applications?
+*** 20. What is interface in Java?
+***       20.1 What is the difference between an interface and an abstract class in Java?
+*         20.2 Can you provide examples of when to use an interface versus when to extend a class?
+**        20.3 How do you use multiple inheritance in Java using interfaces?
+**        20.4 Can an interface in Java contain static methods, and if so, how can they be used?
+***       20.5 When would you use an interface, and when would you use an abstract class?
+***       20.6 Explain the difference between Comparable and Comparator interfaces. When would you use one over the other?
+**        20.7 What is a static method in an Interface, and how is it different from a default method in an interface?
+**        20.8 What is the diamond problem in Java and how does Java address it?
+**        20.9 How does the concept of default methods in interfaces help resolve the diamond problem?
+*** 21. What does mean by encapsulation in java?
+*         21.1 How Encapsulation Enhances Software Security and Integrity:
+**  22. What is the concept of Serialization in Java?
+**        22.1 What is the purpose of the serialVersionUID in Java serialization?
+*         22.2 What happens if the serialVersionUID of a class changes during deserialization?
+**        22.3 How can you prevent certain fields from being serialized in Java?
+*         22.4 Can a class be serialized if one of its member fields is not serializable?
+*         22.5 What is the difference between writeObject() and readObject() methods in Java serialization?
+*         22.6 Is it possible to serialize static fields in Java? Why or why not?
+*         22.7 How do you serialize an object with circular references in Java?
+*** 23. What is method overloading in Java?
+*         23.1 How does the Java compiler determine which overloaded method to call?
+**        23.2 Is it possible to overload methods that differ only by their return type in Java?
+**        23.3 What are the rules for method overloading in Java?
+*** 24. What is method overriding in Java?
+**        24.1 What are the rules and conditions for method overriding in Java?
+*         24.2 How does the @Override annotation influence method overriding?
+*         24.3 What happens if a superclass method is overridden by more than one subclass in Java?
+**  25. What is 'this' and 'super' keyword in java?
+*         25.1 Can 'this' keyword be assigned a new value in Java?
+*         25.2 What happens if you attempt to use the "super" keyword in a class that doesn't have a superclass?
+**        25.3 Can the this or super keyword be used in a static method?
+*         25.4 How does 'super' play a role in polymorphism ?
+*** 26. What is the static keyword in Java?
+*         26.1 Can a static block throw an exception?
+***       26.2 Can we override static methods in Java?
+**        26.3 Is it possible to access non-static members from within a static method?
+**        26.4 What is static block?
+*         26.5 Can we print something on console without main method in java?
+*** 27. What is final keyword in java?
+*         27.1 What are some common use cases for using final variables in Java programming?
+**        27.2 How does the "final" keyword contribute to immutability and thread safety in Java?
+*         27.3 Can you describe any performance considerations related to using final?
+*** 28. What is functional interfaces?
+**        28.1 Can functional interface extend another interface?
+*         28.2 Advantages of using a functional interface.
+*** 29. Can you tell me some new features that were introduced in Java 8?
+**        29.1 Why optional class, lambda expressions and stream API were introduced in java 8?
+***       29.2 Difference between filter and map function of stream API?
+*         29.3 Can you tell me some new features that were introduced in Java 11?
+*         29.4 Can you tell me some new features that were introduced in Java 17?
+*         29.5 Can you tell me some new features that were introduced in Java 21?
+*         29.6 Which is faster, traditional for loop or Streams?
+*         29.7 In which scenarios would you prefer traditional for loops and streams?
+***       29.8 Explain intermediate and terminal operations in streams.
+**        29.9 Differences in Interface from Java 7 to Java 8.
+*         29.10 Use of String.join(….) in Java 8?
+**  30. What is collection framework in java?
+***       30.1 What are the main interfaces of the Java Collection Framework?
+**        30.2 Can you explain how Iterator works within the Java Collection Framework?
+*         30.3 What are some common methods available in all Collection types?
+**        30.4 How does Java Collection Framework handle concurrency?
+**        30.5 How do you choose the right collection type for a specific problem?
+*         30.6 What enhancements were made to the Java Collection Framework in Java 8?
+**        30.7 What is the difference between Iterator and listIterator?
+*         30.8 Name of algorithm used by Arrays.sort(..) and Collections.sort(..)?
+**        30.9 How do you store elements in a set to preserve insertion order?
+**        30.10 How do you store elements in a way that they are sorted?
+*** 31. Whats the use case of arrayList, linkedList and Hashset?
+***       31.1 How does a HashSet ensure that there are no duplicates?
+***       31.2 Can you describe how hashCode() and equals() work together in a collection
+***       31.3 Why is it important to override the hashCode method when you override equals?
+**        31.4 What would be the consequence if we don’t?
+*         31.5 Can you give an example where a TreeSet is more appropriate than HashSet?
+***       31.6 What is the internal implementation of ArrayList and LinkedList?
+*** 32. Can you explain internal working of HashMap in Java?
+***       32.1 What happens when two keys have the same hash code? How would you handle this scenario?
+***       32.2 How does a HashMap handle collisions in Java?
+***       32.3 Can you please tell me what changes were done for the HashMap in Java 8 because before java 8 hashMap behaved differently ?
+**        32.4 Can we include class as a key in hashmap?
+***       32.5 Can you please explain ConcurrentHashMap
+**        32.6 How does it(ConcurrentHashMap ) improve performance in a multi-threaded environment?
+**        32.7 What is time complexities insertions, deletion and retrieval of hashSet and HashMap?
+*         32.8 What is time complexities insertions, deletion and retrieval of TreeSet and TreeMap?
+*         32.9 What techniques did hashMap, treeMap, hashSet and TreeSet uses internally for performing operations?
+*** 33. What is a design pattern in Java and why do we use this?
+***       33.1 Can you list and explain a few common design patterns used in Java programming?
+*         33.2 How can design patterns affect the performance of a Java application?
+*         33.3 Which design pattern would you use to manage database connections efficiently in a Java application?
+*         33.4 How do you choose the appropriate design pattern for a particular problem in Java?
+***       33.5 Difference between HashMap and TreeMap.
+**        33.6 In what scenarios would you prefer to use a TreeMap over a HashMap?
+*         33.7 Can we add objects as a key in TreeMap?
+*** 34. What are SOLID Principles?
+*** 35. What is a thread in Java and how can we create it?
+***       35.1 Can you explain the lifecycle of a Java thread?
+**        35.2 How would you handle a scenario where two threads need to update the same data structure?
+**        35.3 Can we strat thread twice?
+***       35.4 What is the difference between Thread class and Runnable interface in Java?
+**        35.5 How can you ensure a method is thread-safe in Java?
+**        35.6 What are volatile variables?
+***       35.7 What is thread synchronization and why is it important?
+*         35.8 Can you describe a scenario where you would use wait() and notify() methods in thread communication?
+*         35.9 What challenges might you face with multithreaded programs in Java?
+*         35.10 What is Java memory model and how it is linked to threads?
+*   36. Can we create a server in java application without creating spring or any other framework?
+**        36.1 what is transient?
+*         36.2 What is exchanger class
+*         36.3 What is reflection in java?
+*         36.4 What is the weak reference and soft reference in java?
+*         36.5 What is Java Flight Recorder?
+**        36.6 Discuss Java Generics.
+*         36.7 What is the difference between Young Generation and Old Generation memory spaces?
+
+5. Spring Framework (23 questions, *** 10)
+--------------------------------------------------
+**  1. What is Spring?
+**  2. What are the advantages of the Spring framework?
+*   3. What are the modules of the Spring framework?
+*** 4. Difference between Spring and Spring Boot?
+*** 5. What Is a Spring Bean?
+*** 6. What is IOC and DI?
+*** 7. What is the role of IOC container in Spring?
+**  8. What are the types of IOC container in Spring?
+*** 9. What is the use of @Configuration and @Bean annotations in Spring?
+*** 10. Which Is the Best Way of Injecting Beans and Why?
+*** 11. Difference between Constructor Injection and Setter Injection?
+*** 12. What are the different bean scopes in Spring?
+**  13. In which scenario will you use Singleton and Prototype scope?
+*** 14. What Is the Default Bean Scope in Spring Framework?
+**  15. Are Singleton Beans Thread-Safe?
+*   16. Can We Have Multiple Spring Configuration Files in One Project?
+*   17. Name Some of the Design Patterns Used in the Spring Framework?
+**  18. How Does the Scope Prototype Work?
+*** 19. What are Spring Profiles and how do you use them?
+*   20. What is Spring WebFlux and how is it different from Spring MVC?
+*   21. You are starting a new Spring project. What factors would you consider when deciding between using annotations and XML for configuring your beans?
+*   22. You have a large Spring project with many interdependent beans. How would you manage the dependencies to maintain clean code and reduce coupling?
+*   23. You have a singleton bean that needs to be thread-safe. What approaches would you take to ensure its thread safety?
+
+6. Spring Boot (58 questions, *** 17)
+--------------------------------------------------
+*** 1. What is Spring Boot?
+**  2. What are the Features of Spring Boot?
+*** 3. What are the advantages of using Spring Boot?
+**  4. Define the Key Components of Spring Boot.
+*** 5. Why do we prefer Spring Boot over Spring?
+*** 6. Explain the internal working of Spring Boot.
+*** 7. What are the Spring Boot Starter Dependencies?
+**  8. How does a Spring application get started?
+*** 9. What does the @SpringBootApplication annotation do internally?
+*   10. What is Spring Initializr?
+**  11. What is a Spring Bean?
+**  12. What is Auto-wiring?
+**  13. What is ApplicationRunner in SpringBoot?
+**  14. What is CommandLineRunner in SpringBoot?
+*   15. What is Spring Boot CLI and the most used CLI commands?
+**  16. What is Spring Boot dependency management?
+*** 17. Is it possible to change the port of the embedded Tomcat server in Spring Boot?
+*   18. What happens if a starter dependency includes conflicting versions of libraries with other dependencies in the project?
+**  19. What is the default port of Tomcat in Spring Boot?
+*   20. Can we disable the default web server in a Spring Boot application?
+**  21. How to disable a specific auto-configuration class?
+*   22. Can we create a non-web application in Spring Boot?
+**  23. Describe the flow of HTTPS requests through a Spring Boot application.
+*** 24. Explain @RestController annotation in Spring Boot.
+*** 25. Difference between @Controller and @RestController
+*** 26. What is the difference between RequestMapping and GetMapping?
+**  27. What are the differences between @SpringBootApplication and @EnableAutoConfiguration annotation?
+*   28. How can you programmatically determine which profiles are currently active in a Spring Boot application?
+*   29. Mention the differences between WAR and embedded containers.
+*** 30. What is Spring Boot Actuator?
+**  31. How to enable Actuator in Spring Boot?
+*   32. How to get the list of all the beans in our Spring Boot application?
+*   33. Can we check the environment properties in our Spring Boot application? Explain how.
+*   34. How to enable debugging log in the Spring Boot application?
+*   35. Explain the need of dev-tools dependency.
+**  36. How do you test a Spring Boot application?
+*   37. What is the purpose of unit testing in software development?
+**  38. How do JUnit and Mockito facilitate unit testing in Java projects?
+**  39. Explain the difference between @Mock and @InjectMocks in Mockito.?
+**  40. What is the role of @SpringBootTest annotation?
+*** 41. How do you handle exceptions in Spring Boot applications?
+**  42. Explain the purpose of the pom.xml file in a Maven project.
+*** 43. How auto configuration play an important role in springboot application?
+*   44. Can we customize a specific auto-configuration in springboot?
+**  45. How can you disable specific auto-configuration classes in Spring Boot?
+**  46. What is the purpose of having a spring-boot-starter-parent?
+*   47. How do starters simplify the Maven or Gradle configuration?
+*** 48. How do you create REST APIs?
+**  49. What is versioning in REST? What are the ways that we can use to implement versioning?
+*** 50. What are the REST API Best practices ?
+*** 51. What are the uses of ResponseEntity?
+**  52. What should the delete API method status code be?
+**  53. What is swagger?
+*   54. How does Swagger help in documenting APIs?
+**  55. What all servers are provided by springboot and which one is default?
+*   56. How does Spring Boot decide which embedded server to use if multiple options are available in the classpath?
+*   57. How can we disable the default server and enable the different one?
+*** 58. Cross-Question: Can we use @Component instead of @Repository and @Service? If yes then why do we use @Repository and @Service?
+
+7. Spring MVC (71 questions, *** 7)
+--------------------------------------------------
+**  1. What is Spring MVC?
+**  2. What are the core components of Spring MVC?
+*** 3. Describe the lifecycle of a Spring MVC request.
+*** 4. What role does the DispatcherServlet play in this lifecycle?
+*   5. How are different components like controllers and view resolvers integrated during a request?
+*   6. Can you explain the role of the WebApplicationContext?
+*   7. How do you configure Spring MVC in a web application?
+*   8. What is the role of the web.xml file or Java Config in setting up Spring MVC?
+*   9. Can you describe how to set up a Spring MVC application without using web.xml?
+*   10. How do servlets and listeners contribute to the configuration?
+**  11. Explain the purpose of the @RequestMapping annotation.
+*   12. How can you define method-level mappings within a controller?
+*   13. What are the attributes available in @RequestMapping?
+*   14. How does @RequestMapping handle different types of HTTP requests?
+*** 15. What are the differences between @Controller and @RestController annotations?
+*   16. In what scenarios would you use @RestController over @Controller?
+*   17. How does the response handling differ between these two annotations?
+*   18. What are the implications of using @RestController for data serialization?
+*   19. How do you manage form data in Spring MVC?
+*   20. How can you handle form submission in Spring MVC?
+*   21. What is the role of the @ModelAttribute annotation?
+**  22. Can you describe form validation in Spring MVC?
+*   23. What is ViewResolver in Spring MVC and how does it work?
+*   24. Can you list different types of ViewResolvers used in Spring MVC?
+*   25. How does the InternalResourceViewResolver function?
+*   26. What are the advantages of using a ContentNegotiatingViewResolver?
+**  27. How are interceptors used in Spring MVC?
+*   28. What are the methods in the HandlerInterceptor interface?
+*   29. How can you configure an interceptor to be applied globally?
+**  30. What is the difference between a Spring MVC interceptor and a web filter?
+**  31. Discuss exception handling in Spring MVC.
+*** 32. How can you configure a global exception handler using @ControllerAdvice?
+*** 33. What is the use of @ExceptionHandler?
+*   34. How does Spring MVC differentiate between different types of exceptions?
+*   35. What are the options for implementing security in a Spring MVC application?
+*   36. How does Spring Security integrate with Spring MVC?
+*   37. What are the common challenges when securing a Spring MVC application?
+*   38. Can you describe the configuration steps necessary for method-level security?
+*   39. Explain the concept of dependency injection in the context of Spring MVC.
+*   40. How does Spring MVC utilize dependency injection with controllers?
+*   41. What types of dependency injection are supported?
+*   42. What are the benefits of using dependency injection in web applications?
+*   43. How does Spring MVC support data binding?
+*** 44. What is the role of the @RequestParam annotation?
+*   45. How can you customize data binding for complex objects?
+*   46. What are the challenges associated with data binding and how can they be addressed?
+*   47. Explain how you can handle static resources in Spring MVC.
+*   48. How can you configure Spring MVC to serve static files like CSS, JavaScript, or images?
+*   49. What are the implications of resource handling for application performance?
+*   50. How does Spring manage resources differently in a web application context?
+*** 51. What is the role of @PathVariable in Spring MVC?
+**  52. How can you extract values from a URL using @PathVariable?
+*   53. What are the considerations when using @PathVariable in terms of URL design?
+*   54. How does @PathVariable interact with other request mappings?
+*   55. How does Spring MVC use LocaleResolver?
+*   56. Can you provide an example of changing languages dynamically on the frontend?
+*   57. Discuss the use of Web MVC annotations like @SessionAttributes and @CookieValue.
+*   58. What are the security considerations when using @SessionAttributes and @CookieValue annotations?
+*   59. How do you test Spring MVC applications?
+*   60. What frameworks are used for testing Spring MVC components?
+*   61. How can you mock Spring MVC dependencies for unit testing?
+*   62. What are the best practices for integration testing in Spring MVC?
+*   63. Explain how Spring MVC supports file upload.
+*   64. What configurations are needed to enable file uploads in a Spring MVC application?
+*   65. How can you handle file upload in a controller?
+*   66. What are the common issues faced during file uploads and their solutions?
+*   67. How can Spring MVC be integrated with other technologies like JPA or WebSocket?
+*   68. What are some advanced features or techniques in Spring MVC that are useful for high- traffic applications?
+*   69. How can caching be implemented in Spring MVC?
+*   70. What are the strategies for asynchronous processing in Spring MVC?
+*   71. How can you scale a Spring MVC application horizontally?
+
+8. Spring Data JPA (25 questions, *** 6)
+--------------------------------------------------
+*** 1. What is Spring Data JPA?
+**  2. Explain features of Spring Data JPA?
+**  3. How to create a custom Repository class in Spring JPA?
+*** 4. Difference between CRUDRepository and JPARepository.
+*** 5. Write a custom query in Spring JPA?
+**  6. What is the purpose of save() method in CrudRepository?
+**  7. What is the use of @Modifying annotation?
+**  8. Difference between findById() and getOne().
+*   9. Use of @Temporal annotation.
+**  10. Write a query method for sorting in Spring Data JPA.
+*** 11. Explain @Transactional annotation in Spring.
+*** 12. What is the difference between FetchType.Eager and FetchType.Lazy?
+*   13. Use of @Id annotation.
+**  14. How will you create a composite primary key in Spring JPA.
+*   15. What is the use of @EnableJpaRepositories method?
+**  16. What are the rules to follow to declare custom methods in Repository.
+*   17. Explain QueryByExample in spring data jpa.
+*** 18. What is pagination and how to implement pagination in spring data?
+**  19. Explain few CrudRepository methods.
+*   20. Difference between delete() and deleteInBatch() methods.
+**  21. You need to execute a complex query that involves multiple tables and conditional logic. How do you implement this in Spring JPA?
+**  22. Your application requires the insertion of thousands of records into the database at once. How do you optimize this batch process using Spring JPA?
+**  23. You have entities with bidirectional relationships. How do you ensure these are correctly managed in Spring JPA to avoid common issues like infinite recursion?
+*   24. How do you handle schema migration in a project using Spring JPA when the schema changes due to business requirements?
+*   25. You are experiencing performance issues with certain frequently accessed data. How can you implement caching in Spring JPA to improve performance?
+
+9. Hibernate (25 questions, *** 1)
+--------------------------------------------------
+**  1. What is Hibernate?
+*   2. What are the core components of Hibernate?
+**  3. Explain the role of the SessionFactory in Hibernate.
+**  4. What is a Session in Hibernate?
+*   5. How does Hibernate manage transactions?
+**  6. What is HQL (Hibernate Query Language)?
+*   7. What is the Criteria API in Hibernate?
+**  8. Explain the concept of Object States in Hibernate.
+*   9. What is the purpose of the Configuration class in Hibernate?
+**  10. Describe the Second Level Cache in Hibernate.
+**  11. What are the differences between get() and load() methods in Hibernate?
+*   12. How does Hibernate ensure data integrity?
+*** 13. What is the N+1 SELECT problem in Hibernate? How can it be prevented?
+**  14. Explain the role of the @Entity annotation in Hibernate.
+**  15. What is cascading in Hibernate?
+*   16. What is a Composite Key in Hibernate?
+*   17. How does Hibernate handle SQL Injection?
+**  18. What is Lazy Loading in Hibernate?
+*   19. How can you achieve concurrency in Hibernate?
+**  20. What is an optimistic locking in Hibernate?
+*   21. You have noticed that your Hibernate application is running slowly when fetching data from a database with many relationships. What strategy could you use to improve performance?
+*   22. How do you handle a Hibernate session in a web application to ensure that it is properly closed, avoiding memory leaks?
+*   23. During a transaction, an error occurs after several database operations have been successfully executed. How does Hibernate ensure data integrity in this situation?
+*   24. You need to add auditing features to track changes in entity data. What Hibernate feature would you use to achieve this?
+*   25. You are working with a legacy database where the table and column names do not follow your standard naming conventions. How can you map these tables without modifying the existing database schema?
+
+10. SQL (32 questions, *** 9)
+--------------------------------------------------
+*   1. What is SQL?
+*   2. Where do we use SQL?
+**  3. SQL Statements:
+*** 4. What is a join?
+*   5. What is the purpose of the SELECT statement in MySQL?
+*** 6. What is Normalization?
+*   7. What is the different datatype in MySQL?
+*** 8. What is the difference between a primary key and a unique key?
+**  9. Foreign key constraint?
+*   10. The difference between NULL and zero in MySQL is that:
+**  11. What is a Database transaction?
+*   12. Difference between INNER JOIN and NATURAL JOIN:
+**  13. How do you perform a self-join in MYSQL?
+*   14. What is a trigger, and how do you create one in MySQL?
+**  15. What is the stored procedure, and how do you create one in MySQL?
+*   16. What is a cursor, and how do you use one in MySQL?
+*   17. What is a user-defined function, and how do you create one in MySQL?
+**  18. What are aggregate functions in SQL?
+*** 19. What is the difference between WHERE and HAVING clause ?
+*** 20. What are indexes in SQL ?
+*   21. How can you identify which indexes are being used in a query?
+*   22. Can you have an index on a view? If yes, how?
+**  23. You have two tables, shop_1 and shop_2, both having the same structure with customer_id and customer_name. Write a query that retrieves the names of customers who appear in both tables.
+*** 24. Difference between INNER JOIN and OUTER JOIN?
+*** 25. Difference Between WHERE and HAVING
+*** 26. Difference Between UNION and UNION ALL?
+*** 27. Difference Between DELETE and TRUNCATE
+**  28. Difference Between PRIMARY KEY and UNIQUE
+**  29. Difference Between DROP and TRUNCATE?
+**  30. Difference Between VARCHAR and CHAR?
+*   31. Difference Between IN and EXISTS
+**  32. Difference Between JOIN and SUBQUERY?
+
+11. SQL Queries Asked by Companies (23 questions, *** 4)
+--------------------------------------------------
+*** 1. SQL query to find Nth highest salary.
+*** 2. SQL to write 2nd highest salary in MYSQL .
+**  3. Find all employees with duplicate names.
+*** 4. Find the Second Highest Salary from the table.
+*   5. How to create an empty table with the same structure as another table.
+*   6. Increase the income of all employees by 5% in a table.
+**  7. Find names of employees starting with "A".
+**  8. Find a number of employees working in department 'ABC'.
+*   9. Print details of employees whose first name ends with 'A' and contains 6 alphabets.
+**  10. Print details of employees whose salary lies between 10000 to 50000.
+*** 11. Fetch duplicate records from the table.
+**  12. Fetch Top N Records by Salary.
+**  13. Find All Employees Working Under a Particular Manager.
+*   14. Fetch only the first name from the full-name column.
+*   15. Get Employees Hired in the Last 8 Months.
+**  16. Retrieve the Name of the Employee With the Maximum Salary.
+**  17. Find employees who have worked for more than one department.
+*   18. Find employees who have worked for more than one department.
+*   19. Write a query using UNION to display employees who have either worked on 'Project A' or 'Project B' but without duplicates.
+**  20. Fetch common records between two tables.
+*   21. Create an empty table with the same structure as the other table.
+**  22. To display users who have placed fewer than 3 orders, let's assume you have two tables Accounts and Orders
+**  23. Database query i want the employee salary > 15000, here I have two different tables so you have to write a sql query for that.
+
+12. Microservices (36 questions, *** 5)
+--------------------------------------------------
+*** 1. What are microservices?
+*** 2. How do microservices differ from monolithic architectures?
+**  3. What are some benefits of using microservices?
+**  4. Can you mention any challenges you might face while working with microservices?
+*** 5. What is the role of an API Gateway in microservices?
+*   6. How does an API Gateway manage traffic?
+*   7. What are some security measures that can be implemented at the API Gateway?
+*   8. Can you explain how an API Gateway can handle load balancing?
+*** 9. How do microservices communicate with each other?
+**  10. What is synchronous vs. asynchronous communication?
+**  11. Can you explain the role of message brokers in microservices?
+*   12. What are some of the risks involved with inter-service communication?
+**  13. What is a Service Registry?
+**  14. How does service discovery work in microservices?
+*   15. What would happen if a service registry fails?
+*   16. How do microservices update their registration and discovery information?
+*   17. How do you handle data consistency in microservices?
+*   18. What is eventual consistency?
+**  19. How would you implement a transaction that spans multiple services?
+*   20. What are the trade-offs of using eventual consistency vs. strong consistency?
+*   21. What are some strategies for microservices deployment?
+*   22. Can you describe blue-green deployment?
+*   23. How does canary releasing differ from blue-green deployment?
+*   24. What tools would you recommend for automating microservices deployment?
+*   25. How do you monitor and manage microservices?
+*   26. What metrics are important to monitor in a microservices architecture?
+*   27. How can distributed tracing help in monitoring microservices?
+*   28. What tools can be used for logging and monitoring in a microservices environment?
+**  29. How do you ensure security in microservices?
+*   30. What are the common security patterns applicable in microservices?
+*   31. How can services securely communicate with each other?
+*   32. What are the implications of service-specific databases on security?
+**  33. Discuss the patterns used to handle failures in microservices.
+*** 34. What is the Circuit Breaker pattern?
+*   35. How does the Bulkhead pattern help in improving system resilience?
+*   36. Can you explain the Retry and Backoff patterns?
+
+13. Maven (11 questions, *** 4)
+--------------------------------------------------
+*** 1. What is Maven and what problem does it solve?
+*** 2. What is a POM file in Maven?
+*   3. What is the difference between compile and runtime dependencies in Maven?
+*** 4. Explain the Maven Lifecycle Phases.
+**  5. What is a Maven Repository?
+*   6. How do you exclude dependencies in Maven?
+*   7. How can we optimize a Maven build for a large project?
+*   8. How do you run a Maven build?
+*** 9. What is the difference between mvn clean and mvn install?
+**  10. How do you manage dependencies in a Maven project?
+*   11. Explain Maven Life Cycle?
+
+14. Git (15 questions, *** 4)
+--------------------------------------------------
+**  1. What is Git and how does it differ from other version control systems?
+*** 2. Explain the difference between Git clone, pull, and fetch.
+*   3. What is a Git repository?
+*   4. What is a Git commit?
+**  5. What is a Git branch?
+**  6. What is a Git merge?
+**  7. What is a Git conflict?
+*   8. What is a Git remote?
+*   9. Explain Git branching strategies like Gitflow and GitHub Flow.
+**  10. How do you revert a commit in Git?
+*** 11. You are working on a new feature in a separate branch called feature-x. Your team decides to change its priority. How would you put your current changes on hold and switch to another task on a new branch?
+*** 12. You are trying to merge your branch feature-y into the main branch, but you encounter a merge conflict in the file abc.java. How would you resolve this conflict?
+**  13. Your feature branch is several commits behind the main branch. Explain how you would use git rebase to bring your branch up to date with main.
+*** 14. You're in the middle of developing a feature when an urgent bug fix needs to be addressed, but you're not ready to commit your changes. How would you temporarily store your uncommitted changes and retrieve them later?
+**  15. After deploying a recent change, you realize it has caused a significant issue. How would you revert the last commit in your repository while ensuring the change is also removed from the history?

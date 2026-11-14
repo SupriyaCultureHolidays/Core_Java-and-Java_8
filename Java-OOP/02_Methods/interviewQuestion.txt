@@ -1,0 +1,12 @@
+Interview Questions - Methods
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+**  1. What is the use of the public static void main(String[] args) method?   [Core Java - Level I → Q 5]
+**  2. Explain public static void main(string args[])?   [Core Java - Level II → Q 4]
+**  3. What will happen if we declare don’t declare the main as static?   [Core Java - Level II → Q 4.1]
+**  4. Can we oveload the main method?   [Core Java - Level II → Q 4.3]
+**  5. Can we override the main method?   [Core Java - Level II → Q 4.2]
+*   6. Can JVM execute our overloaded main method ?   [Core Java - Level II → Q 4.4]

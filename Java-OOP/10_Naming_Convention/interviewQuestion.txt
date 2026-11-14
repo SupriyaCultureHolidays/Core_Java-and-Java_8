@@ -1,0 +1,10 @@
+Interview Questions - Naming Convention
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+Note: Naming convention niye list-e direct kono question nei. Nicher question gulo related.
+
+*   1. What are the packages in Java?   [Core Java - Level II → Q 11]
+*   2. Why packages are used?   [Core Java - Level II → Q 11.1]

@@ -657,6 +657,32 @@ a:focus-visible, button:focus-visible {
 .mem-field-row { display: flex; align-items: center; gap: 0.4rem; padding: 0.22rem 0.65rem; }
 .mem-empty { color: #5C6680; font-size: 0.75rem; font-style: italic; padding: 0.5rem 0.65rem; }
 .mem-gc-badge { display: inline-block; font-size: 0.62rem; background: rgba(180,40,40,0.2); color: #e08080; border: 1px solid rgba(180,40,40,0.35); border-radius: 3px; padding: 0.05rem 0.4rem; margin-left: 0.4rem; vertical-align: middle; font-family: 'Segoe UI', sans-serif; }
+
+
+/* ════════════════════════════════
+   INTERVIEW QUESTIONS BOX
+   ════════════════════════════════ */
+.iq-box {
+  background: var(--tag-bg);
+  border-left: 3px solid var(--navy-mid);
+  border-radius: 0 7px 7px 0;
+  padding: 1rem 1.2rem;
+  margin-top: 1.5rem;
+}
+.iq-title {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--navy-mid);
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+.iq-box ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; margin: 0; }
+.iq-box li { font-size: 0.875rem; line-height: 1.5; }
+.iq-star { display: inline-block; min-width: 2.2rem; font-weight: 700; color: var(--orange); letter-spacing: 0.05em; }
+.iq-ref { font-size: 0.72rem; font-weight: 600; color: var(--navy-mid); background: rgba(25,42,64,0.08); padding: 0.05rem 0.4rem; border-radius: 4px; white-space: nowrap; }
+.iq-legend { font-size: 0.72rem; opacity: 0.75; margin-top: 0.6rem; }
+/* IQ-CSS-END */
 </style>
 </head>
 <body>
@@ -912,6 +938,24 @@ Machine Code (CPU-তে চলে)</pre>
           <li><code>javac</code> command কী করে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Can you tell me the difference between JVM, JRE, and JDK? <span class="iq-ref">[Core Java - Level II → Q 1]</span></li>
+          <li><span class="iq-star">***</span>What are Memory storages available with JVM? <span class="iq-ref">[Core Java - Level II → Q 1.4]</span></li>
+          <li><span class="iq-star">***</span>What is the difference between JDK, JRE, and JVM? <span class="iq-ref">[Core Java - Level I → Q 4]</span></li>
+          <li><span class="iq-star">**</span>What are the key components of JVM Architecture? <span class="iq-ref">[Core Java - Level II → Q 1.1]</span></li>
+          <li><span class="iq-star">**</span>Is java 100% object oriented programming language ? <span class="iq-ref">[Core Java - Level II → Q 3]</span></li>
+          <li><span class="iq-star">**</span>What are the features of Java? <span class="iq-ref">[Core Java - Level I → Q 2]</span></li>
+          <li><span class="iq-star">**</span>What is JVM and why is it important? <span class="iq-ref">[Core Java - Level I → Q 3]</span></li>
+          <li><span class="iq-star">*</span>Can a Java application be run without installing the JRE? <span class="iq-ref">[Core Java - Level II → Q 1.2]</span></li>
+          <li><span class="iq-star">*</span>Is it possible to have the JDK installed without having the JRE? <span class="iq-ref">[Core Java - Level II → Q 1.3]</span></li>
+          <li><span class="iq-star">*</span>What is Java? <span class="iq-ref">[Core Java - Level I → Q 1]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 2 -->
@@ -956,6 +1000,17 @@ int big = 1_000_000;            <span class="comment">// পড়তে সু�
           <li>Java-তে <code>int</code>-এর default value কত?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>Whats the difference between primitive data types and non primitive data types ? <span class="iq-ref">[Core Java - Level II → Q 5]</span></li>
+          <li><span class="iq-star">*</span>Can primitive data types be NULL ? <span class="iq-ref">[Core Java - Level II → Q 5.1]</span></li>
+          <li><span class="iq-star">*</span>Can we declare pointer in java ? <span class="iq-ref">[Core Java - Level II → Q 5.2]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 3 -->
@@ -1176,6 +1231,20 @@ System.out.println(c.equals(d));   <span class="comment">// true — value compa
           <li><code>List&lt;int&gt;</code> লেখা যায় না, <code>List&lt;Integer&gt;</code> লিখতে হয় কেন?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>What are wrapper classes? <span class="iq-ref">[Core Java - Level II → Q 6]</span></li>
+          <li><span class="iq-star">**</span>Why do we need wrapper classes? <span class="iq-ref">[Core Java - Level II → Q 6.1]</span></li>
+          <li><span class="iq-star">**</span>Why we use wrapper class in collections <span class="iq-ref">[Core Java - Level II → Q 6.2]</span></li>
+          <li><span class="iq-star">**</span>Can you explain the difference between unboxing and autoboxing in Java? <span class="iq-ref">[Core Java - Level II → Q 7]</span></li>
+          <li><span class="iq-star">*</span>Can you provide an example where autoboxing could lead to unexpected behavior? <span class="iq-ref">[Core Java - Level II → Q 7.1]</span></li>
+          <li><span class="iq-star">*</span>Is there a scenario where autoboxing and unboxing could cause a NullPointerException? <span class="iq-ref">[Core Java - Level II → Q 7.2]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 5 -->
@@ -1204,6 +1273,15 @@ System.out.println(!p);      <span class="comment">// NOT → false</span></pre>
           <li><code>x &amp;= 5</code> কী করে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Explain the difference between == and .equals() in Java. <span class="iq-ref">[Core Java - Level I → Q 21]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 6 -->
@@ -1254,6 +1332,21 @@ do {
           <li>switch দিয়ে ১–১২ নম্বর দিলে মাসের নাম print করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Write a Java Program to swap two numbers without using the third variable. <span class="iq-ref">[Java Coding Questions → Q 2]</span></li>
+          <li><span class="iq-star">***</span>Write a Java Program to find whether a string or number is palindrome or not. <span class="iq-ref">[Java Coding Questions → Q 6]</span></li>
+          <li><span class="iq-star">***</span>Write a Java Program for the Fibonacci series in recursion. <span class="iq-ref">[Java Coding Questions → Q 7]</span></li>
+          <li><span class="iq-star">**</span>Write a Java Program to find whether a number is prime or not in the most efficient way? <span class="iq-ref">[Java Coding Questions → Q 5]</span></li>
+          <li><span class="iq-star">**</span>Write a Java Program to check Armstrong number. <span class="iq-ref">[Java Coding Questions → Q 11]</span></li>
+          <li><span class="iq-star">*</span>Given a non-negative integer num, repeatedly add all its digits until the result has only one digit. <span class="iq-ref">[Java Coding Questions → Q 22]</span></li>
+          <li><span class="iq-star">*</span>Given an integer, write a function to determine if it is a power of two. <span class="iq-ref">[Java Coding Questions → Q 23]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 7 -->
@@ -1296,6 +1389,21 @@ class Demo {
           <li><code>width</code>, <code>height</code> এবং <code>area()</code> method সহ একটি <code>Rectangle</code> class তৈরি করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Explain the concept of Object-Oriented Programming in Java. <span class="iq-ref">[Core Java - Level I → Q 6]</span></li>
+          <li><span class="iq-star">**</span>Explain the concepts of classes and objects in Java. <span class="iq-ref">[Core Java - Level II → Q 13]</span></li>
+          <li><span class="iq-star">**</span>What are the ways to create an object? <span class="iq-ref">[Core Java - Level II → Q 13.1]</span></li>
+          <li><span class="iq-star">**</span>Is java 100% object oriented programming language ? <span class="iq-ref">[Core Java - Level II → Q 3]</span></li>
+          <li><span class="iq-star">*</span>Can a class in Java be without any methods or fields? <span class="iq-ref">[Core Java - Level II → Q 13.2]</span></li>
+          <li><span class="iq-star">*</span>What are the advantages of Java being partially object-oriented? <span class="iq-ref">[Core Java - Level II → Q 3.1]</span></li>
+          <li><span class="iq-star">*</span>What is the use of object-oriented programming languages in the enterprise projects? <span class="iq-ref">[Core Java - Level II → Q 3.2]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 8 -->
@@ -1327,6 +1435,20 @@ String pen = obj.getMeAPen(15);   <span class="comment">// return value ধর�
           <li><code>max(int a, int b)</code> — বড় সংখ্যাটি return করবে এমন method লেখো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>What is the use of the public static void main(String[] args) method? <span class="iq-ref">[Core Java - Level I → Q 5]</span></li>
+          <li><span class="iq-star">**</span>Explain public static void main(string args[])? <span class="iq-ref">[Core Java - Level II → Q 4]</span></li>
+          <li><span class="iq-star">**</span>What will happen if we declare don’t declare the main as static? <span class="iq-ref">[Core Java - Level II → Q 4.1]</span></li>
+          <li><span class="iq-star">**</span>Can we oveload the main method? <span class="iq-ref">[Core Java - Level II → Q 4.3]</span></li>
+          <li><span class="iq-star">**</span>Can we override the main method? <span class="iq-ref">[Core Java - Level II → Q 4.2]</span></li>
+          <li><span class="iq-star">*</span>Can JVM execute our overloaded main method ? <span class="iq-ref">[Core Java - Level II → Q 4.4]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 9 -->
@@ -1363,6 +1485,22 @@ obj.add(3.5, 4);   <span class="comment">// → double version</span></pre>
           <li><code>void show()</code> এবং <code>int show()</code> কি valid overloading? কেন?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is method overloading? <span class="iq-ref">[Core Java - Level I → Q 13]</span></li>
+          <li><span class="iq-star">***</span>What is method overloading in Java? <span class="iq-ref">[Core Java - Level II → Q 23]</span></li>
+          <li><span class="iq-star">**</span>How does method overloading relate to polymorphism? <span class="iq-ref">[Core Java - Level II → Q 18.1]</span></li>
+          <li><span class="iq-star">**</span>Is it possible to overload methods that differ only by their return type in Java? <span class="iq-ref">[Core Java - Level II → Q 23.2]</span></li>
+          <li><span class="iq-star">**</span>What are the rules for method overloading in Java? <span class="iq-ref">[Core Java - Level II → Q 23.3]</span></li>
+          <li><span class="iq-star">**</span>Can we oveload the main method? <span class="iq-ref">[Core Java - Level II → Q 4.3]</span></li>
+          <li><span class="iq-star">*</span>How does the Java compiler determine which overloaded method to call? <span class="iq-ref">[Core Java - Level II → Q 23.1]</span></li>
+          <li><span class="iq-star">*</span>Can JVM execute our overloaded main method ? <span class="iq-ref">[Core Java - Level II → Q 4.4]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 10 -->
@@ -1597,6 +1735,24 @@ obj = null;   <span class="comment">// reference সরিয়ে দিলা
           <li>দুটো reference একই Object-কে point করলে একটি দিয়ে বদলালে অন্যটিতে কী দেখা যাবে এবং কেন?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What are Memory storages available with JVM? <span class="iq-ref">[Core Java - Level II → Q 1.4]</span></li>
+          <li><span class="iq-star">**</span>What is garbage collection in Java? <span class="iq-ref">[Core Java - Level I → Q 22]</span></li>
+          <li><span class="iq-star">**</span>Which is faster to access between heap and stack, and why? <span class="iq-ref">[Core Java - Level II → Q 1.5]</span></li>
+          <li><span class="iq-star">**</span>How does garbage collection work in Java? <span class="iq-ref">[Core Java - Level II → Q 2]</span></li>
+          <li><span class="iq-star">**</span>How can memory leaks occur in Java even we have automatic garbage collection? <span class="iq-ref">[Core Java - Level II → Q 2.3]</span></li>
+          <li><span class="iq-star">**</span>What are the key components of JVM Architecture? <span class="iq-ref">[Core Java - Level II → Q 1.1]</span></li>
+          <li><span class="iq-star">*</span>Whats the role of finalized() method in garbage collection? <span class="iq-ref">[Core Java - Level II → Q 2.1]</span></li>
+          <li><span class="iq-star">*</span>Can you tell me what algorithm JVM uses for garbage collection? <span class="iq-ref">[Core Java - Level II → Q 2.2]</span></li>
+          <li><span class="iq-star">*</span>What is the weak reference and soft reference in java? <span class="iq-ref">[Core Java - Level II → Q 36.4]</span></li>
+          <li><span class="iq-star">*</span>What is the difference between Young Generation and Old Generation memory spaces? <span class="iq-ref">[Core Java - Level II → Q 36.7]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 11 -->
@@ -1729,6 +1885,19 @@ for (Student s : students) {
           <li>Array-এর ৩টি সীমাবদ্ধতা নিজের ভাষায় বলো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Write a Java Program to find the second-highest number in an array. <span class="iq-ref">[Java Coding Questions → Q 10]</span></li>
+          <li><span class="iq-star">***</span>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. <span class="iq-ref">[Java Coding Questions → Q 13]</span></li>
+          <li><span class="iq-star">***</span>Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements. <span class="iq-ref">[Java Coding Questions → Q 24]</span></li>
+          <li><span class="iq-star">**</span>Given an array nums and a value val, remove all instances of that value in-place and return the new length of the array. Do not allocate extra space for another array. You must modify the input array in-place with O(1) extra memory. <span class="iq-ref">[Java Coding Questions → Q 16]</span></li>
+          <li><span class="iq-star">*</span>You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise). <span class="iq-ref">[Java Coding Questions → Q 21]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 12 -->
@@ -2027,6 +2196,28 @@ s.equals("Hello World")    <span class="comment">// true — সবসময় 
           <li>Loop দিয়ে একটি string-এ vowel-এর সংখ্যা গুনো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is string pool? <span class="iq-ref">[Core Java - Level II → Q 9]</span></li>
+          <li><span class="iq-star">***</span>Can you please tell me about String and string buffer? <span class="iq-ref">[Core Java - Level II → Q 10]</span></li>
+          <li><span class="iq-star">***</span>How does StringBuilder differ from StringBuffer, and when should each be used? <span class="iq-ref">[Core Java - Level II → Q 10.1]</span></li>
+          <li><span class="iq-star">***</span>What is the difference between a String literal and a String object? <span class="iq-ref">[Core Java - Level II → Q 10.3]</span></li>
+          <li><span class="iq-star">***</span>Why is String immutable? <span class="iq-ref">[Core Java - Level II → Q 10.4]</span></li>
+          <li><span class="iq-star">***</span>Write a Java Program to reverse a string without using String inbuilt function. <span class="iq-ref">[Java Coding Questions → Q 1]</span></li>
+          <li><span class="iq-star">***</span>Write a Java Program to find the duplicate characters in a string. <span class="iq-ref">[Java Coding Questions → Q 9]</span></li>
+          <li><span class="iq-star">***</span>Given a string s, find the length of the longest substring without repeating characters. <span class="iq-ref">[Java Coding Questions → Q 19]</span></li>
+          <li><span class="iq-star">***</span>Explain the difference between == and .equals() in Java. <span class="iq-ref">[Core Java - Level I → Q 21]</span></li>
+          <li><span class="iq-star">***</span>What is the difference between == and .equals() in Java? <span class="iq-ref">[Core Java - Level II → Q 5.3]</span></li>
+          <li><span class="iq-star">**</span>Write a Java Program to remove all white spaces from a string without using replace(). <span class="iq-ref">[Java Coding Questions → Q 12]</span></li>
+          <li><span class="iq-star">*</span>Are there any scenarios where using the string pool might not be beneficial? <span class="iq-ref">[Core Java - Level II → Q 9.1]</span></li>
+          <li><span class="iq-star">*</span>Give a scenario where StringBuffer is better than the String? <span class="iq-ref">[Core Java - Level II → Q 10.2]</span></li>
+          <li><span class="iq-star">*</span>Use of String.join(….) in Java 8? <span class="iq-ref">[Core Java - Level II → Q 29.10]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 13 -->
@@ -2237,6 +2428,23 @@ System.out.println(Test.count);  <span class="comment">// 3</span>
           <li>Employee class বানাও যেখানে <code>name</code> instance variable এবং <code>companyName</code> static variable। ২টি Employee তৈরি করে companyName পরিবর্তন করলে কী হয়?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is the static keyword used for in Java? <span class="iq-ref">[Core Java - Level I → Q 19]</span></li>
+          <li><span class="iq-star">***</span>What is the static keyword in Java? <span class="iq-ref">[Core Java - Level II → Q 26]</span></li>
+          <li><span class="iq-star">***</span>Can we override static methods in Java? <span class="iq-ref">[Core Java - Level II → Q 26.2]</span></li>
+          <li><span class="iq-star">**</span>Is it possible to access non-static members from within a static method? <span class="iq-ref">[Core Java - Level II → Q 26.3]</span></li>
+          <li><span class="iq-star">**</span>What is static block? <span class="iq-ref">[Core Java - Level II → Q 26.4]</span></li>
+          <li><span class="iq-star">**</span>Can the this or super keyword be used in a static method? <span class="iq-ref">[Core Java - Level II → Q 25.3]</span></li>
+          <li><span class="iq-star">**</span>What will happen if we declare don’t declare the main as static? <span class="iq-ref">[Core Java - Level II → Q 4.1]</span></li>
+          <li><span class="iq-star">*</span>Can a static block throw an exception? <span class="iq-ref">[Core Java - Level II → Q 26.1]</span></li>
+          <li><span class="iq-star">*</span>Can we print something on console without main method in java? <span class="iq-ref">[Core Java - Level II → Q 26.5]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 14 -->
@@ -2277,6 +2485,21 @@ obj.setAge(30);     <span class="comment">// ঠিক আছে</span>
           <li>কোনো class কি তার নিজের private member access করতে পারে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Explain encapsulation with an example in Java. <span class="iq-ref">[Core Java - Level I → Q 9]</span></li>
+          <li><span class="iq-star">***</span>What does mean by encapsulation in java? <span class="iq-ref">[Core Java - Level II → Q 21]</span></li>
+          <li><span class="iq-star">**</span>What are access modifies in java? <span class="iq-ref">[Core Java - Level II → Q 12]</span></li>
+          <li><span class="iq-star">*</span>How Encapsulation Enhances Software Security and Integrity: <span class="iq-ref">[Core Java - Level II → Q 21.1]</span></li>
+          <li><span class="iq-star">*</span>Can you provide examples of when to use each type of access modifier? <span class="iq-ref">[Core Java - Level II → Q 12.1]</span></li>
+          <li><span class="iq-star">*</span>Why do we use getters setter when we can make fields publick and setting getting directly? <span class="iq-ref">[Core Java - Level II → Q 12.2]</span></li>
+          <li><span class="iq-star">*</span>Can a top-level class be private or protected in Java? <span class="iq-ref">[Core Java - Level II → Q 12.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 15 -->
@@ -2305,6 +2528,15 @@ class Human {
           <li><code>boolean</code> field <code>isMarried</code>-এর getter-এর নাম কী হবে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">*</span>Why do we use getters setter when we can make fields publick and setting getting directly? <span class="iq-ref">[Core Java - Level II → Q 12.2]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 16 -->
@@ -2476,6 +2708,18 @@ h.test();  <span class="comment">// Object আছে → this = h</span></pre></
           <li><code>Employee(String name) { this.name = name; }</code> — এখানে দুটো <code>name</code>-এর পার্থক্য বোঝাও।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>What is the use of ‘this’ keyword in Java? <span class="iq-ref">[Core Java - Level I → Q 26]</span></li>
+          <li><span class="iq-star">**</span>What is 'this' and 'super' keyword in java? <span class="iq-ref">[Core Java - Level II → Q 25]</span></li>
+          <li><span class="iq-star">**</span>Can the this or super keyword be used in a static method? <span class="iq-ref">[Core Java - Level II → Q 25.3]</span></li>
+          <li><span class="iq-star">*</span>Can 'this' keyword be assigned a new value in Java? <span class="iq-ref">[Core Java - Level II → Q 25.1]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 17 -->
@@ -2511,6 +2755,19 @@ Human obj2 = new Human(25, "Navin"); <span class="comment">// parameterized</spa
           <li>Code লিখে প্রমাণ করো: static block → constructor → method ক্রমে চলে।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>What are constructors in Java? <span class="iq-ref">[Core Java - Level I → Q 12]</span></li>
+          <li><span class="iq-star">**</span>What is a constructor in Java? <span class="iq-ref">[Core Java - Level II → Q 15]</span></li>
+          <li><span class="iq-star">**</span>Can we use a private constructor? <span class="iq-ref">[Core Java - Level II → Q 15.1]</span></li>
+          <li><span class="iq-star">**</span>Can constructor be overloaded? <span class="iq-ref">[Core Java - Level II → Q 15.2]</span></li>
+          <li><span class="iq-star">*</span>Can constructors be polymorphic? <span class="iq-ref">[Core Java - Level II → Q 18.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 18 -->
@@ -2697,6 +2954,16 @@ JVM পরে Heap থেকে মুছে দেবে</pre>
           <li>Method call শেষ হলে anonymous object-এর কী হয়?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>What are the ways to create an object? <span class="iq-ref">[Core Java - Level II → Q 13.1]</span></li>
+          <li><span class="iq-star">**</span>How does garbage collection work in Java? <span class="iq-ref">[Core Java - Level II → Q 2]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 20 -->
@@ -2825,6 +3092,25 @@ public class Demo {
           <li><code>super()</code> এবং <code>this()</code>-এর মধ্যে পার্থক্য কী?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is inheritance in Java? <span class="iq-ref">[Core Java - Level I → Q 7]</span></li>
+          <li><span class="iq-star">***</span>What does Java's inheritance mean? <span class="iq-ref">[Core Java - Level II → Q 17]</span></li>
+          <li><span class="iq-star">***</span>Why multiple inheritance is not possible in java? <span class="iq-ref">[Core Java - Level II → Q 17.2]</span></li>
+          <li><span class="iq-star">**</span>What is the difference between inheritance and composition? <span class="iq-ref">[Core Java - Level II → Q 17.3]</span></li>
+          <li><span class="iq-star">**</span>What is the difference between association, aggregation, and composition in Java? <span class="iq-ref">[Core Java - Level II → Q 17.5]</span></li>
+          <li><span class="iq-star">**</span>Explain the IS-A (inheritance) and Has-A (composition) relationships in Java. <span class="iq-ref">[Core Java - Level II → Q 17.6]</span></li>
+          <li><span class="iq-star">**</span>What is 'this' and 'super' keyword in java? <span class="iq-ref">[Core Java - Level II → Q 25]</span></li>
+          <li><span class="iq-star">*</span>Can a class extends on its own? <span class="iq-ref">[Core Java - Level II → Q 17.1]</span></li>
+          <li><span class="iq-star">*</span>Discuss the principle of "composition over inheritance". Provide an example where this principle should be applied in Java application design. <span class="iq-ref">[Core Java - Level II → Q 17.4]</span></li>
+          <li><span class="iq-star">*</span>What happens if you attempt to use the "super" keyword in a class that doesn't have a superclass? <span class="iq-ref">[Core Java - Level II → Q 25.2]</span></li>
+          <li><span class="iq-star">*</span>How does 'super' play a role in polymorphism ? <span class="iq-ref">[Core Java - Level II → Q 25.4]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 21 -->
@@ -2871,6 +3157,17 @@ p.weep();  <span class="comment">// নিজের</span></pre>
           <li>Hierarchical inheritance কী? Animal → Dog এবং Animal → Cat — এটা কোন ধরনের?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What does Java's inheritance mean? <span class="iq-ref">[Core Java - Level II → Q 17]</span></li>
+          <li><span class="iq-star">***</span>Why multiple inheritance is not possible in java? <span class="iq-ref">[Core Java - Level II → Q 17.2]</span></li>
+          <li><span class="iq-star">*</span>Can a class extends on its own? <span class="iq-ref">[Core Java - Level II → Q 17.1]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 22 -->
@@ -2906,6 +3203,18 @@ d.swim();</pre>
           <li>Java-তে multiple inheritance-এর বিকল্প কী?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Why multiple inheritance is not possible in java? <span class="iq-ref">[Core Java - Level II → Q 17.2]</span></li>
+          <li><span class="iq-star">**</span>What is the diamond problem in Java and how does Java address it? <span class="iq-ref">[Core Java - Level II → Q 20.8]</span></li>
+          <li><span class="iq-star">**</span>How does the concept of default methods in interfaces help resolve the diamond problem? <span class="iq-ref">[Core Java - Level II → Q 20.9]</span></li>
+          <li><span class="iq-star">**</span>How do you use multiple inheritance in Java using interfaces? <span class="iq-ref">[Core Java - Level II → Q 20.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 23 -->
@@ -3027,6 +3336,21 @@ a.sound();   <span class="comment">// কোনটা চলবে — Animal �
           <li>Static method-এর ক্ষেত্রে Override না বলে কী বলে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is method overriding? <span class="iq-ref">[Core Java - Level I → Q 14]</span></li>
+          <li><span class="iq-star">***</span>What is method overriding in Java? <span class="iq-ref">[Core Java - Level II → Q 24]</span></li>
+          <li><span class="iq-star">***</span>Can we override static methods in Java? <span class="iq-ref">[Core Java - Level II → Q 26.2]</span></li>
+          <li><span class="iq-star">**</span>What are the rules and conditions for method overriding in Java? <span class="iq-ref">[Core Java - Level II → Q 24.1]</span></li>
+          <li><span class="iq-star">**</span>Can we override the main method? <span class="iq-ref">[Core Java - Level II → Q 4.2]</span></li>
+          <li><span class="iq-star">*</span>How does the @Override annotation influence method overriding? <span class="iq-ref">[Core Java - Level II → Q 24.2]</span></li>
+          <li><span class="iq-star">*</span>What happens if a superclass method is overridden by more than one subclass in Java? <span class="iq-ref">[Core Java - Level II → Q 24.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 24 -->
@@ -3075,6 +3399,20 @@ import java.util.*;                <span class="comment">// পুরো package
           <li>Scanner ব্যবহার করে user থেকে নাম নিয়ে print করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>What are access modifies in java? <span class="iq-ref">[Core Java - Level II → Q 12]</span></li>
+          <li><span class="iq-star">*</span>What is a package in Java? <span class="iq-ref">[Core Java - Level I → Q 15]</span></li>
+          <li><span class="iq-star">*</span>What are the packages in Java? <span class="iq-ref">[Core Java - Level II → Q 11]</span></li>
+          <li><span class="iq-star">*</span>Why packages are used? <span class="iq-ref">[Core Java - Level II → Q 11.1]</span></li>
+          <li><span class="iq-star">*</span>Can you provide examples of when to use each type of access modifier? <span class="iq-ref">[Core Java - Level II → Q 12.1]</span></li>
+          <li><span class="iq-star">*</span>Can a top-level class be private or protected in Java? <span class="iq-ref">[Core Java - Level II → Q 12.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 25 -->
@@ -3233,6 +3571,20 @@ public class Demo {
           <li><code>Animal a = new Dog(); a.sound();</code> — Java কীভাবে ঠিক করে কোন class-এর method চলবে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is polymorphism in Java? <span class="iq-ref">[Core Java - Level I → Q 8]</span></li>
+          <li><span class="iq-star">***</span>What does mean by polymorphism in Java? <span class="iq-ref">[Core Java - Level II → Q 18]</span></li>
+          <li><span class="iq-star">**</span>How does method overloading relate to polymorphism? <span class="iq-ref">[Core Java - Level II → Q 18.1]</span></li>
+          <li><span class="iq-star">**</span>What is dynamic method dispatch in Java? <span class="iq-ref">[Core Java - Level II → Q 18.2]</span></li>
+          <li><span class="iq-star">*</span>Can constructors be polymorphic? <span class="iq-ref">[Core Java - Level II → Q 18.3]</span></li>
+          <li><span class="iq-star">*</span>How does 'super' play a role in polymorphism ? <span class="iq-ref">[Core Java - Level II → Q 25.4]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 26 -->
@@ -3358,6 +3710,15 @@ d.bark();    <span class="comment">// ঠিক আছে — এখন referenc
           <li><code>a.bark()</code> call কি সম্ভব যদি <code>a</code>-র type <code>Animal</code> হয়? কেন?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>What is dynamic method dispatch in Java? <span class="iq-ref">[Core Java - Level II → Q 18.2]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 27 -->
@@ -3462,6 +3823,20 @@ class Dog extends Animal {   <span class="comment">// 👉 এই লাইন�
           <li>Final method override করা যায় না — এটা কখন দরকার হয়?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Explain the final keyword in Java. <span class="iq-ref">[Core Java - Level I → Q 16]</span></li>
+          <li><span class="iq-star">***</span>What is final keyword in java? <span class="iq-ref">[Core Java - Level II → Q 27]</span></li>
+          <li><span class="iq-star">**</span>How does the "final" keyword contribute to immutability and thread safety in Java? <span class="iq-ref">[Core Java - Level II → Q 27.2]</span></li>
+          <li><span class="iq-star">**</span>Discuss the difference between finalize() and finally. Under what circumstances might finalize() not get called in a Java application? <span class="iq-ref">[Core Java - Level II → Q 8.9]</span></li>
+          <li><span class="iq-star">*</span>What are some common use cases for using final variables in Java programming? <span class="iq-ref">[Core Java - Level II → Q 27.1]</span></li>
+          <li><span class="iq-star">*</span>Can you describe any performance considerations related to using final? <span class="iq-ref">[Core Java - Level II → Q 27.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 28 -->
@@ -3534,6 +3909,17 @@ public int hashCode() {
           <li><code>equals()</code> override করলে <code>hashCode()</code>-ও override করতে হয় কেন?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Explain the difference between == and .equals() in Java. <span class="iq-ref">[Core Java - Level I → Q 21]</span></li>
+          <li><span class="iq-star">***</span>What is the difference between == and .equals() in Java? <span class="iq-ref">[Core Java - Level II → Q 5.3]</span></li>
+          <li><span class="iq-star">**</span>What are the methods available in the Object class, and how are they used? <span class="iq-ref">[Core Java - Level II → Q 13.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 29 -->
@@ -3618,6 +4004,18 @@ public int hashCode() {
           <li><code>Objects.hash()</code> কী কাজ করে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Can you describe how hashCode() and equals() work together in a collection <span class="iq-ref">[Core Java - Level II → Q 31.2]</span></li>
+          <li><span class="iq-star">***</span>Why is it important to override the hashCode method when you override equals? <span class="iq-ref">[Core Java - Level II → Q 31.3]</span></li>
+          <li><span class="iq-star">**</span>What would be the consequence if we don’t? <span class="iq-ref">[Core Java - Level II → Q 31.4]</span></li>
+          <li><span class="iq-star">**</span>Can we include class as a key in hashmap? <span class="iq-ref">[Core Java - Level II → Q 32.4]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 30 -->
@@ -3716,6 +4114,15 @@ Student s2 = new Student(s1);   <span class="comment">// clone() লাগলো
           <li>Address field সহ একটা Student class বানাও যেখানে deep copy সঠিকভাবে কাজ করে।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>What are the ways to create an object? <span class="iq-ref">[Core Java - Level II → Q 13.1]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 31 -->
@@ -3779,6 +4186,20 @@ Student s2 = new Student(s1);   <span class="comment">// clone() লাগলো
           <li>একটা <code>Point(x, y)</code> Immutable Class বানাও।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is immutability mean in Java? <span class="iq-ref">[Core Java - Level II → Q 16]</span></li>
+          <li><span class="iq-star">***</span>How can we create immutable class? <span class="iq-ref">[Core Java - Level II → Q 16.3]</span></li>
+          <li><span class="iq-star">***</span>Why is String immutable? <span class="iq-ref">[Core Java - Level II → Q 10.4]</span></li>
+          <li><span class="iq-star">**</span>What are immutable classes? <span class="iq-ref">[Core Java - Level II → Q 16.2]</span></li>
+          <li><span class="iq-star">**</span>How does the "final" keyword contribute to immutability and thread safety in Java? <span class="iq-ref">[Core Java - Level II → Q 27.2]</span></li>
+          <li><span class="iq-star">*</span>Why immutable objects are useful for concorrent programming? <span class="iq-ref">[Core Java - Level II → Q 16.1]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 32 -->
@@ -3860,6 +4281,18 @@ System.out.println(db1 == db2);   <span class="comment">// true — একই ob
           <li>একটা <code>AppConfig</code> Singleton class বানাও।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is Singleton Class? <span class="iq-ref">[Core Java - Level II → Q 14]</span></li>
+          <li><span class="iq-star">***</span>How can we create this singleton class? <span class="iq-ref">[Core Java - Level II → Q 14.1]</span></li>
+          <li><span class="iq-star">**</span>Are these threads safe? <span class="iq-ref">[Core Java - Level II → Q 14.2]</span></li>
+          <li><span class="iq-star">**</span>Can we use a private constructor? <span class="iq-ref">[Core Java - Level II → Q 15.1]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 33 -->
@@ -3921,6 +4354,15 @@ System.out.println(db1 == db2);   <span class="comment">// true — একই ob
           <li>Static Nested আর non-static Inner Class-এর মূল পার্থক্য কী?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">*</span>What are anonymous classes and their advantages? <span class="iq-ref">[Core Java - Level II → Q 13.4]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 34 -->
@@ -4158,6 +4600,15 @@ Downcasting:  Animal → Dog   (↓ নিচে যাচ্ছে)   — Manua
           <li>Upcasting এবং Downcasting-এ Object কি পরিবর্তন হয়? ব্যাখ্যা করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>What is dynamic method dispatch in Java? <span class="iq-ref">[Core Java - Level II → Q 18.2]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 35 -->
@@ -4232,6 +4683,19 @@ public class Demo {
           <li>উপরের Car / WagnoR / UpdateWagnoR উদাহরণে <code>Car obj = new WagnoR();</code> লিখলে কী হবে এবং কেন?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Explain the concept of an abstract class. <span class="iq-ref">[Core Java - Level I → Q 11]</span></li>
+          <li><span class="iq-star">***</span>What does mean by abstraction in java? <span class="iq-ref">[Core Java - Level II → Q 19]</span></li>
+          <li><span class="iq-star">**</span>What happens if a class includes an abstract method? <span class="iq-ref">[Core Java - Level II → Q 19.2]</span></li>
+          <li><span class="iq-star">*</span>Can you provide examples of where abstraction is effectively used in Java libraries? <span class="iq-ref">[Core Java - Level II → Q 19.1]</span></li>
+          <li><span class="iq-star">*</span>How does abstraction help in achieving loose coupling in software applications? <span class="iq-ref">[Core Java - Level II → Q 19.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 36 -->
@@ -4279,6 +4743,15 @@ nested.show();   <span class="comment">// y = 20</span></pre>
           <li>Static nested class এবং non-static inner class-এর পার্থক্য কী?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">*</span>What are anonymous classes and their advantages? <span class="iq-ref">[Core Java - Level II → Q 13.4]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 37 -->
@@ -4330,6 +4803,15 @@ g.greet("Rahul");   <span class="comment">// Hello, Rahul!</span></pre>
           <li><code>Runnable</code> interface-কে anonymous class দিয়ে implement করো এবং <code>run()</code> method-এ "Thread running" print করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">*</span>What are anonymous classes and their advantages? <span class="iq-ref">[Core Java - Level II → Q 13.4]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- Master Practice -->
@@ -4403,6 +4885,16 @@ s.draw();</pre>
           <li><code>Animal</code> abstract class — <code>sound()</code> abstract method। <code>Dog</code> ও <code>Cat</code> দিয়ে implement করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is the difference between an interface and an abstract class in Java? <span class="iq-ref">[Core Java - Level II → Q 20.1]</span></li>
+          <li><span class="iq-star">***</span>When would you use an interface, and when would you use an abstract class? <span class="iq-ref">[Core Java - Level II → Q 20.5]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 39 -->
@@ -4446,6 +4938,19 @@ a.eat();     <span class="comment">// Dog eating</span></pre>
           <li><code>Printable</code> interface বানাও <code>print()</code> method সহ। <code>Document</code> class দিয়ে implement করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is an interface in Java? <span class="iq-ref">[Core Java - Level I → Q 10]</span></li>
+          <li><span class="iq-star">***</span>What is interface in Java? <span class="iq-ref">[Core Java - Level II → Q 20]</span></li>
+          <li><span class="iq-star">***</span>What is the difference between an interface and an abstract class in Java? <span class="iq-ref">[Core Java - Level II → Q 20.1]</span></li>
+          <li><span class="iq-star">***</span>When would you use an interface, and when would you use an abstract class? <span class="iq-ref">[Core Java - Level II → Q 20.5]</span></li>
+          <li><span class="iq-star">*</span>Can you provide examples of when to use an interface versus when to extend a class? <span class="iq-ref">[Core Java - Level II → Q 20.2]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 40 -->
@@ -4492,6 +4997,18 @@ class C implements B {
           <li>Java 8-এর <code>default</code> method কী কাজ করে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>Can an interface in Java contain static methods, and if so, how can they be used? <span class="iq-ref">[Core Java - Level II → Q 20.4]</span></li>
+          <li><span class="iq-star">**</span>What is a static method in an Interface, and how is it different from a default method in an interface? <span class="iq-ref">[Core Java - Level II → Q 20.7]</span></li>
+          <li><span class="iq-star">**</span>Differences in Interface from Java 7 to Java 8. <span class="iq-ref">[Core Java - Level II → Q 29.9]</span></li>
+          <li><span class="iq-star">**</span>Can functional interface extend another interface? <span class="iq-ref">[Core Java - Level II → Q 28.1]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 41 -->
@@ -4558,6 +5075,18 @@ class Shop {
           <li><code>Drawable</code> interface বানাও। <code>Circle</code>, <code>Rectangle</code> implement করুক।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Why multiple inheritance is not possible in java? <span class="iq-ref">[Core Java - Level II → Q 17.2]</span></li>
+          <li><span class="iq-star">**</span>How do you use multiple inheritance in Java using interfaces? <span class="iq-ref">[Core Java - Level II → Q 20.3]</span></li>
+          <li><span class="iq-star">**</span>What is the diamond problem in Java and how does Java address it? <span class="iq-ref">[Core Java - Level II → Q 20.8]</span></li>
+          <li><span class="iq-star">**</span>How does the concept of default methods in interfaces help resolve the diamond problem? <span class="iq-ref">[Core Java - Level II → Q 20.9]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 42 -->
@@ -4589,6 +5118,15 @@ for (Day day : Day.values()) {
           <li><code>ordinal()</code> কী return করে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">*</span>What is Enum in Java? <span class="iq-ref">[Core Java - Level I → Q 27]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 43 -->
@@ -4829,6 +5367,15 @@ Date: 2026-07-14</div>
           <li>Runtime-এ Custom Annotation পড়তে <code>@Retention</code>-এ কোন Policy বাধ্যতামূলক, এবং কেন?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">*</span>How does the @Override annotation influence method overriding? <span class="iq-ref">[Core Java - Level II → Q 24.2]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 46 -->
@@ -4933,6 +5480,17 @@ Lambda Expression ব্যবহারের ভিত্তি</div>
           <li><code>MathOperation</code> Functional Interface বানাও — <code>int operate(int a, int b)</code> method সহ, এবং Subtract-এর জন্য একটা implementation লেখো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is functional interfaces? <span class="iq-ref">[Core Java - Level II → Q 28]</span></li>
+          <li><span class="iq-star">**</span>Can functional interface extend another interface? <span class="iq-ref">[Core Java - Level II → Q 28.1]</span></li>
+          <li><span class="iq-star">*</span>Advantages of using a functional interface. <span class="iq-ref">[Core Java - Level II → Q 28.2]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 47 -->
@@ -4977,6 +5535,16 @@ name -> System.out.println("Hello " + name)
           <li><code>MathOperation</code> interface-এ Lambda দিয়ে addition ও subtraction implement করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Can you tell me some new features that were introduced in Java 8? <span class="iq-ref">[Core Java - Level II → Q 29]</span></li>
+          <li><span class="iq-star">**</span>Why optional class, lambda expressions and stream API were introduced in java 8? <span class="iq-ref">[Core Java - Level II → Q 29.1]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 48 -->
@@ -5172,6 +5740,16 @@ nums.stream()
           <li><code>Consumer&lt;String&gt;</code> বানাও যেটা string-টা uppercase করে print করে।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is functional interfaces? <span class="iq-ref">[Core Java - Level II → Q 28]</span></li>
+          <li><span class="iq-star">*</span>Advantages of using a functional interface. <span class="iq-ref">[Core Java - Level II → Q 28.2]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 51 -->
@@ -5246,6 +5824,18 @@ int number = Integer.parseInt(input);   <span class="comment">// "abc" সংখ
           <li>Exception handle না করলে Program-এর কী হয়?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is the difference between checked and unchecked exceptions? <span class="iq-ref">[Core Java - Level I → Q 18]</span></li>
+          <li><span class="iq-star">***</span>What is the exception and the differences between checked and unchecked exceptions? <span class="iq-ref">[Core Java - Level II → Q 8.6]</span></li>
+          <li><span class="iq-star">**</span>What are Java Exceptions? <span class="iq-ref">[Core Java - Level I → Q 17]</span></li>
+          <li><span class="iq-star">*</span>What is the difference between a Throwable and an Exception in Java? <span class="iq-ref">[Core Java - Level II → Q 8.8]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 52 -->
@@ -5285,6 +5875,19 @@ int number = Integer.parseInt(input);   <span class="comment">// "abc" সংখ
           <li><code>10 / 0</code> handle করো — friendly message print করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Can you explain the role of each try, catch, and finally block in exception handling? <span class="iq-ref">[Core Java - Level II → Q 8]</span></li>
+          <li><span class="iq-star">***</span>What happens if a return statement is executed inside the try or catch block? Does the finally block still execute? <span class="iq-ref">[Core Java - Level II → Q 8.1]</span></li>
+          <li><span class="iq-star">**</span>Is it possible to execute a program without a catch block? If so, how would you use try and finally together? <span class="iq-ref">[Core Java - Level II → Q 8.2]</span></li>
+          <li><span class="iq-star">**</span>Can you tell me a condition where the finally block will not be executed? <span class="iq-ref">[Core Java - Level II → Q 8.4]</span></li>
+          <li><span class="iq-star">*</span>How does exception handling with try-catch-finally affect the performance of a Java application? <span class="iq-ref">[Core Java - Level II → Q 8.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 53 -->
@@ -5318,6 +5921,16 @@ int number = Integer.parseInt(input);   <span class="comment">// "abc" সংখ
           <li>Java 7-এর multi-catch syntax কী?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>How would you handle multiple exceptions in a single catch block <span class="iq-ref">[Core Java - Level II → Q 8.7]</span></li>
+          <li><span class="iq-star">*</span>Can we write multiple finally blocks in Java? <span class="iq-ref">[Core Java - Level II → Q 8.5]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 54 -->
@@ -5407,6 +6020,16 @@ class Demo {
           <li>Unchecked exception-এর জন্য try-catch না দিলে কী হয়?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is the exception and the differences between checked and unchecked exceptions? <span class="iq-ref">[Core Java - Level II → Q 8.6]</span></li>
+          <li><span class="iq-star">*</span>What is the difference between a Throwable and an Exception in Java? <span class="iq-ref">[Core Java - Level II → Q 8.8]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 55 -->
@@ -5514,6 +6137,15 @@ void method1() {
           <li>Exception propagation মানে কী?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">*</span>Can a static block throw an exception? <span class="iq-ref">[Core Java - Level II → Q 26.1]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 58 -->
@@ -5596,6 +6228,16 @@ try {
           <li>Multiple resources একসাথে open করলে Close-এর order কী হয়?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>Is it possible to execute a program without a catch block? If so, how would you use try and finally together? <span class="iq-ref">[Core Java - Level II → Q 8.2]</span></li>
+          <li><span class="iq-star">**</span>Discuss the difference between finalize() and finally. Under what circumstances might finalize() not get called in a Java application? <span class="iq-ref">[Core Java - Level II → Q 8.9]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 60 -->
@@ -5630,6 +6272,20 @@ for (int i = 1; i &lt;= 5; i++) {
           <li>Main thread কি নিজেও একটা Thread?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is a thread in Java and how can we create it? <span class="iq-ref">[Core Java - Level II → Q 35]</span></li>
+          <li><span class="iq-star">**</span>What is a thread in Java? <span class="iq-ref">[Core Java - Level I → Q 20]</span></li>
+          <li><span class="iq-star">**</span>What is multithreading? <span class="iq-ref">[Core Java - Level I → Q 29]</span></li>
+          <li><span class="iq-star">**</span>Explain volatile keyword in Java. <span class="iq-ref">[Core Java - Level I → Q 30]</span></li>
+          <li><span class="iq-star">*</span>What challenges might you face with multithreaded programs in Java? <span class="iq-ref">[Core Java - Level II → Q 35.9]</span></li>
+          <li><span class="iq-star">*</span>What is Java memory model and how it is linked to threads? <span class="iq-ref">[Core Java - Level II → Q 35.10]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 61 -->
@@ -5670,6 +6326,16 @@ t2.start();  <span class="comment">// t1 শেষ হওয়ার পরে�
           <li><code>join()</code> কী করে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>How would you handle a scenario where two threads need to update the same data structure? <span class="iq-ref">[Core Java - Level II → Q 35.2]</span></li>
+          <li><span class="iq-star">**</span>Can we strat thread twice? <span class="iq-ref">[Core Java - Level II → Q 35.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 62 -->
@@ -5825,6 +6491,15 @@ Upload : 3</pre>
           <li><code>join()</code> কী করে? না দিলে output-এ কী পার্থক্য হবে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">*</span>Can you describe a scenario where you would use wait() and notify() methods in thread communication? <span class="iq-ref">[Core Java - Level II → Q 35.8]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 63 -->
@@ -5873,6 +6548,16 @@ t.start();</pre>
           <li>একই <code>Runnable</code> task দুটো Thread-এ চালাও।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is the difference between Thread class and Runnable interface in Java? <span class="iq-ref">[Core Java - Level II → Q 35.4]</span></li>
+          <li><span class="iq-star">***</span>What is a thread in Java and how can we create it? <span class="iq-ref">[Core Java - Level II → Q 35]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 64 -->
@@ -5907,6 +6592,21 @@ System.out.println(c.count);  <span class="comment">// 2000 হওয়া উ�
           <li><code>synchronized</code> keyword কী করে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What is thread synchronization and why is it important? <span class="iq-ref">[Core Java - Level II → Q 35.7]</span></li>
+          <li><span class="iq-star">***</span>Can you please explain ConcurrentHashMap <span class="iq-ref">[Core Java - Level II → Q 32.5]</span></li>
+          <li><span class="iq-star">**</span>Explain synchronized keyword in Java. <span class="iq-ref">[Core Java - Level I → Q 24]</span></li>
+          <li><span class="iq-star">**</span>How would you handle a scenario where two threads need to update the same data structure? <span class="iq-ref">[Core Java - Level II → Q 35.2]</span></li>
+          <li><span class="iq-star">**</span>How can you ensure a method is thread-safe in Java? <span class="iq-ref">[Core Java - Level II → Q 35.5]</span></li>
+          <li><span class="iq-star">**</span>What are volatile variables? <span class="iq-ref">[Core Java - Level II → Q 35.6]</span></li>
+          <li><span class="iq-star">**</span>How does it(ConcurrentHashMap ) improve performance in a multi-threaded environment? <span class="iq-ref">[Core Java - Level II → Q 32.6]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 65 -->
@@ -6034,6 +6734,16 @@ t2.start();</pre>
           <li>Java-র <code>Thread.State</code> enum-এ RUNNING আলাদা state আছে কি? উত্তর justify করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Can you explain the lifecycle of a Java thread? <span class="iq-ref">[Core Java - Level II → Q 35.1]</span></li>
+          <li><span class="iq-star">**</span>Can we strat thread twice? <span class="iq-ref">[Core Java - Level II → Q 35.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 66 -->
@@ -6067,6 +6777,25 @@ Map (key-value, আলাদা hierarchy)             → HashMap, TreeMap</pre
           <li>List, Set, Map — কোনটা কখন ব্যবহার করবে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>What are the main interfaces of the Java Collection Framework? <span class="iq-ref">[Core Java - Level II → Q 30.1]</span></li>
+          <li><span class="iq-star">**</span>What is the Collections Framework in Java? <span class="iq-ref">[Core Java - Level I → Q 23]</span></li>
+          <li><span class="iq-star">**</span>What is collection framework in java? <span class="iq-ref">[Core Java - Level II → Q 30]</span></li>
+          <li><span class="iq-star">**</span>Can you explain how Iterator works within the Java Collection Framework? <span class="iq-ref">[Core Java - Level II → Q 30.2]</span></li>
+          <li><span class="iq-star">**</span>How does Java Collection Framework handle concurrency? <span class="iq-ref">[Core Java - Level II → Q 30.4]</span></li>
+          <li><span class="iq-star">**</span>How do you choose the right collection type for a specific problem? <span class="iq-ref">[Core Java - Level II → Q 30.5]</span></li>
+          <li><span class="iq-star">**</span>What is the difference between Iterator and listIterator? <span class="iq-ref">[Core Java - Level II → Q 30.7]</span></li>
+          <li><span class="iq-star">**</span>How do you store elements in a set to preserve insertion order? <span class="iq-ref">[Core Java - Level II → Q 30.9]</span></li>
+          <li><span class="iq-star">**</span>How do you store elements in a way that they are sorted? <span class="iq-ref">[Core Java - Level II → Q 30.10]</span></li>
+          <li><span class="iq-star">*</span>What enhancements were made to the Java Collection Framework in Java 8? <span class="iq-ref">[Core Java - Level II → Q 30.6]</span></li>
+          <li><span class="iq-star">*</span>Name of algorithm used by Arrays.sort(..) and Collections.sort(..)? <span class="iq-ref">[Core Java - Level II → Q 30.8]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 67 -->
@@ -6209,6 +6938,18 @@ arr.set(1, 100);  <span class="comment">// ✅</span></pre>
           <li><code>Arrays.asList()</code>-এ <code>add()</code> করলে কী error আসে, এবং কেন?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Whats the use case of arrayList, linkedList and Hashset? <span class="iq-ref">[Core Java - Level II → Q 31]</span></li>
+          <li><span class="iq-star">***</span>What is the internal implementation of ArrayList and LinkedList? <span class="iq-ref">[Core Java - Level II → Q 31.6]</span></li>
+          <li><span class="iq-star">**</span>Why we use wrapper class in collections <span class="iq-ref">[Core Java - Level II → Q 6.2]</span></li>
+          <li><span class="iq-star">*</span>Write a Java Program to iterate ArrayList using for-loop, while-loop, and advance for-loop. <span class="iq-ref">[Java Coding Questions → Q 8]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 68 -->
@@ -6312,6 +7053,23 @@ ts.pollLast();                        <span class="comment">// সবচেয�
           <li>একটা list থেকে duplicate বাদ দাও Set ব্যবহার করে।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>How does a HashSet ensure that there are no duplicates? <span class="iq-ref">[Core Java - Level II → Q 31.1]</span></li>
+          <li><span class="iq-star">***</span>Can you describe how hashCode() and equals() work together in a collection <span class="iq-ref">[Core Java - Level II → Q 31.2]</span></li>
+          <li><span class="iq-star">***</span>Why is it important to override the hashCode method when you override equals? <span class="iq-ref">[Core Java - Level II → Q 31.3]</span></li>
+          <li><span class="iq-star">**</span>What would be the consequence if we don’t? <span class="iq-ref">[Core Java - Level II → Q 31.4]</span></li>
+          <li><span class="iq-star">**</span>How do you store elements in a set to preserve insertion order? <span class="iq-ref">[Core Java - Level II → Q 30.9]</span></li>
+          <li><span class="iq-star">**</span>How do you store elements in a way that they are sorted? <span class="iq-ref">[Core Java - Level II → Q 30.10]</span></li>
+          <li><span class="iq-star">**</span>What is time complexities insertions, deletion and retrieval of hashSet and HashMap? <span class="iq-ref">[Core Java - Level II → Q 32.7]</span></li>
+          <li><span class="iq-star">*</span>Can you give an example where a TreeSet is more appropriate than HashSet? <span class="iq-ref">[Core Java - Level II → Q 31.5]</span></li>
+          <li><span class="iq-star">*</span>What is time complexities insertions, deletion and retrieval of TreeSet and TreeMap? <span class="iq-ref">[Core Java - Level II → Q 32.8]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 69 -->
@@ -6409,6 +7167,29 @@ marks.forEach((key, value) -> System.out.println(key + " : " + value)); <span cl
           <li>Student নাম ও marks-এর HashMap বানাও। Highest scorer print করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Can you explain internal working of HashMap in Java? <span class="iq-ref">[Core Java - Level II → Q 32]</span></li>
+          <li><span class="iq-star">***</span>What happens when two keys have the same hash code? How would you handle this scenario? <span class="iq-ref">[Core Java - Level II → Q 32.1]</span></li>
+          <li><span class="iq-star">***</span>How does a HashMap handle collisions in Java? <span class="iq-ref">[Core Java - Level II → Q 32.2]</span></li>
+          <li><span class="iq-star">***</span>Can you please tell me what changes were done for the HashMap in Java 8 because before java 8 hashMap behaved differently ? <span class="iq-ref">[Core Java - Level II → Q 32.3]</span></li>
+          <li><span class="iq-star">***</span>Can you please explain ConcurrentHashMap <span class="iq-ref">[Core Java - Level II → Q 32.5]</span></li>
+          <li><span class="iq-star">***</span>Difference between HashMap and TreeMap. <span class="iq-ref">[Core Java - Level II → Q 33.5]</span></li>
+          <li><span class="iq-star">***</span>Write a Java Program to count the number of words in a string using HashMap. <span class="iq-ref">[Java Coding Questions → Q 3]</span></li>
+          <li><span class="iq-star">**</span>Can we include class as a key in hashmap? <span class="iq-ref">[Core Java - Level II → Q 32.4]</span></li>
+          <li><span class="iq-star">**</span>How does it(ConcurrentHashMap ) improve performance in a multi-threaded environment? <span class="iq-ref">[Core Java - Level II → Q 32.6]</span></li>
+          <li><span class="iq-star">**</span>What is time complexities insertions, deletion and retrieval of hashSet and HashMap? <span class="iq-ref">[Core Java - Level II → Q 32.7]</span></li>
+          <li><span class="iq-star">**</span>In what scenarios would you prefer to use a TreeMap over a HashMap? <span class="iq-ref">[Core Java - Level II → Q 33.6]</span></li>
+          <li><span class="iq-star">**</span>Write a Java Program to iterate HashMap using While and advance for loop. <span class="iq-ref">[Java Coding Questions → Q 4]</span></li>
+          <li><span class="iq-star">*</span>What is time complexities insertions, deletion and retrieval of TreeSet and TreeMap? <span class="iq-ref">[Core Java - Level II → Q 32.8]</span></li>
+          <li><span class="iq-star">*</span>What techniques did hashMap, treeMap, hashSet and TreeSet uses internally for performing operations? <span class="iq-ref">[Core Java - Level II → Q 32.9]</span></li>
+          <li><span class="iq-star">*</span>Can we add objects as a key in TreeMap? <span class="iq-ref">[Core Java - Level II → Q 33.7]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 60-62 combined comparison -->
@@ -6562,6 +7343,17 @@ list.sort(Comparator.comparingInt((Student s) -> s.marks).reversed());  <span cl
           <li>একটা Employee class বানাও যার natural order salary অনুযায়ী (Comparable), তারপর name অনুযায়ীও sort করে দেখাও (Comparator)।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Explain the difference between Comparable and Comparator interfaces. When would you use one over the other? <span class="iq-ref">[Core Java - Level II → Q 20.6]</span></li>
+          <li><span class="iq-star">**</span>How do you store elements in a way that they are sorted? <span class="iq-ref">[Core Java - Level II → Q 30.10]</span></li>
+          <li><span class="iq-star">*</span>Write a program that accepts comma-separated strings, sorts the strings in ascending order, and outputs the concatenated string of sorted strings. <span class="iq-ref">[Java Coding Questions → Q 14]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 71 -->
@@ -6592,6 +7384,18 @@ List&lt;Integer&gt; highMarks = marks.stream()
           <li>Stream কি reuse করা যায়?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Can you tell me some new features that were introduced in Java 8? <span class="iq-ref">[Core Java - Level II → Q 29]</span></li>
+          <li><span class="iq-star">**</span>Why optional class, lambda expressions and stream API were introduced in java 8? <span class="iq-ref">[Core Java - Level II → Q 29.1]</span></li>
+          <li><span class="iq-star">*</span>Which is faster, traditional for loop or Streams? <span class="iq-ref">[Core Java - Level II → Q 29.6]</span></li>
+          <li><span class="iq-star">*</span>In which scenarios would you prefer traditional for loops and streams? <span class="iq-ref">[Core Java - Level II → Q 29.7]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 72 -->
@@ -6622,6 +7426,17 @@ scores.forEach((name, score) ->
           <li><code>System.out::println</code> — এটা কী syntax?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>Write a Java Program to iterate HashMap using While and advance for loop. <span class="iq-ref">[Java Coding Questions → Q 4]</span></li>
+          <li><span class="iq-star">*</span>Write a Java Program to iterate ArrayList using for-loop, while-loop, and advance for-loop. <span class="iq-ref">[Java Coding Questions → Q 8]</span></li>
+          <li><span class="iq-star">*</span>What are some common methods available in all Collection types? <span class="iq-ref">[Core Java - Level II → Q 30.3]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 73 -->
@@ -6824,6 +7639,36 @@ names.stream().filter(s -> s.length() > 3).findFirst();   <span class="comment">
           <li>একটা <code>List&lt;String&gt;</code> থেকে "A" দিয়ে শুরু হওয়া নামগুলোর প্রথমটা বের করতে কোন chain লিখবে, আর তার return type কী হবে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Explain intermediate and terminal operations in streams. <span class="iq-ref">[Core Java - Level II → Q 29.8]</span></li>
+          <li><span class="iq-star">***</span>Difference between filter and map function of stream API? <span class="iq-ref">[Core Java - Level II → Q 29.2]</span></li>
+          <li><span class="iq-star">***</span>Filter Even Numbers <span class="iq-ref">[Stream API Coding Questions → Q 1]</span></li>
+          <li><span class="iq-star">***</span>Find Maximum <span class="iq-ref">[Stream API Coding Questions → Q 2]</span></li>
+          <li><span class="iq-star">***</span>Sort List <span class="iq-ref">[Stream API Coding Questions → Q 5]</span></li>
+          <li><span class="iq-star">***</span>FlatMap for Nested Lists <span class="iq-ref">[Stream API Coding Questions → Q 14]</span></li>
+          <li><span class="iq-star">***</span>Grouping Elements <span class="iq-ref">[Stream API Coding Questions → Q 15]</span></li>
+          <li><span class="iq-star">**</span>Sum of Elements <span class="iq-ref">[Stream API Coding Questions → Q 3]</span></li>
+          <li><span class="iq-star">**</span>List of Names to Uppercase <span class="iq-ref">[Stream API Coding Questions → Q 4]</span></li>
+          <li><span class="iq-star">**</span>Count Elements <span class="iq-ref">[Stream API Coding Questions → Q 6]</span></li>
+          <li><span class="iq-star">**</span>Get Distinct Elements <span class="iq-ref">[Stream API Coding Questions → Q 7]</span></li>
+          <li><span class="iq-star">**</span>Reduce to Sum <span class="iq-ref">[Stream API Coding Questions → Q 8]</span></li>
+          <li><span class="iq-star">**</span>Find First <span class="iq-ref">[Stream API Coding Questions → Q 13]</span></li>
+          <li><span class="iq-star">**</span>Convert to Set <span class="iq-ref">[Stream API Coding Questions → Q 19]</span></li>
+          <li><span class="iq-star">*</span>Find Any <span class="iq-ref">[Stream API Coding Questions → Q 9]</span></li>
+          <li><span class="iq-star">*</span>List First Names <span class="iq-ref">[Stream API Coding Questions → Q 10]</span></li>
+          <li><span class="iq-star">*</span>All Match <span class="iq-ref">[Stream API Coding Questions → Q 11]</span></li>
+          <li><span class="iq-star">*</span>None Match <span class="iq-ref">[Stream API Coding Questions → Q 12]</span></li>
+          <li><span class="iq-star">*</span>Peek Elements <span class="iq-ref">[Stream API Coding Questions → Q 16]</span></li>
+          <li><span class="iq-star">*</span>Limit Stream <span class="iq-ref">[Stream API Coding Questions → Q 17]</span></li>
+          <li><span class="iq-star">*</span>Skip Elements <span class="iq-ref">[Stream API Coding Questions → Q 18]</span></li>
+          <li><span class="iq-star">*</span>Summarizing Statistics <span class="iq-ref">[Stream API Coding Questions → Q 20]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 74 -->
@@ -6902,6 +7747,21 @@ System.out.println(sum2);  <span class="comment">// Optional.empty</span></pre>
           <li><code>reduce(0, (a,b)-&gt;a+b)</code> আর <code>reduce((a,b)-&gt;a+b)</code>-এর মধ্যে পার্থক্য কী? Empty list-এ দুইটা কী return করবে?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Difference between filter and map function of stream API? <span class="iq-ref">[Core Java - Level II → Q 29.2]</span></li>
+          <li><span class="iq-star">***</span>Filter Even Numbers <span class="iq-ref">[Stream API Coding Questions → Q 1]</span></li>
+          <li><span class="iq-star">***</span>Sort List <span class="iq-ref">[Stream API Coding Questions → Q 5]</span></li>
+          <li><span class="iq-star">**</span>Sum of Elements <span class="iq-ref">[Stream API Coding Questions → Q 3]</span></li>
+          <li><span class="iq-star">**</span>List of Names to Uppercase <span class="iq-ref">[Stream API Coding Questions → Q 4]</span></li>
+          <li><span class="iq-star">**</span>Reduce to Sum <span class="iq-ref">[Stream API Coding Questions → Q 8]</span></li>
+          <li><span class="iq-star">**</span>Get Distinct Elements <span class="iq-ref">[Stream API Coding Questions → Q 7]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 75 -->
@@ -6961,6 +7821,16 @@ ForkJoinPool.commonPool-worker-2 : 2</pre>
           <li>কখন parallel stream ব্যবহার করা উচিত না?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">*</span>Which is faster, traditional for loop or Streams? <span class="iq-ref">[Core Java - Level II → Q 29.6]</span></li>
+          <li><span class="iq-star">*</span>In which scenarios would you prefer traditional for loops and streams? <span class="iq-ref">[Core Java - Level II → Q 29.7]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 76 -->
@@ -7173,6 +8043,17 @@ System.out.println(result2); <span class="comment">// Optional.empty</span></pre
           <li><code>get()</code> ব্যবহার করলে কী সমস্যা হতে পারে, কেন production-এ কম ব্যবহার করা হয়?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Grouping Elements <span class="iq-ref">[Stream API Coding Questions → Q 15]</span></li>
+          <li><span class="iq-star">**</span>Why optional class, lambda expressions and stream API were introduced in java 8? <span class="iq-ref">[Core Java - Level II → Q 29.1]</span></li>
+          <li><span class="iq-star">*</span>Find Any <span class="iq-ref">[Stream API Coding Questions → Q 9]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
 
@@ -7311,6 +8192,16 @@ ResponseEntity&lt;User&gt; response = ResponseEntity.ok(user);</pre>
           <li><code>List&lt;String&gt;</code> আর <code>List&lt;Object&gt;</code> — একে অপরকে assign করা যায়?</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>What are generics in Java? <span class="iq-ref">[Core Java - Level I → Q 25]</span></li>
+          <li><span class="iq-star">**</span>Discuss Java Generics. <span class="iq-ref">[Core Java - Level II → Q 36.6]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 78 -->
@@ -7499,6 +8390,15 @@ System.out.println(date.format(formatter));   <span class="comment">// 11-07-202
           <li>দুইটা <code>LocalDate</code> নাও এবং তাদের মধ্যে কত দিনের পার্থক্য বের করো।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">***</span>Can you tell me some new features that were introduced in Java 8? <span class="iq-ref">[Core Java - Level II → Q 29]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- 80 -->
@@ -7576,6 +8476,23 @@ try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("stude
           <li>একটা <code>Employee</code> class Serializable বানাও এবং file-এ save করে আবার পড়ে দেখাও।</li>
         </ol>
       </div>
+      <!-- IQ:START -->
+      <div class="iq-box">
+        <div class="iq-title">Interview Questions</div>
+        <ol>
+          <li><span class="iq-star">**</span>What is the concept of Serialization in Java? <span class="iq-ref">[Core Java - Level II → Q 22]</span></li>
+          <li><span class="iq-star">**</span>What is the purpose of the serialVersionUID in Java serialization? <span class="iq-ref">[Core Java - Level II → Q 22.1]</span></li>
+          <li><span class="iq-star">**</span>How can you prevent certain fields from being serialized in Java? <span class="iq-ref">[Core Java - Level II → Q 22.3]</span></li>
+          <li><span class="iq-star">**</span>what is transient? <span class="iq-ref">[Core Java - Level II → Q 36.1]</span></li>
+          <li><span class="iq-star">*</span>What happens if the serialVersionUID of a class changes during deserialization? <span class="iq-ref">[Core Java - Level II → Q 22.2]</span></li>
+          <li><span class="iq-star">*</span>Can a class be serialized if one of its member fields is not serializable? <span class="iq-ref">[Core Java - Level II → Q 22.4]</span></li>
+          <li><span class="iq-star">*</span>What is the difference between writeObject() and readObject() methods in Java serialization? <span class="iq-ref">[Core Java - Level II → Q 22.5]</span></li>
+          <li><span class="iq-star">*</span>Is it possible to serialize static fields in Java? Why or why not? <span class="iq-ref">[Core Java - Level II → Q 22.6]</span></li>
+          <li><span class="iq-star">*</span>How do you serialize an object with circular references in Java? <span class="iq-ref">[Core Java - Level II → Q 22.7]</span></li>
+        </ol>
+        <div class="iq-legend">*** = Must do first &nbsp;·&nbsp; ** = Important &nbsp;·&nbsp; * = Good to know &nbsp;·&nbsp; [Topic → Q no.] = Java_Questions_List-এ কোথায় আছে</div>
+      </div>
+      <!-- IQ:END -->
     </section>
 
     <!-- Quick Ref -->

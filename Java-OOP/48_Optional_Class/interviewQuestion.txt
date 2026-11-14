@@ -1,0 +1,9 @@
+Interview Questions - Optional Class
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+*** 1. Grouping Elements   [Stream API Coding Questions → Q 15]
+**  2. Why optional class, lambda expressions and stream API were introduced in java 8?   [Core Java - Level II → Q 29.1]
+*   3. Find Any   [Stream API Coding Questions → Q 9]

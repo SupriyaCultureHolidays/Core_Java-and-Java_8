@@ -1,0 +1,32 @@
+Interview Questions - Stream API
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+*** 1. Can you tell me some new features that were introduced in Java 8?   [Core Java - Level II → Q 29]
+*** 2. Difference between filter and map function of stream API?   [Core Java - Level II → Q 29.2]
+*** 3. Explain intermediate and terminal operations in streams.   [Core Java - Level II → Q 29.8]
+*** 4. Filter Even Numbers   [Stream API Coding Questions → Q 1]
+*** 5. Find Maximum   [Stream API Coding Questions → Q 2]
+*** 6. Sort List   [Stream API Coding Questions → Q 5]
+*** 7. FlatMap for Nested Lists   [Stream API Coding Questions → Q 14]
+*** 8. Grouping Elements   [Stream API Coding Questions → Q 15]
+**  9. Why optional class, lambda expressions and stream API were introduced in java 8?   [Core Java - Level II → Q 29.1]
+**  10. Sum of Elements   [Stream API Coding Questions → Q 3]
+**  11. List of Names to Uppercase   [Stream API Coding Questions → Q 4]
+**  12. Count Elements   [Stream API Coding Questions → Q 6]
+**  13. Get Distinct Elements   [Stream API Coding Questions → Q 7]
+**  14. Reduce to Sum   [Stream API Coding Questions → Q 8]
+**  15. Find First   [Stream API Coding Questions → Q 13]
+**  16. Convert to Set   [Stream API Coding Questions → Q 19]
+*   17. Which is faster, traditional for loop or Streams?   [Core Java - Level II → Q 29.6]
+*   18. In which scenarios would you prefer traditional for loops and streams?   [Core Java - Level II → Q 29.7]
+*   19. Find Any   [Stream API Coding Questions → Q 9]
+*   20. List First Names   [Stream API Coding Questions → Q 10]
+*   21. All Match   [Stream API Coding Questions → Q 11]
+*   22. None Match   [Stream API Coding Questions → Q 12]
+*   23. Peek Elements   [Stream API Coding Questions → Q 16]
+*   24. Limit Stream   [Stream API Coding Questions → Q 17]
+*   25. Skip Elements   [Stream API Coding Questions → Q 18]
+*   26. Summarizing Statistics   [Stream API Coding Questions → Q 20]

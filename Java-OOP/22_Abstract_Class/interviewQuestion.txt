@@ -1,0 +1,13 @@
+Interview Questions - Abstract Class
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+*** 1. Explain the concept of an abstract class.   [Core Java - Level I → Q 11]
+*** 2. What does mean by abstraction in java?   [Core Java - Level II → Q 19]
+*** 3. What is the difference between an interface and an abstract class in Java?   [Core Java - Level II → Q 20.1]
+*** 4. When would you use an interface, and when would you use an abstract class?   [Core Java - Level II → Q 20.5]
+**  5. What happens if a class includes an abstract method?   [Core Java - Level II → Q 19.2]
+*   6. Can you provide examples of where abstraction is effectively used in Java libraries?   [Core Java - Level II → Q 19.1]
+*   7. How does abstraction help in achieving loose coupling in software applications?   [Core Java - Level II → Q 19.3]

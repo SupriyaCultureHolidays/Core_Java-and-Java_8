@@ -1,0 +1,7 @@
+Interview Questions - Enum
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+*   1. What is Enum in Java?   [Core Java - Level I → Q 27]

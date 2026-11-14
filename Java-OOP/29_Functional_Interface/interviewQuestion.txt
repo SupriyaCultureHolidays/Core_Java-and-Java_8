@@ -1,0 +1,10 @@
+Interview Questions - Functional Interface
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+*** 1. What is functional interfaces?   [Core Java - Level II → Q 28]
+**  2. Can functional interface extend another interface?   [Core Java - Level II → Q 28.1]
+**  3. Why optional class, lambda expressions and stream API were introduced in java 8?   [Core Java - Level II → Q 29.1]
+*   4. Advantages of using a functional interface.   [Core Java - Level II → Q 28.2]

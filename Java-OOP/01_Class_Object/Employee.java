@@ -1,18 +1,20 @@
 public class Employee {
+    static int idCounter = 0;
     int id;
     String name;
     String department;
     int salary;
 
-    Employee(int id, String name, String department, int salary) {
-        this.id = id;
+    Employee(String name, String department, int salary) {
+        this.id= idCounter++;
         this.department = department;
         this.name = name;
         this.salary = salary;
     }
-    void displayInfo(){
+
+    void displayInfo() {
         System.out.println(
-                "ID : " + this.id + "Name : " + this.name + " Deparment : " + this.department + " Salary : " + this.salary);
-    
+                "ID : " + this.id + " Name : " + this.name + " Deparment : " + this.department + " Salary : "
+                        + this.salary);
     }
 }

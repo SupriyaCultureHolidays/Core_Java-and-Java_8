@@ -1,0 +1,14 @@
+Interview Questions - Stream Map Filter Reduce Sorted
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
+
+*** 1. Difference between filter and map function of stream API?   [Core Java - Level II → Q 29.2]
+*** 2. Explain intermediate and terminal operations in streams.   [Core Java - Level II → Q 29.8]
+*** 3. Filter Even Numbers   [Stream API Coding Questions → Q 1]
+*** 4. Sort List   [Stream API Coding Questions → Q 5]
+**  5. Sum of Elements   [Stream API Coding Questions → Q 3]
+**  6. List of Names to Uppercase   [Stream API Coding Questions → Q 4]
+**  7. Reduce to Sum   [Stream API Coding Questions → Q 8]
+**  8. Get Distinct Elements   [Stream API Coding Questions → Q 7]
