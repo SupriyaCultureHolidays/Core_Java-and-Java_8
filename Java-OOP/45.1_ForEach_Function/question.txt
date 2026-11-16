@@ -1,0 +1,11 @@
+Questions - ForEach Function
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+**  1. Write a Java Program to iterate HashMap using While and advance for loop.   [Java Coding Questions → Q 4 | P-2 ]
+*   2. Write a Java Program to iterate ArrayList using for-loop, while-loop, and advance for-loop.   [Java Coding Questions → Q 8 | P-3 ]
+*   3. What are some common methods available in all Collection types?   [Core Java - Level II → Q 30.3 | P-17 ]
+*   4. Which is faster, traditional for loop or Streams?   [Core Java - Level II → Q 29.6 | P-16 ]
+*   5. In which scenarios would you prefer traditional for loops and streams?   [Core Java - Level II → Q 29.7 | P-16 ]

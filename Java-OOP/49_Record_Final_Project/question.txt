@@ -1,0 +1,11 @@
+Questions - Record Final Project
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. What is immutability mean in Java?   [Core Java - Level II → Q 16 | P-8 ]
+*** 2. How can we create immutable class?   [Core Java - Level II → Q 16.3 | P-8 ]
+**  3. What are immutable classes?   [Core Java - Level II → Q 16.2 | P-8 ]
+*   4. Can you tell me some new features that were introduced in Java 11?   [Core Java - Level II → Q 29.3 | P-16 ]
+*   5. Can you tell me some new features that were introduced in Java 17?   [Core Java - Level II → Q 29.4 | P-16 ]

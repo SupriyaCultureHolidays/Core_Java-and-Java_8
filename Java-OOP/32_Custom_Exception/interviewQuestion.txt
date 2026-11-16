@@ -1,9 +1,0 @@
-Interview Questions - Custom Exception
-==================================================
-*** = Must do first   ** = Important   * = Good to know
-Source: Java_Pdf/Java_Questions_List.txt
-[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
-
-*** 1. What is the exception and the differences between checked and unchecked exceptions?   [Core Java - Level II → Q 8.6]
-*** 2. What is the difference between checked and unchecked exceptions?   [Core Java - Level I → Q 18]
-*   3. What is the difference between a Throwable and an Exception in Java?   [Core Java - Level II → Q 8.8]

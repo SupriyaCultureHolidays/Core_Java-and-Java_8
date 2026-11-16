@@ -1,0 +1,7 @@
+Questions - Enum
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*   1. What is Enum in Java?   [Core Java - Level I → Q 27 | P-4 ]

@@ -1,0 +1,15 @@
+Questions - Final Keyword
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. Explain the final keyword in Java.   [Core Java - Level I → Q 16 | P-3 ]
+*** 2. What is final keyword in java?   [Core Java - Level II → Q 27 | P-15 ]
+*** 3. How can we create immutable class?   [Core Java - Level II → Q 16.3 | P-8 ]
+*** 4. What is immutability mean in Java?   [Core Java - Level II → Q 16 | P-8 ]
+**  5. How does the "final" keyword contribute to immutability and thread safety in Java?   [Core Java - Level II → Q 27.2 | P-15 ]
+**  6. Discuss the difference between finalize() and finally. Under what circumstances might finalize() not get called in a Java application?   [Core Java - Level II → Q 8.9 | P-5 ]
+**  7. What are immutable classes?   [Core Java - Level II → Q 16.2 | P-8 ]
+*   8. What are some common use cases for using final variables in Java programming?   [Core Java - Level II → Q 27.1 | P-15 ]
+*   9. Can you describe any performance considerations related to using final?   [Core Java - Level II → Q 27.3 | P-15 ]

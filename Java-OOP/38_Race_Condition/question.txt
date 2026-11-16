@@ -1,0 +1,17 @@
+Questions - Race Condition
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. What is thread synchronization and why is it important?   [Core Java - Level II → Q 35.7 | P-22 ]
+*** 2. Can you please explain ConcurrentHashMap   [Core Java - Level II → Q 32.5 | P-19 ]
+**  3. Explain synchronized keyword in Java.   [Core Java - Level I → Q 24 | P-4 ]
+**  4. Explain volatile keyword in Java.   [Core Java - Level I → Q 30 | P-5 ]
+**  5. How would you handle a scenario where two threads need to update the same data structure?   [Core Java - Level II → Q 35.2 | P-22 ]
+**  6. How can you ensure a method is thread-safe in Java?   [Core Java - Level II → Q 35.5 | P-22 ]
+**  7. What are volatile variables?   [Core Java - Level II → Q 35.6 | P-22 ]
+**  8. Are these threads safe?   [Core Java - Level II → Q 14.2 | P-8 ]
+**  9. How does the "final" keyword contribute to immutability and thread safety in Java?   [Core Java - Level II → Q 27.2 | P-15 ]
+**  10. How does it(ConcurrentHashMap ) improve performance in a multi-threaded environment?   [Core Java - Level II → Q 32.6 | P-19 ]
+*   11. Why immutable objects are useful for concorrent programming?   [Core Java - Level II → Q 16.1 | P-8 ]

@@ -10,6 +10,7 @@
  */
 public class Demo {
     public static void main(String[] args) {
-
+        Employee emp = new Employee(1, "Supriya","IT", 10000);
+        emp.display();
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ২টা bean define করো:
+
+  ১. id="notificationService" class="NotificationService"
+
+  ২. id="userService" class="UserService", ভিতরে
+       <constructor-arg ref="notificationService" />
+     দিয়ে উপরের bean-টা inject করো
+     (constructor injection-এর বদলে setter থাকলে <property name="notificationService"
+     ref="notificationService" /> দিয়েও try করে দেখতে পারো)
+-->

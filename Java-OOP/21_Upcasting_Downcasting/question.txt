@@ -1,0 +1,11 @@
+Questions - Upcasting Downcasting
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+Note: Upcasting/Downcasting niye list-e direct question nei. Nicher question gulo related.
+
+*** 1. What does mean by polymorphism in Java?   [Core Java - Level II → Q 18 | P-9 ]
+*** 2. What is polymorphism in Java?   [Core Java - Level I → Q 8 | P-2 ]
+**  3. What is dynamic method dispatch in Java?   [Core Java - Level II → Q 18.2 | P-9 ]

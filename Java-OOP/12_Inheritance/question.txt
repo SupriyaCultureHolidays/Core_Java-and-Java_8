@@ -1,0 +1,17 @@
+Questions - Inheritance
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. What is inheritance in Java?   [Core Java - Level I → Q 7 | P-1 ]
+*** 2. What does Java's inheritance mean?   [Core Java - Level II → Q 17 | P-9 ]
+*** 3. Why multiple inheritance is not possible in java?   [Core Java - Level II → Q 17.2 | P-9 ]
+**  4. What is the difference between inheritance and composition?   [Core Java - Level II → Q 17.3 | P-9 ]
+**  5. What is the difference between association, aggregation, and composition in Java?   [Core Java - Level II → Q 17.5 | P-9 ]
+**  6. Explain the IS-A (inheritance) and Has-A (composition) relationships in Java.   [Core Java - Level II → Q 17.6 | P-9 ]
+**  7. What is 'this' and 'super' keyword in java?   [Core Java - Level II → Q 25 | P-13 ]
+*   8. Can a class extends on its own?   [Core Java - Level II → Q 17.1 | P-9 ]
+*   9. Discuss the principle of "composition over inheritance". Provide an example where this principle should be applied in Java application design.   [Core Java - Level II → Q 17.4 | P-9 ]
+*   10. What happens if you attempt to use the "super" keyword in a class that doesn't have a superclass?   [Core Java - Level II → Q 25.2 | P-14 ]
+*   11. How does 'super' play a role in polymorphism ?   [Core Java - Level II → Q 25.4 | P-14 ]

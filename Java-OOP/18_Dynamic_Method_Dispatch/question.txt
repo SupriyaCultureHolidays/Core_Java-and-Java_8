@@ -1,0 +1,10 @@
+Questions - Dynamic Method Dispatch
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. What does mean by polymorphism in Java?   [Core Java - Level II → Q 18 | P-9 ]
+*** 2. What is method overriding?   [Core Java - Level I → Q 14 | P-3 ]
+*** 3. What is method overriding in Java?   [Core Java - Level II → Q 24 | P-13 ]
+**  4. What is dynamic method dispatch in Java?   [Core Java - Level II → Q 18.2 | P-9 ]

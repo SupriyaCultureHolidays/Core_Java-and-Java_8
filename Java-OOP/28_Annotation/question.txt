@@ -1,0 +1,9 @@
+Questions - Annotation
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+Note: Annotation niye list-e shudhu @Override related question ache.
+
+*   1. How does the @Override annotation influence method overriding?   [Core Java - Level II → Q 24.2 | P-13 ]

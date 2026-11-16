@@ -1,0 +1,8 @@
+Questions - Runnable
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. What is a thread in Java and how can we create it?   [Core Java - Level II → Q 35 | P-22 ]
+*** 2. What is the difference between Thread class and Runnable interface in Java?   [Core Java - Level II → Q 35.4 | P-22 ]

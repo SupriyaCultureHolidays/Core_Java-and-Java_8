@@ -1,9 +1,0 @@
-Interview Questions - User Input
-==================================================
-*** = Must do first   ** = Important   * = Good to know
-Source: Java_Pdf/Java_Questions_List.txt
-[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
-
-Note: User input (Scanner) niye list-e direct question nei. Nicher coding question ta input niye kaj kore.
-
-*   1. Write a program that accepts comma-separated strings, sorts the strings in ascending order, and outputs the concatenated string of sorted strings.   [Java Coding Questions → Q 14]

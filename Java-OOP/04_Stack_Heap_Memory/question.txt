@@ -1,0 +1,19 @@
+Questions - Stack Heap Memory
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. What are Memory storages available with JVM?   [Core Java - Level II → Q 1.4 | P-1 ]
+**  2. What is garbage collection in Java?   [Core Java - Level I → Q 22 | P-4 ]
+**  3. Which is faster to access between heap and stack, and why?   [Core Java - Level II → Q 1.5 | P-1 ]
+**  4. How does garbage collection work in Java?   [Core Java - Level II → Q 2 | P-1 ]
+**  5. How can memory leaks occur in Java even we have automatic garbage collection?   [Core Java - Level II → Q 2.3 | P-2 ]
+**  6. What are the key components of JVM Architecture?   [Core Java - Level II → Q 1.1 | P-1 ]
+**  7. Whats the difference between primitive data types and non primitive data types ?   [Core Java - Level II → Q 5 | P-3 ]
+*   8. Whats the role of finalized() method in garbage collection?   [Core Java - Level II → Q 2.1 | P-2 ]
+*   9. Can you tell me what algorithm JVM uses for garbage collection?   [Core Java - Level II → Q 2.2 | P-2 ]
+*   10. Can primitive data types be NULL ?   [Core Java - Level II → Q 5.1 | P-3 ]
+*   11. Can we declare pointer in java ?   [Core Java - Level II → Q 5.2 | P-3 ]
+*   12. What is the weak reference and soft reference in java?   [Core Java - Level II → Q 36.4] N/A
+*   13. What is the difference between Young Generation and Old Generation memory spaces?   [Core Java - Level II → Q 36.7] N/A

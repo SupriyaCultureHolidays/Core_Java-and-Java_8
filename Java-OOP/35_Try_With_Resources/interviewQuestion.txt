@@ -1,9 +1,0 @@
-Interview Questions - Try With Resources
-==================================================
-*** = Must do first   ** = Important   * = Good to know
-Source: Java_Pdf/Java_Questions_List.txt
-[Topic → Q no.] = question-ta oi file-er kon topic-er koto number-e ache
-
-*** 1. Can you explain the role of each try, catch, and finally block in exception handling?   [Core Java - Level II → Q 8]
-**  2. Is it possible to execute a program without a catch block? If so, how would you use try and finally together?   [Core Java - Level II → Q 8.2]
-*   3. How does exception handling with try-catch-finally affect the performance of a Java application?   [Core Java - Level II → Q 8.3]

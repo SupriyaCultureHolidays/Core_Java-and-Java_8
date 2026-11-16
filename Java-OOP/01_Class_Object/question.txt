@@ -1,0 +1,14 @@
+Questions - Class Object
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+
+*** 1. Explain the concept of Object-Oriented Programming in Java.   [Core Java - Level I → Q 6 | P-1 ]
+**  2. Explain the concepts of classes and objects in Java.   [Core Java - Level II → Q 13 | P-7 ]
+**  3. What are the ways to create an object?   [Core Java - Level II → Q 13.1 | P-7 ]
+**  4. Is java 100% object oriented programming language ?   [Core Java - Level II → Q 3 | P-2 ]
+*   5. Can a class in Java be without any methods or fields?   [Core Java - Level II → Q 13.2 | P-7 ]
+*   6. What are the advantages of Java being partially object-oriented?   [Core Java - Level II → Q 3.1 | P-2 ]
+*   7. What is the use of object-oriented programming languages in the enterprise projects?   [Core Java - Level II → Q 3.2 | P-2 ]

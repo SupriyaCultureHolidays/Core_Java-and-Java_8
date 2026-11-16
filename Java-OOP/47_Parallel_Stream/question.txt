@@ -1,0 +1,10 @@
+Questions - Parallel Stream
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+Note: Parallel stream niye list-e direct question nei. Nicher question gulo related.
+
+*   1. Which is faster, traditional for loop or Streams?   [Core Java - Level II → Q 29.6 | P-16 ]
+*   2. In which scenarios would you prefer traditional for loops and streams?   [Core Java - Level II → Q 29.7 | P-16 ]

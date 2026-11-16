@@ -1,0 +1,14 @@
+Questions - Constructors
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. What is Singleton Class?   [Core Java - Level II → Q 14 | P-8 ]
+*** 2. How can we create this singleton class?   [Core Java - Level II → Q 14.1 | P-8 ]
+**  3. What are constructors in Java?   [Core Java - Level I → Q 12 | P-2 ]
+**  4. What is a constructor in Java?   [Core Java - Level II → Q 15 | P-8 ]
+**  5. Can we use a private constructor?   [Core Java - Level II → Q 15.1 | P-8 ]
+**  6. Can constructor be overloaded?   [Core Java - Level II → Q 15.2 | P-8 ]
+**  7. Are these threads safe?   [Core Java - Level II → Q 14.2 | P-8 ]
+*   8. Can constructors be polymorphic?   [Core Java - Level II → Q 18.3 | P-10 ]

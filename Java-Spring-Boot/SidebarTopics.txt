@@ -1,0 +1,81 @@
+01. Java কীভাবে কাজ করে
+02. Variables ও Data Types
+03. Type Conversion
+04. Wrapper Classes
+05. Operators
+06. Control Flow
+07. Class ও Object
+08. Methods
+09. Method Overloading
+10. Stack ও Heap Memory
+11. Arrays
+12. Strings
+13. Static
+14. Encapsulation
+15. Getters ও Setters
+16. this Keyword
+17. Constructors
+18. Naming Conventions
+19. Anonymous Object
+20. Inheritance — কেন ও কী
+21. Single ও Multilevel Inheritance
+22. Multiple Inheritance
+23. Method Overriding
+24. Packages
+25. Polymorphism
+26. Dynamic Method Dispatch
+27. final keyword
+28. Object Class
+29. equals()/hashCode() Contract
+30. Object Cloning
+31. Immutable Class
+32. Singleton Class
+33. Nested Classes
+34. Upcasting ও Downcasting
+35. Abstract keyword
+36. Inner Class
+37. Anonymous Inner Class
+38. Abstract Class
+39. Interface — কী
+40. Interface — আরো বিষয়
+41. Interface — কেন দরকার
+42. Enum — কী
+43. Enum — if ও switch
+44. Enum Class
+45. Annotation
+46. Functional Interface
+47. Lambda Expression
+48. Lambda with return
+49. Types of Interface
+50. Built-in Functional Interfaces
+51. Exception — কী
+52. try-catch
+53. Multiple catch
+54. Exception Hierarchy
+55. throw keyword
+56. Custom Exception
+57. throws keyword
+58. User Input
+59. try-with-resources
+60. Threads
+61. Multiple Threads
+62. Thread Priority ও Sleep
+63. Runnable vs Thread
+64. Race Condition
+65. Thread States
+66. Collection API
+67. ArrayList
+68. Set
+69. Map
+★. List vs Set vs Map
+70. Comparator vs Comparable
+71. Stream API — কেন
+72. forEach
+73. Stream API
+74. map, filter, reduce, sorted
+75. Parallel Stream
+76. Optional Class
+77. Generics
+78. File I/O — NIO
+79. Date and Time API
+80. Serialization

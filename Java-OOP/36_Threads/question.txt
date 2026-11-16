@@ -1,0 +1,14 @@
+Questions - Threads
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. What is a thread in Java and how can we create it?   [Core Java - Level II → Q 35 | P-22 ]
+*** 2. Can you explain the lifecycle of a Java thread?   [Core Java - Level II → Q 35.1 | P-22 ]
+*** 3. What is the difference between Thread class and Runnable interface in Java?   [Core Java - Level II → Q 35.4 | P-22 ]
+**  4. What is a thread in Java?   [Core Java - Level I → Q 20 | P-4 ]
+**  5. Explain volatile keyword in Java.   [Core Java - Level I → Q 30 | P-5 ]
+**  6. What is multithreading?   [Core Java - Level I → Q 29 | P-5 ]
+*   7. What challenges might you face with multithreaded programs in Java?   [Core Java - Level II → Q 35.9 | P-22 ]
+*   8. What is Java memory model and how it is linked to threads?   [Core Java - Level II → Q 35.10 | P-23 ]

@@ -1,0 +1,10 @@
+Questions - Naming Convention
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+Note: Naming convention niye list-e direct kono question nei. Nicher question gulo related.
+
+*   1. What are the packages in Java?   [Core Java - Level II → Q 11 | P-6 ]
+*   2. Why packages are used?   [Core Java - Level II → Q 11.1 | P-6 ]

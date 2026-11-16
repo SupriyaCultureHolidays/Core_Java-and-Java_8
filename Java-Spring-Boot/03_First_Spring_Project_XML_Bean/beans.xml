@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Spring XML Bean Configuration — নিজে পূরণ করো (SpringBoot.html sec 7 দেখে)
+
+  ১. <beans> root tag বসাও, xmlns ও xmlns:xsi/xsi:schemaLocation namespace লাগবে
+     (SpringBoot.html sec 7-এ schema location আছে, ওখান থেকে কপি করো)
+  ২. ভিতরে একটা <bean> tag দিয়ে Greeter class-কে id="greeter" নামে register করো:
+       <bean id="greeter" class="Greeter" />
+     (যদি package ব্যবহার করো, তাহলে class="pack.age.Greeter" পুরো path লিখতে হবে)
+-->

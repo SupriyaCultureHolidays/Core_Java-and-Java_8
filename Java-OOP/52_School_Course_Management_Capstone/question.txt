@@ -1,0 +1,14 @@
+Questions - School Course Management Capstone
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. Explain the concept of Object-Oriented Programming in Java.   [Core Java - Level I → Q 6 | P-1 ]
+*** 2. Whats the use case of arrayList, linkedList and Hashset?   [Core Java - Level II → Q 31 | P-18 ]
+*** 3. What are SOLID Principles?   [Core Java - Level II → Q 34 | P-21 ]
+*** 4. What is a design pattern in Java and why do we use this?   [Core Java - Level II → Q 33 | P-20 ]
+*** 5. Can you explain internal working of HashMap in Java?   [Core Java - Level II → Q 32 | P-18 ]
+**  6. How do you choose the right collection type for a specific problem?   [Core Java - Level II → Q 30.5 | P-17 ]
+**  7. What is the difference between inheritance and composition?   [Core Java - Level II → Q 17.3 | P-9 ]
+**  8. What is the difference between association, aggregation, and composition in Java?   [Core Java - Level II → Q 17.5 | P-9 ]

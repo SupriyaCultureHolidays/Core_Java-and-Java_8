@@ -1,0 +1,11 @@
+Questions - Multiple Inheritance Interface
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. Why multiple inheritance is not possible in java?   [Core Java - Level II → Q 17.2 | P-9 ]
+*** 2. What is an interface in Java?   [Core Java - Level I → Q 10 | P-2 ]
+**  3. How do you use multiple inheritance in Java using interfaces?   [Core Java - Level II → Q 20.3 | P-10 ]
+**  4. What is the diamond problem in Java and how does Java address it?   [Core Java - Level II → Q 20.8 | P-11 ]
+**  5. How does the concept of default methods in interfaces help resolve the diamond problem?   [Core Java - Level II → Q 20.9 | P-11 ]

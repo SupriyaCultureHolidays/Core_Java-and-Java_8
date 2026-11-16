@@ -1,0 +1,12 @@
+Questions - Packages
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+**  1. What are access modifies in java?   [Core Java - Level II → Q 12 | P-6 ]
+*   2. What is a package in Java?   [Core Java - Level I → Q 15 | P-3 ]
+*   3. What are the packages in Java?   [Core Java - Level II → Q 11 | P-6 ]
+*   4. Why packages are used?   [Core Java - Level II → Q 11.1 | P-6 ]
+*   5. Can you provide examples of when to use each type of access modifier?   [Core Java - Level II → Q 12.1 | P-6 ]
+*   6. Can a top-level class be private or protected in Java?   [Core Java - Level II → Q 12.3 | P-7 ]

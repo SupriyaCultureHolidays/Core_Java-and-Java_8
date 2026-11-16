@@ -1,0 +1,9 @@
+Questions - Anonymous Object
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+**  1. What are the ways to create an object?   [Core Java - Level II → Q 13.1 | P-7 ]
+**  2. What is garbage collection in Java?   [Core Java - Level I → Q 22 | P-4 ]
+**  3. How does garbage collection work in Java?   [Core Java - Level II → Q 2 | P-1 ]

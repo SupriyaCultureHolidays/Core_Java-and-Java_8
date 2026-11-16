@@ -1,0 +1,21 @@
+Questions - Map
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. Can you explain internal working of HashMap in Java?   [Core Java - Level II → Q 32 | P-18 ]
+*** 2. What happens when two keys have the same hash code? How would you handle this scenario?   [Core Java - Level II → Q 32.1 | P-19 ]
+*** 3. How does a HashMap handle collisions in Java?   [Core Java - Level II → Q 32.2 | P-19 ]
+*** 4. Can you please tell me what changes were done for the HashMap in Java 8 because before java 8 hashMap behaved differently ?   [Core Java - Level II → Q 32.3 | P-19 ]
+*** 5. Can you please explain ConcurrentHashMap   [Core Java - Level II → Q 32.5 | P-19 ]
+*** 6. Difference between HashMap and TreeMap.   [Core Java - Level II → Q 33.5 | P-21 ]
+*** 7. Write a Java Program to count the number of words in a string using HashMap.   [Java Coding Questions → Q 3 | P-1 ]
+**  8. Can we include class as a key in hashmap?   [Core Java - Level II → Q 32.4 | P-19 ]
+**  9. How does it(ConcurrentHashMap ) improve performance in a multi-threaded environment?   [Core Java - Level II → Q 32.6 | P-19 ]
+**  10. What is time complexities insertions, deletion and retrieval of hashSet and HashMap?   [Core Java - Level II → Q 32.7 | P-19 ]
+**  11. In what scenarios would you prefer to use a TreeMap over a HashMap?   [Core Java - Level II → Q 33.6 | P-21 ]
+**  12. Write a Java Program to iterate HashMap using While and advance for loop.   [Java Coding Questions → Q 4 | P-2 ]
+*   13. What is time complexities insertions, deletion and retrieval of TreeSet and TreeMap?   [Core Java - Level II → Q 32.8 | P-20 ]
+*   14. What techniques did hashMap, treeMap, hashSet and TreeSet uses internally for performing operations?   [Core Java - Level II → Q 32.9 | P-20 ]
+*   15. Can we add objects as a key in TreeMap?   [Core Java - Level II → Q 33.7 | P-21 ]

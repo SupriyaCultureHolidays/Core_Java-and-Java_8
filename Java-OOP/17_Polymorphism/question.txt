@@ -1,0 +1,13 @@
+Questions - Polymorphism
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. What is polymorphism in Java?   [Core Java - Level I → Q 8 | P-2 ]
+*** 2. What does mean by polymorphism in Java?   [Core Java - Level II → Q 18 | P-9 ]
+**  3. How does method overloading relate to polymorphism?   [Core Java - Level II → Q 18.1 | P-9 ]
+**  4. What is dynamic method dispatch in Java?   [Core Java - Level II → Q 18.2 | P-9 ]
+**  5. What are the rules for method overloading in Java?   [Core Java - Level II → Q 23.3 | P-13 ]
+*   6. Can constructors be polymorphic?   [Core Java - Level II → Q 18.3 | P-10 ]
+*   7. How does 'super' play a role in polymorphism ?   [Core Java - Level II → Q 25.4 | P-14 ]

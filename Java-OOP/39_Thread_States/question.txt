@@ -1,0 +1,8 @@
+Questions - Thread States
+==================================================
+*** = Must do first   ** = Important   * = Good to know
+Source: Java_Pdf/Java_Questions_List.txt
+[Topic → Q no. | P-page] = kon topic-er koto number question, oi topic-er PDF-er koto page-e answer ache
+
+*** 1. Can you explain the lifecycle of a Java thread?   [Core Java - Level II → Q 35.1 | P-22 ]
+**  2. Can we strat thread twice?   [Core Java - Level II → Q 35.3 | P-22 ]
