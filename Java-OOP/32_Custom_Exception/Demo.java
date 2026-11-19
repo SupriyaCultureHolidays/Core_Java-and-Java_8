@@ -1,5 +1,5 @@
 /*
- * Question 31 (31_Custom_Exception) — Insufficient Balance
+ * Question 31 (32_Custom_Exception) — Insufficient Balance
  *
  * InsufficientBalanceException নামে custom checked exception বানাও।
  * BankAccount-এর withdraw() method-এ balance-এর চেয়ে বেশি amount

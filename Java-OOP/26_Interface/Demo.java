@@ -1,5 +1,5 @@
 /*
- * Question 25 (25_Interface) — Vehicle Interface
+ * Question 25 (26_Interface) — Vehicle Interface
  *
  * Vehicle interface-এ start() ও stop() method রাখো, সাথে একটা
  * default method fuelType() ও রাখো (interface-এর default method)।

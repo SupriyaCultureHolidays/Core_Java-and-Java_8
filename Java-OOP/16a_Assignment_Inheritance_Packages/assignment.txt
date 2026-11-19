@@ -1,0 +1,68 @@
+Assignment - Inheritance & Packages (Online Food Delivery)
+==================================================
+Covers topics: Inheritance, Single & Multilevel Inheritance,
+Multiple Inheritance using Interface, Method Overriding, Packages
+
+Scenario
+--------
+Ekta food delivery app-er user ar delivery system banao.
+
+Package structure (must follow)
+-------------------------------
+  com/foodapp/model/     -> User, Customer, PrimeCustomer, DeliveryPartner
+  com/foodapp/service/   -> Trackable, Payable (interfaces)
+  com/foodapp/Demo.java  -> main method
+
+  (Prottek file-er upore thik package statement + dorkari import dite hobe)
+
+Tasks
+-----
+1. Single Inheritance
+   - class User: protected name, phone; method showProfile(), login()
+   - class Customer extends User: address, orderCount; method placeOrder(String item)
+   - Customer-er constructor-e super(name, phone) call koro
+
+2. Multilevel Inheritance
+   - class PrimeCustomer extends Customer: discountPercent
+   - placeOrder() override koro -> "Prime order: <item> with X% discount" print korbe
+   - showProfile() override koro -> super.showProfile() call kore tarpor "Prime Member" print
+
+3. Multiple Inheritance using Interface
+   - interface Trackable { void trackLocation(); }
+   - interface Payable   { void receivePayment(double amount); }
+   - class DeliveryPartner extends User implements Trackable, Payable
+   - Dui interface-ei jodi same default method thake (e.g. default void status())
+     tahole ki problem hoy? DeliveryPartner-e override kore solve koro
+     (Trackable.super.status() use koro)
+
+4. Method Overriding rules (comment-e answer + code-e try koro)
+   - @Override annotation use koro
+   - Overridden method-er access modifier komano jay? (public -> protected try kore dekho, error note koro)
+   - static method override hoy na - ekta example diye dekhao (method hiding)
+   - private method override korte parbe? Keno na?
+
+5. Constructor chaining
+   - User, Customer, PrimeCustomer - prottek constructor-e ekta print rakho
+   - new PrimeCustomer(...) korle kon order-e print hoy? Comment-e likho
+
+Demo.java te test koro
+----------------------
+- Ekta Customer, ekta PrimeCustomer, ekta DeliveryPartner banao
+- Shobar showProfile() ar placeOrder() / trackLocation() call koro
+- DeliveryPartner.receivePayment(50) call koro
+- Import ar fully-qualified name (com.foodapp.model.Customer) dui bhabei object banao
+
+Expected output (approximate)
+-----------------------------
+User constructor
+Customer constructor
+PrimeCustomer constructor
+Name: Priya | Phone: 9000000000
+Prime Member
+Prime order: Biryani with 20.0% discount
+Partner Amit is at: Sector 5
+Amit received payment: 50.0
+
+Bonus
+-----
+- protected vs default access: alada package theke field access kore dekho, ki error ashe note koro

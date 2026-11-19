@@ -1,5 +1,5 @@
 /*
- * Question 26 (26_Enum) — Season Enum
+ * Question 26 (27_Enum) — Season Enum
  *
  * Season enum বানাও (SUMMER, WINTER, SPRING, AUTUMN)। switch statement
  * দিয়ে প্রতিটা season-এর একটা ছোট description print করো।

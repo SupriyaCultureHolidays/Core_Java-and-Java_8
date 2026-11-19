@@ -1,0 +1,69 @@
+Assignment - Abstract Class, Inner Class & Anonymous Inner Class (Smart Home Controller)
+==================================================
+Covers topics: Abstract Class, Inner Class, Anonymous Inner Class
+
+Scenario
+--------
+Ekta smart home controller banao jeta ghorer device control kore.
+
+Tasks
+-----
+1. Abstract Class
+   - abstract class Device
+       - String name; boolean isOn;
+       - abstract void operate();
+       - concrete methods: turnOn(), turnOff(), status()
+
+2. Member Inner Class (non-static)
+   - class SmartHome
+       - private String ownerName
+       - private List / array of devices
+       - inner class Room
+           - String roomName
+           - addDevice(Device d)
+           - showRoom() -> ownerName (outer class-er private field) direct access kore print korbe
+   - main()-e Room object banao:  SmartHome.Room r = home.new Room("Bedroom");
+   - Comment-e likho: inner class keno outer class-er private field access korte pare?
+
+3. Static Nested Class
+   - SmartHome-er moddhe static class Config { static int maxDevices = 10; }
+   - Outer object chara Config access koro: SmartHome.Config.maxDevices
+   - Comment-e likho: static nested class ar inner class-er parthokko
+
+4. Local Inner Class
+   - SmartHome-er ekta method nightMode()-er bhitore ekta local class Scheduler banao
+     jeta "Lights off at 11 PM" print kore
+   - local class method-er bhaire use korte parbe? Try kore dekho
+
+5. Anonymous Inner Class
+   - Device abstract class theke class na baniye direct anonymous object banao:
+       Device fan = new Device("Fan") {
+           void operate() { ... }
+       };
+   - Ekta AC, ekta Light-o anonymous class diye banao
+   - Interface diye-o ekta anonymous class: interface Alarm { void ring(); }
+   - Comment-e likho: anonymous class-er .class file-er naam ki hoy? (compile kore check koro,
+     tarpor .class file delete kore dio)
+
+6. Effectively final
+   - Anonymous class-er bhitore ekta local variable use koro, tarpor oi variable change korar
+     try koro - ki error ashe note koro
+
+Demo.java te test koro
+----------------------
+- SmartHome home = new SmartHome("Supriya");
+- 2 ta Room banao, prottekta-e anonymous device add koro
+- showRoom() call koro, shob device operate() koro
+- nightMode() call koro
+- Alarm anonymous object diye ring() call koro
+
+Expected output (approximate)
+-----------------------------
+Max devices allowed: 10
+[Supriya's Home] Room: Bedroom
+  Fan -> rotating at speed 3
+  Light -> brightness 70%
+[Supriya's Home] Room: Hall
+  AC -> cooling at 24C
+Lights off at 11 PM
+Alarm: Wake up!

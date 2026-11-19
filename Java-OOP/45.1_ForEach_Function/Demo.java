@@ -1,3 +1,19 @@
+/*
+ * Question 44.1 (45.1_ForEach_Function) — forEach()
+ *
+ * forEach() বিভিন্ন ভাবে use করো:
+ * - List<String> → lambda দিয়ে: names.forEach(name -> ...)
+ * - একই List → method reference দিয়ে: names.forEach(System.out::println)
+ * - Map<String, Integer> → map.forEach((key, value) -> ...)
+ *
+ * Output (Map-এর order বদলাতে পারে):
+ * Rahim
+ * Karim
+ * Sumi
+ * Supriya -> 100
+ * Arup -> 300
+ */
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

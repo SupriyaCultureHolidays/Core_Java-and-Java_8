@@ -1,0 +1,63 @@
+Assignment - Polymorphism & Abstraction (Shape Billing for a Tile Shop)
+==================================================
+Covers topics: Polymorphism, Dynamic Method Dispatch, final keyword,
+Object class, Upcasting & Downcasting, Abstract Class
+
+Scenario
+--------
+Ekta tile shop alada shape-er tile bikri kore. Area onujayi dam hoy.
+Ekta billing system banao.
+
+Tasks
+-----
+1. Abstract Class
+   - abstract class Tile
+       - protected String code
+       - static final double PRICE_PER_SQ_UNIT = 12.5
+       - abstract double area();
+       - concrete method: double price() { return area() * PRICE_PER_SQ_UNIT; }
+       - constructor thakbe (abstract class-er constructor keno lage? comment-e likho)
+
+2. Subclasses
+   - SquareTile(side), RectangleTile(length, width), CircleTile(radius)
+   - Prottekta area() override korbe
+   - CircleTile-e ekta extra method: double circumference()
+
+3. final keyword
+   - final class PremiumCircleTile extends CircleTile -> price 1.5 gun
+   - Tile-e final method printBill() -> override korar try koro, error note koro
+   - final local variable reassign korar try koro, error note koro
+
+4. Object class methods (Tile-e override koro)
+   - toString()  -> "SquareTile[code=SQ1, area=16.0, price=200.0]"
+   - equals()    -> same class ar same area hole equal
+   - hashCode()  -> equals-er sathe consistent
+
+5. Dynamic Method Dispatch + Upcasting
+   - Tile[] cart = { new SquareTile(...), new RectangleTile(...), new CircleTile(...), new PremiumCircleTile(...) };
+   - loop chaliye prottek tile-er price() print koro ar total bill banao
+   - Comment-e likho: kon method call hobe seta compile time na runtime-e decide hoy?
+
+6. Downcasting
+   - loop-er moddhe instanceof check kore CircleTile hole downcast kore circumference() print koro
+   - instanceof chara ekta SquareTile ke CircleTile-e cast korle ki hoy? (ClassCastException) - try-catch diye dekhao
+
+7. Compile-time Polymorphism
+   - BillPrinter class-e overloaded print(Tile t), print(Tile[] tiles), print(Tile t, int qty)
+
+Demo.java te test koro
+----------------------
+- Upore cart banao, total bill print koro
+- Duto same-size SquareTile equals() diye compare koro, == diye-o compare koro, parthokko likho
+- System.out.println(tile) -> toString() automatic call hocche dekhao
+
+Expected output (approximate)
+-----------------------------
+SquareTile[code=SQ1, area=16.0, price=200.0]
+RectangleTile[code=RC1, area=24.0, price=300.0]
+CircleTile[code=CR1, area=78.54, price=981.75]
+  circumference: 31.42
+PremiumCircleTile[code=PC1, area=78.54, price=1472.62]
+  circumference: 31.42
+Total: 2954.37
+sq1.equals(sq2): true | sq1 == sq2: false

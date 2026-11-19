@@ -1,5 +1,5 @@
 /*
- * Question 28 (28_Functional_Interface) — Calculator
+ * Question 28 (29_Functional_Interface) — Calculator
  *
  * @FunctionalInterface annotation সহ Calculator interface বানাও, একটা
  * single abstract method operate(int a, int b) রাখো। Demo-তে lambda

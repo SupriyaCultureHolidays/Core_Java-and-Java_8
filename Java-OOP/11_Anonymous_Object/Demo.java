@@ -1,12 +1,17 @@
 /*
- * Question 11
- * একটি static counter রাখো।
- * যত object create হবে counter increase হবে।
- * Student class-এ static int count রাখো, constructor-এ count++ করো।
- * কয়েকটা Student object বানিয়ে শেষে total count print করো।
+ * Question 11 (11_Anonymous_Object) — Student (Anonymous Object)
+ *
+ * Student class (name), static int count (constructor-এ count++), display()।
+ *
+ * - reference variable ছাড়া object বানিয়ে সাথে সাথে method call: new Student("Rahim").display();
+ * - Demo.java-তে static void printStudent(Student s) লেখো, তাতে anonymous object pass করো: printStudent(new Student("Karim"));
+ * - শেষে total count print করো
+ * - Comment-এ লেখো: anonymous object-কে দ্বিতীয়বার কেন use করা যায় না, আর কখন এটা garbage collection-এর জন্য eligible হয়?
  *
  * Output:
- * Total students created: 4
+ * Student: Rahim
+ * Student: Karim
+ * Total students created: 2
  */
 public class Demo {
     public static void main(String[] args) {

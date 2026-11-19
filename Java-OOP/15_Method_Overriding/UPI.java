@@ -3,5 +3,4 @@ public class UPI extends CreditCard {
     void payment(){
         System.out.println("Paid using UPI");
     }
-
 }

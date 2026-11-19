@@ -1,0 +1,80 @@
+Assignment - Interface, Enum, Annotation, Lambda & Exceptions (Movie Ticket Booking)
+==================================================
+Covers topics: Interface, Enum, Annotation, Functional Interface,
+Lambda Expression, Exception Handling, Custom Exception, throws keyword
+
+Scenario
+--------
+Ekta cinema hall-er ticket booking system banao.
+
+Tasks
+-----
+1. Enum
+   - enum SeatType { SILVER(150), GOLD(250), PLATINUM(400); }
+       - private final int price; constructor; getPrice()
+   - enum ShowTime { MORNING, AFTERNOON, NIGHT }
+   - values() diye shob seat type ar price print koro
+   - switch(showTime) diye NIGHT show-e 50 taka extra charge add koro
+
+2. Interface
+   - interface Bookable
+       - void book(int seats) throws ... (niche dekho)
+       - void cancel(int seats);
+       - default void showRules() -> "Max 10 seats per booking"
+       - static void helpline() -> "Call 1800-111-222"
+   - class MovieShow implements Bookable
+       - movieName, ShowTime time, SeatType type, availableSeats
+
+3. Annotation
+   - @Override shob jaygay use koro
+   - Ekta purono method oldBook(int seats) banao, @Deprecated mark koro, call kore warning dekho
+   - Ekta raw List use koro ar @SuppressWarnings("unchecked") diye warning bondho koro
+   - Bonus: nijer custom annotation @Author(name = "...") banao ar MovieShow-e lagao
+
+4. Functional Interface + Lambda
+   - @FunctionalInterface interface DiscountRule { double apply(double amount); }
+   - Lambda diye 3 ta rule banao:
+       studentDiscount  -> 20% off
+       weekendSurcharge -> 10% extra
+       noDiscount       -> same amount
+   - calculateTotal(int seats, DiscountRule rule) method-e lambda pass koro
+   - Built-in functional interface use koro:
+       Predicate<Integer> isValidSeatCount = n -> n > 0 && n <= 10;
+       Consumer<String> printer = msg -> System.out.println(">> " + msg);
+
+5. Custom Exception
+   - class SeatNotAvailableException extends Exception (checked)
+   - class InvalidSeatCountException extends RuntimeException (unchecked)
+   - Comment-e likho: checked vs unchecked - kon ta kokhon use korbe?
+
+6. throws keyword
+   - book(int seats) throws SeatNotAvailableException
+       - seats invalid hole InvalidSeatCountException throw
+       - availableSeats kom hole SeatNotAvailableException throw
+   - main() theke book() call korle try-catch na dile ki hoy? Try kore dekho
+
+7. Exception Handling
+   - try - multiple catch - finally use koro
+   - finally-te "Thank you for using QuickShow" print koro
+   - ArithmeticException-o ekbar handle koro (e.g. seats = 0 diye per seat price calculate)
+   - Multi-catch: catch (InvalidSeatCountException | ArithmeticException e)
+
+Demo.java te test koro
+----------------------
+- Ekta MovieShow banao (availableSeats = 5)
+- 3 ta seat book koro studentDiscount diye -> success
+- Abar 4 ta seat book koro -> SeatNotAvailableException
+- -2 seat book koro -> InvalidSeatCountException
+- Bookable.helpline() ar showRules() call koro
+
+Expected output (approximate)
+-----------------------------
+SILVER -> 150 | GOLD -> 250 | PLATINUM -> 400
+Max 10 seats per booking
+>> Booked 3 GOLD seats for Inception (NIGHT)
+>> Total after discount: 640.0
+Error: Only 2 seats left, requested 4
+Thank you for using QuickShow
+Error: Invalid seat count: -2
+Thank you for using QuickShow
+Call 1800-111-222

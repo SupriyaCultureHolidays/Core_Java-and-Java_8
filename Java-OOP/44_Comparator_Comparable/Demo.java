@@ -1,5 +1,5 @@
 /*
- * Question 43 (43_Comparator_Comparable) — Sort Employees
+ * Question 43 (44_Comparator_Comparable) — Sort Employees
  *
  * Employee class Comparable<Employee> implement করবে (salary অনুযায়ী
  * natural order)। আলাদা EmployeeComparator class Comparator<Employee>

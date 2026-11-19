@@ -1,5 +1,5 @@
 /*
- * Question 34 (34_Try_With_Resources) — AutoCloseable
+ * Question 34 (35_Try_With_Resources) — AutoCloseable
  *
  * FileHandler class AutoCloseable implement করবে (close() method সহ)।
  * Demo-তে try-with-resources ব্যবহার করো, যাতে block শেষ হলে

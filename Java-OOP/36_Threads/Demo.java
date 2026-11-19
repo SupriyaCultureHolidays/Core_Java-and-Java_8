@@ -1,10 +1,15 @@
 /*
- * Question 35 (35_Threads) — Thread vs Runnable
+ * Question 35 (36_Threads) — Extending Thread
  *
- * MyThread (extends Thread) আর TaskRunnable (implements Runnable) —
- * দুইটা আলাদা way-তে thread বানাও, দুইটাই start() করো।
+ * MyThread extends Thread — run() override করবে, current thread-এর নাম print করবে।
  *
- * Output:
+ * - ৩টা MyThread object বানিয়ে start() করো
+ * - main thread-ও একটা line print করবে
+ * - run() সরাসরি call করলে আর start() করলে কী পার্থক্য হয় দেখো (নতুন thread হয় কি?)
+ *
+ * Output (order বদলাতে পারে):
+ * Main thread running
+ * Thread-0 running
  * Thread-1 running
  * Thread-2 running
  */

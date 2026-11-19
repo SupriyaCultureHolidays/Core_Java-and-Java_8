@@ -1,20 +1,21 @@
 /*
- * Question 9
- * BankAccount
- * balance private থাকবে।
- * Negative amount deposit করা যাবে না।
- * withdraw balance-এর বেশি হলে হবে না।
+ * Question 9 (09_Constructors) — BankAccount (৩ রকম Constructor)
  *
- * deposit(amount): amount < 0 হলে "Invalid deposit amount" print করবে,
- * নাহলে balance বাড়াবে।
- * withdraw(amount): amount balance-এর চেয়ে বেশি হলে "Insufficient balance"
- * print করবে, নাহলে balance কমাবে।
- * Demo-তে valid ও invalid দুই রকম case টেস্ট করো।
+ * BankAccount class (accountNumber, holderName, balance) — ৩ রকম constructor:
+ * 1. Default constructor → this(0, "Unknown", 0) দিয়ে chain করবে
+ * 2. Parameterized constructor → তিনটা value নেবে
+ * 3. Copy constructor → BankAccount(BankAccount other) অন্য account-এর value copy করবে
  *
- * Output (balance=1000):
- * Invalid deposit amount   (deposit(-100) করলে)
- * Insufficient balance     (withdraw(5000) করলে)
- * Current Balance: 1000
+ * Method: deposit(int amount), display()
+ *
+ * Demo.java-তে তিনটা object বানাও। Copy-টাতে deposit(4000) করো — original-এ কোনো প্রভাব পড়বে না দেখাও।
+ * Bonus: constructor-এর return type থাকে না কেন? void BankAccount() লিখলে কী হয়?
+ *
+ * Output:
+ * Account: 0, Holder: Unknown, Balance: 0
+ * Account: 1245, Holder: Rahim, Balance: 1000
+ * Copy -> Account: 1245, Holder: Rahim, Balance: 1000
+ * After deposit in copy -> Original: 1000, Copy: 5000
  */
 public class Demo {
     public static void main(String[] args) {

@@ -1,15 +1,14 @@
 /*
- * Question 17
- * Employee
- *   ↓
- * Developer
- *   ↓
- * Tester
- *   ↓
- * Manager
+ * Question 17 (17_Polymorphism) — Employee Hierarchy
  *
- * Developer, Tester, Manager — প্রতিটা Employee extend করে work() override করবে।
- * Demo-তে Employee[] array বানিয়ে তিনটা object রেখে loop-এ work() কল করো।
+ *             Employee
+ *           /    |     \
+ * Developer   Tester   Manager
+ *
+ * Developer, Tester, Manager — প্রতিটা Employee extend করে work() override করবে (runtime polymorphism)।
+ * Demo.java-তে Employee[] array বানিয়ে তিনটা object রেখে loop-এ work() কল করো।
+ *
+ * Bonus: Employee-তে work(int hours) overload করো — compile-time vs runtime polymorphism-এর পার্থক্য comment-এ লেখো।
  *
  * Output:
  * Developer is writing code

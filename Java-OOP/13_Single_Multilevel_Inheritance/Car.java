@@ -1,11 +1,11 @@
 public class Car extends Vehicle {
     String model;
-
-    Car(String model, String brand) {
+    Car(String brand, String model) {
         super(brand);
         this.model = model;
     }
+    @Override 
     void display(){
-        System.err.println("Brand: " + brand + " Model: " + model);
+        System.out.println("Brand: " + brand + ", Model: " + model);
     }
 }

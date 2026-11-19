@@ -1,5 +1,5 @@
 /*
- * Question 47 (47_Optional_Class) — Optional User Lookup
+ * Question 47 (48_Optional_Class) — Optional User Lookup
  *
  * UserService-এ findUserById(int id) method বানাও, যেটা Optional<User>
  * return করবে। Demo-তে existing id দিয়ে isPresent() check করো, আর

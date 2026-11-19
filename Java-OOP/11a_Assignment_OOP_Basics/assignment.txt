@@ -1,0 +1,77 @@
+Assignment - OOP Basics (Mobile Recharge System)
+==================================================
+Covers topics: Class & Object, Methods, Method Overloading, Stack & Heap Memory,
+Static, Encapsulation, Getters & Setters, this keyword, Constructors,
+Naming Convention, Anonymous Object
+
+Scenario
+--------
+Ekta mobile operator-er jonno chhoto ekta recharge system banao.
+Prottek SIM-er ekta number, owner name, balance ar plan thakbe.
+
+Tasks
+-----
+1. Class SimCard banao (Encapsulation)
+   - private fields: mobileNumber (String), ownerName (String), balance (double), planName (String)
+   - static field: totalSims (int) -> kotogulo SimCard object toiri hoyeche ta count korbe
+   - static final field: OPERATOR_NAME = "QuickTel"
+
+2. Constructors + this keyword
+   - Default constructor: planName = "Basic", balance = 0
+   - Parameterized constructor (mobileNumber, ownerName) -> this(...) diye onno constructor call koro
+   - Parameterized constructor (mobileNumber, ownerName, balance, planName)
+   - Shob constructor-e totalSims barbe
+
+3. Getters & Setters
+   - Shob field-er getter
+   - setBalance() -> negative value dile set hobe na, message print korbe
+   - setMobileNumber() -> 10 digit na hole reject korbe
+   - mobileNumber er setter-e "this.mobileNumber = mobileNumber" use koro
+
+4. Method Overloading - recharge()
+   - recharge(double amount)                    -> shudhu balance add
+   - recharge(double amount, String planName)   -> balance add + plan change
+   - recharge(int packs, double perPackPrice)   -> packs * perPackPrice add
+
+5. Methods
+   - makeCall(int minutes) -> per minute 1.5 taka kete nibe; balance kom hole "Insufficient balance"
+   - showDetails() -> shob info sundor kore print korbe
+   - static method showTotalSims() -> totalSims print korbe
+
+6. Static block
+   - class load hole "QuickTel system loaded..." print korbe
+
+7. Anonymous Object
+   - new SimCard("9876543210", "Guest").showDetails();  -> reference variable chara call koro
+   - Comment-e likho: ei object-er reference kothay ache? Kobe GC eligible hobe?
+
+8. Stack & Heap (comment-e answer)
+   - main()-e SimCard s1 = new SimCard(...); SimCard s2 = s1;
+     s2.recharge(100); -> s1-er balance ki change hobe? Keno? Stack/Heap diye explain koro.
+
+9. Naming Convention
+   - Class: PascalCase, method/variable: camelCase, constant: UPPER_SNAKE_CASE
+   - Kono naming rule bhangle penalty :)
+
+Demo.java te test koro
+----------------------
+- 3 ta SimCard banao 3 ta alada constructor diye
+- 3 rokom recharge call koro
+- makeCall() diye balance komao, ekbar insufficient case-o dekhao
+- invalid balance / invalid number set korar try koro
+- shesh-e SimCard.showTotalSims()
+
+Expected output (approximate)
+-----------------------------
+QuickTel system loaded...
+Number: 9876543210 | Owner: Rahul | Plan: Basic | Balance: 0.0
+Recharged 199.0 -> Balance: 199.0
+Plan changed to Unlimited
+Call of 10 min done. Balance: 184.0
+Insufficient balance!
+Invalid balance: -50.0
+Total SIMs created: 4
+
+Bonus
+-----
+- equals-er moto ekta method likho: isSameOwner(SimCard other) -> this ar other compare koro

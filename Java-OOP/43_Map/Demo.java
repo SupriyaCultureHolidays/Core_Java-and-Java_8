@@ -1,5 +1,5 @@
 /*
- * Question 42 (42_Map) — HashMap Employee
+ * Question 42 (43_Map) — HashMap Employee
  *
  * HashMap<Integer, String> বানাও, employee id ও name store করো।
  * entrySet() ব্যবহার করে সব entry iterate করে print করো।

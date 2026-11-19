@@ -10,6 +10,7 @@ public class Employee {
         this.department = department;
         this.salary = salary;
     }
+    
 
     void display() {
         System.out.println(

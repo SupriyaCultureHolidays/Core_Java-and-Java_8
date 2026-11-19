@@ -1,5 +1,5 @@
 /*
- * Question 32 (32_Throws_Keyword) — File Reading
+ * Question 32 (33_Throws_Keyword) — File Reading
  *
  * FileService-এ readFile(String path) method বানাও, যেটা
  * `throws IOException` declare করবে। Demo-তে try-catch দিয়ে call করো,

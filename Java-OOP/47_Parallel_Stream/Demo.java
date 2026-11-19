@@ -1,5 +1,5 @@
 /*
- * Question 46 (46_Parallel_Stream) — Parallel Sum
+ * Question 46 (47_Parallel_Stream) — Parallel Sum
  *
  * 1 থেকে 100 পর্যন্ত সংখ্যার একটা List বানাও, parallelStream()
  * ব্যবহার করে sum হিসাব করো, normal stream()-এর result-এর সাথে

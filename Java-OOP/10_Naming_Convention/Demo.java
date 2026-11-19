@@ -1,14 +1,25 @@
 /*
- * Question 10
- * Employee class
- * একটি static companyName রাখো।
- * সব employee একই company use করবে।
- * ৩টা Employee object বানাও (নাম আলাদা), companyName সবার জন্য same হবে।
+ * Question 10 (10_Naming_Convention) — Employee (Fix the Names)
+ *
+ * নিচের code-টা Java naming convention ভেঙে লেখা। নিয়ম মেনে Employee.java-তে আবার লেখো:
+ *
+ * class employee {
+ *     static final int maxleavedays = 20;
+ *     String Employee_Name;
+ *     int MonthlySalary;
+ *     employee(String Employee_Name, int MonthlySalary) { ... }
+ *     int Calculate_yearly_salary() { return MonthlySalary * 12; }
+ *     void PRINT() { ... }
+ * }
+ *
+ * নিয়ম:
+ * - Class → PascalCase (Employee)
+ * - variable ও method → camelCase (employeeName, calculateYearlySalary())
+ * - constant (static final) → UPPER_SNAKE_CASE (MAX_LEAVE_DAYS)
+ * - package → সব lowercase (com.company.hr)
  *
  * Output:
- * Rahim works at XYZ Corp
- * Karim works at XYZ Corp
- * Sumi works at XYZ Corp
+ * Employee: Rahim, Monthly: 40000, Yearly: 480000, Max Leave: 20
  */
 public class Demo {
     public static void main(String[] args) {

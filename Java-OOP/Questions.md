@@ -1,6 +1,6 @@
 # Java OOP Practice Questions (Backend Mindset)
 
-প্রতিটা প্রশ্নের জন্য ফোল্ডার নাম্বার = প্রশ্ন নাম্বার নয় সবসময় — Q1 থেকে Q24 পর্যন্ত ফোল্ডার নাম্বার মিলে যায় (Q1 → 01_Class_Object, Q2 → 02_Methods ...), কিন্তু 25_Extra_Practice_Inheritance_Polymorphism_Abstraction ফোল্ডার যুক্ত হওয়ায় Q25 থেকে ফোল্ডার নাম্বার প্রশ্ন নাম্বারের চেয়ে ১ বেশি (Q25 → 26_Interface ... Q47 → 48_Optional_Class, Final Project → 49_Record_Final_Project)। ফোল্ডার নাম্বার সবসময় প্রতিটা প্রশ্নের হেডিং-এর প্যারেনথেসিসে দেওয়া আছে।
+প্রতিটা প্রশ্নের জন্য ফোল্ডার নাম্বার = প্রশ্ন নাম্বার নয় সবসময় — Q1 থেকে Q24 পর্যন্ত ফোল্ডার নাম্বার মিলে যায় (Q1 → 01_Class_Object, Q2 → 02_Methods ...), কিন্তু 25_Extra_Practice_Inheritance_Polymorphism_Abstraction ফোল্ডার যুক্ত হওয়ায় Q25 থেকে ফোল্ডার নাম্বার প্রশ্ন নাম্বারের চেয়ে ১ বেশি (Q25 → 26_Interface ... Q47 → 48_Optional_Class, Final Project → 49_Record_Final_Project)। ফোল্ডার নাম্বার সবসময় প্রতিটা প্রশ্নের হেডিং-এর প্যারেনথেসিসে দেওয়া আছে। দুইটা sub-question আছে: Q35.2 → 37.2_Runnable, Q44.1 → 45.1_ForEach_Function।
 
 ---
 
@@ -40,129 +40,217 @@ Current Balance: 700
 
 ---
 
-## Question 3 (03_Method_Overloading) — Product
 
-একটি `Product` class
+## Question 3 (03_Method_Overloading) — Product Total (Overloading)
 
-Properties: `id, name, price, quantity`
-Method: `display()` — সব field ও total price (price*quantity) দেখাবে
+`Product` class (`id, name, price, quantity`)।
 
-**Output:**
+একই নামে তিনটা `calculateTotal()` method overload করো:
+- `calculateTotal()` → price * quantity
+- `calculateTotal(double discountPercent)` → discount বাদ দিয়ে total
+- `calculateTotal(double discountPercent, int deliveryCharge)` → discount বাদ দিয়ে, delivery charge যোগ করে total
+
+Demo.java থেকে তিনটাই call করো — compiler parameter দেখে ঠিক method বেছে নেবে (compile-time polymorphism)।
+Bonus: শুধু return type আলাদা করে overload করলে কী error আসে দেখো।
+
+**Output (Pen, price 10, qty 5):**
 ```
-Product: Pen, Price: 10, Qty: 5, Total: 50
+Total: 50
+Total after 10% discount: 45.0
+Total after 10% discount + 20 delivery: 65.0
 ```
+
 
 ---
 
-## Question 4 (04_Stack_Heap_Memory) — Calculator
 
-`Calculator` class
+## Question 4 (04_Stack_Heap_Memory) — Calculator (Stack vs Heap)
 
-Methods: `add(), subtract(), multiply(), divide()` — সব Demo.java থেকে call করবে।
+`Calculator` class — একটা field `int result`।
+
+Demo.java-তে দুইটা static method লেখো:
+- `addTenToNumber(int x)` → x-এ 10 যোগ করে print করবে (primitive — value-এর copy stack-এ যায়)
+- `addTenToResult(Calculator c)` → c.result-এ 10 যোগ করবে (reference-এর copy যায়, কিন্তু object heap-এ একটাই)
+
+তারপর:
+1. `int x = 5;` → addTenToNumber(x) call করে আগে-পরে x print করো
+2. `Calculator c1 = new Calculator(); c1.result = 5;` → addTenToResult(c1) call করে আগে-পরে print করো
+3. `Calculator c2 = c1; c2.result = 100;` → c1.result print করো (দুইটা reference, একটাই object)
+
+Comment-এ লেখো: x কেন বদলালো না, কিন্তু c1.result কেন বদলালো?
 
 **Output:**
 ```
-Sum: 15
-Diff: 5
-Mul: 50
-Div: 2.0
+Before: x = 5
+Inside method: x = 15
+After: x = 5
+Before: c1.result = 5
+After: c1.result = 15
+c1.result after c2 change: 100
 ```
+
 
 ---
 
-## Question 5 (05_Static) — Student
+
+## Question 5 (05_Static) — Student (static variable, method, block)
 
 `Student` class
+- `name` → instance variable (প্রতিটা student-এর আলাদা)
+- `static String schoolName` → সব student-এর জন্য একটাই
+- `static int count` → constructor-এ count++
+- `static { }` block → schoolName = "ABC School" set করবে ও "Static block executed" print করবে
+- `static void showSchoolInfo()` → schoolName আর count print করবে (object ছাড়া `Student.showSchoolInfo()` দিয়ে call)
+- `study()` → instance method
 
-Methods: `study(), sleep(), eat(), display()`
+Bonus: static method-এর ভেতর থেকে `name` বা `this` use করলে কী error আসে দেখো।
 
 **Output:**
 ```
+Static block executed
 Rahim is studying
-Rahim is sleeping
-Rahim is eating
+Karim is studying
+School: ABC School, Total students: 2
 ```
+
 
 ---
 
-## Question 6 (06_Encapsulation) — Employee Constructor
 
-`Employee` class, Constructor দিয়ে initialize করবে।
+## Question 6 (06_Encapsulation) — Employee Salary Protection
 
-```java
-Employee emp = new Employee(1,"Supriya","IT",45000);
-```
+`Employee` class — `id, name, department, salary` সব `private`।
 
-তারপর display।
+- Constructor দিয়ে id, name, department set হবে
+- `setSalary(int salary)` → salary < 0 হলে "Invalid salary!" print করবে, set করবে না
+- `getSalary()` → salary return করবে
+- `giveRaise(int percent)` → salary বাড়াবে
+- `display()`
+
+Demo.java-তে `emp.salary = 5000;` লিখে দেখো compile error আসে — তারপর মুছে দাও। বাইরে থেকে শুধু method দিয়েই data বদলানো যাবে।
 
 **Output:**
 ```
+Invalid salary!
 ID: 1, Name: Supriya, Department: IT, Salary: 45000
+After 10% raise: 49500
 ```
 
+
 ---
+
 
 ## Question 7 (07_Getters_Setters) — Laptop
 
-`Laptop` class
+`Laptop` class — `brand (String), ram (int), ssd (int), processor (String)` সব `private`।
 
-Properties: `brand, ram, ssd, processor` — সব Constructor দিয়ে initialize।
+- প্রতিটা field-এর জন্য getter ও setter লেখো (`getBrand()/setBrand()`, `getRam()/setRam()` ...)
+- `setRam(int ram)` → ram <= 0 হলে "Invalid RAM" print করবে, set করবে না
+- Default constructor দিয়ে object বানিয়ে setter দিয়ে value বসাও
+- Demo.java-তে getter দিয়ে পড়ে print করো (Laptop-এ display() রাখবে না)
+- তারপর `setRam(-8)` আর `setRam(32)` করে আবার print করো
 
 **Output:**
 ```
 Brand: Dell, RAM: 16GB, SSD: 512GB, Processor: i5
+Invalid RAM
+After upgrade -> RAM: 32GB
 ```
+
 
 ---
 
-## Question 8 (08_This_Keyword) — Student Encapsulation
 
-`Student` class — সব variable private, Getter Setter ব্যবহার করবে।
+## Question 8 (08_This_Keyword) — Student (this keyword)
+
+`Student` class (`name, age`) — `this` keyword-এর ৪টা ব্যবহার দেখাও:
+1. `this.name = name` → field আর parameter-এর নাম এক হলে পার্থক্য করা
+2. `this("Unknown", 0)` → default constructor থেকে parameterized constructor call (constructor chaining)
+3. `setName()`/`setAge()` → `return this;` করবে, যাতে `s.setName("Karim").setAge(22)` এভাবে chain করা যায়
+4. `isSameAge(Student other)` → `this.age == other.age` দিয়ে current object-কে অন্য object-এর সাথে compare
 
 **Output:**
 ```
 Name: Rahim, Age: 20
+Name: Unknown, Age: 0
+Name: Karim, Age: 22
+Rahim and Karim same age? false
 ```
+
 
 ---
 
-## Question 9 (09_Constructors) — BankAccount Validation
 
-`BankAccount` — balance private থাকবে।
+## Question 9 (09_Constructors) — BankAccount (৩ রকম Constructor)
 
-- Negative amount deposit করা যাবে না।
-- withdraw balance-এর বেশি হলে হবে না।
+`BankAccount` class (`accountNumber, holderName, balance`) — ৩ রকম constructor:
+1. Default constructor → `this(0, "Unknown", 0)` দিয়ে chain করবে
+2. Parameterized constructor → তিনটা value নেবে
+3. Copy constructor → `BankAccount(BankAccount other)` অন্য account-এর value copy করবে
 
-**Output (balance=1000):**
-```
-Invalid deposit amount   (deposit(-100) করলে)
-Insufficient balance     (withdraw(5000) করলে)
-Current Balance: 1000
-```
+Method: `deposit(int amount)`, `display()`
 
----
-
-## Question 10 (10_Naming_Convention) — Employee Static
-
-`Employee` class — একটি static `companyName` রাখো, সব employee একই company use করবে।
+Demo.java-তে তিনটা object বানাও। Copy-টাতে `deposit(4000)` করো — original-এ কোনো প্রভাব পড়বে না দেখাও।
+Bonus: constructor-এর return type থাকে না কেন? `void BankAccount()` লিখলে কী হয়?
 
 **Output:**
 ```
-Rahim works at XYZ Corp
-Karim works at XYZ Corp
-Sumi works at XYZ Corp
+Account: 0, Holder: Unknown, Balance: 0
+Account: 1245, Holder: Rahim, Balance: 1000
+Copy -> Account: 1245, Holder: Rahim, Balance: 1000
+After deposit in copy -> Original: 1000, Copy: 5000
 ```
+
 
 ---
 
-## Question 11 (11_Anonymous_Object) — Static Counter
 
-একটি static counter রাখো — যত object create হবে counter increase হবে।
+## Question 10 (10_Naming_Convention) — Employee (Fix the Names)
+
+নিচের code-টা Java naming convention ভেঙে লেখা। নিয়ম মেনে `Employee.java`-তে আবার লেখো:
+
+```java
+class employee {
+    static final int maxleavedays = 20;
+    String Employee_Name;
+    int MonthlySalary;
+    employee(String Employee_Name, int MonthlySalary) { ... }
+    int Calculate_yearly_salary() { return MonthlySalary * 12; }
+    void PRINT() { ... }
+}
+```
+
+নিয়ম:
+- Class → PascalCase (`Employee`)
+- variable ও method → camelCase (`employeeName`, `calculateYearlySalary()`)
+- constant (`static final`) → UPPER_SNAKE_CASE (`MAX_LEAVE_DAYS`)
+- package → সব lowercase (`com.company.hr`)
 
 **Output:**
 ```
-Total students created: 4
+Employee: Rahim, Monthly: 40000, Yearly: 480000, Max Leave: 20
 ```
+
+
+---
+
+
+## Question 11 (11_Anonymous_Object) — Student (Anonymous Object)
+
+`Student` class (`name`), `static int count` (constructor-এ count++), `display()`।
+
+- reference variable ছাড়া object বানিয়ে সাথে সাথে method call: `new Student("Rahim").display();`
+- Demo.java-তে `static void printStudent(Student s)` লেখো, তাতে anonymous object pass করো: `printStudent(new Student("Karim"));`
+- শেষে total count print করো
+- Comment-এ লেখো: anonymous object-কে দ্বিতীয়বার কেন use করা যায় না, আর কখন এটা garbage collection-এর জন্য eligible হয়?
+
+**Output:**
+```
+Student: Rahim
+Student: Karim
+Total students created: 2
+```
+
 
 ---
 
@@ -184,39 +272,56 @@ Name: Rahim, Age: 28, Salary: 40000, Department: IT
 
 ---
 
-## Question 13 (13_Single_Multilevel_Inheritance) — Vehicle → Car
+
+## Question 13 (13_Single_Multilevel_Inheritance) — Vehicle → Car → ElectricCar
 
 ```
-Vehicle
-  ↓
-Car
+Single:     Vehicle → Car
+Multilevel: Vehicle → Car → ElectricCar
 ```
 
-Vehicle: `brand`
-Car: `model`
+- Vehicle: `brand`
+- Car: `model`
+- ElectricCar (নতুন class): `batteryKwh`
+- প্রতিটা constructor `super(...)` দিয়ে parent constructor call করবে
+- `getDetails()` → String return করবে; child class override করে `super.getDetails()` এর সাথে নিজের field যোগ করবে
+
+Demo.java-তে একটা Car আর একটা ElectricCar বানিয়ে print করো।
 
 **Output:**
 ```
 Brand: Toyota, Model: Corolla
+Brand: Tesla, Model: Model 3, Battery: 75kWh
 ```
+
 
 ---
 
-## Question 14 (14_Multiple_Inheritance_Interface) — Method Overriding
+
+## Question 14 (14_Multiple_Inheritance_Interface) — Dog (Animal + Pet + Guard)
 
 ```
-Animal
-  ↓
-Dog
+Animal (class)   Pet (interface)   Guard (interface)
+       \               |               /
+                      Dog
 ```
 
-Animal: `sound()`
-Dog: `sound()` override করবে।
+Java-তে class দিয়ে multiple inheritance হয় না (`class Dog extends Animal, Pet` ❌), কিন্তু interface দিয়ে হয়।
+
+- Animal: `sound()`
+- Pet (interface): `play()`
+- Guard (interface): `guard()`
+- `class Dog extends Animal implements Pet, Guard` → সব method override/implement করবে
+
+Bonus (Diamond problem): Pet ও Guard দুইটাতেই `default void info()` রাখো — Dog-এ compile error দেখো, তারপর Dog-এ `info()` override করে `Pet.super.info()` দিয়ে solve করো।
 
 **Output:**
 ```
 Dog barks
+Dog is playing fetch
+Dog is guarding the house
 ```
+
 
 ---
 
@@ -239,14 +344,23 @@ Paid using UPI
 
 ---
 
-## Question 16 (16_Packages) — Polymorphism
 
-```java
-Animal a = new Dog();
-Animal a = new Cat();
+## Question 16 (16_Packages) — Animal Package
+
+Animal, Dog, Cat কে `animals` package-এ রাখো, Demo বাইরে থেকে import করবে।
+
+```
+16_Packages/
+├── Demo.java          (import animals.*;)
+└── animals/
+    ├── Animal.java    (package animals;)
+    ├── Dog.java       (package animals;)
+    └── Cat.java       (package animals;)
 ```
 
-দুটো run করো।
+- package-এর বাইরে থেকে use করতে class ও method `public` হতে হবে — `public` না দিলে কী error আসে দেখো
+- Demo.java-তে `Animal a = new Dog();` ও `Animal b = new Cat();` দিয়ে sound() call করো
+- Compile/run (16_Packages ফোল্ডার থেকে): `javac animals/*.java Demo.java` → `java Demo`
 
 **Output:**
 ```
@@ -254,21 +368,22 @@ Dog barks
 Cat meows
 ```
 
+
 ---
+
 
 ## Question 17 (17_Polymorphism) — Employee Hierarchy
 
 ```
-Employee
-  ↓
-Developer
-  ↓
-Tester
-  ↓
-Manager
+            Employee
+          /    |     \
+Developer   Tester   Manager
 ```
 
-সব `work()` override করবে।
+Developer, Tester, Manager — প্রতিটা Employee extend করে `work()` override করবে (runtime polymorphism)।
+Demo.java-তে `Employee[]` array বানিয়ে তিনটা object রেখে loop-এ `work()` কল করো।
+
+Bonus: Employee-তে `work(int hours)` overload করো — compile-time vs runtime polymorphism-এর পার্থক্য comment-এ লেখো।
 
 **Output:**
 ```
@@ -276,6 +391,7 @@ Developer is writing code
 Tester is testing application
 Manager is managing team
 ```
+
 
 ---
 
@@ -477,15 +593,41 @@ Resource closed automatically
 
 ---
 
-## Question 35 (36_Threads) — Thread vs Runnable
 
-`MyThread extends Thread`, `TaskRunnable implements Runnable` — দুইটাই start করো।
+## Question 35 (36_Threads) — Extending Thread
 
-**Output:**
+`MyThread extends Thread` — `run()` override করবে, current thread-এর নাম print করবে।
+
+- ৩টা MyThread object বানিয়ে `start()` করো
+- main thread-ও একটা line print করবে
+- `run()` সরাসরি call করলে আর `start()` করলে কী পার্থক্য হয় দেখো (নতুন thread হয় কি?)
+
+**Output (order বদলাতে পারে):**
 ```
+Main thread running
+Thread-0 running
 Thread-1 running
 Thread-2 running
 ```
+
+
+---
+
+
+## Question 35.2 (37.2_Runnable) — Runnable Interface
+
+- `TaskRunnable implements Runnable` → `new Thread(task, "Worker-1").start()`
+- একই TaskRunnable object দুইটা Thread-এ দাও ("Worker-1", "Worker-2")
+- Lambda দিয়ে Runnable: `Runnable r = () -> ...;` → `new Thread(r, "Lambda").start()`
+- Comment-এ লেখো: `extends Thread`-এর চেয়ে `implements Runnable` কেন বেশি ভালো?
+
+**Output (order বদলাতে পারে):**
+```
+Worker-1 running task
+Worker-2 running task
+Lambda thread running
+```
+
 
 ---
 
@@ -588,6 +730,26 @@ Sorted by name: [Karim, Rahim]
 ```
 1 2 3 4 5
 ```
+
+---
+
+
+## Question 44.1 (45.1_ForEach_Function) — forEach()
+
+`forEach()` বিভিন্ন ভাবে use করো:
+- `List<String>` → lambda দিয়ে: `names.forEach(name -> ...)`
+- একই List → method reference দিয়ে: `names.forEach(System.out::println)`
+- `Map<String, Integer>` → `map.forEach((key, value) -> ...)`
+
+**Output (Map-এর order বদলাতে পারে):**
+```
+Rahim
+Karim
+Sumi
+Supriya -> 100
+Arup -> 300
+```
+
 
 ---
 

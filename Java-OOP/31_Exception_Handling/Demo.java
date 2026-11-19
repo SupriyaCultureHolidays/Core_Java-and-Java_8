@@ -1,5 +1,5 @@
 /*
- * Question 30 (30_Exception_Handling) — Multiple Catch
+ * Question 30 (31_Exception_Handling) — Multiple Catch
  *
  * একটা array নিয়ে ArithmeticException (0 দিয়ে ভাগ) আর
  * ArrayIndexOutOfBoundsException (invalid index access) দুইটাই

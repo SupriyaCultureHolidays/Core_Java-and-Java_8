@@ -1,5 +1,5 @@
 /*
- * Question 36 (36_Thread_Priority_Sleep) — Priority and Sleep
+ * Question 36 (37_Thread_Priority_Sleep) — Priority and Sleep
  *
  * দুইটা PriorityDemo thread বানাও — একটার priority MAX_PRIORITY,
  * আরেকটার MIN_PRIORITY সেট করো। sleep() ব্যবহার করে run() এর মধ্যে

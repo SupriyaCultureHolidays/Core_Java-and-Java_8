@@ -1,5 +1,5 @@
 /*
- * Question 37 (37_Race_Condition) — Synchronized Counter
+ * Question 37 (38_Race_Condition) — Synchronized Counter
  *
  * Counter class-এর একই object নিয়ে দুইটা thread একসাথে increment()
  * করবে (থ্রেড প্রতি ১০০০ বার)। synchronized keyword ব্যবহার করে

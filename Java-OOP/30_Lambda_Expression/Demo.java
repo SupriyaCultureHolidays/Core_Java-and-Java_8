@@ -1,5 +1,5 @@
 /*
- * Question 29 (29_Lambda_Expression) — Greet and Sum
+ * Question 29 (30_Lambda_Expression) — Greet and Sum
  *
  * Greetable interface-এ greet(String name) method রাখো, lambda দিয়ে
  * implement করো। আরেকটা lambda বানাও যেটা return value soho দুইটা

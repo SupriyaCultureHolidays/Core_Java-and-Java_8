@@ -1,12 +1,15 @@
 /*
- * Question 35 (35_Threads) — Thread vs Runnable
+ * Question 35.2 (37.2_Runnable) — Runnable Interface
  *
- * MyThread (extends Thread) আর TaskRunnable (implements Runnable) —
- * দুইটা আলাদা way-তে thread বানাও, দুইটাই start() করো।
+ * - TaskRunnable implements Runnable → new Thread(task, "Worker-1").start()
+ * - একই TaskRunnable object দুইটা Thread-এ দাও ("Worker-1", "Worker-2")
+ * - Lambda দিয়ে Runnable: Runnable r = () -> ...; → new Thread(r, "Lambda").start()
+ * - Comment-এ লেখো: extends Thread-এর চেয়ে implements Runnable কেন বেশি ভালো?
  *
- * Output:
- * Thread-1 running
- * Thread-2 running
+ * Output (order বদলাতে পারে):
+ * Worker-1 running task
+ * Worker-2 running task
+ * Lambda thread running
  */
 public class Demo {
     public static void main(String[] args) {

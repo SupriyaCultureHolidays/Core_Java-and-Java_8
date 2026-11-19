@@ -1,5 +1,5 @@
 /*
- * Question 27 (27_Annotation) — Deprecated and Override
+ * Question 27 (28_Annotation) — Deprecated and Override
  *
  * Device class-এ একটা পুরনো method oldTurnOn() রাখো, @Deprecated দিয়ে
  * mark করো। SmartDevice সেটাকে @Override দিয়ে override করে নতুন

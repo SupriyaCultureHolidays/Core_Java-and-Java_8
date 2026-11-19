@@ -1,5 +1,5 @@
 /*
- * Question 45 (45_Stream_Map_Filter_Reduce_Sorted) — Employee Stream Pipeline
+ * Question 45 (46_Stream_Map_Filter_Reduce_Sorted) — Employee Stream Pipeline
  *
  * List<Employee> থেকে stream() ব্যবহার করে filter (salary > 40000),
  * map (নাম বের করো), sorted, আর reduce (মোট salary যোগ) করো।
