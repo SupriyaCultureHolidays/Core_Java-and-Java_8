@@ -1,0 +1,71 @@
+Assignment - Multithreading (Railway Ticket Counter)
+==================================================
+Covers topics: Threads, Runnable, Thread Priority & Sleep,
+Race Condition, Thread States
+
+Scenario
+--------
+Ekta railway station-e 3 ta counter ekshathe ticket bikri kore.
+Train-e mot 50 ta seat ache. Kono seat jeno duibar bikri na hoy.
+
+Tasks
+-----
+1. Shared resource
+   - class TicketBooking
+       - private int availableSeats = 50
+       - private int soldCount = 0
+       - void sell(String counterName) -> seat thakle 1 ta komabe, soldCount barabe,
+         "Counter-A sold seat #12" print korbe
+
+2. Thread class extend kore
+   - class CounterThread extends Thread
+       - constructor-e TicketBooking ar counter name nibe
+       - run()-e loop chaliye 20 bar sell() call korbe
+
+3. Runnable diye
+   - class CounterTask implements Runnable -> same kaj
+   - Teesra counter ta lambda diye banao:
+       Thread c3 = new Thread(() -> { ... }, "Counter-C");
+   - Comment-e likho: Thread extend kora ar Runnable implement korar moddhe kon ta bhalo? Keno?
+
+4. Priority & Sleep
+   - Counter-A: MAX_PRIORITY, Counter-B: NORM_PRIORITY, Counter-C: MIN_PRIORITY
+   - Prottek sell()-er pore Thread.sleep(50) dao (InterruptedException handle koro)
+   - Comment-e likho: priority set korle ki guarantee thake je high priority thread age shesh hobe?
+
+5. Race Condition
+   - Prothome sell() method-e synchronized NA diye run koro
+   - Koyekbar run kore dekho: soldCount 50-er beshi ba seat number duplicate hocche kina
+   - Output-er ekta bhul example comment-e paste koro
+   - Tarpor synchronized diye fix koro (method level ba synchronized block)
+   - Bonus: AtomicInteger diye-o fix kore dekho
+
+6. Thread States
+   - start() er age getState() print koro            -> NEW
+   - start() er thik pore print koro                  -> RUNNABLE
+   - sleep cholakalin onno thread theke print koro    -> TIMED_WAITING
+   - synchronized lock-er jonno opekkha korle         -> BLOCKED (dhorte parle print koro)
+   - join() er pore print koro                        -> TERMINATED
+
+7. join()
+   - main thread join() diye 3 ta counter shesh howa porjonto wait korbe
+   - Tarpor final report print korbe
+
+Expected output (approximate)
+-----------------------------
+Counter-A state: NEW
+Counter-A state: RUNNABLE
+Counter-A sold seat #1
+Counter-B sold seat #2
+Counter-C sold seat #3
+...
+Counter-B sold seat #50
+Counter-A: No seats left
+Counter-A state: TERMINATED
+===== Final Report =====
+Total sold: 50
+Seats left: 0
+
+Bonus
+-----
+- Prottek counter koto gulo ticket bikri korlo seta-o report-e dekhao

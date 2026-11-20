@@ -1,0 +1,80 @@
+Assignment - Collections & Streams (E-commerce Product Catalog)
+==================================================
+Covers topics: Collection API, ArrayList, Set, Map, Comparator & Comparable,
+forEach, Stream API, map / filter / reduce / sorted, Parallel Stream, Optional
+
+Scenario
+--------
+Ekta online shop-er product catalog banao, jekhane product search, sort
+ar report korte parbe.
+
+Tasks
+-----
+1. class Product implements Comparable<Product>
+   - fields: id (int), name (String), category (String), price (double), rating (double)
+   - constructor, getters, toString()
+   - compareTo() -> price onujayi (kom theke beshi)
+   - equals() ar hashCode() -> id diye
+
+2. ArrayList
+   - List<Product> products = new ArrayList<>();
+   - Kom kore 10 ta product add koro (3-4 ta category: Electronics, Books, Fashion, Grocery)
+   - Ekta product remove koro, ekta-r price update koro (set())
+   - contains() diye ekta product ache kina check koro
+
+3. Set
+   - Shob category ekta HashSet-e rakho -> duplicate ashe na dekhao
+   - TreeSet-e rakhle order ki hoy? Comment-e likho
+   - Same id-er duto product HashSet-e add korar try koro -> equals/hashCode keno lage dekhao
+
+4. Map
+   - Map<String, List<Product>> byCategory -> category theke product list
+   - Map<String, Integer> stock -> product name theke stock count
+   - entrySet() diye shob category ar product sonkhya print koro
+   - getOrDefault() ar putIfAbsent() use koro
+
+5. Comparable & Comparator
+   - Collections.sort(products) -> price onujayi (Comparable)
+   - Comparator diye naam onujayi sort koro
+   - Comparator.comparing(Product::getRating).reversed() -> rating beshi theke kom
+   - thenComparing() diye: age category, tarpor price
+
+6. forEach
+   - products.forEach(p -> System.out.println(p));
+   - Method reference diye: products.forEach(System.out::println);
+   - map.forEach((k, v) -> ...)
+
+7. Stream API - map / filter / reduce / sorted
+   - 500-er beshi dam-er product gulo filter koro
+   - Shob product-er naam uppercase-e map kore List<String> banao
+   - reduce diye shob product-er mot dam ber koro
+   - sorted + limit(3) diye top 3 rated product ber koro
+   - Collectors.groupingBy(Product::getCategory) diye category onujayi group koro
+   - Prottek category-r average price ber koro (averagingDouble)
+
+8. Parallel Stream
+   - 1 crore (10_000_000) ta number-er ekta list banao
+   - stream() ar parallelStream() diye sum ber koro, dui tar somoy System.currentTimeMillis() diye mapo
+   - Comment-e likho: parallel stream kokhon use kora uchit na?
+
+9. Optional
+   - Optional<Product> findById(int id) -> stream().filter(...).findFirst()
+   - Thaka id ar na thaka id dui tai try koro
+   - orElse(), orElseThrow(), ifPresent(), map() use koro
+   - Comment-e likho: null return na kore Optional return korar subidha ki?
+
+Expected output (approximate)
+-----------------------------
+Categories: [Books, Electronics, Fashion, Grocery]
+Sorted by price: [Pen(20.0), Notebook(60.0), ... Laptop(55000.0)]
+Price > 500: [Headphones, Jacket, Laptop, Phone]
+Total value: 98540.0
+Top 3 rated: [Laptop(4.8), Novel(4.6), Phone(4.5)]
+Avg price by category: {Books=230.0, Electronics=26500.0, Fashion=1450.0, Grocery=85.0}
+Sequential sum time: 45 ms | Parallel sum time: 18 ms
+Found: Phone(25000.0)
+Product with id 99 not found
+
+Bonus
+-----
+- Ekta method banao: List<Product> search(Predicate<Product> rule) -> lambda pass kore jekono filter chalano jabe

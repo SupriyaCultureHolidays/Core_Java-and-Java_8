@@ -1,0 +1,673 @@
+================================================================================
+        JAVA + SPRING BOOT BACKEND DEVELOPER - COMPLETE SYLLABUS
+        Target: 1-2 Years Experience Level (2026 Indian Job Market)
+        Source: ChatGPT_Java_20261119-1255.pdf (organised & expanded)
+================================================================================
+
+STATUS : Core Java (13.5 hour course) -> COMPLETED
+NEXT   : Industry-Level Java Backend Development
+TOTAL  : ~12 weeks @ 20-25 focused hours per week
+
+Goal - as a developer you should be able to:
+  - Build backend applications using Java 8/17/21
+  - Build REST APIs using Spring Boot
+  - Design SQL databases and write complex queries
+  - Implement authentication/authorization with Spring Security
+  - Debug and maintain existing production code
+  - Use Git, Maven, testing, Docker and deployment
+
+--------------------------------------------------------------------------------
+PHASE OVERVIEW
+--------------------------------------------------------------------------------
+  Phase 0  : Core Java Fundamentals ......................... DONE
+  Phase 1  : Java Developer Foundation (Advanced Core Java) .. 7-10 days
+  Phase 2  : Maven, Git, JDBC and SQL ........................ 1 week
+  Phase 3  : Spring Framework - Core ......................... 1 week
+  Phase 4  : Spring Boot (MOST IMPORTANT) .................... 2 weeks
+  Phase 5  : Hibernate and Spring Data JPA ................... 1.5 weeks
+  Phase 6  : Spring Security and JWT ......................... 1 week
+  Phase 7  : Testing and Production Readiness ................ 1 week
+  Phase 8  : Advanced Backend Skills ......................... 2 weeks
+  Phase 9  : Industry-Level Project .......................... 2-3 weeks (parallel)
+  Phase 10 : Interview Preparation ........................... ongoing
+
+
+================================================================================
+PHASE 0: CORE JAVA FUNDAMENTALS   [COMPLETED - for revision only]
+================================================================================
+  [ ] JDK setup, first program, how Java works, JDK/JRE/JVM
+  [ ] Variables, data types, literals, type conversion
+  [ ] Operators: assignment, relational, logical, ternary
+  [ ] if / if-else-if / switch
+  [ ] Loops: while, do-while, for, enhanced for
+  [ ] Class & Object, methods, method overloading, stack & heap
+  [ ] Arrays: 1D, multi-dimensional, jagged, 3D, array of objects
+  [ ] String, mutable vs immutable, StringBuffer, StringBuilder
+  [ ] static variable / block / method
+  [ ] Encapsulation, getters/setters, this keyword, constructors
+  [ ] this() and super(), naming conventions, anonymous object
+  [ ] Inheritance (single, multilevel, multiple), method overriding
+  [ ] Packages, access modifiers
+  [ ] Polymorphism, dynamic method dispatch, final keyword
+  [ ] Object class (equals, toString, hashCode), upcasting/downcasting
+  [ ] Abstract keyword, inner class, anonymous inner class
+  [ ] Interface, enum, annotation, functional interface, lambda
+  [ ] Exceptions: try-catch, multiple catch, hierarchy, throw, throws,
+      custom exception, try-with-resources
+  [ ] User input: BufferedReader, Scanner
+  [ ] Threads, multiple threads, priority, sleep, Runnable vs Thread,
+      race condition, thread states
+  [ ] Collection API: ArrayList, Set, Map, Comparator vs Comparable
+  [ ] Stream API: forEach, map, filter, reduce, sorted, parallel stream
+  [ ] Optional class
+
+
+================================================================================
+PHASE 1: JAVA DEVELOPER FOUNDATION - ADVANCED CORE JAVA
+Duration: 7-10 days | 8 Modules | 70+ Topics | Java 17/21
+================================================================================
+
+Study method for EVERY topic:
+  1. Concept            - simple explanation
+  2. Internal Working   - how Java does it internally
+  3. Practical Example  - real-world code
+  4. Interview Qs       - beginner to experienced
+  5. Coding Practice    - solve on your own
+  6. Code Review        - get your solution reviewed
+
+--------------------------------------------------------------------------------
+MODULE 1: ADVANCED OOP & SOLID PRINCIPLES   (High priority)
+--------------------------------------------------------------------------------
+  [ ] SOLID Principles
+      [ ] S - SRP: Single Responsibility Principle
+              (one class = one responsibility = one reason to change)
+      [ ] O - OCP: Open/Closed Principle (open for extension, closed for modification)
+      [ ] L - LSP: Liskov Substitution Principle (child can replace parent)
+      [ ] I - ISP: Interface Segregation Principle (small, specific interfaces)
+      [ ] D - DIP: Dependency Inversion Principle (depend on abstractions)
+  [ ] Composition vs Inheritance
+  [ ] Association vs Aggregation vs Composition
+  [ ] Abstraction vs Encapsulation (practical difference)
+  [ ] Tight Coupling vs Loose Coupling
+  [ ] Dependency Injection (concept)
+  [ ] Immutable Class - how to create one
+  [ ] Shallow Copy vs Deep Copy
+  [ ] Object Cloning
+  [ ] Builder Design Pattern basics
+
+  Practice:
+    1. Employee Management System using SOLID
+    2. Hotel Booking System using Composition
+    3. Create an immutable Employee class
+    4. Implement Deep Copy and Shallow Copy
+
+  SRP practice (done): split HotelBooking into HotelSearch, PriceCalculator,
+  PaymentService, EmailService, BookingRepository.
+  Next: BookingService that uses (gets injected with) these classes.
+  Interview Q: PaymentService has validate/process/generateInvoice/refund/
+  sendNotification - does it follow SRP? (Hint: No - invoice & notification
+  are separate responsibilities.)
+
+--------------------------------------------------------------------------------
+MODULE 2: COLLECTIONS FRAMEWORK - ADVANCED   (Very high priority)
+--------------------------------------------------------------------------------
+  2.1 Internal Working
+  [ ] Collection Framework Hierarchy
+  [ ] Iterable vs Collection
+  [ ] List vs Set vs Queue vs Map
+  [ ] ArrayList internal working & capacity growth
+  [ ] LinkedList internal working
+  [ ] ArrayList vs LinkedList
+  [ ] Vector vs ArrayList
+
+  2.2 Hashing
+  [ ] Hashing concept
+  [ ] hashCode() internal working, equals() contract
+  [ ] HashMap internal working: bucket, collision, treeification
+  [ ] HashSet internal working
+  [ ] HashMap vs Hashtable vs ConcurrentHashMap
+  [ ] ConcurrentHashMap internal working
+
+  2.3 Advanced Collections
+  [ ] TreeMap, TreeSet, LinkedHashMap
+  [ ] PriorityQueue, ArrayDeque
+  [ ] Iterator vs ListIterator
+  [ ] Fail-Fast vs Fail-Safe iterators
+  [ ] Comparable vs Comparator (advanced)
+  [ ] Collections utility class
+  [ ] Unmodifiable vs Immutable collections
+
+  Practice:
+    1. Remove duplicate employees using HashSet
+    2. Sort employees using Comparator
+    3. Count word frequency using HashMap
+    4. Find top 3 highest-paid employees
+    5. Implement LRU Cache using LinkedHashMap
+
+--------------------------------------------------------------------------------
+MODULE 3: GENERICS
+--------------------------------------------------------------------------------
+  3.1 Fundamentals
+  [ ] What are Generics?
+  [ ] Generic classes, methods, interfaces
+  [ ] Type parameters, multiple type parameters
+
+  3.2 Advanced
+  [ ] Bounded type parameters
+  [ ] Upper bound wildcard  (? extends T)
+  [ ] Lower bound wildcard  (? super T)
+  [ ] Unbounded wildcard    (?)
+  [ ] PECS principle (Producer Extends, Consumer Super)
+  [ ] Type erasure
+  [ ] Generic restrictions
+
+  Practice:
+    1. Create a Generic Repository class
+    2. Create a Generic Pair class
+    3. Generic method to find maximum value
+    4. Practice extends and super wildcards
+
+--------------------------------------------------------------------------------
+MODULE 4: JAVA 8 FEATURES - ADVANCED   (Interview critical)
+--------------------------------------------------------------------------------
+  4.1 Functional Programming
+  [ ] Functional Interface, @FunctionalInterface
+  [ ] Predicate, Function, Consumer, Supplier
+  [ ] BiPredicate, BiFunction, BiConsumer
+  [ ] Lambda expressions (advanced)
+  [ ] Method references, constructor references
+  [ ] Default and static methods in interfaces
+
+  4.2 Stream API
+  [ ] Stream creation
+  [ ] Intermediate vs terminal operations
+  [ ] filter(), map(), flatMap(), distinct(), sorted()
+  [ ] limit(), skip(), reduce(), collect()
+  [ ] Collectors: toList, toMap, groupingBy, partitioningBy, joining
+  [ ] findFirst(), findAny()
+  [ ] anyMatch(), allMatch(), noneMatch()
+  [ ] Optional with streams
+  [ ] Parallel streams
+  [ ] Lazy evaluation
+
+  4.3 Optional Advanced
+  [ ] Optional.of(), ofNullable(), empty()
+  [ ] isPresent(), isEmpty(), ifPresent()
+  [ ] orElse() vs orElseGet() vs orElseThrow()
+  [ ] map(), flatMap(), filter()
+  [ ] Optional best practices
+
+  Practice:
+    1. Find the second-highest salary
+    2. Group employees by department
+    3. Find duplicate elements
+    4. Find frequency of each character
+    5. Partition employees by salary
+    6. Convert List of Lists into a single List (flatMap)
+    7. Find highest-paid employee in each department
+    8. Create a Map of employee ID -> name
+
+--------------------------------------------------------------------------------
+MODULE 5: EXCEPTION HANDLING - ADVANCED
+--------------------------------------------------------------------------------
+  [ ] Exception hierarchy
+  [ ] Checked vs Unchecked, Error vs Exception
+  [ ] Exception propagation
+  [ ] try-catch-finally internal behaviour
+  [ ] throw vs throws
+  [ ] Multiple catch blocks, multi-catch
+  [ ] Custom checked & unchecked exceptions
+  [ ] Exception chaining
+  [ ] try-with-resources, AutoCloseable
+  [ ] Suppressed exceptions
+  [ ] Best practices & exception handling in real applications
+
+  Practice:
+    1. Custom InsufficientBalanceException
+    2. InvalidBookingException
+    3. Implement a custom exception hierarchy
+    4. Use try-with-resources with a file
+
+--------------------------------------------------------------------------------
+MODULE 6: MULTITHREADING & CONCURRENCY   (High priority)
+--------------------------------------------------------------------------------
+  6.1 Thread Fundamentals
+  [ ] Process vs Thread, thread lifecycle
+  [ ] Creating threads, Thread vs Runnable, Callable vs Runnable
+  [ ] Thread priority, sleep(), join()
+  [ ] Daemon threads, interrupting threads
+
+  6.2 Synchronization
+  [ ] Race condition, critical section
+  [ ] synchronized method / block, static synchronization
+  [ ] volatile keyword, AtomicInteger
+  [ ] Deadlock, livelock, starvation
+  [ ] wait(), notify(), notifyAll()
+
+  6.3 Executor Framework
+  [ ] Executor, ExecutorService, thread pool
+  [ ] Fixed / Cached / Scheduled thread pools
+  [ ] Future, CompletableFuture
+  [ ] ConcurrentHashMap, BlockingQueue
+
+  Practice:
+    1. Two threads printing odd and even numbers
+    2. Thread-safe counter
+    3. Demonstrate a race condition
+    4. Producer-Consumer problem
+    5. Task executor using ExecutorService
+    6. Two independent tasks using CompletableFuture
+
+--------------------------------------------------------------------------------
+MODULE 7: JVM & MEMORY MANAGEMENT   (Interview critical)
+--------------------------------------------------------------------------------
+  [ ] JDK vs JRE vs JVM (deep)
+  [ ] Java compilation process, bytecode
+  [ ] ClassLoader, class loading lifecycle
+  [ ] JVM architecture, runtime data areas
+  [ ] Heap, Stack, Method Area / Metaspace
+  [ ] Program Counter register, Native Method Stack
+  [ ] Object creation & memory allocation
+  [ ] Garbage Collection, GC roots
+  [ ] Strong / Weak / Soft / Phantom references
+  [ ] Memory leak, StackOverflowError, OutOfMemoryError
+  [ ] String Pool, String interning
+
+  Practice:
+    1. Demonstrate StackOverflowError safely
+    2. Object eligibility for garbage collection
+    3. Demonstrate String Pool behaviour
+    4. Analyse heap with VisualVM or Java Flight Recorder
+
+--------------------------------------------------------------------------------
+MODULE 8: MODERN JAVA - JAVA 17 & 21
+--------------------------------------------------------------------------------
+  Java 10-17
+  [ ] var keyword / local variable type inference
+  [ ] Switch expressions
+  [ ] Text blocks
+  [ ] Records
+  [ ] Sealed classes
+  [ ] Pattern matching for instanceof
+  [ ] Helpful NullPointerExceptions
+
+  Java 21
+  [ ] Virtual threads
+  [ ] Record patterns
+  [ ] Pattern matching for switch
+  [ ] Sequenced collections
+  [ ] Unnamed patterns and variables
+  (Note: String Templates were preview in Java 21 and later withdrawn.)
+
+  Practice:
+    1. Create an Employee record
+    2. Sealed Shape hierarchy
+    3. Use switch expressions
+    4. Compare platform threads vs virtual threads
+
+--------------------------------------------------------------------------------
+PHASE 1 FINAL PROJECTS (do independently)
+--------------------------------------------------------------------------------
+  Project 1: Employee Management System
+             OOP + SOLID, Collections, Generics, exception handling,
+             sorting & searching
+  Project 2: Banking Management System
+             OOP design, custom exceptions, multithreading,
+             thread-safe balance operations, transaction simulation
+  Project 3: Hotel Booking Console Application
+             SOLID, Collections & Streams, Optional, booking & payment logic
+
+PHASE 1 INTERVIEW TARGET (140 questions)
+  OOP + SOLID 20 | Collections 25 | Generics 10 | Java 8 25 |
+  Exception Handling 10 | Multithreading 20 | JVM 15 | Java 17/21 15
+
+PHASE 1 STUDY SEQUENCE
+  Day 1      : Advanced OOP + SOLID
+  Day 2      : Collections
+  Day 3      : Generics
+  Day 4      : Java 8 - Functional Interfaces + Streams
+  Day 5      : Optional + Exception Handling
+  Day 6-7    : Multithreading
+  Day 8      : JVM
+  Day 9      : Java 17/21
+  Day 10+    : Assignments + Revision + Interview prep
+
+
+================================================================================
+PHASE 2: MAVEN, GIT, JDBC AND SQL
+Duration: 1 week | Foundation before Spring Boot
+================================================================================
+  MAVEN
+  [ ] pom.xml structure (groupId, artifactId, version)
+  [ ] Dependencies & dependency scopes (compile, provided, runtime, test)
+  [ ] Maven lifecycle (validate, compile, test, package, install, deploy)
+  [ ] Build, package, install
+  [ ] Maven project structure (src/main/java, src/test/java, resources)
+
+  GIT
+  [ ] Branching
+  [ ] Merge vs rebase
+  [ ] Cherry-pick
+  [ ] Conflict resolution
+  [ ] Pull request workflow
+  [ ] .gitignore
+
+  JDBC
+  [ ] JDBC architecture
+  [ ] Connection, DriverManager
+  [ ] Statement vs PreparedStatement
+  [ ] ResultSet
+  [ ] CRUD operations
+  [ ] SQL injection prevention
+
+  MYSQL - ADVANCED SQL
+  [ ] Primary Key / Foreign Key
+  [ ] Normalization (1NF, 2NF, 3NF)
+  [ ] Joins (INNER, LEFT, RIGHT, SELF)
+  [ ] Subqueries
+  [ ] CTE (WITH clause)
+  [ ] GROUP BY, HAVING, window functions basics
+  [ ] Indexing
+  [ ] Transactions & ACID properties
+  [ ] Stored procedures
+  [ ] Query optimization (EXPLAIN)
+
+  Practice: Employee CRUD console app using JDBC + MySQL.
+
+
+================================================================================
+PHASE 3: SPRING FRAMEWORK - CORE   (Very important)
+Duration: 1 week
+================================================================================
+  [ ]  1. What is Spring Framework?
+  [ ]  2. IoC (Inversion of Control)
+  [ ]  3. Dependency Injection
+  [ ]  4. Spring Beans
+  [ ]  5. Bean Lifecycle (@PostConstruct, @PreDestroy)
+  [ ]  6. Bean Scopes (singleton, prototype, request, session)
+  [ ]  7. @Component
+  [ ]  8. @Service
+  [ ]  9. @Repository
+  [ ] 10. @Autowired
+  [ ] 11. @Qualifier
+  [ ] 12. @Primary
+  [ ] 13. Java-based Configuration
+  [ ] 14. @Configuration and @Bean
+  [ ] 15. Constructor Injection vs Field Injection (prefer constructor)
+  [ ] 16. ApplicationContext vs BeanFactory
+
+  Practice: Simple Employee Management application using Spring Core.
+
+
+================================================================================
+PHASE 4: SPRING BOOT   (HIGHEST PRIORITY)
+Duration: 2 weeks
+================================================================================
+  4.1 Spring Boot Fundamentals
+  [ ] Spring vs Spring Boot
+  [ ] Spring Initializr
+  [ ] Project structure
+  [ ] Auto-configuration
+  [ ] Starter dependencies
+  [ ] application.properties / application.yml
+  [ ] Embedded Tomcat
+  [ ] Profiles (dev, test, prod)
+  [ ] @ConfigurationProperties / @Value
+
+  4.2 REST API Development
+  [ ] HTTP methods (GET, POST, PUT, PATCH, DELETE)
+  [ ] HTTP status codes (200, 201, 204, 400, 401, 403, 404, 409, 500)
+  [ ] @RequestBody
+  [ ] @PathVariable
+  [ ] @RequestParam
+  [ ] ResponseEntity
+  [ ] JSON serialization/deserialization (Jackson)
+  [ ] REST API best practices
+  [ ] API versioning basics
+
+  4.3 Layered Architecture
+      src/main/java/com/example/demo/
+        controller/   EmployeeController.java
+        service/      EmployeeService.java
+        repository/   EmployeeRepository.java
+        entity/       Employee.java
+        dto/          EmployeeRequest.java, EmployeeResponse.java
+        exception/    GlobalExceptionHandler.java
+        config/       AppConfig.java
+        DemoApplication.java
+
+  4.4 Important Annotations
+      @SpringBootApplication  -> Main application
+      @RestController         -> REST API
+      @RequestMapping         -> API mapping (@GetMapping, @PostMapping ...)
+      @Service                -> Business logic
+      @Repository             -> Database layer
+      @Autowired              -> Dependency injection
+      @Bean                   -> Bean creation
+      @Configuration          -> Configuration
+
+  4.5 Validation and Exception Handling
+  [ ] @Valid
+  [ ] @NotNull, @NotBlank, @Size, @Email
+  [ ] Custom validation
+  [ ] @ExceptionHandler
+  [ ] @ControllerAdvice / @RestControllerAdvice
+  [ ] Global exception handling & standard error response
+
+  4.6 Advanced API Features
+  [ ] Pagination
+  [ ] Sorting
+  [ ] Filtering
+  [ ] Search APIs
+  [ ] DTO mapping (manual / MapStruct)
+  [ ] Logging
+  [ ] API documentation using Swagger / OpenAPI (springdoc)
+
+  Project 1: Employee Management REST API with Spring Boot + MySQL.
+
+
+================================================================================
+PHASE 5: HIBERNATE AND SPRING DATA JPA
+Duration: 1.5 weeks
+================================================================================
+  [ ] ORM concepts
+  [ ] Hibernate vs JPA
+  [ ] Entity lifecycle (transient, managed, detached, removed)
+  [ ] @Entity and @Table
+  [ ] @Id and @GeneratedValue
+  [ ] @Column
+  [ ] @OneToOne
+  [ ] @OneToMany
+  [ ] @ManyToOne
+  [ ] @ManyToMany
+  [ ] @JoinColumn
+  [ ] Cascade types
+  [ ] Fetch types (Lazy vs Eager)
+  [ ] JpaRepository / CrudRepository
+  [ ] Derived query methods
+  [ ] JPQL (@Query)
+  [ ] Native SQL queries
+  [ ] @Transactional
+  [ ] Dirty checking
+  [ ] First-level cache (and second-level cache basics)
+  [ ] N+1 query problem (fix with JOIN FETCH / @EntityGraph)
+  [ ] Optimistic (@Version) and Pessimistic locking
+
+  Practice: Employee, Department, Project relationships.
+
+
+================================================================================
+PHASE 6: SPRING SECURITY AND JWT   (Interview critical)
+Duration: 1 week
+================================================================================
+  [ ]  1. Authentication vs Authorization
+  [ ]  2. Spring Security architecture
+  [ ]  3. Security Filter Chain
+  [ ]  4. PasswordEncoder
+  [ ]  5. BCrypt
+  [ ]  6. UserDetails
+  [ ]  7. UserDetailsService
+  [ ]  8. JWT token (header, payload, signature)
+  [ ]  9. Access token
+  [ ] 10. JWT validation (custom filter)
+  [ ] 11. Role-based authorization
+  [ ] 12. @PreAuthorize
+  [ ] 13. CORS
+  [ ] 14. CSRF
+  [ ] 15. Refresh token basics
+
+  Project: Registration, Login, Logout, JWT authentication and
+           Admin/User role-based APIs.
+
+
+================================================================================
+PHASE 7: TESTING AND PRODUCTION READINESS
+Duration: 1 week
+================================================================================
+  [ ] JUnit 5
+  [ ] Mockito: @Mock, @InjectMocks
+  [ ] @MockBean / @MockitoBean (depending on Spring version)
+  [ ] Unit testing
+  [ ] Integration testing
+  [ ] @SpringBootTest, @WebMvcTest, @DataJpaTest
+  [ ] MockMvc
+  [ ] Postman
+  [ ] Swagger
+  [ ] SLF4J / Logback
+  [ ] Spring Boot Actuator
+
+  Practice: Write test cases for Employee and Booking APIs.
+
+
+================================================================================
+PHASE 8: ADVANCED BACKEND SKILLS
+Duration: 2 weeks
+================================================================================
+  Technology     | Topics                                        | Priority
+  ---------------+-----------------------------------------------+---------
+  Docker         | Dockerfile, images, containers, Compose       | High
+  Redis          | Caching, TTL, cache invalidation              | High
+  Microservices  | Service communication, API Gateway, discovery | High
+  Kafka          | Producer, Consumer, Topics, Partitions        | Medium
+  Spring Cloud   | Config Server, Gateway, OpenFeign             | Medium
+  Resilience4j   | Retry, Circuit Breaker                        | Medium
+  CI/CD          | GitHub Actions / Jenkins basics               | Medium
+  AWS/Azure      | Application deployment basics                 | Medium
+
+  Important: Learn Spring Boot and modular monolith well FIRST,
+  then move to microservices.
+
+
+================================================================================
+PHASE 9: INDUSTRY-LEVEL PROJECT   (Most important for CV & interviews)
+Duration: 2-3 weeks, alongside the above learning
+================================================================================
+  HOTEL BOOKING MANAGEMENT SYSTEM - Spring Boot Backend
+
+  Tech stack:
+    Java 17, Spring Boot 3, Spring Security + JWT, Spring Data JPA + Hibernate,
+    MySQL, Maven, JUnit + Mockito, Docker, Redis (advanced stage)
+
+  Modules:
+    Authentication    -> Register, Login, JWT
+    User Management   -> Admin, Customer
+    Hotel Management  -> Add, Update, Delete hotels
+    Room Management   -> Room types, availability
+    Search            -> City, Date, Guest
+    Booking           -> Create, Cancel, Booking history
+    Payment           -> Payment status, mock payment integration
+    Database          -> Entity relationships
+    Admin             -> Booking management, reports
+
+  Advanced features:
+    [ ] Prevent duplicate room bookings
+    [ ] Handle concurrent booking requests (@Transactional + DB locking)
+    [ ] Database transaction management
+    [ ] Pagination and sorting
+    [ ] Global exception handling
+    [ ] Redis caching
+    [ ] Docker deployment
+    [ ] Unit and integration tests
+
+  Note: Design requirements yourself - don't just copy a tutorial.
+  Push to GitHub with a proper README.
+
+
+================================================================================
+PHASE 10: INTERVIEW PREPARATION
+================================================================================
+  Category              | Target questions
+  ----------------------+-----------------
+  Core Java             | 50
+  Java 8                | 25
+  Collections           | 25
+  Multithreading        | 15
+  Spring Core           | 20
+  Spring Boot           | 40
+  Hibernate/JPA         | 30
+  Spring Security/JWT   | 20
+  SQL                   | 30
+  Project-based         | 30
+  ----------------------+-----------------
+  TOTAL                 | 285
+
+  For every topic be able to answer:
+    1. What is the concept?
+    2. How does it work internally?
+    3. Where did you use it in a real project?
+
+
+================================================================================
+12-WEEK STUDY PLAN
+================================================================================
+  Week 1     : Advanced Core Java + Java 8            (Phase 1)
+  Week 2     : Maven + Git + JDBC + SQL               (Phase 2)
+  Week 3     : Spring Core                            (Phase 3)
+  Week 4-5   : Spring Boot + REST API                 (Phase 4)
+  Week 6-7   : Hibernate + JPA + MySQL                (Phase 5)
+  Week 8     : Spring Security + JWT                  (Phase 6)
+  Week 9     : JUnit + Mockito + API testing          (Phase 7)
+  Week 10    : Docker + Redis                         (Phase 8)
+  Week 11    : Microservices + Kafka basics           (Phase 8)
+  Week 12    : Complete project + deployment + interviews (Phase 9-10)
+
+
+================================================================================
+DAILY ROUTINE (3-4 hours)
+================================================================================
+  Learning new concepts ............ 1 hour
+  Coding / project ................. 1.5 hours
+  Interview questions .............. 30 minutes
+  DSA / LeetCode ................... 30-45 minutes
+
+
+================================================================================
+2026 MARKET PRIORITY
+================================================================================
+  MUST HAVE (1st priority)
+    Core Java + Java 8, Spring Boot, REST API, Hibernate + JPA,
+    MySQL + SQL, Spring Security + JWT, Maven + Git, JUnit + Mockito
+
+  SHOULD HAVE (2nd priority)
+    Docker, Redis, Microservices, Kafka basics, CI/CD, AWS/Azure basics
+
+  CAN LEARN LATER
+    Kubernetes, Spring WebFlux, Advanced Spring Cloud,
+    Distributed system design, Advanced cloud architecture
+
+
+================================================================================
+FINAL SEQUENCE (summary)
+================================================================================
+  1. Core Java Revision      -> Advanced Java, Collections, Multithreading
+  2. Maven + SQL + JDBC      -> Project build and database foundation
+  3. Spring Core + Boot      -> REST API development
+  4. JPA + Hibernate + MySQL -> Real database operations
+  5. Spring Security + JWT   -> Authentication and authorization
+  6. Testing + Docker + Redis-> Production readiness
+  7. Microservices + Kafka   -> Advanced backend knowledge
+  8. Project + Interviews    -> GitHub, deployment, CV, job applications
+
+================================================================================
+                                  END OF SYLLABUS
+================================================================================

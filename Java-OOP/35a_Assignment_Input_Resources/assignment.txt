@@ -1,0 +1,78 @@
+Assignment - User Input & Try With Resources (Console Expense Tracker)
+==================================================
+Covers topics: User Input (Scanner), Try With Resources
+
+Scenario
+--------
+Console-e cholbe emon ekta daily expense tracker banao.
+User menu theke option select korbe, expense add korbe, ar shob data file-e save hobe.
+
+Tasks
+-----
+1. class Expense
+   - private fields: title (String), category (String), amount (double)
+   - constructor, getters, toString()
+   - toFileLine() -> "Lunch,Food,120.0" format-e String return korbe
+
+2. User Input (Scanner)
+   - main()-e ekta menu loop banao:
+       1. Add expense
+       2. Show all expenses
+       3. Show total
+       4. Save to file
+       5. Load from file
+       0. Exit
+   - while loop + switch use koro
+   - nextInt() er pore nextLine() na dile ki problem hoy? Comment-e likho ar code-e fix koro
+
+3. Invalid input handle koro
+   - Menu option-e "abc" dile InputMismatchException ashbe -> catch kore
+     "Please enter a number" print koro, ar scanner-er bhul input clear koro
+   - amount negative ba 0 hole abar input chao
+
+4. Try With Resources - file-e lekha
+   - saveToFile(List<Expense> list) -> try (BufferedWriter bw = new BufferedWriter(new FileWriter("expenses.txt"))) { ... }
+   - Prottek expense ek line-e likho (toFileLine())
+   - IOException catch koro
+
+5. Try With Resources - file theke pora
+   - loadFromFile() -> try (BufferedReader br = new BufferedReader(new FileReader("expenses.txt"))) { ... }
+   - Prottek line split(",") kore Expense object banao
+   - File na thakle FileNotFoundException catch kore "No saved data found" print koro
+
+6. Nijer AutoCloseable class
+   - class ReportPrinter implements AutoCloseable
+       - constructor-e "Report opened" print
+       - printLine(String s)
+       - close() -> "Report closed" print
+   - Ek try()-er moddhe dui ta resource rakho (ReportPrinter + BufferedWriter)
+   - Comment-e likho: resource gulo kon order-e close hoy?
+
+7. Comment-e answer koro
+   - try-with-resources ar try-finally-r parthokko ki?
+   - Scanner(System.in) close korle porer bar abar input nite parbe? Keno?
+
+Expected output (approximate)
+-----------------------------
+===== Expense Tracker =====
+1. Add  2. Show  3. Total  4. Save  5. Load  0. Exit
+Choose: abc
+Please enter a number
+Choose: 1
+Title: Lunch
+Category: Food
+Amount: 120
+Expense added!
+Choose: 3
+Total spent: 120.0
+Choose: 4
+Report opened
+Saved 1 expense(s) to expenses.txt
+Report closed
+Choose: 0
+Bye!
+
+Bonus
+-----
+- Category onujayi total dekhao (Food: 320.0, Travel: 150.0)
+- Kaj shesh hole expenses.txt file ta delete kore dio
