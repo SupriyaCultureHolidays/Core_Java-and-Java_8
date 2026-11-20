@@ -15,7 +15,7 @@ public class User {
         this.password=password;
     }
 
-    public void showProfile() {
+    protected  void showProfile() {
         System.out.println("Name : " + this.name + "| Phone : " + this.phone + " | Email : " + email);
     }
 

@@ -8,5 +8,10 @@ public class Demo {
 
         PrimeCustomer primeCustomer = new PrimeCustomer("Apu", "8016056204", "Kakwip", "apu@gmail.com", "apu@", 5, 22);
         primeCustomer.showProfile();primeCustomer.placeOrder("Bat"); primeCustomer.login();
+        
+        DeliveryPartner d = new DeliveryPartner("Supriya", "9002224844", "haldarsupriya22@gmail.com", "Sup123@");
+        d.trackLocation();
+        d.status();
+        
     }
 }
