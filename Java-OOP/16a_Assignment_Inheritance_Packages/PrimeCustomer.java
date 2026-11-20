@@ -5,8 +5,8 @@ public class PrimeCustomer extends Customer {
         System.out.println("PrimeCustomer String.........");
     }
 
-    PrimeCustomer(String name, double phone, String address, int orderCount, int discountPercent) {
-        super(name, phone, address, orderCount);
+    public PrimeCustomer(String name, String phone, String address, String email, String password, int orderCount, int discountPercent) {
+        super(name, phone, address,email, password, orderCount);
         this.discountPercent = discountPercent;
     }
 
